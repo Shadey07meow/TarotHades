@@ -1,5 +1,5 @@
-import javax.swing.JFrame;
 import java.awt.Dimension;
+import javax.swing.JFrame;
 
 public class GameFrame extends JFrame{
 
@@ -8,7 +8,7 @@ public class GameFrame extends JFrame{
         setPreferredSize(resolution);
         setLocationRelativeTo(null);
         setVisible(true);
-        setTitle("Tarot Hades");
+        setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();    
     }

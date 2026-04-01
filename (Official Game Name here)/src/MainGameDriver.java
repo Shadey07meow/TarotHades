@@ -3,7 +3,7 @@ import java.awt.Dimension;
 
 public class MainGameDriver
 {
-    final static Dimension RESOLUTION = new Dimension(800, 800); 
+    final static Dimension RESOLUTION = new Dimension(1920, 1080); 
 
     public static void main(String[] args)
     {
