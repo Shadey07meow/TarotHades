@@ -9,6 +9,7 @@ public class GameFrame extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
         setTitle("Tarot Hades");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();    
     }
 }
