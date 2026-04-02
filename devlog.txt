@@ -1,16 +1,18 @@
 KEEP THIS ON TOP
     cd (Official Game Name here) & javac -d bin src/*.java & java -cp bin  MainGameDriver
     command to run the game
-
+cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
 --> 02/04/2026
     - Made start screen (CalRya)
         - Made GameStart.java
             - A JPanel placeholder for second screen
         - Made changes to GameFrame.java
             - A JFrame that stores initial screen
+        - Made changes to GameFrame.java  
+            - Fullscreen
 
 
---> 01/04/2026
+--> 02/04/2026
     - Made initial files for the game (Shadey07)
         - GameFrame.java
             - Will handle displaying the game

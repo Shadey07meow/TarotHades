@@ -26,6 +26,8 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
 
+
+
         cardLayout = new CardLayout();
         container = new JPanel(cardLayout);
 
@@ -74,6 +76,7 @@ public class GameFrame extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
         
     }
