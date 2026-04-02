@@ -11,7 +11,7 @@ public class GameFrame extends JFrame {
 
     private final GameStart gameStart;
     private final CreditScreen creditScreen;
-    private final StartScreen startScreen;
+    private final MenuScreen menuScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel panelChanger;
 
@@ -26,17 +26,17 @@ public class GameFrame extends JFrame {
         panelChanger = new JPanel(cardLayout);
 
         gameStart = new GameStart(this);
-        panelChanger.add(gameStart, "start");
+        panelChanger.add(gameStart, gameStart.getShowablePanelName());
 
         creditScreen = new CreditScreen(this);
-        panelChanger.add(creditScreen, "credits");
+        panelChanger.add(creditScreen, creditScreen.getShowablePanelName());
 
-        startScreen = new StartScreen(this);
-        panelChanger.add(startScreen, "menu");
+        menuScreen = new MenuScreen(this);
+        panelChanger.add(menuScreen, menuScreen.getShowablePanelName());
 
         
         add(panelChanger);
-        cardLayout.show(panelChanger, "menu");
+        cardLayout.show(panelChanger, menuScreen.getShowablePanelName());
 
         pack();
         setLocationRelativeTo(null);
@@ -45,30 +45,16 @@ public class GameFrame extends JFrame {
         
     }
     
-    public void startGame(){
+    
+
+    public void showPanel(String panelName)
+    {
         try {
-            cardLayout.show(panelChanger, "start");
+            cardLayout.show(panelChanger, panelName);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Won't show start screen");
+            JOptionPane.showMessageDialog(this, "Screen: [" + panelName + "] does not exist");
         }
     }
-
-        public void showCredits(){
-        try {
-            cardLayout.show(panelChanger, "credits");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Won't show menu screen");
-        }
-    }
-
-    public void showMenu(){
-        try {
-            cardLayout.show(panelChanger, "menu");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Won't show menu screen");
-        }
-    }
-
     
     public JButton createImageButton(String imgPath, int width, int height) {
 

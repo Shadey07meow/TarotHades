@@ -4,8 +4,9 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class CreditScreen extends JPanel {
+public class CreditScreen extends ShowablePanel {
     public CreditScreen(GameFrame gameFrame){
+        super("credits");
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
         JLabel title = new JLabel("Credits");

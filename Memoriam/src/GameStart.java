@@ -4,9 +4,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GameStart extends JPanel {
+public class GameStart extends ShowablePanel {
 
     public GameStart(GameFrame gameFrame) {
+        super("start");
         setBackground(Color.RED);
         setLayout(new BorderLayout()); 
 
@@ -17,7 +18,7 @@ public class GameStart extends JPanel {
         JButton menuButton = gameFrame.createImageButton("/assets/startBtn.PNG", 500, 300);
 
         menuButton.addActionListener(e -> {
-            gameFrame.showMenu();
+            gameFrame.showPanel("menu");
         });
 
         add(menuButton, BorderLayout.CENTER);

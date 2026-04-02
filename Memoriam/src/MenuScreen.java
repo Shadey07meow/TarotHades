@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -11,42 +12,40 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class StartScreen extends JPanel{
+public class MenuScreen extends ShowablePanel{
     // Initial screen when opening the game
     private final Image backgroundImage;
     private JButton startBtn;
     private JButton creditBtn;
 
 
-    public StartScreen(GameFrame gameFrame)
+    public MenuScreen(GameFrame gameFrame)
     {
+        super("menu");
         this.backgroundImage = new ImageIcon(getClass().getResource("/assets/backgroundImage.PNG")).getImage();
-        setLayout(new GridBagLayout());
+        
 
-            startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 200, 100);
-            creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 500,300);
+        startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 350, 175);
+        creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
 
         startBtn.addActionListener(e -> {
-            gameFrame.startGame();
+            gameFrame.showPanel("start");
         });
         creditBtn.addActionListener(e -> {
-            gameFrame.showCredits();
+            gameFrame.showPanel("credits");
         });
 
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(1,2));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setOpaque(false);
 
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(180, 120, 0, 0));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(350, 175, 0, 0));
         buttonPanel.setMaximumSize(new Dimension(500, 700));
 
-        startBtn.setAlignmentX(LEFT_ALIGNMENT);
-        creditBtn.setAlignmentX(LEFT_ALIGNMENT);
 
         buttonPanel.add(startBtn);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         buttonPanel.add(creditBtn);
 
         add(buttonPanel, BorderLayout.CENTER);
