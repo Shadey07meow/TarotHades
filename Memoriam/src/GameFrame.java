@@ -14,63 +14,29 @@ import javax.swing.JPanel;
 public class GameFrame extends JFrame {
 
     private GameStart gameStart;
-    private CardLayout cardLayout;
-    private final JPanel container;
+    final private CardLayout cardLayout = new CardLayout();
+    private final JPanel panelChanger;
 
-    // 
-    public GameFrame(Dimension resolution) {
-        System.out.println(getClass().getResource("/assets/backgroundImage.PNG"));
+    // Game frame will contain the entire frame of the game
 
-        
+    public GameFrame(Dimension resolution) {        
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
 
-        cardLayout = new CardLayout();
-        container = new JPanel(cardLayout);
+        
+        panelChanger = new JPanel(cardLayout);
 
         gameStart = new GameStart(this);
-        container.add(gameStart, "start");
+        panelChanger.add(gameStart, "start");
 
-
-        JPanel panel = new JPanel() {
-            Image backgroundImage = new ImageIcon(
-                getClass().getResource("/assets/backgroundImage.PNG")
-            ).getImage();
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (backgroundImage != null) {
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                }
-            }
-        };
-
-        panel.setLayout(new GridBagLayout());
-
-        JButton startBtn = this.createImageButton("/assets/startBtn.PNG", 500, 300);
-
-        startBtn.addActionListener(e -> {
-            startGame();
-        });
-
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;              
-        gbc.weightx = 1.0;         
-        gbc.weighty = 1.0;        
-        gbc.anchor = GridBagConstraints.SOUTHWEST;
-
-        gbc.insets = new Insets(60, 20, 250, 0); // spacing from edges
-
-        panel.add(startBtn, gbc);
-        container.add(panel, "menu");
+        StartScreen startScreen = new StartScreen(this);
+        
+        panelChanger.add(startScreen, "menu");
 
         
-        setContentPane(container);
-        cardLayout.show(container, "menu");
+        add(panelChanger);
+        cardLayout.show(panelChanger, "menu");
 
         pack();
         setLocationRelativeTo(null);
@@ -80,7 +46,7 @@ public class GameFrame extends JFrame {
     
     public void startGame(){
         try {
-            cardLayout.show(container, "start");
+            cardLayout.show(panelChanger, "start");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Won't show start screen");
         }
@@ -88,7 +54,7 @@ public class GameFrame extends JFrame {
 
     public void showMenu(){
         try {
-            cardLayout.show(container, "menu");
+            cardLayout.show(panelChanger, "menu");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Won't show menu screen");
         }
