@@ -15,7 +15,6 @@ public class GameFrame extends JFrame {
 
     private GameStart gameStart;
     private CardLayout cardLayout;
-    private Image backgroundImage;
     private final JPanel container;
 
     public GameFrame(Dimension resolution) {
@@ -28,14 +27,14 @@ public class GameFrame extends JFrame {
         container = new JPanel(cardLayout);
 
         gameStart = new GameStart(this);
-
         container.add(gameStart, "start");
 
-        backgroundImage = new ImageIcon(
-                getClass().getResource("/assets/backgroundImage.PNG")
-        ).getImage();
 
         JPanel panel = new JPanel() {
+            Image backgroundImage = new ImageIcon(
+                getClass().getResource("/assets/backgroundImage.PNG")
+            ).getImage();
+
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -47,13 +46,11 @@ public class GameFrame extends JFrame {
 
         panel.setLayout(new GridBagLayout());
 
-
         JButton startBtn = createImageButton("/assets/startBtn.PNG", 500, 300);
 
         startBtn.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Starting Game...");
+            startGame();
         });
-
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -66,8 +63,11 @@ public class GameFrame extends JFrame {
         gbc.insets = new Insets(60, 20, 250, 0); // spacing from edges
 
         panel.add(startBtn, gbc);
+        container.add(panel, "menu");
 
-        setContentPane(panel);
+        
+        setContentPane(container);
+        cardLayout.show(container, "menu");
 
         pack();
         setLocationRelativeTo(null);
@@ -75,10 +75,22 @@ public class GameFrame extends JFrame {
     }
 
     public void startGame(){
-        cardLayout.show(container, "start");
+        try {
+            cardLayout.show(container, "start");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Won't show start screen");
+        }
     }
 
-    private JButton createImageButton(String imgPath, int width, int height) {
+        public void showMenu(){
+        try {
+            cardLayout.show(container, "menu");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Won't show menu screen");
+        }
+    }
+
+    public JButton createImageButton(String imgPath, int width, int height) {
 
         ImageIcon icon = new ImageIcon(getClass().getResource(imgPath));
 
@@ -94,4 +106,6 @@ public class GameFrame extends JFrame {
 
         return button;
     }
+
+    
 }   
