@@ -15,8 +15,6 @@ public class MainGameDriver
         ///     Runs the application
         ///         Initiate the frame
         
-        
         GameFrame gameFrame = new GameFrame(RESOLUTION);
-        
     }
 }
