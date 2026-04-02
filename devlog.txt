@@ -3,7 +3,12 @@ KEEP THIS ON TOP
     command to run the game
 
 --> 02/04/2026
-    - 
+    - Made start screen (CalRya)
+        - Made GameStart.java
+            - A JPanel placeholder for second screen
+        - Made changes to GameFrame.java
+            - A JFrame that stores initial screen
+
 
 --> 01/04/2026
     - Made initial files for the game (Shadey07)
