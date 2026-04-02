@@ -20,7 +20,10 @@ KEEP THIS ON TOP
         - Edited StartScreen.java
             - Added buttons and added a new screen to switch to for credits
         - Added CreditScreen.java
-    -  Added notes to code (Shadey07)
+    - Added notes to code + Refactoring some stuff (Shadey07)
+        - Made panel switching system much more easier to remember
+        - Renamed StartScreen.java to MenuScreen
+        - Fixed JButtons layout (I think?)
 
 
 --> 02/04/2026

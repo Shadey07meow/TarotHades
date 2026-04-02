@@ -21,10 +21,12 @@ public class MenuScreen extends ShowablePanel{
 
     public MenuScreen(GameFrame gameFrame)
     {
+        // Initial screen for the game
         super("menu");
         this.backgroundImage = new ImageIcon(getClass().getResource("/assets/backgroundImage.PNG")).getImage();
         
 
+        // Buttons
         startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 350, 175);
         creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
 
@@ -35,6 +37,8 @@ public class MenuScreen extends ShowablePanel{
             gameFrame.showPanel("credits");
         });
 
+
+        // Buttons layout
         setLayout(new GridLayout(1,2));
 
         JPanel buttonPanel = new JPanel();
@@ -53,6 +57,7 @@ public class MenuScreen extends ShowablePanel{
 
     @Override
     protected void paintComponent(Graphics g) {
+            // Sets the background image of the panel 
             super.paintComponent(g);
             if (this.backgroundImage != null) {
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);

@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 public class CreditScreen extends ShowablePanel {
     public CreditScreen(GameFrame gameFrame){
+        // Credit screen, shows people who contributed to the project
         super("credits");
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
