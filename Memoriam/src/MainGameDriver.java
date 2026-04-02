@@ -17,7 +17,6 @@ public class MainGameDriver
         
         
         GameFrame gameFrame = new GameFrame(RESOLUTION);
-
-
+        
     }
 }

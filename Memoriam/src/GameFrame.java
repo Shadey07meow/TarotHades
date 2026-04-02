@@ -18,7 +18,9 @@ public class GameFrame extends JFrame {
     private final JPanel container;
 
     public GameFrame(Dimension resolution) {
+        System.out.println(getClass().getResource("/assets/backgroundImage.PNG"));
 
+        
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
@@ -46,7 +48,7 @@ public class GameFrame extends JFrame {
 
         panel.setLayout(new GridBagLayout());
 
-        JButton startBtn = createImageButton("/assets/startBtn.PNG", 500, 300);
+        JButton startBtn = this.createImageButton("/assets/startBtn.PNG", 500, 300);
 
         startBtn.addActionListener(e -> {
             startGame();
@@ -72,8 +74,9 @@ public class GameFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        
     }
-
+    
     public void startGame(){
         try {
             cardLayout.show(container, "start");
@@ -82,7 +85,7 @@ public class GameFrame extends JFrame {
         }
     }
 
-        public void showMenu(){
+    public void showMenu(){
         try {
             cardLayout.show(container, "menu");
         } catch (Exception e) {
@@ -90,6 +93,7 @@ public class GameFrame extends JFrame {
         }
     }
 
+    
     public JButton createImageButton(String imgPath, int width, int height) {
 
         ImageIcon icon = new ImageIcon(getClass().getResource(imgPath));
@@ -106,6 +110,7 @@ public class GameFrame extends JFrame {
 
         return button;
     }
-
     
-}   
+}
+    
+   

@@ -1,6 +1,14 @@
+KEEP THIS ON TOP
+    cd (Official Game Name here) & javac -d bin src/*.java & java -cp bin  MainGameDriver
+    command to run the game
+
+--> 02/04/2026
+    - 
+
 --> 01/04/2026
     - Made initial files for the game (Shadey07)
         - GameFrame.java
             - Will handle displaying the game
         - MainGameDriver.java  
             - Will communicate information to all parts of the program (hopefully)
+
