@@ -17,6 +17,9 @@ KEEP THIS ON TOP
             - A JFrame that stores initial screen
         - Made changes to GameFrame.java  
             - Fullscreen
+        - Edited StartScreen.java
+            - Added buttons and added a new screen to switch to for credits
+        - Added CreditScreen.java
 
 
 --> 02/04/2026

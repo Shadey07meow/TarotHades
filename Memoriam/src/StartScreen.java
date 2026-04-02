@@ -1,44 +1,55 @@
-import java.awt.CardLayout;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Insets;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 public class StartScreen extends JPanel{
     // Initial screen when opening the game
-    private Image backgroundImage;
+    private final Image backgroundImage;
+    private JButton startBtn;
+    private JButton creditBtn;
+
 
     public StartScreen(GameFrame gameFrame)
     {
         this.backgroundImage = new ImageIcon(getClass().getResource("/assets/backgroundImage.PNG")).getImage();
         setLayout(new GridBagLayout());
 
-                JButton startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 500, 300);
+            startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 200, 100);
+            creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 500,300);
 
         startBtn.addActionListener(e -> {
             gameFrame.startGame();
         });
+        creditBtn.addActionListener(e -> {
+            gameFrame.showCredits();
+        });
 
-        GridBagConstraints gbc = new GridBagConstraints();
+        setLayout(new BorderLayout());
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;              
-        gbc.weightx = 1.0;         
-        gbc.weighty = 1.0;        
-        gbc.anchor = GridBagConstraints.SOUTHWEST;
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setOpaque(false);
 
-        gbc.insets = new Insets(60, 20, 250, 0); // spacing from edges
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(180, 120, 0, 0));
+        buttonPanel.setMaximumSize(new Dimension(500, 700));
 
-        add(startBtn, gbc);
-        //panelChanger.add(panel, "menu")
+        startBtn.setAlignmentX(LEFT_ALIGNMENT);
+        creditBtn.setAlignmentX(LEFT_ALIGNMENT);
+
+        buttonPanel.add(startBtn);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        buttonPanel.add(creditBtn);
+
+        add(buttonPanel, BorderLayout.CENTER);
     }
 
     @Override
@@ -49,5 +60,4 @@ public class StartScreen extends JPanel{
         }
     }
     
-
 }

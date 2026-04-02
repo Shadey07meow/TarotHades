@@ -1,10 +1,6 @@
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,7 +9,9 @@ import javax.swing.JPanel;
 
 public class GameFrame extends JFrame {
 
-    private GameStart gameStart;
+    private final GameStart gameStart;
+    private final CreditScreen creditScreen;
+    private final StartScreen startScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel panelChanger;
 
@@ -30,8 +28,10 @@ public class GameFrame extends JFrame {
         gameStart = new GameStart(this);
         panelChanger.add(gameStart, "start");
 
-        StartScreen startScreen = new StartScreen(this);
-        
+        creditScreen = new CreditScreen(this);
+        panelChanger.add(creditScreen, "credits");
+
+        startScreen = new StartScreen(this);
         panelChanger.add(startScreen, "menu");
 
         
@@ -50,6 +50,14 @@ public class GameFrame extends JFrame {
             cardLayout.show(panelChanger, "start");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Won't show start screen");
+        }
+    }
+
+        public void showCredits(){
+        try {
+            cardLayout.show(panelChanger, "credits");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Won't show menu screen");
         }
     }
 
