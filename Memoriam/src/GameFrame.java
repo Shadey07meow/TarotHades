@@ -24,7 +24,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
 
-        
+
         panelChanger = new JPanel(cardLayout);
 
         gameStart = new GameStart(this);
@@ -40,6 +40,7 @@ public class GameFrame extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
         
     }

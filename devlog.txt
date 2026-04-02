@@ -1,5 +1,5 @@
 KEEP THIS ON TOP
-    Individual commands to run the game
+ Individual commands to run the game
     cd Memoriam
     javac -d bin src/*.java
     java -cp bin  MainGameDriver
@@ -15,9 +15,11 @@ KEEP THIS ON TOP
             - A JPanel placeholder for second screen
         - Made changes to GameFrame.java
             - A JFrame that stores initial screen
+        - Made changes to GameFrame.java  
+            - Fullscreen
 
 
---> 01/04/2026
+--> 02/04/2026
     - Made initial files for the game (Shadey07)
         - GameFrame.java
             - Will handle displaying the game
