@@ -14,7 +14,7 @@ public class GameFrame extends JFrame {
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
     final private CardLayout cardLayout = new CardLayout();
-    private final JPanel panelChanger;
+    private final JPanel parentPanel;
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
     // Game frame will contain the entire frame of the game
@@ -25,7 +25,8 @@ public class GameFrame extends JFrame {
         setPreferredSize(resolution);
 
         // Panel containing all the screens we can switch to
-        panelChanger = new JPanel(cardLayout);
+        parentPanel = new JPanel(cardLayout);
+        
 
         // Initiates all screens 
         gameStart = new GameStart(this);
@@ -37,17 +38,18 @@ public class GameFrame extends JFrame {
        
         for(ShowablePanel curPanel : allPanels)
         {
-            panelChanger.add(curPanel, curPanel.getShowablePanelName());
+            parentPanel.add(curPanel, curPanel.getShowablePanelName());
         }
 
         
-        add(panelChanger);
-        cardLayout.show(panelChanger, menuScreen.getShowablePanelName());
+        add(parentPanel);
+        cardLayout.show(parentPanel, menuScreen.getShowablePanelName());
 
         pack();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
+
         
     }
     
@@ -61,7 +63,7 @@ public class GameFrame extends JFrame {
             {
                 if(curPanel.getShowablePanelName().trim().equals(panelName.trim()))
                 {
-                    cardLayout.show(panelChanger, panelName);
+                    cardLayout.show(parentPanel, panelName);
                     curPanel.onInitiate();
                 } else
                 {

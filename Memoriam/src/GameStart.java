@@ -2,10 +2,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import java.awt.Color;
 
 public class GameStart extends PlayableScreen {
 
+    Player object1 = null;
+    
     public GameStart(GameFrame gameFrame) {
         super("start");
         
@@ -31,6 +36,7 @@ public class GameStart extends PlayableScreen {
     @Override
     protected void onInitiate()
     {
+        object1 = new Player(2 * 32, 2 * 32 , 32, 2, 10, inputManager);
         startGamePanel();
     }
 
@@ -38,5 +44,23 @@ public class GameStart extends PlayableScreen {
     protected void onExit()
     {
         stopGamePanel();
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+
+        Graphics2D graphics2 = (Graphics2D)g;
+
+
+        graphics2.setColor(Color.BLUE);
+        graphics2.fillRect(object1.getX(), object1.getY(), 1 * object1.getScale(), 1 * object1.getScale());
+    }
+
+    @Override
+    public void update()
+    {
+
     }
 }

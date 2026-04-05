@@ -1,5 +1,6 @@
 import javax.swing.JPanel;
-import java.lang.Thread;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 
 public class PlayableScreen extends ShowablePanel implements Runnable{
@@ -8,6 +9,9 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
     // The main reason for having this class is to simultaneously keep track of all the different thing
 
     Thread gameLoop = null;
+    InputManager inputManager = new InputManager();
+    static int framesPerSecond = 60;
+    
 
     public PlayableScreen(String panelName)
     {
@@ -16,11 +20,14 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
 
         // We want to make a thing appear at (5, 2), 5 Right and 2 down from origin
         gameLoop = new Thread(this);
-        
+        addKeyListener(inputManager); 
     }
+    
+
     
     public void startGamePanel()
     {
+        requestFocusInWindow();
         // Initialized first before running game loop
         try
         {gameLoop.start();}
@@ -45,12 +52,26 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
             this.update();
 
             // Paint the panel every frame
+            try {
+                Thread.sleep(1000 / framesPerSecond);
+            } 
+            catch (Exception e)
+            {
+                System.out.println("Cannot be paused");
+            }
+
             repaint();
         }
+
     }
 
     public void update()
     {
-        System.out.println("Hello");
+    }
+
+    @Override
+    public void paintComponent (Graphics g)
+    {
+        super.paintComponent(g);
     }
 }
