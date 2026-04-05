@@ -2,10 +2,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class GameStart extends PlayableScreen {
+    Image up = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolUp.png")).getImage();
+    Image down = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolDown.png")).getImage();
+    Image left = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolLeft.png")).getImage();
+    Image right = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolRight.png")).getImage();
 
     Player object1 = null;
 
@@ -31,7 +37,7 @@ public class GameStart extends PlayableScreen {
     @Override
     protected void onInitiate()
     {
-        object1 = new Player(2 * 32, 2 * 32, 32, 5, 10, inputManager);
+        object1 = new Player(2 * 32, 2 * 32, 5, 5, 10, inputManager, up, down, left, right);
         startGamePanel();
     }
 
@@ -59,12 +65,13 @@ public class GameStart extends PlayableScreen {
         }
 
         // render smooth position
-        graphics2.setColor(Color.BLUE);
-        graphics2.fillRect(
-                (int) object1.getRenderX(),
-                (int) object1.getRenderY(),
-                object1.getScale(),
-                object1.getScale()
+        graphics2.drawImage(
+            object1.getImage(),
+            (int) object1.getRenderX(),
+            (int) object1.getRenderY(),
+            object1.getScaledWidth(),
+            object1.getScaledHeight(),
+            null
         );
     }
 

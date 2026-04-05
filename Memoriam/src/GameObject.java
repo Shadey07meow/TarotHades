@@ -94,6 +94,18 @@ public class GameObject {
         this.y -= y;
     }
 
+    public int getScaledWidth()
+    {
+        if (image == null) return scale;
+        return image.getWidth(null) * scale;
+    }
+
+    public int getScaledHeight()
+    {
+        if (image == null) return scale;
+        return image.getHeight(null) * scale;
+    }
+
     /// INTERPOLATION (smooth rendering)
     public void interpolate(double alpha)
     {
