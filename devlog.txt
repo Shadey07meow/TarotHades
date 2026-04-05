@@ -9,6 +9,13 @@ KEEP THIS ON TOP
     cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
     cd Memoriam & javac -d bin src/*.java & java -cp bin  MainGameDriver  
 
+--> 05/04/2026 (CalRya)
+    - Added Interpolation
+        - Made changes to the following classes:
+            - Player.java
+            - GameObject.java
+            - GameStart.java
+
 --> 05/04/2026
     - Added basic movement
         - Added PlayerClass

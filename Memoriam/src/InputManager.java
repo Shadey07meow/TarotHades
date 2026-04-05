@@ -1,6 +1,5 @@
-import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import java.lang.Thread;
+import java.awt.event.KeyListener;
 
 
 public class InputManager implements  KeyListener{
