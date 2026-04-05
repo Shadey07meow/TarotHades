@@ -16,9 +16,12 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
         super(panelName);
         // Lets work on making shit appear first
 
-        // We want to make a thing appear at (5, 2), 5 Right and 2 down from origin
+        // Initiates game loop
         gameLoop = new Thread(this);
+
+        // Adds input manager
         addKeyListener(inputManager); 
+        addMouseListener(inputManager);
     }
     
 
@@ -63,9 +66,10 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
+
+    // Update function for all playable screen, Override this for game logic
     protected  void update()
-    {
-    }
+    {}
 
     @Override
     public void paintComponent (Graphics g)

@@ -8,10 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class GameStart extends PlayableScreen {
-    Image up = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolUp.png")).getImage();
-    Image down = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolDown.png")).getImage();
-    Image left = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolLeft.png")).getImage();
-    Image right = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolRight.png")).getImage();
+
 
     
     Player object1 = null;
@@ -38,7 +35,7 @@ public class GameStart extends PlayableScreen {
     @Override
     protected void onInitiate()
     {
-        object1 = new Player(2 * 32, 2 * 32, 5, 5, 10, inputManager, up, down, left, right);
+        object1 = new Player(getWidth() / 2, getHeight() / 2, 3, 5, 10, inputManager);
         startGamePanel();
     }
 
@@ -55,30 +52,30 @@ public class GameStart extends PlayableScreen {
         super.paintComponent(g);
 
         Graphics2D graphics2 = (Graphics2D) g;
-
-        // update game logic
-        if (object1 != null)
-        {
-            object1.update();
-            object1.interpolate(1); 
-            // alpha = 0.25, you move towards the target by 25% everytime.
-            // makes it smoother
-        }
-
         // render smooth position
         graphics2.drawImage(
             object1.getImage(),
-            (int) object1.getRenderX(),
-            (int) object1.getRenderY(),
+            (int) object1.getRenderX() - ((int)object1.getScaledWidth() / 2) ,
+            (int) object1.getRenderY() - ((int) object1.getScaledHeight() / 2),
             object1.getScaledWidth(),
             object1.getScaledHeight(),
             null
         );
+        // Debug mode, make a point at the middle of the object
+        // graphics2.setColor(Color.BLUE);
+        // graphics2.fillRect(object1.getX(), object1.getY(), 4, 4);
     }
 
     @Override
     public void update()
     {
         // logic handled in paint/update cycle
+        // update game logic
+        
+        /////// Should make an arrayList for every GameObject present in a scene so that they autoUpdate 
+        if (object1 != null)
+        {
+            object1.update();
+        }  
     }
 }

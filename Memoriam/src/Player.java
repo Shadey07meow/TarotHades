@@ -1,5 +1,7 @@
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
+
 public class Player extends GameObject {
 
     /// Player Game Object
@@ -10,6 +12,7 @@ public class Player extends GameObject {
     private int speed = 1;
     private int health = 1;
     private InputManager inputs = null;
+    private boolean hasShotProjectile = false;
 
     // for sprites
     private final Image spriteUp;
@@ -17,45 +20,78 @@ public class Player extends GameObject {
     private final Image spriteLeft;
     private final Image spriteRight;
 
-    public Player(int x, int y, int scale, int speed, int health, InputManager inps, Image up, Image down, Image left, Image right)
+    public Player(int x, int y, int scale, int speed, int health, InputManager inps)
     {
         super(x, y, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
 
-        this.spriteUp = up;
-        this.spriteDown = down;
-        this.spriteLeft = left;
-        this.spriteRight = right;
+        this.spriteUp = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolUp.png")).getImage();   
+        this.spriteDown =  new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolDown.png")).getImage();
+        this.spriteLeft = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolLeft.png")).getImage();
+        this.spriteRight = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolRight.png")).getImage();
 
+         
         setImage(spriteDown);
     }
 
+    @Override
     public void update()
     {
-        move(inputs.moveVector.x * speed, inputs.moveVector.y * speed);
-        System.out.println(inputs.moveVector.x * speed + " " + inputs.moveVector.y * speed);
+        // Separate functionality 
+        movePlayer();
+        combatMethod();
 
-        int moveX = inputs.moveVector.x * speed;
-        int moveY = inputs.moveVector.y * speed;
+        // Makes the rendering smooth
+        // alpha = 0.25, you move towards the target by 25% everytime.
+        // makes it smoother
+        super.interpolate(1);
+    }
+
+    private void movePlayer()
+    {
+        Vector2 inpVector = inputs.getInputVector();
+        move(inpVector.x * speed, inpVector.y * speed);
 
 
-        if (moveX > 0)
+        if (inpVector.x > 0)
         {
             setImage(spriteRight);
         }
-        else if (moveX < 0)
+        else if (inpVector.x < 0)
         {
             setImage(spriteLeft);
         }
-        else if (moveY > 0)
+        else if (inpVector.y > 0)
         {
             setImage(spriteUp);
         }
-        else if (moveY < 0)
+        else if (inpVector.y < 0)
         {
             setImage(spriteDown);
+        }
+    }
+
+    private void combatMethod()
+    {
+        // Checks if we have shot projectile
+        if(hasShotProjectile == false)
+        {
+            if(inputs.getClickingStatus() == true)
+            {
+                // Shooting projectile logic
+                hasShotProjectile = true;
+            }
+        } 
+        else
+        {
+            // On mouse release, reset shooting logic
+            if(inputs.getClickingStatus() == false)
+            {
+                // Shooting projectile logic
+                hasShotProjectile = true;
+            }
         }
     }
 }

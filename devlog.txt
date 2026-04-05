@@ -9,8 +9,30 @@ KEEP THIS ON TOP
     cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
     cd Memoriam & javac -d bin src/*.java & java -cp bin  MainGameDriver  
 
---> 05/04/2026 (CalRya)
-    - Added Interpolation
+--> 06/04/2026 
+    (Shadey07)
+    - Added Vector2 class
+        - Quick way to store 2 points
+        - Can do basic vector operations such as
+            - Vector addition
+            - Vector multiplication (Constants)
+    - Made InputManager able to read mouse inputs
+        - Able to determine Mouse 1 (LeftClick) inputs
+        - Able to determine where player clicked
+    - Made Bullet class (Nothing inside yet)
+    - Made our lil guy a bit smoller
+    - Cleaned some code
+        - Added a overridable update method to gameObjects, so that all gameObjects has a update method and 
+            auto-interpolates
+        - Moved interpolation to update method on gameObjects
+        - Moved gameLogic to overridable update method gameObjects
+        - Instead of setting the images of the player in the constructor as inputs,
+            made it so that it is assigned the same value no matter what (Did this to simplify code)
+        - Made Inputmanager have a getInputVector that returns a Vector2
+
+--> 05/04/2026 
+    (CalRya)
+    - Added Interpolation 
         - Made changes to the following classes:
             - Player.java
             - GameObject.java
@@ -18,7 +40,8 @@ KEEP THIS ON TOP
     - Added Sprites + linked sprites with movement
     - Added custom cursor in GameFrame.java
 
-    - Added basic movement (Shadey07)
+    (Shadey07)
+    - Added basic movement 
         - Added PlayerClass
         - Added input manager
     - Made a few changes to the panel system
@@ -38,7 +61,8 @@ KEEP THIS ON TOP
     
 
 --> 02/04/2026
-    - Made start screen (CalRya)
+    (CalRya)
+    - Made start screen 
         - Made GameStart.java
             - A JPanel placeholder for second screen
         - Made changes to GameFrame.java
@@ -55,7 +79,8 @@ KEEP THIS ON TOP
 
 
 --> 02/04/2026
-    - Made initial files for the game (Shadey07)
+    (Shadey07)
+    - Made initial files for the game 
         - GameFrame.java
             - Will handle displaying the game
         - MainGameDriver.java  
