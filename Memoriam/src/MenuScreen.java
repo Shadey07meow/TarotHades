@@ -32,6 +32,7 @@ public class MenuScreen extends ShowablePanel{
 
         startBtn.addActionListener(e -> {
             gameFrame.showPanel("start");
+            
         });
         creditBtn.addActionListener(e -> {
             gameFrame.showPanel("credits");

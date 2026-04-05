@@ -22,4 +22,7 @@ public class ShowablePanel extends JPanel{
     {
         this.name = name;
     }
+
+    protected void onInitiate(){}
+    protected void onExit(){}
 }

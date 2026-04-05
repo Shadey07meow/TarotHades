@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 public class GameFrame extends JFrame {
 
@@ -14,6 +15,7 @@ public class GameFrame extends JFrame {
     private final MenuScreen menuScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel panelChanger;
+    private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
     // Game frame will contain the entire frame of the game
 
@@ -27,11 +29,16 @@ public class GameFrame extends JFrame {
 
         // Initiates all screens 
         gameStart = new GameStart(this);
-        panelChanger.add(gameStart, gameStart.getShowablePanelName());
         creditScreen = new CreditScreen(this);
-        panelChanger.add(creditScreen, creditScreen.getShowablePanelName());
         menuScreen = new MenuScreen(this);
-        panelChanger.add(menuScreen, menuScreen.getShowablePanelName());
+        this.allPanels.add(gameStart);
+        this.allPanels.add(creditScreen);
+        this.allPanels.add(menuScreen);
+       
+        for(ShowablePanel curPanel : allPanels)
+        {
+            panelChanger.add(curPanel, curPanel.getShowablePanelName());
+        }
 
         
         add(panelChanger);
@@ -50,7 +57,17 @@ public class GameFrame extends JFrame {
     public void showPanel(String panelName)
     {
         try {
-            cardLayout.show(panelChanger, panelName);
+            for(ShowablePanel curPanel : allPanels)
+            {
+                if(curPanel.getShowablePanelName().trim().equals(panelName.trim()))
+                {
+                    cardLayout.show(panelChanger, panelName);
+                    curPanel.onInitiate();
+                } else
+                {
+                    curPanel.onExit();
+                }
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Screen: [" + panelName + "] does not exist");
         }
