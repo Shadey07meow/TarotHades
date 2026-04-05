@@ -13,6 +13,7 @@ public class GameStart extends PlayableScreen {
     Image left = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolLeft.png")).getImage();
     Image right = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolRight.png")).getImage();
 
+    
     Player object1 = null;
 
     public GameStart(GameFrame gameFrame) {

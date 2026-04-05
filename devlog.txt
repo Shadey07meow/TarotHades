@@ -16,6 +16,7 @@ KEEP THIS ON TOP
             - GameObject.java
             - GameStart.java
     - Added Sprites + linked sprites with movement
+    - Added custom cursor in GameFrame.java
 
     - Added basic movement (Shadey07)
         - Added PlayerClass
