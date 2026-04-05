@@ -41,6 +41,7 @@ public class GameStart extends PlayableScreen {
         stopGamePanel();
     }
 
+
     @Override
     public void paintComponent(Graphics g)
     {
@@ -52,7 +53,7 @@ public class GameStart extends PlayableScreen {
         if (object1 != null)
         {
             object1.update();
-            object1.interpolate(0.25); 
+            object1.interpolate(1); 
             // alpha = 0.25, you move towards the target by 25% everytime.
             // makes it smoother
         }

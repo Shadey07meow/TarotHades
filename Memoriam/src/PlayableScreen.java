@@ -47,7 +47,7 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
     {
         while (gameLoop != null) {
             // Call update function
-            this.update();
+            update();
 
             // Paint the panel every frame
             try {
@@ -63,7 +63,7 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
-    public void update()
+    protected  void update()
     {
     }
 
