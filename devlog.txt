@@ -16,7 +16,6 @@ KEEP THIS ON TOP
             - GameObject.java
             - GameStart.java
 
---> 05/04/2026
     - Added basic movement (Shadey07)
         - Added PlayerClass
         - Added input manager
@@ -33,6 +32,7 @@ KEEP THIS ON TOP
             - startGamePanel()
                 - Overridable method called when a gamePanel is uninitiatied
     - Added GameObject class
+    - Improved inputHandling
     
 
 --> 02/04/2026
