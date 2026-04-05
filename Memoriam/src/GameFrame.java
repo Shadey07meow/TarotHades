@@ -15,6 +15,7 @@ public class GameFrame extends JFrame {
     private final MenuScreen menuScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
+    
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
     // Game frame will contain the entire frame of the game
@@ -32,10 +33,13 @@ public class GameFrame extends JFrame {
         gameStart = new GameStart(this);
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
+
+
         this.allPanels.add(gameStart);
         this.allPanels.add(creditScreen);
         this.allPanels.add(menuScreen);
        
+        // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)
         {
             parentPanel.add(curPanel, curPanel.getShowablePanelName());
@@ -43,7 +47,7 @@ public class GameFrame extends JFrame {
 
         
         add(parentPanel);
-        cardLayout.show(parentPanel, menuScreen.getShowablePanelName());
+        showPanel(menuScreen.getShowablePanelName());
 
         pack();
         setLocationRelativeTo(null);

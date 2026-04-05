@@ -1,6 +1,6 @@
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import java.lang.Thread;
+
 
 
 public class InputManager implements  KeyListener{
@@ -14,10 +14,10 @@ public class InputManager implements  KeyListener{
 
     Vector2 moveVector = new Vector2();
     
-    boolean movingUp;
-    boolean movingDown;
-    boolean movingLeft;
-    boolean movingRight;
+    private boolean movingUp;
+    private boolean movingDown;
+    private boolean movingLeft;
+    private boolean movingRight;
 
     public InputManager()
     {
@@ -37,55 +37,88 @@ public class InputManager implements  KeyListener{
         // Detects when a key is pressed down
         char inp = k.getKeyChar();
 
-
-        
-        switch (inp) {
-            case ('a'):
-            case ('A'):
-                moveVector.x = -1;
-                movingLeft = true; break;            
-            case ('d'):
-            case ('D'):
-                moveVector.x = 1;
-                movingRight = true; break;
-            case ('w'):
-            case ('W'):
-                moveVector.y = 1;
-                movingUp = true; break;
-            case ('s'):
-            case ('S'):
-                moveVector.y = -1;
-                movingDown = true; break;
-                                            
+        if(inp == 'a' || inp == 'A')
+        {
+            this.movingLeft = true; 
         }
+        if(inp == 'd' || inp == 'D')
+        {
+            this.movingRight = true;
+        }
+        if(inp == 'w' || inp == 'W')
+        {
+            this.movingUp = true;
+        }
+        if(inp == 's' || inp == 'S')
+        {
+            this.movingDown = true;            
+        }
+        updMovement();
     }
 
     @Override
     public void keyReleased(KeyEvent k)
     {
         char inp = k.getKeyChar();
-        switch (inp) {
-            case ('a'):
-            case ('A'):
-                moveVector.x = 0;
-                movingLeft = false; break;            
-            case ('d'):
-            case ('D'):
-                moveVector.x = 0;
-                movingRight = false; break;
-            case ('w'):
-            case ('W'):
-                moveVector.y = 0;
-                movingUp = false; break;
-            case ('s'):
-            case ('S'):
-                moveVector.y = 0;
-                movingDown = false; break;
-            }
+
+        if(inp == 'a' || inp == 'A')
+        {
+            this.movingLeft = false; 
+        }
+        if(inp == 'd' || inp == 'D')
+        {
+            this.movingRight = false;
+        }
+        if(inp == 'w' || inp == 'W')
+        {
+            this.movingUp = false;
+        }
+        if(inp == 's' || inp == 'S')
+        {
+            this.movingDown = false;            
+        }
+        updMovement();
     }
     
     
     
+    public void updMovement()
+    {
+
+            
+        // Handles Y
+        if(movingDown && movingUp)
+        {
+            System.out.println("Hellothere");
+            moveVector.y = 0;
+        } else if(movingUp)
+        {
+            moveVector.y = 1;
+        }else if (movingDown)
+        {
+            moveVector.y = -1;
+        } else
+        {
+            moveVector.y = 0;
+        }
+
+        // Handles X
+        if(movingLeft && movingRight)
+        {
+            moveVector.x = 0;
+        } else if(movingRight)
+        {
+            moveVector.x = 1;
+        }else if (movingLeft)
+        {
+            moveVector.x = -1;
+        } else
+        {
+            moveVector.x = 0;
+        }
+        
+        
+    }
 
     
 
