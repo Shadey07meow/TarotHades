@@ -1,6 +1,4 @@
-import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 
 public class PlayableScreen extends ShowablePanel implements Runnable{
