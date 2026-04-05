@@ -36,7 +36,7 @@ public class GameStart extends PlayableScreen {
     @Override
     protected void onInitiate()
     {
-        object1 = new Player(2 * 32, 2 * 32 , 32, 2, 10, inputManager);
+        object1 = new Player(2 * 32, 2 * 32 , 32, 5, 10, inputManager);
         startGamePanel();
     }
 

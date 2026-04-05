@@ -24,11 +24,18 @@ public class Player extends GameObject implements Runnable  {
     {
         while (true) { 
             movePlayer();
+            try {
+                Thread.sleep(PlayableScreen.framesPerSecond);
+            } catch (Exception e) {
+                System.out.println("Cannot slleep");
+            }
         }
     }
     
     public void movePlayer()
     {
+
         move(inputs.moveVector.x * speed, inputs.moveVector.y * speed);
+        System.out.println(inputs.moveVector.x * speed + " " + inputs.moveVector.y * speed);
     }
 }

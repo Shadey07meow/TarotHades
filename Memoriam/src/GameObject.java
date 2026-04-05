@@ -122,7 +122,7 @@ public class GameObject {
     {
         // Moves the object relative to it's current position in terms of 1 second
         this.x += (x);
-        this.y += (x);
+        this.y -= (y);
     }
 
     

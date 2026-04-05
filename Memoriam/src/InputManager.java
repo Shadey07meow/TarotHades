@@ -37,27 +37,24 @@ public class InputManager implements  KeyListener{
         // Detects when a key is pressed down
         char inp = k.getKeyChar();
 
+
         
         switch (inp) {
             case ('a'):
             case ('A'):
-                System.out.println("a");
                 moveVector.x = -1;
                 movingLeft = true; break;            
             case ('d'):
             case ('D'):
-                System.out.println("d");
                 moveVector.x = 1;
                 movingRight = true; break;
             case ('w'):
             case ('W'):
                 moveVector.y = 1;
-                System.out.println("w");
                 movingUp = true; break;
             case ('s'):
             case ('S'):
                 moveVector.y = -1;
-                System.out.println("s");
                 movingDown = true; break;
                                             
         }
