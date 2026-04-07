@@ -6,6 +6,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.ArrayList;
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
 
 public class GameFrame extends JFrame {
 
@@ -13,7 +17,10 @@ public class GameFrame extends JFrame {
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
     final private CardLayout cardLayout = new CardLayout();
-    private final JPanel panelChanger;
+    private final JPanel parentPanel;
+    Image cursor = new ImageIcon(getClass().getResource("/assets/MainAssets/swordCursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+    
+    private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
     // Game frame will contain the entire frame of the game
 
@@ -21,26 +28,44 @@ public class GameFrame extends JFrame {
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
+        
+        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+            cursor,
+            new Point(0, 0),
+            "cursor"
+        );
+
+        setCursor(customCursor);
 
         // Panel containing all the screens we can switch to
-        panelChanger = new JPanel(cardLayout);
+        parentPanel = new JPanel(cardLayout);
+        
 
         // Initiates all screens 
         gameStart = new GameStart(this);
-        panelChanger.add(gameStart, gameStart.getShowablePanelName());
         creditScreen = new CreditScreen(this);
-        panelChanger.add(creditScreen, creditScreen.getShowablePanelName());
         menuScreen = new MenuScreen(this);
-        panelChanger.add(menuScreen, menuScreen.getShowablePanelName());
+
+
+        this.allPanels.add(gameStart);
+        this.allPanels.add(creditScreen);
+        this.allPanels.add(menuScreen);
+       
+        // Adds all panels to panelManager
+        for(ShowablePanel curPanel : allPanels)
+        {
+            parentPanel.add(curPanel, curPanel.getShowablePanelName());
+        }
 
         
-        add(panelChanger);
-        cardLayout.show(panelChanger, menuScreen.getShowablePanelName());
+        add(parentPanel);
+        showPanel(menuScreen.getShowablePanelName());
 
         pack();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
+
         
     }
     
@@ -50,7 +75,17 @@ public class GameFrame extends JFrame {
     public void showPanel(String panelName)
     {
         try {
-            cardLayout.show(panelChanger, panelName);
+            for(ShowablePanel curPanel : allPanels)
+            {
+                if(curPanel.getShowablePanelName().trim().equals(panelName.trim()))
+                {
+                    cardLayout.show(parentPanel, panelName);
+                    curPanel.onInitiate();
+                } else
+                {
+                    curPanel.onExit();
+                }
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Screen: [" + panelName + "] does not exist");
         }

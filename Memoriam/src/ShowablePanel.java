@@ -10,6 +10,7 @@ public class ShowablePanel extends JPanel{
 
     public ShowablePanel(String name)
     {
+        requestFocusInWindow();
         this.name = name;
     }
 
@@ -22,4 +23,7 @@ public class ShowablePanel extends JPanel{
     {
         this.name = name;
     }
+
+    protected void onInitiate(){requestFocusInWindow();}
+    protected void onExit(){}
 }
