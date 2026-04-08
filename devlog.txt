@@ -4,11 +4,27 @@ KEEP THIS ON TOP
     javac -d bin src/*.java
     java -cp bin  MainGameDriver
     
-    
     Command to run the game in one line
     cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
     cd Memoriam & javac -d bin src/*.java & java -cp bin  MainGameDriver  
 
+--> 08/04/2026
+    (CalRya)
+    - Changed the start screen to new WIP
+    - Changed the cursor to quill
+    
+    (Shadey07)
+    - Made the UI system more flexible and easier to use
+        - Made ShowablePanel into abstract class
+        - Made UIScreen which extends ShowablePanel
+        - Made PlayableScreen extends ShowablePanel
+        - Made abstractMethods in PlayableScreen
+            - startGamePanel(), is called when initiated
+            - stopGamePanel(), is called when changed panel
+        - Made new methods in PlayableScreen
+            - initWindow(), is called when panel is initiated
+            - terminateWindow(), is called when panel is terminated
+            
 --> 07/04/2026
     (zam2643)
     - added a CollisionObject class
@@ -42,7 +58,7 @@ KEEP THIS ON TOP
         - Updated Rendering
             - draws objects instead of just player
             - draws rectangle if object has no image
-    
+
 --> 06/04/2026 
     (Shadey07)
     - Added Vector2 class

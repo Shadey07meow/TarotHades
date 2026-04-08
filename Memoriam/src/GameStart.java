@@ -36,8 +36,9 @@ public class GameStart extends PlayableScreen {
     }
 
     @Override
-    protected void onInitiate()
-    {   
+    public void startGamePanel()
+    { 
+
         objects.clear();
 
         player = new Player(getWidth() / 2, getHeight() / 2, 3, 5, 10, inputManager, objects); 
@@ -50,14 +51,12 @@ public class GameStart extends PlayableScreen {
         
         // Add box (movable) 
         objects.add(new CollisionObject(500, 300, 50, true));
-    
-        startGamePanel();
     }
 
     @Override
-    protected void onExit()
+    public void stopGamePanel()
     {
-        stopGamePanel();
+        // Does nothing on exit i think
     }
 
 

@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class MenuScreen extends ShowablePanel{
+public class MenuScreen extends UIScreen{
     // Initial screen when opening the game
     private final Image backgroundImage;
     private JButton startBtn;
