@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -20,12 +21,18 @@ public class Player extends GameObject {
     private final Image spriteLeft;
     private final Image spriteRight;
 
-    public Player(int x, int y, int scale, int speed, int health, InputManager inps)
+    // game objects
+    private ArrayList<GameObject> objects;
+
+
+
+    public Player(int x, int y, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs)
     {
         super(x, y, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
+        this.objects = objs;
 
         this.spriteUp = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolUp.png")).getImage();   
         this.spriteDown =  new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolDown.png")).getImage();
@@ -44,34 +51,37 @@ public class Player extends GameObject {
         combatMethod();
 
         // Makes the rendering smooth
-        // alpha = 0.25, you move towards the target by 25% everytime.
+        // alpha = 0.25, you move towards the target by 25% every time
         // makes it smoother
         super.interpolate(1);
     }
 
-    private void movePlayer()
+    private void movePlayer() 
     {
         Vector2 inpVector = inputs.getInputVector();
-        move(inpVector.x * speed, inpVector.y * speed);
 
+        int dx = inpVector.x * speed;
+        int dy = inpVector.y * speed;
 
-        if (inpVector.x > 0)
-        {
-            setImage(spriteRight);
-        }
-        else if (inpVector.x < 0)
-        {
-            setImage(spriteLeft);
-        }
-        else if (inpVector.y > 0)
-        {
-            setImage(spriteUp);
-        }
-        else if (inpVector.y < 0)
-        {
-            setImage(spriteDown);
-        }
+        // move x
+        move(dx, 0);
+        handleCollision(dx, 0);
+
+        // move y
+        move(0, dy);
+        handleCollision(0, dy);
+
+        // stops at screen edges
+        keepInsideScreen();
+
+        
+
+        if (inpVector.x > 0) setImage(spriteRight);
+        else if (inpVector.x < 0) setImage(spriteLeft);
+        else if (inpVector.y > 0) setImage(spriteUp);
+        else if (inpVector.y < 0) setImage(spriteDown);
     }
+
 
     private void combatMethod()
     {
@@ -94,4 +104,60 @@ public class Player extends GameObject {
             }
         }
     }
+
+    private void handleCollision(int dx, int dy)
+    {
+        for (GameObject obj : objects) {
+            if (obj == this) continue;
+
+            if (obj instanceof CollisionObject) {
+                CollisionObject col = (CollisionObject) obj;
+
+                if (col.isColliding(this)) {
+
+                    int overlapX = (getScaledWidth()/2 + col.getScaledWidth()/2)
+                                - Math.abs(getX() - col.getX());
+
+                    int overlapY = (getScaledHeight()/2 + col.getScaledHeight()/2)
+                                - Math.abs(getY() - col.getY());
+
+                    // Resolve the smaller overlap (prevents teleporting)
+                    if (overlapX < overlapY) {
+                        if (getX() < col.getX()) {
+                            setX(getX() - overlapX);
+                        } else {
+                            setX(getX() + overlapX);
+                        }
+                    } else {
+                        if (getY() < col.getY()) {
+                            setY(getY() - overlapY);
+                        } else {
+                            setY(getY() + overlapY);
+                        }
+                    }
+
+                    // PUSHING LOGIC
+                    if (col.getIsMovable()) {
+                        col.move(dx / 2, dy / 2);
+                    }
+                }
+            }
+        }
+    }
+
+
+    private void keepInsideScreen() {
+        int halfW = getScaledWidth() / 2;
+        int halfH = getScaledHeight() / 2;
+
+        int maxX = 1920;
+        int maxY = 1080;
+
+        if (getX() - halfW < 0) setX(halfW);
+        if (getY() - halfH < 0) setY(halfH);
+
+        if (getX() + halfW > maxX) setX(maxX - halfW);
+        if (getY() + halfH > maxY) setY(maxY - halfH);
+    }
+
 }
