@@ -37,7 +37,7 @@ public class GameStart extends PlayableScreen {
 
     @Override
     protected void onInitiate()
-    {   
+    { 
         objects.clear();
 
         player = new Player(getWidth() / 2, getHeight() / 2, 3, 5, 10, inputManager, objects); 

@@ -1,6 +1,6 @@
 import javax.swing.JPanel;
 
-public class ShowablePanel extends JPanel{
+public abstract class ShowablePanel extends JPanel{
     private String name;
 
     /// Showable Panel class
@@ -14,16 +14,9 @@ public class ShowablePanel extends JPanel{
         this.name = name;
     }
 
-    public String getShowablePanelName()
-    {
-        return this.name;
-    }
+    abstract public String getShowablePanelName();
 
-    public void setShowablePanelName(String name)
-    {
-        this.name = name;
-    }
-
-    protected void onInitiate(){requestFocusInWindow();}
-    protected void onExit(){}
+    abstract public void setShowablePanelName(String name);
+    abstract public void onInitiate();
+    abstract public void onExit();
 }
