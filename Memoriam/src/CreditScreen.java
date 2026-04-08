@@ -8,6 +8,7 @@ public class CreditScreen extends UIScreen {
     public CreditScreen(GameFrame gameFrame){
         // Credit screen, shows people who contributed to the project
         super("credits");
+        //df
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
         JLabel title = new JLabel("Credits");
