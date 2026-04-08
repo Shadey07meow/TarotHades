@@ -9,6 +9,11 @@ KEEP THIS ON TOP
     cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
     cd Memoriam & javac -d bin src/*.java & java -cp bin  MainGameDriver  
 
+--> 08/04/2026
+    (CalRya)
+    - Changed the start screen to new WIP
+    - Changed the cursor to quill
+
 --> 06/04/2026 
     (Shadey07)
     - Added Vector2 class

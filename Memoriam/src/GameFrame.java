@@ -18,7 +18,7 @@ public class GameFrame extends JFrame {
     private final MenuScreen menuScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
-    Image cursor = new ImageIcon(getClass().getResource("/assets/MainAssets/swordCursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+    Image cursor = new ImageIcon(getClass().getResource("/assets/MainAssets/cursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
