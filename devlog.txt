@@ -13,6 +13,18 @@ KEEP THIS ON TOP
     (CalRya)
     - Changed the start screen to new WIP
     - Changed the cursor to quill
+    
+    (Shadey07)
+    - Made the UI system more flexible and easier to use
+        - Made ShowablePanel into abstract class
+        - Made UIScreen which extends ShowablePanel
+        - Made PlayableScreen extends ShowablePanel
+        - Made abstractMethods in PlayableScreen
+            - startGamePanel(), is called when initiated
+            - stopGamePanel(), is called when changed panel
+        - Made new methods in PlayableScreen
+            - initWindow(), is called when panel is initiated
+            - terminateWindow(), is called when panel is terminated
 
 --> 06/04/2026 
     (Shadey07)

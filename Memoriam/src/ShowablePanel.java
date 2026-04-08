@@ -1,7 +1,7 @@
 import javax.swing.JPanel;
 
 public abstract class ShowablePanel extends JPanel{
-    private String name;
+    protected  String name;
 
     /// Showable Panel class
     /// Whenever we can switch to a new panel, please make it extend showable panel instead of JPanel

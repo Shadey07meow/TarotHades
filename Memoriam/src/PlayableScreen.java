@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 
 
-public class PlayableScreen extends ShowablePanel implements Runnable{
+public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
     // This is a screen where the player can move or any entities can exist in
     // The main reason for having this class is to simultaneously keep track of all the different thing
@@ -24,9 +24,36 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
         addMouseListener(inputManager);
     }
     
+        @Override
+    public String getShowablePanelName()
+    {
+        return this.name;
+    }
 
+    @Override
+    public void setShowablePanelName(String name)
+    {
+        this.name = name;
+    }
     
-    public void startGamePanel()
+    @Override
+    public void onInitiate()
+    {
+        requestFocusInWindow();
+        initWindow();
+        startGamePanel();
+    }
+    
+    @Override
+    public void onExit()
+    {    
+        terminateWindow();
+        stopGamePanel();
+    }
+
+
+    // Unique shit
+    public void initWindow()
     {
         requestFocusInWindow();
         // Initialized first before running game loop
@@ -35,14 +62,19 @@ public class PlayableScreen extends ShowablePanel implements Runnable{
         catch(Exception e)
         {System.out.println("Game Loop already running");}
     }
-
-    public void stopGamePanel()
+    
+    public void terminateWindow()
     {
         try
         {gameLoop.interrupt();}
         catch(Exception e)
         {System.out.println("Game Loop already stopped");}   
     }
+    
+    abstract public void startGamePanel();
+    abstract public void stopGamePanel();
+ 
+    
 
     
     @Override

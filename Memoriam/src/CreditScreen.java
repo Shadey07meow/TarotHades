@@ -4,7 +4,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class CreditScreen extends ShowablePanel {
+public class CreditScreen extends UIScreen {
     public CreditScreen(GameFrame gameFrame){
         // Credit screen, shows people who contributed to the project
         super("credits");
