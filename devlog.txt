@@ -9,6 +9,40 @@ KEEP THIS ON TOP
     cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
     cd Memoriam & javac -d bin src/*.java & java -cp bin  MainGameDriver  
 
+--> 07/04/2026
+    (zam2643)
+    - added a CollisionObject class
+        - extends GameObject
+        - Implemented Axis-Aligned Bounding Box (AABB) collision 
+            - wraps game entities in a box that's aligned to the axes
+              regardless of how the object inside rotates
+            - two boxes cannot be colliding if not all axes are overlapping
+            - basically checks overlap between two objects
+    - Made an ArrayList<GameObject>
+        - replaced hardcoded player object1
+    - Updated GameStart
+        - clears object list on initialization
+        - then adds:
+            - player
+            - wall (not movable)
+            - box (movable)
+    - Updated Player class
+        - added ArrayList<GameObject> objects as argument to constructor
+        - added handleCollision(int dx, int dy) method
+            - loops through all objects and checks collision
+        - changed movement to axis-specific
+            - before: move(x, y)
+            - now: move(dx, 0), move(0, dy)
+            - done for handling collisions
+        - added push mechanics
+            - if col(the object) is movable, col.move(dx/2, dy/2)
+            - col movement slower than player
+        - added keepInsideScreen() method
+            - player can't go out the top and left edges of screen
+        - Updated Rendering
+            - draws objects instead of just player
+            - draws rectangle if object has no image
+    
 --> 06/04/2026 
     (Shadey07)
     - Added Vector2 class
