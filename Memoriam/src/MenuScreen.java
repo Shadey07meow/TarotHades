@@ -17,6 +17,7 @@ public class MenuScreen extends ShowablePanel{
     private final Image backgroundImage;
     private JButton startBtn;
     private JButton creditBtn;
+    private JButton exitBtn;
 
 
     public MenuScreen(GameFrame gameFrame)
@@ -29,6 +30,8 @@ public class MenuScreen extends ShowablePanel{
         // Buttons
         startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 350, 175);
         creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
+        exitBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
+
 
         startBtn.addActionListener(e -> {
             gameFrame.showPanel("start");
@@ -36,6 +39,11 @@ public class MenuScreen extends ShowablePanel{
         });
         creditBtn.addActionListener(e -> {
             gameFrame.showPanel("credits");
+        });
+
+        exitBtn.addActionListener(e->{
+            System.exit(0);
+
         });
 
 
@@ -52,6 +60,7 @@ public class MenuScreen extends ShowablePanel{
 
         buttonPanel.add(startBtn);
         buttonPanel.add(creditBtn);
+        buttonPanel.add(exitBtn);
 
         add(buttonPanel, BorderLayout.CENTER);
     }
