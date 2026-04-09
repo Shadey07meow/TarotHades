@@ -136,3 +136,11 @@ KEEP THIS ON TOP
         - MainGameDriver.java  
             - Will communicate information to all parts of the program (hopefully)
 
+--> 02/06/2026
+    - Made changes to CreditScreen.java (Herielle)
+        - Added exit button 
+
+--> 02/06/2026
+    - Made changes MenuScreen.java (Herielle)
+        - Added exit button 
+        
