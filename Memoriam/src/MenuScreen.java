@@ -15,6 +15,7 @@ public class MenuScreen extends UIScreen{
     private final Image backgroundImage;
     private JButton startBtn;
     private JButton creditBtn;
+    private JButton exitBtn;
 
 
     public MenuScreen(GameFrame gameFrame)
@@ -27,6 +28,7 @@ public class MenuScreen extends UIScreen{
         // Buttons
         startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 350, 175);
         creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
+        exitBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
 
         startBtn.addActionListener(e -> {
             gameFrame.showPanel("start");
@@ -36,6 +38,9 @@ public class MenuScreen extends UIScreen{
             gameFrame.showPanel("credits");
         });
 
+        exitBtn.addActionListener(e -> {
+            System.exit(0);
+        });
 
         // Buttons layout
         setLayout(new GridLayout(1,2));
@@ -50,6 +55,7 @@ public class MenuScreen extends UIScreen{
 
         buttonPanel.add(startBtn);
         buttonPanel.add(creditBtn);
+        buttonPanel.add(exitBtn);
 
         add(buttonPanel, BorderLayout.CENTER);
     }
