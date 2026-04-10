@@ -7,7 +7,23 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
      
-
+--> 10/04/2026
+    (Herielle)
+    - Implemented Lose Screen system
+        - Created LoseScreen.java
+            - Added Retry button (returns to GameStart)
+            - Added Menu button (returns to MenuScreen)
+        -Integrated LoseScreen into GameFrame.java
+            - added losescreen field and in cardlayout, initialized it in the constructor
+        - Connected Player death logic
+            -  Modified Player.java
+                - Added health-based death condition in update loop
+                - Added isDead flag to prevent repeated triggers
+                - Triggered GameFrame.showPanel("lose") when health <= 0
+        - Added “TEST KILL” button inside GameStart.java
+            - Created bottomPanel container for multiple buttons
+        - Added setHealth(int health) method to Player.java
+        
 --> 08/04/2026
     (CalRya)
     - Changed the start screen to new WIP
@@ -80,6 +96,12 @@ KEEP THIS ON TOP
             made it so that it is assigned the same value no matter what (Did this to simplify code)
         - Made Inputmanager have a getInputVector that returns a Vector2
 
+    (Herielle)
+     - Made changes to CreditScreen.java 
+        - Added exit button 
+    - Made changes MenuScreen.java 
+        - Added exit button 
+
 --> 05/04/2026 
     (CalRya)
     - Added Interpolation 
@@ -136,11 +158,5 @@ KEEP THIS ON TOP
         - MainGameDriver.java  
             - Will communicate information to all parts of the program (hopefully)
 
---> 02/06/2026
-    - Made changes to CreditScreen.java (Herielle)
-        - Added exit button 
 
---> 02/06/2026
-    - Made changes MenuScreen.java (Herielle)
-        - Added exit button 
         

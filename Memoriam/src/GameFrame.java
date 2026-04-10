@@ -16,6 +16,7 @@ public class GameFrame extends JFrame {
     private final GameStart gameStart;
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
+    private final LoseScreen loseScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
     Image cursor = new ImageIcon(getClass().getResource("/assets/MainAssets/cursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
@@ -45,11 +46,14 @@ public class GameFrame extends JFrame {
         gameStart = new GameStart(this);
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
+        loseScreen = new LoseScreen(this);
+
 
 
         this.allPanels.add(gameStart);
         this.allPanels.add(creditScreen);
         this.allPanels.add(menuScreen);
+        this.allPanels.add(loseScreen);
        
         // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)
