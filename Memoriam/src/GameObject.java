@@ -8,11 +8,11 @@ public class GameObject {
     /// It has both an X and Y coordinate
     /// It also has a render position for interpolation (smooth movement)
 
-    private int x;
-    private int y;
+    private Vector2 position;
     private int scale;
     private Color color;
     private Image image;
+    private CollisionObject collider;
 
     // for interpolation (prev positions)
     private double renderX;
@@ -20,8 +20,8 @@ public class GameObject {
 
     public GameObject()
     {
-        this.x = 0;
-        this.y = 0;
+        this.position.x = 0;
+        this.position.y = 0;
         this.scale = 1;
         this.color = Color.BLACK;
         this.image = null;
@@ -32,8 +32,8 @@ public class GameObject {
 
     public GameObject(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        this.position.x = x;
+        this.position.y = y;
         this.scale = 1;
         this.color = Color.BLACK;
         this.image = null;
@@ -44,8 +44,8 @@ public class GameObject {
 
     public GameObject(int x, int y, int s)
     {
-        this.x = x;
-        this.y = y;
+        this.position.x = x;
+        this.position.y = y;
         this.scale = s;
         this.color = Color.BLACK;
         this.image = null;
@@ -56,8 +56,8 @@ public class GameObject {
 
     public GameObject(GameObject spawnPoint)
     {
-        this.x = 0;
-        this.y = 0;
+        this.position.x = 0;
+        this.position.y = 0;
         this.scale = 1;
         this.color = Color.BLACK;
         this.image = null;
@@ -67,15 +67,16 @@ public class GameObject {
     }
 
     // Setters
-    public void setX(int x) { this.x = x; }
-    public void setY(int y) { this.y = y; }
+    public void setX(int x) { this.position.x = x; }
+    public void setY(int y) { this.position.y = y; }
     public void setScale(int s) { this.scale = s; }
     public void setColor(Color c) { this.color = c; }
     public void setImage(Image i) { this.image = i; }
 
     // Getters
-    public int getX() { return this.x; }
-    public int getY() { return this.y; }
+    public int getX() { return this.position.x; }
+    public int getY() { return this.position.y; }
+    public Vector2 getPosition() { return this.position; }
     public int getScale() { return this.scale; }
     public Color getColor() { return this.color; }
     public Image getImage() { return this.image; }
@@ -83,15 +84,15 @@ public class GameObject {
     // Position
     public void setPosition(int x, int y)
     {
-        this.x = x;
-        this.y = y;
+        this.position.x = x;
+        this.position.y = y;
     }
 
     // Movement (logic position)
     public void move(int x, int y)
     {
-        this.x += x;
-        this.y -= y;
+        this.position.x += x;
+        this.position.y -= y;
     }
 
     public int getScaledWidth()
@@ -109,8 +110,8 @@ public class GameObject {
     /// INTERPOLATION (smooth rendering)
     public void interpolate(double alpha)
     {
-        renderX += (x - renderX) * alpha;
-        renderY += (y - renderY) * alpha;
+        renderX += (position.x - renderX) * alpha;
+        renderY += (position.y - renderY) * alpha;
 
         /// basic logic goes as follows
         /// calculate how far u are from ur taget position
@@ -121,6 +122,12 @@ public class GameObject {
     public void update()
     {
         interpolate(1);
+    }
+
+    // Collider
+    public void setCollider(CollisionObject col)
+    {
+        this.collider = col;
     }
 
     // Render getters
