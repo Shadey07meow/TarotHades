@@ -30,7 +30,7 @@ public class MenuScreen extends UIScreen{
         creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
         exitBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
 
-        exitBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
+
 
         startBtn.addActionListener(e -> {
             gameFrame.showPanel("start");
