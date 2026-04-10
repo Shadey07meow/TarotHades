@@ -4,13 +4,85 @@ KEEP THIS ON TOP
     javac -d bin src/*.java
     java -cp bin  MainGameDriver
     
-    
     Command to run the game in one line
     cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
     cd Memoriam & javac -d bin src/*.java & java -cp bin  MainGameDriver  
 
---> 05/04/2026 (CalRya)
-    - Added Interpolation
+--> 08/04/2026
+    (CalRya)
+    - Changed the start screen to new WIP
+    - Changed the cursor to quill
+    
+    (Shadey07)
+    - Made the UI system more flexible and easier to use
+        - Made ShowablePanel into abstract class
+        - Made UIScreen which extends ShowablePanel
+        - Made PlayableScreen extends ShowablePanel
+        - Made abstractMethods in PlayableScreen
+            - startGamePanel(), is called when initiated
+            - stopGamePanel(), is called when changed panel
+        - Made new methods in PlayableScreen
+            - initWindow(), is called when panel is initiated
+            - terminateWindow(), is called when panel is terminated
+            
+--> 07/04/2026
+    (zam2643)
+    - added a CollisionObject class
+        - extends GameObject
+        - Implemented Axis-Aligned Bounding Box (AABB) collision 
+            - wraps game entities in a box that's aligned to the axes
+              regardless of how the object inside rotates
+            - two boxes cannot be colliding if not all axes are overlapping
+            - basically checks overlap between two objects
+    - Made an ArrayList<GameObject>
+        - replaced hardcoded player object1
+    - Updated GameStart
+        - clears object list on initialization
+        - then adds:
+            - player
+            - wall (not movable)
+            - box (movable)
+    - Updated Player class
+        - added ArrayList<GameObject> objects as argument to constructor
+        - added handleCollision(int dx, int dy) method
+            - loops through all objects and checks collision
+        - changed movement to axis-specific
+            - before: move(x, y)
+            - now: move(dx, 0), move(0, dy)
+            - done for handling collisions
+        - added push mechanics
+            - if col(the object) is movable, col.move(dx/2, dy/2)
+            - col movement slower than player
+        - added keepInsideScreen() method
+            - player can't go out the top and left edges of screen
+        - Updated Rendering
+            - draws objects instead of just player
+            - draws rectangle if object has no image
+
+--> 06/04/2026 
+    (Shadey07)
+    - Added Vector2 class
+        - Quick way to store 2 points
+        - Can do basic vector operations such as
+            - Vector addition
+            - Vector multiplication (Constants)
+    - Made InputManager able to read mouse inputs
+        - Able to determine Mouse 1 (LeftClick) inputs
+        - Able to determine where player clicked
+    - Made Bullet class (Nothing inside yet)
+    - Made our lil guy a bit smoller
+    - Cleaned some code
+        - Added a overridable update method to gameObjects, so that all gameObjects has a update method and 
+            auto-interpolates
+        - Moved interpolation to update method on gameObjects
+        - Moved gameLogic to overridable update method gameObjects
+        - Instead of setting the images of the player in the constructor as inputs,
+            made it so that it is assigned the same value no matter what (Did this to simplify code)
+        - Made Inputmanager have a getInputVector that returns a Vector2
+
+--> 05/04/2026 
+    (CalRya)
+    - Added Interpolation 
         - Made changes to the following classes:
             - Player.java
             - GameObject.java
@@ -18,7 +90,8 @@ KEEP THIS ON TOP
     - Added Sprites + linked sprites with movement
     - Added custom cursor in GameFrame.java
 
-    - Added basic movement (Shadey07)
+    (Shadey07)
+    - Added basic movement 
         - Added PlayerClass
         - Added input manager
     - Made a few changes to the panel system
@@ -38,7 +111,8 @@ KEEP THIS ON TOP
     
 
 --> 02/04/2026
-    - Made start screen (CalRya)
+    (CalRya)
+    - Made start screen 
         - Made GameStart.java
             - A JPanel placeholder for second screen
         - Made changes to GameFrame.java
@@ -55,9 +129,18 @@ KEEP THIS ON TOP
 
 
 --> 02/04/2026
-    - Made initial files for the game (Shadey07)
+    (Shadey07)
+    - Made initial files for the game 
         - GameFrame.java
             - Will handle displaying the game
         - MainGameDriver.java  
             - Will communicate information to all parts of the program (hopefully)
 
+--> 02/06/2026
+    - Made changes to CreditScreen.java (Herielle)
+        - Added exit button 
+
+--> 02/06/2026
+    - Made changes MenuScreen.java (Herielle)
+        - Added exit button 
+        

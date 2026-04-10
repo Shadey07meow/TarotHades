@@ -1,18 +1,16 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class MenuScreen extends ShowablePanel{
+public class MenuScreen extends UIScreen{
     // Initial screen when opening the game
     private final Image backgroundImage;
     private JButton startBtn;
@@ -32,6 +30,7 @@ public class MenuScreen extends ShowablePanel{
         creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
         exitBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
 
+        exitBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
 
         startBtn.addActionListener(e -> {
             gameFrame.showPanel("start");

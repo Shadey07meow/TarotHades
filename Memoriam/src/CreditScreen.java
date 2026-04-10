@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class CreditScreen extends ShowablePanel {
+public class CreditScreen extends UIScreen {
     private JButton exitBtn;
 
     public CreditScreen(GameFrame gameFrame){

@@ -117,6 +117,12 @@ public class GameObject {
         /// alpha = moves at a fraction of a distant towards the target
     }
 
+    // Overridable update method, on default it interpolates the object
+    public void update()
+    {
+        interpolate(1);
+    }
+
     // Render getters
     public double getRenderX() { return renderX; }
     public double getRenderY() { return renderY; }
