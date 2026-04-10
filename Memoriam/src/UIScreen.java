@@ -1,4 +1,3 @@
-import javax.swing.JPanel;
 
 public class UIScreen extends ShowablePanel {
 
