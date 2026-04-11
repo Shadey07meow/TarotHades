@@ -128,6 +128,12 @@ public class GameObject {
     // Overridable update method, on default it interpolates the object
     public void update()
     {
+        // Check colliders if present
+        if(collider != null)
+        {
+            checkCollisions();
+        }
+        
         interpolate(1);
     }
 
@@ -136,6 +142,15 @@ public class GameObject {
     {
         this.collider = col;
     }
+
+    public void checkCollisions()
+    {
+        
+
+    }
+
+    public CollisionObject getCollider()
+    {   if(this.collider != null)return this.collider; else return null;}
 
     // Render getters
     public double getRenderX() { return renderX; }
