@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import scenes.*;
 import systems.*;
 import collision.*;
+import images.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +34,7 @@ public class GameStart extends PlayableScreen {
         title.setFont(title.getFont().deriveFont(32f));
         title.setBounds(100, 100, 400, 100);
 
-        JButton menuButton = gameFrame.createImageButton("/assets/startBtn.PNG", 200, 100);
+        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
@@ -48,7 +49,7 @@ public class GameStart extends PlayableScreen {
 
         objects.clear();
 
-        player = new Player(getWidth() / 2, getHeight() / 2, 3, 5, 10, inputManager, objects); 
+        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, objects); 
         
         // Add player 
         objects.add(player); 

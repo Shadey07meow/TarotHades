@@ -10,6 +10,7 @@ import scenes.*;
 import systems.*;
 import collision.*;
 import object.*;
+import images.*;
 
 public class Player extends GameObject {
 
@@ -27,28 +28,23 @@ public class Player extends GameObject {
     // for sprites
     private final Image spriteUp = imgLib.playerSpritesUP;
     private final Image spriteDown = imgLib.playerSpritesDOWN;
-    private final Image spriteLeft;
-    private final Image spriteRight;
+    private final Image spriteLeft = imgLib.playerSpritesLEFT;
+    private final Image spriteRight = imgLib.playerSpritesRIGHT;
 
     // game objects
     private ArrayList<GameObject> objects;
 
 
 
-    public Player(int x, int y, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs)
+    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs)
     {
-        super(x, y, scale);
+        super(position.x, position.y, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
         this.objects = objs;
 
-        this.spriteUp = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolUp.png")).getImage();   
-        this.spriteDown =  new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolDown.png")).getImage();
-        this.spriteLeft = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolLeft.png")).getImage();
-        this.spriteRight = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolRight.png")).getImage();
 
-         
         setImage(spriteDown);
     }
 

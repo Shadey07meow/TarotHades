@@ -4,6 +4,7 @@ import scenes.*;
 import systems.*;
 import collision.*;
 import object.*;
+import images.*;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -28,7 +29,7 @@ public class GameFrame extends JFrame {
     private final MenuScreen menuScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
-    Image cursor = new ImageIcon(getClass().getResource("/assets/MainAssets/cursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+    Image cursor = new ImageLibrary().quillCursor;
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
@@ -97,17 +98,17 @@ public class GameFrame extends JFrame {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Screen: [" + panelName + "] does not exist");
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }
     
     // Quick way to create an Image button
-    public JButton createImageButton(String imgPath, int width, int height) {
-
-        ImageIcon icon = new ImageIcon(getClass().getResource(imgPath));
+    public JButton createImageButton(Image img, int width, int height) {
 
 
-        Image scaled = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+
+        Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
         JButton button = new JButton(new ImageIcon(scaled));
 

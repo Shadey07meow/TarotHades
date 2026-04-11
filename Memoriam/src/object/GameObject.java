@@ -15,15 +15,15 @@ public class GameObject {
     /// It has both an X and Y coordinate
     /// It also has a render position for interpolation (smooth movement)
 
-    private Vector2 position;
-    private int scale;
-    private Color color;
-    private Image image;
-    private CollisionObject collider;
+    protected Vector2 position = new Vector2(0, 0);
+    protected int scale;
+    protected Color color;
+    protected Image image;
+    protected CollisionObject collider;
 
     // for interpolation (prev positions)
-    private double renderX;
-    private double renderY;
+    protected double renderX;
+    protected double renderY;
 
     public GameObject()
     {

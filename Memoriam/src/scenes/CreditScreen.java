@@ -4,6 +4,7 @@ import scenes.*;
 import systems.*;
 import collision.*;
 import object.*;
+import images.*;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -25,7 +26,7 @@ public class CreditScreen extends UIScreen {
         add(title, BorderLayout.NORTH);
 
 
-        exitBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 150, 60); // change when theres exit img
+        exitBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 150, 60); // change when theres exit img
         exitBtn.addActionListener(e -> {
             gameFrame.showPanel("menu"); // go back to main menu
         });

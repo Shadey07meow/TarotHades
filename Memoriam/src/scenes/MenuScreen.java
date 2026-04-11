@@ -4,6 +4,7 @@ import scenes.*;
 import systems.*;
 import collision.*;
 import object.*;
+import images.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -31,13 +32,13 @@ public class MenuScreen extends UIScreen{
     {
         // Initial screen for the game
         super("menu");
-        this.backgroundImage = new ImageIcon(getClass().getResource("/assets/backgroundImage.PNG")).getImage();
+        this.backgroundImage = new ImageLibrary().background;
         
 
         // Buttons
-        startBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 350, 175);
-        creditBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
-        exitBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 350, 175);
+        startBtn = gameFrame.createImageButton(new ImageLibrary().startBtn, 350, 175);
+        creditBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 350, 175);
+        exitBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 350, 175);
 
 
 
