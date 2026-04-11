@@ -12,6 +12,7 @@ KEEP THIS ON TOP
     - Fixed everything
     - Revamped image system
     - Added more collision logic (had to turn off objects and gaeObjects in game world)
+    
     (CalRya)
     - Changed the screen to another wip
     - Added new placeholder button
@@ -22,7 +23,7 @@ KEEP THIS ON TOP
     - Tried mass scaling collision (Still not done)
     - Made file system better (done)
     - Image system making it better
---> 10/04/2026
+
     (Herielle)
     - Implemented Lose Screen system
         - Created LoseScreen.java
