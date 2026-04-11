@@ -39,6 +39,7 @@ public class GameFrame extends JFrame {
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
+        setUndecorated(true);   
         
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(
             cursor,

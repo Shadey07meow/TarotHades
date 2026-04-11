@@ -39,9 +39,10 @@ public class ImageLibrary
 
         // Backgrounds
         background = new ImageIcon(getClass().getResource("assets/Panels/backgroundImage.png")).getImage();
-        exitBtn = new ImageIcon(getClass().getResource("assets/Panels/exitBtn.png")).getImage();
-        optionBtn = new ImageIcon(getClass().getResource("assets/Panels/optionBtn.png")).getImage();
-        startBtn = new ImageIcon(getClass().getResource("assets/Panels/startBtn.png")).getImage();
+        exitBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+        optionBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+        startBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+
     }
 
     
