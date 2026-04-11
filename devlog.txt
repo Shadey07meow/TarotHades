@@ -1,12 +1,22 @@
 KEEP THIS ON TOP
  Individual commands to run the game
     cd Memoriam
-    javac -d bin src/*.java
-    java -cp bin  MainGameDriver
+    javac -d bin -sourcepath src src/scenes/MainGameDriver.java
+    java -cp bin  scenes.MainGameDriver
     
     Command to run the game in one line
-    cd Memoriam | javac -d bin src/*.java | java -cp bin  MainGameDriver
+    cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
      
+--> 11/04/2026
+    (Shadey07)
+    - Fixed everything
+    - Revamped image system
+    - Added more collision logic (had to turn off objects and gaeObjects in game world)
+    (CalRya)
+    - Changed the screen to another wip
+    - Added new placeholder button
+    - Fixed layout for buttons on screen
+    
 --> 10/04/2026
     (Shadey97)
     - Tried mass scaling collision (Still not done)

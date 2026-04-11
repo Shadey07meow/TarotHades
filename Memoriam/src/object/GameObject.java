@@ -15,15 +15,15 @@ public class GameObject {
     /// It has both an X and Y coordinate
     /// It also has a render position for interpolation (smooth movement)
 
-    private Vector2 position;
-    private int scale;
-    private Color color;
-    private Image image;
-    private CollisionObject collider;
+    protected Vector2 position = new Vector2(0, 0);
+    protected int scale;
+    protected Color color;
+    protected Image image;
+    protected CollisionObject collider;
 
     // for interpolation (prev positions)
-    private double renderX;
-    private double renderY;
+    protected double renderX;
+    protected double renderY;
 
     public GameObject()
     {
@@ -128,6 +128,12 @@ public class GameObject {
     // Overridable update method, on default it interpolates the object
     public void update()
     {
+        // Check colliders if present
+        if(collider != null)
+        {
+            checkCollisions();
+        }
+        
         interpolate(1);
     }
 
@@ -136,6 +142,15 @@ public class GameObject {
     {
         this.collider = col;
     }
+
+    public void checkCollisions()
+    {
+        
+
+    }
+
+    public CollisionObject getCollider()
+    {   if(this.collider != null)return this.collider; else return null;}
 
     // Render getters
     public double getRenderX() { return renderX; }

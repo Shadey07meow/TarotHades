@@ -8,34 +8,41 @@ public class ImageLibrary
     // Library of images
     
     // UI
-    public static Image background;
-    public static Image exitBtn;
-    public static Image optionBtn;
-    public static Image startBtn;
+    public final Image background;
+    public final Image exitBtn;
+    public final Image optionBtn;
+    public final Image startBtn;
 
     // Player
-    public static Image playerSpritesUP;
-    public static Image playerSpritesDOWN;
-    public static Image playerSpritesLEFT;
-    public static Image playerSpritesRIGHT;
+    public final Image playerSpritesUP;
+    public final Image playerSpritesDOWN;
+    public final Image playerSpritesLEFT;
+    public final Image playerSpritesRIGHT;
 
     // Cursor
-    public static Image quillCursor;
-    public static Image swordCursor;
+    public final Image quillCursor;
+    public final Image swordCursor;
 
     public ImageLibrary()
     {
 
 
         // Player Sprites
-        playerSpritesUP = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolUp.png")).getImage();   
-        playerSpritesDOWN =  new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolDown.png")).getImage();
-        playerSpritesLEFT = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolLeft.png")).getImage();
-        playerSpritesRIGHT = new ImageIcon(getClass().getResource("/assets/PlayerSprites/foolRight.png")).getImage();
+        playerSpritesUP = new ImageIcon(getClass().getResource("assets/PlayerSprites/foolUp.png")).getImage();   
+        playerSpritesDOWN =  new ImageIcon(getClass().getResource("assets/PlayerSprites/foolDown.png")).getImage();
+        playerSpritesLEFT = new ImageIcon(getClass().getResource("assets/PlayerSprites/foolLeft.png")).getImage();
+        playerSpritesRIGHT = new ImageIcon(getClass().getResource("assets/PlayerSprites/foolRight.png")).getImage();
 
         // Cursor
-        quillCursor = new ImageIcon(getClass().getResource("/assets/MainAssets/cursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
-        quillCursor = new ImageIcon(getClass().getResource("/assets/MainAssets/swordCursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        quillCursor = new ImageIcon(getClass().getResource("assets/MainAssets/cursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        swordCursor = new ImageIcon(getClass().getResource("assets/MainAssets/swordCursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+
+        // Backgrounds
+        background = new ImageIcon(getClass().getResource("assets/Panels/backgroundImage.png")).getImage();
+        exitBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+        optionBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+        startBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+
     }
 
     

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import scenes.*;
 import systems.*;
 import collision.*;
+import images.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -66,11 +67,19 @@ public class GameStart extends PlayableScreen {
 
         objects.clear();
 
-        player = new Player(getWidth() / 2, getHeight() / 2, 3, 5, 10, inputManager, objects, gameFrame); 
-        
+        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, objects); 
+        player.setCollider(new RectangleCollider(player, true));
+
         // Add player 
         objects.add(player); 
         
+
+        GameObject box1 = new GameObject(300, 300, 50);
+        box1.setCollider(new RectangleCollider(box1, true));
+
+        GameObject box2 = new GameObject(300, 300, 50);
+        box2.setCollider(new RectangleCollider(box2, true));
+
         // Add walls (unmovable) 
         //objects.add(new CollisionObject(300, 300, 50, false)); 
         

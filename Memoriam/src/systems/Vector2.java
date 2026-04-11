@@ -16,6 +16,7 @@ public class Vector2 {
 
     public Vector2()
     {
+        // Making this better
         this.x = 0;
         this.y = 0;
     }
