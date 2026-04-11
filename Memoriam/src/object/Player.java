@@ -51,6 +51,7 @@ public class Player extends GameObject {
     @Override
     public void update()
     {
+        super.update();
         // Separate functionality 
         movePlayer();
         combatMethod();
@@ -58,7 +59,6 @@ public class Player extends GameObject {
         // Makes the rendering smooth
         // alpha = 0.25, you move towards the target by 25% every time
         // makes it smoother
-        super.interpolate(1);
     }
 
     private void movePlayer() 
