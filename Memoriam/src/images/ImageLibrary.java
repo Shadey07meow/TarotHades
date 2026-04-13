@@ -23,6 +23,9 @@ public class ImageLibrary
     public final Image quillCursor;
     public final Image swordCursor;
 
+    // map
+    public final Image map;
+
     public ImageLibrary()
     {
 
@@ -42,6 +45,9 @@ public class ImageLibrary
         exitBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
         optionBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
         startBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+
+        // Maps
+        map = new ImageIcon(getClass().getResource("assets/MainAssets/mapTest.png")).getImage();
 
     }
 
