@@ -14,6 +14,7 @@ import images.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import object.*;
 
@@ -22,12 +23,15 @@ public class GameStart extends PlayableScreen {
 
     ArrayList<GameObject> objects = new ArrayList<GameObject>();
     Player player;
+    private GameFrame gameFrame;
+    private JButton killButton;
 
     private Image map;
 
 
     public GameStart(GameFrame gameFrame) {
         super("start");
+         this.gameFrame = gameFrame;
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
@@ -38,12 +42,25 @@ public class GameStart extends PlayableScreen {
         title.setFont(title.getFont().deriveFont(32f));
         title.setBounds(100, 100, 400, 100);
 
-        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+        killButton = gameFrame.createImageButton("/assets/optionBtn.PNG", 200, 100);
+
+        killButton.addActionListener(e -> {
+        if (player != null) {
+            player.setHealth(0);
+        }
+         });
+
+        JButton menuButton = gameFrame.createImageButton("/assets/startBtn.PNG", 200, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
 
-        add(menuButton, BorderLayout.SOUTH);
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setOpaque(false);
+        bottomPanel.add(killButton);
+        bottomPanel.add(menuButton);
+
+        add(bottomPanel, BorderLayout.SOUTH);
         add(title, BorderLayout.NORTH);
     }
 
@@ -140,6 +157,7 @@ public class GameStart extends PlayableScreen {
         for (GameObject obj : objects) {
             obj.update();
         }
+        
  
     }
 }
