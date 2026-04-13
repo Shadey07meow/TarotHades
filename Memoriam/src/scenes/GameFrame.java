@@ -28,6 +28,7 @@ public class GameFrame extends JFrame {
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
     private final LoseScreen loseScreen;
+    private final PauseScreen pauseScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
     Image cursor = new ImageLibrary().quillCursor;
@@ -59,6 +60,7 @@ public class GameFrame extends JFrame {
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
         loseScreen = new LoseScreen(this);
+        pauseScreen = new PauseScreen(this);
 
 
 
@@ -66,6 +68,7 @@ public class GameFrame extends JFrame {
         this.allPanels.add(creditScreen);
         this.allPanels.add(menuScreen);
         this.allPanels.add(loseScreen);
+        this.allPanels.add(pauseScreen);
        
         // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)

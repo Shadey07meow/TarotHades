@@ -141,6 +141,12 @@ public class GameStart extends PlayableScreen {
     {
         // logic handled in paint/update cycle
         // update game logic
+
+        // when esc is press, show pause panel
+         if (inputManager.isPausePressed()) {
+            gameFrame.showPanel("pause");
+            return;
+        }
         
         /////// Should make an arrayList for every GameObject present in a scene so that they autoUpdate 
         for (GameObject obj : objects) {
