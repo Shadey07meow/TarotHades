@@ -6,25 +6,22 @@ KEEP THIS ON TOP
     
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
-    javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
-     
+    
 --> 13/04/2026
-    (Herielle)
-    - Implemented Pause Screen Systems
-        - Created PauseScreen.java
-            - added resume and menu button
-        - Modified GameFrame.java (just added the panel)
-        - Added esc check in GameStart.java
-        - Modified InputManager.java
-            - keypressed and  method to check if isPausePressed
-            
-
+    (CalRya)
+    - Added WIP Map
+    - Added SceneManager.java
+    - Added PrologueScreen.java
+        - Game Prologue
+    - Finished Start Screen and Buttons
 
 --> 11/04/2026
     (Shadey07)
     - Fixed everything
     - Revamped image system
-    - Added more collision logic (had to turn off objects and gaeObjects in game world)    (CalRya)
+    - Added more collision logic (had to turn off objects and gaeObjects in game world)
+    
+    (CalRya)
     - Changed the screen to another wip
     - Added new placeholder button
     - Fixed layout for buttons on screen
@@ -35,7 +32,6 @@ KEEP THIS ON TOP
     - Made file system better (done)
     - Image system making it better
 
---> 10/04/2026
     (Herielle)
     - Implemented Lose Screen system
         - Created LoseScreen.java

@@ -33,7 +33,7 @@ public class MenuScreen extends UIScreen {
         styleButton(exitBtn);
 
         // Actions
-        startBtn.addActionListener(e -> gameFrame.showPanel("start"));
+        startBtn.addActionListener(e -> gameFrame.showPanel("prologue"));
         creditBtn.addActionListener(e -> gameFrame.showPanel("credits"));
         exitBtn.addActionListener(e -> System.exit(0));
 

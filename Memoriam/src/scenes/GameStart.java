@@ -42,7 +42,7 @@ public class GameStart extends PlayableScreen {
         title.setFont(title.getFont().deriveFont(32f));
         title.setBounds(100, 100, 400, 100);
 
-        killButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+        killButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 200, 100);
 
         killButton.addActionListener(e -> {
         if (player != null) {

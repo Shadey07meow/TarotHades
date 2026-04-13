@@ -12,6 +12,8 @@ public class ImageLibrary
     public final Image exitBtn;
     public final Image optionBtn;
     public final Image startBtn;
+    public final Image backBtn;
+    public final Image placeholderBtn;
 
     // Player
     public final Image playerSpritesUP;
@@ -42,9 +44,11 @@ public class ImageLibrary
 
         // Backgrounds
         background = new ImageIcon(getClass().getResource("assets/Panels/backgroundImage.png")).getImage();
-        exitBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
-        optionBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
-        startBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+        exitBtn = new ImageIcon(getClass().getResource("assets/Panels/exitBtn.png")).getImage();
+        optionBtn = new ImageIcon(getClass().getResource("assets/Panels/creditsBtn.png")).getImage();
+        startBtn = new ImageIcon(getClass().getResource("assets/Panels/startBtn.png")).getImage();
+        backBtn = new ImageIcon(getClass().getResource("assets/Panels/backBtn.png")).getImage();
+        placeholderBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
 
         // Maps
         map = new ImageIcon(getClass().getResource("assets/MainAssets/mapTest.png")).getImage();
