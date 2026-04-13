@@ -12,7 +12,7 @@ public class PrologueScreen extends UIScreen {
             "The world fell into two.",
             "It falls onto you to make right what is wrong.",
             "Make them whole,",
-            "Put on a show,",
+            "Put on a show.",
             "You have no name, no land, no past.",
             "You are the Fool."
     };
