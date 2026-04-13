@@ -111,8 +111,6 @@ public class GameFrame extends JFrame {
     public JButton createImageButton(Image img, int width, int height) {
 
 
-
-
         Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
         JButton button = new JButton(new ImageIcon(scaled));
