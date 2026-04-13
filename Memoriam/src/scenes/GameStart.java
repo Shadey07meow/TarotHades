@@ -50,7 +50,7 @@ public class GameStart extends PlayableScreen {
         }
          });
 
-        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().startBtn, 200, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });

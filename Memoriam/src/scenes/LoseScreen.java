@@ -1,4 +1,5 @@
 package scenes;
+import images.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -23,7 +24,7 @@ public class LoseScreen extends UIScreen {
 
         add(title, BorderLayout.NORTH);
 
-        retryBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        retryBtn = gameFrame.createImageButton(new ImageLibrary().startBtn, 250, 100);
         retryBtn.addActionListener(e -> {
             gameFrame.showPanel("start"); // retry game
         });
