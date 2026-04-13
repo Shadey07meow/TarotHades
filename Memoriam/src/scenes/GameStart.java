@@ -39,7 +39,7 @@ public class GameStart extends PlayableScreen {
         title.setFont(title.getFont().deriveFont(32f));
         title.setBounds(100, 100, 400, 100);
 
-        killButton = gameFrame.createImageButton("/assets/optionBtn.PNG", 200, 100);
+        killButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
 
         killButton.addActionListener(e -> {
         if (player != null) {
@@ -47,7 +47,7 @@ public class GameStart extends PlayableScreen {
         }
          });
 
-        JButton menuButton = gameFrame.createImageButton("/assets/startBtn.PNG", 200, 100);
+        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });

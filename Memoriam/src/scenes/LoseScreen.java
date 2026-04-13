@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import images.ImageLibrary;
+
 public class LoseScreen extends UIScreen {
 
     private JButton retryBtn;
@@ -21,12 +23,12 @@ public class LoseScreen extends UIScreen {
 
         add(title, BorderLayout.NORTH);
 
-        retryBtn = gameFrame.createImageButton("/assets/startBtn.PNG", 250, 100);
+        retryBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
         retryBtn.addActionListener(e -> {
             gameFrame.showPanel("start"); // retry game
         });
 
-        menuBtn = gameFrame.createImageButton("/assets/optionBtn.PNG", 250, 100);
+        menuBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
         menuBtn.addActionListener(e -> {
             gameFrame.showPanel("menu"); // back to menu
         });
