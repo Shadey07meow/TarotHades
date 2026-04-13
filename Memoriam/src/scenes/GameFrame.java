@@ -21,7 +21,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 
-
 public class GameFrame extends JFrame {
 
     private final GameStart gameStart;
@@ -30,6 +29,7 @@ public class GameFrame extends JFrame {
     private final LoseScreen loseScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
+    private final PrologueScreen prologueScreen;
     Image cursor = new ImageLibrary().quillCursor;
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
@@ -59,13 +59,13 @@ public class GameFrame extends JFrame {
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
         loseScreen = new LoseScreen(this);
-
-
+        prologueScreen = new PrologueScreen(this);
 
         this.allPanels.add(gameStart);
         this.allPanels.add(creditScreen);
         this.allPanels.add(menuScreen);
         this.allPanels.add(loseScreen);
+        this.allPanels.add(prologueScreen);
        
         // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)

@@ -1,11 +1,7 @@
 package scenes;
 
-import scenes.*;
-import systems.*;
-import collision.*;
-import object.*;
-
 import java.awt.Graphics;
+import systems.*;
 
 
 
