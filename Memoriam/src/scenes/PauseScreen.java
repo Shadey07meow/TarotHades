@@ -1,0 +1,44 @@
+package scenes;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import images.ImageLibrary;
+
+
+public class PauseScreen extends UIScreen {
+
+    private JButton resumeBtn;
+    private JButton menuBtn;
+
+    public PauseScreen(GameFrame gameFrame) {
+        super("pause");
+
+        setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("Paused");
+        title.setFont(new Font("Arial", Font.BOLD, 64));
+        title.setHorizontalAlignment(JLabel.CENTER);
+        add(title, BorderLayout.NORTH);
+
+        resumeBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        resumeBtn.addActionListener(e -> {
+            gameFrame.showPanel("start"); // resume game
+        });
+
+        menuBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        menuBtn.addActionListener(e -> {
+            gameFrame.showPanel("menu"); // menu
+        });
+
+        JPanel panel = new JPanel();
+        panel.setOpaque(false);
+        panel.add(resumeBtn);
+        panel.add(menuBtn);
+
+        add(panel, BorderLayout.CENTER);
+    }
+}
