@@ -7,12 +7,7 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
     javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
-    
---> 13/04/2026
-    (CalRya)
-    - Added WIP Map
-    - Trying to add Scene manager
-
+     
 --> 11/04/2026
     (Shadey07)
     - Fixed everything
