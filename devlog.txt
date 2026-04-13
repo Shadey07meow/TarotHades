@@ -10,7 +10,10 @@ KEEP THIS ON TOP
 --> 13/04/2026
     (CalRya)
     - Added WIP Map
-    - Trying to add Scene manager
+    - Added SceneManager.java
+    - Added PrologueScreen.java
+        - Game Prologue
+    - Finished Start Screen and Buttons
 
 --> 11/04/2026
     (Shadey07)
