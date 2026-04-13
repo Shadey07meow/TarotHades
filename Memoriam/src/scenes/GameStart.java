@@ -14,6 +14,7 @@ import images.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import object.*;
 
@@ -22,24 +23,44 @@ public class GameStart extends PlayableScreen {
 
     ArrayList<GameObject> objects = new ArrayList<GameObject>();
     Player player;
+    private GameFrame gameFrame;
+    private JButton killButton;
+
+    private Image map;
 
 
     public GameStart(GameFrame gameFrame) {
         super("start");
+         this.gameFrame = gameFrame;
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
+
+        map = new ImageLibrary().map;
 
         JLabel title = new JLabel("Game start");
         title.setFont(title.getFont().deriveFont(32f));
         title.setBounds(100, 100, 400, 100);
 
-        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+        killButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+
+        killButton.addActionListener(e -> {
+        if (player != null) {
+            player.setHealth(0);
+        }
+         });
+
+        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().startBtn, 200, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
 
-        add(menuButton, BorderLayout.SOUTH);
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setOpaque(false);
+        bottomPanel.add(killButton);
+        bottomPanel.add(menuButton);
+
+        add(bottomPanel, BorderLayout.SOUTH);
         add(title, BorderLayout.NORTH);
     }
 
@@ -49,7 +70,7 @@ public class GameStart extends PlayableScreen {
 
         objects.clear();
 
-        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, objects); 
+        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, objects,gameFrame); 
         player.setCollider(new RectangleCollider(player, true));
 
         // Add player 
@@ -67,6 +88,9 @@ public class GameStart extends PlayableScreen {
         
         // Add box (movable) 
         //objects.add(new CollisionObject(500, 300, 50, true));
+
+        objects.add(box1);
+        objects.add(box2);
     }
 
     @Override
@@ -82,6 +106,11 @@ public class GameStart extends PlayableScreen {
         super.paintComponent(g);
 
         Graphics2D graphics2 = (Graphics2D) g;
+
+        if (map != null) {
+            graphics2.drawImage(map, 0, 0, getWidth(), getHeight(), null);
+        }
+
         // // render smooth position
         // graphics2.drawImage(
         //     player.getImage(),
@@ -128,6 +157,7 @@ public class GameStart extends PlayableScreen {
         for (GameObject obj : objects) {
             obj.update();
         }
+        
  
     }
 }

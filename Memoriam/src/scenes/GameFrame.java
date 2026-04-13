@@ -27,6 +27,7 @@ public class GameFrame extends JFrame {
     private final GameStart gameStart;
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
+    private final LoseScreen loseScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
     Image cursor = new ImageLibrary().quillCursor;
@@ -39,6 +40,7 @@ public class GameFrame extends JFrame {
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
+        setUndecorated(true);   
         
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(
             cursor,
@@ -56,11 +58,14 @@ public class GameFrame extends JFrame {
         gameStart = new GameStart(this);
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
+        loseScreen = new LoseScreen(this);
+
 
 
         this.allPanels.add(gameStart);
         this.allPanels.add(creditScreen);
         this.allPanels.add(menuScreen);
+        this.allPanels.add(loseScreen);
        
         // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)

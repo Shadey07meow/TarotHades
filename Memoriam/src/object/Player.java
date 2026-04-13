@@ -1,16 +1,10 @@
 package object;
 
+import images.*;
 import java.awt.Image;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import images.*;
 import scenes.*;
 import systems.*;
-import collision.*;
-import object.*;
-import images.*;
 
 public class Player extends GameObject {
 
@@ -21,9 +15,11 @@ public class Player extends GameObject {
     
     private int speed = 1;
     private int health = 1;
+    private GameFrame gameFrame;
     private InputManager inputs = null;
     private boolean hasShotProjectile = false;
     private ImageLibrary imgLib = new ImageLibrary();
+    private boolean isDead = false;
 
     // for sprites
     private final Image spriteUp = imgLib.playerSpritesUP;
@@ -36,25 +32,38 @@ public class Player extends GameObject {
 
 
 
-    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs)
+    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs,GameFrame gameFrame)
     {
         super(position.x, position.y, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
         this.objects = objs;
-
-
+        this.gameFrame = gameFrame;
+       
         setImage(spriteDown);
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     @Override
     public void update()
     {
         super.update();
-        // Separate functionality 
+        if (isDead) return;
+
         movePlayer();
         combatMethod();
+
+        // loser condition
+        if (health <= 0) {
+            isDead = true;
+            gameFrame.showPanel("lose");
+            return;
+        }
+        
 
         // Makes the rendering smooth
         // alpha = 0.25, you move towards the target by 25% every time
