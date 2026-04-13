@@ -67,7 +67,7 @@ public class GameStart extends PlayableScreen {
 
         objects.clear();
 
-        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, objects); 
+        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, objects,gameFrame); 
         player.setCollider(new RectangleCollider(player, true));
 
         // Add player 
