@@ -23,12 +23,16 @@ public class GameStart extends PlayableScreen {
     ArrayList<GameObject> objects = new ArrayList<GameObject>();
     Player player;
 
+    private Image map;
+
 
     public GameStart(GameFrame gameFrame) {
         super("start");
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
+
+        map = new ImageLibrary().map;
 
         JLabel title = new JLabel("Game start");
         title.setFont(title.getFont().deriveFont(32f));
@@ -67,6 +71,9 @@ public class GameStart extends PlayableScreen {
         
         // Add box (movable) 
         //objects.add(new CollisionObject(500, 300, 50, true));
+
+        objects.add(box1);
+        objects.add(box2);
     }
 
     @Override
@@ -82,6 +89,11 @@ public class GameStart extends PlayableScreen {
         super.paintComponent(g);
 
         Graphics2D graphics2 = (Graphics2D) g;
+
+        if (map != null) {
+            graphics2.drawImage(map, 0, 0, getWidth(), getHeight(), null);
+        }
+
         // // render smooth position
         // graphics2.drawImage(
         //     player.getImage(),

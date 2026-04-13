@@ -1,16 +1,9 @@
 package object;
 
+import images.*;
 import java.awt.Image;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-
-import images.*;
-import scenes.*;
 import systems.*;
-import collision.*;
-import object.*;
-import images.*;
 
 public class Player extends GameObject {
 
