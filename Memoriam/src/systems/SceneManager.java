@@ -9,6 +9,7 @@ public class SceneManager {
     private static JFrame window;
     private static JPanel container;
     private static CardLayout layout;
+    private static String currentScene;
 
     public static void init(JFrame frame) {
         window = frame;
@@ -19,14 +20,17 @@ public class SceneManager {
         window.setContentPane(container);
     }
 
-    // Register a scene (panel)
     public static void register(String name, JPanel scene) {
         container.add(scene, name);
     }
 
-    // Switch scenes
     public static void show(String name) {
         layout.show(container, name);
+        currentScene = name;
+    }
+
+    public static String getCurrentScene() {
+        return currentScene;
     }
 
     public static JFrame getWindow() {

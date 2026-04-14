@@ -32,16 +32,14 @@ public class Player extends GameObject {
 
 
 
-    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs)
+    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs, GameFrame gameFrame)
     {
         super(position.x, position.y, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
         this.objects = objs;
-       
-
-
+        this.gameFrame = gameFrame;
         setImage(spriteDown);
     }
 

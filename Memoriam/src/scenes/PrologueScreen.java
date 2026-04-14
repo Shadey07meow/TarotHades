@@ -1,5 +1,6 @@
 package scenes;
 
+import images.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,13 +23,13 @@ public class PrologueScreen extends UIScreen {
     private final JLabel textLabel = new JLabel("", SwingConstants.CENTER);
 
     private float alpha = 0f;
-    private float orangeBlend = 0f;
+    private float redBlend = 0f;
 
     private enum State {
         FADE_IN,
         SHOWING,
         FADE_OUT,
-        ORANGE_TRANSITION,
+        RED_TRANSITION,
         GAME_FADE
     }
 
@@ -37,6 +38,8 @@ public class PrologueScreen extends UIScreen {
     private Timer timer;
 
     private final GameFrame gameFrame;
+
+    private final JButton skipButton;
 
     public PrologueScreen(GameFrame gameFrame) {
         super("prologue");
@@ -53,6 +56,17 @@ public class PrologueScreen extends UIScreen {
         hint.setForeground(Color.GRAY);
         add(hint, BorderLayout.SOUTH);
 
+        // Skip button
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.setOpaque(false);
+
+        skipButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 150, 60);
+
+        skipButton.addActionListener(e -> skipToEnd());
+
+        bottomPanel.add(skipButton, BorderLayout.SOUTH);
+        add(bottomPanel, BorderLayout.SOUTH);
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -66,17 +80,16 @@ public class PrologueScreen extends UIScreen {
     public void onInitiate() {
         index = 0;
         alpha = 0f;
-        orangeBlend = 0f;
+        redBlend = 0f;
         state = State.FADE_IN;
 
         textLabel.setText(story[index]);
         startLoop();
     }
 
-
     private void handleClick() {
 
-        if (state == State.FADE_IN || state == State.FADE_OUT || state == State.ORANGE_TRANSITION)
+        if (state == State.FADE_IN || state == State.FADE_OUT || state == State.RED_TRANSITION)
             return;
 
         if (state == State.SHOWING) {
@@ -84,11 +97,21 @@ public class PrologueScreen extends UIScreen {
             if (index < story.length - 1) {
                 state = State.FADE_OUT;
             } else {
-                state = State.ORANGE_TRANSITION;
+                state = State.RED_TRANSITION;
             }
         }
     }
 
+    private void skipToEnd() {
+
+        index = story.length - 1;
+        textLabel.setText(story[index]);
+
+        alpha = 1f;
+        redBlend = 0f;
+
+        state = State.RED_TRANSITION;
+    }
 
     private void startLoop() {
 
@@ -120,11 +143,11 @@ public class PrologueScreen extends UIScreen {
                     updateColor();
                 }
 
-                case ORANGE_TRANSITION -> {
-                    orangeBlend += 0.03f;
+                case RED_TRANSITION -> {
+                    redBlend += 0.03f;
 
-                    if (orangeBlend >= 1f) {
-                        orangeBlend = 1f;
+                    if (redBlend >= 1f) {
+                        redBlend = 1f;
                         state = State.GAME_FADE;
                     }
                     updateColor();
@@ -153,13 +176,12 @@ public class PrologueScreen extends UIScreen {
         timer.start();
     }
 
-
     private void updateColor() {
 
         Color white = new Color(255, 255, 255);
         Color red = new Color(255, 0, 0);
 
-        Color blended = blend(white, red, orangeBlend);
+        Color blended = blend(white, red, redBlend);
 
         textLabel.setForeground(new Color(
                 blended.getRed(),
