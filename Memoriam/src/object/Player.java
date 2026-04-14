@@ -20,6 +20,7 @@ public class Player extends GameObject {
     private boolean hasShotProjectile = false;
     private ImageLibrary imgLib = new ImageLibrary();
     private boolean isDead = false;
+    private boolean canMove = true;
 
     // for sprites
     private final Image spriteUp = imgLib.playerSpritesUP;
@@ -27,26 +28,20 @@ public class Player extends GameObject {
     private final Image spriteLeft = imgLib.playerSpritesLEFT;
     private final Image spriteRight = imgLib.playerSpritesRIGHT;
 
-    // game objects
-    private ArrayList<GameObject> objects;
 
 
 
-    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs,GameFrame gameFrame)
+    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, GameFrame gameFrame)
     {
         super(position.x, position.y, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
-        this.objects = objs;
         this.gameFrame = gameFrame;
        
         setImage(spriteDown);
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
 
     @Override
     public void update()
@@ -54,7 +49,10 @@ public class Player extends GameObject {
         super.update();
         if (isDead) return;
 
-        movePlayer();
+        if(canMove)
+        {
+            movePlayer();
+        }
         combatMethod();
 
         // loser condition
@@ -176,4 +174,18 @@ public class Player extends GameObject {
         if (getY() + halfH > maxY) setY(maxY - halfH);
     }
 
+    // Setters getters
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setMovable(boolean v)
+    {
+        this.canMove = v;
+    }
+
+    public Vector2 getVelocity()
+    {
+        return Vector2.multiply(inputs.getInputVector(), speed);
+    }
 }

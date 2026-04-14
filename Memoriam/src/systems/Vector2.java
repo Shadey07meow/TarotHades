@@ -1,5 +1,8 @@
 package systems;
 
+
+import java.lang.Math;
+
 public class Vector2 {
     /// A class to quickly store 2 points
     /// Will be able to do quick vector operations
@@ -41,5 +44,16 @@ public class Vector2 {
     {
         // Multiply a vector and a scalar number
         return new Vector2(a.x * s, a.y * s);
+    }
+
+    public static int distance(Vector2 a, Vector2 b)
+    {
+        return (int)Math.sqrt(((a.x - b.x))^2 + (a.y + b.y)^2);
+    }
+
+    public String toString()
+    {
+        String output = "(" + String.valueOf(this.x) + " " + String.valueOf(this.y) + ")" ;
+        return output;
     }
 }

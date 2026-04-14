@@ -31,13 +31,18 @@ public class GameFrame extends JFrame {
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
     private final PrologueScreen prologueScreen;
+
+    // Variable that gets screen size
+    static private Vector2 screenSize;
+    
     Image cursor = new ImageLibrary().quillCursor;
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
     // Game frame will contain the entire frame of the game
 
-    public GameFrame(Dimension resolution) {        
+    public GameFrame(Dimension resolution) {   
+             
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
@@ -85,7 +90,7 @@ public class GameFrame extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
 
-        
+        screenSize = new Vector2(this.getHeight(), this.getWidth());
     }
     
     
@@ -124,6 +129,11 @@ public class GameFrame extends JFrame {
         button.setOpaque(false);
 
         return button;
+    }
+
+    public static Vector2 getScreenSize()
+    {
+        return screenSize;
     }
     
 }
