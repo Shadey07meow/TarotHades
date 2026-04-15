@@ -1,22 +1,18 @@
 package scenes;
+import collision.*;
+import images.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.ArrayList;
-
-import scenes.*;
-import systems.*;
-import collision.*;
-import images.*;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import object.*;
+import systems.*;
 
 public class GameStart extends PlayableScreen {
 
@@ -25,6 +21,17 @@ public class GameStart extends PlayableScreen {
     private GameFrame gameFrame;
     private JButton killButton;
     private Image map;
+
+    // chest system
+    private boolean showChestUI = false;
+    private ArrayList<Card> currentCards = new ArrayList<>();
+    private CardManager cardManager;
+
+    private Rectangle chestButton;
+    private Rectangle backButton;
+
+    private float chestAnim = 0f;
+    private float cardFlip = 0f;
 
 
     public GameStart(GameFrame gameFrame) {
@@ -63,6 +70,31 @@ public class GameStart extends PlayableScreen {
         add(bottomPanel, BorderLayout.SOUTH);
         add(title, BorderLayout.NORTH);
 
+        // chest init
+        cardManager = new CardManager(new ImageLibrary());
+
+        chestButton = new Rectangle(50, 200, 200, 200);
+        backButton = new Rectangle(860, 650, 200, 80);
+
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+
+                if (!showChestUI && chestButton.contains(e.getPoint())) {
+                    currentCards.clear();
+                    currentCards.add(cardManager.drawCard());
+                    currentCards.add(cardManager.drawCard());
+                    currentCards.add(cardManager.drawCard());
+                    showChestUI = true;
+                    chestAnim = 0f;
+                    cardFlip = 0f;
+                }
+
+                if (showChestUI && backButton.contains(e.getPoint())) {
+                    showChestUI = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -115,8 +147,84 @@ public class GameStart extends PlayableScreen {
     }
 
 
-  
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
 
+        Graphics2D graphics2 = (Graphics2D) g;
+
+        
+
+        // // render smooth position
+        // graphics2.drawImage(
+        //     player.getImage(),
+        //     (int) player.getRenderX() - ((int)player.getScaledWidth() / 2) ,
+        //     (int) player.getRenderY() - ((int) player.getScaledHeight() / 2),
+        //     player.getScaledWidth(),
+        //     player.getScaledHeight(),
+        //     null
+        // );
+        // Debug mode, make a point at the middle of the object
+        // graphics2.setColor(Color.BLUE);
+        // graphics2.fillRect(object1.getX(), object1.getY(), 4, 4);
+
+
+        if (!showChestUI) {
+
+            graphics2.drawImage(
+                new ImageLibrary().placeholderBtn,
+                chestButton.x,
+                chestButton.y,
+                chestButton.width,
+                chestButton.height,
+                null
+            );
+        }
+
+        if (showChestUI) {
+
+            graphics2.setColor(new Color(0, 0, 0, 200));
+            graphics2.fillRect(0, 0, getWidth(), getHeight());
+
+            int cardW = 300;
+            int cardH = 450;
+
+            int spacing = 40;
+            int totalWidth = (cardW * 3) + (spacing * 2);
+
+            int startX = (getWidth() - totalWidth) / 2;
+            int y = (getHeight() - cardH) / 2;
+
+            for (int i = 0; i < currentCards.size(); i++) {
+
+                Card c = currentCards.get(i);
+
+                if (c != null && c.image != null) {
+
+                    int x = startX + i * (cardW + spacing);
+
+                    graphics2.drawImage(
+                        c.image,
+                        x,
+                        y,
+                        cardW,
+                        cardH,
+                        null
+                    );
+                }
+            }
+
+            graphics2.drawImage(
+                new ImageLibrary().backBtn,
+                backButton.x,
+                backButton.y,
+                backButton.width,
+                backButton.height,
+                null
+            );
+        }
+    }
 
     @Override
     public void update()

@@ -38,7 +38,6 @@ public class Player extends GameObject {
         this.health = health;
         this.inputs = inps;
         this.gameFrame = gameFrame;
-       
         setImage(spriteDown);
     }
 

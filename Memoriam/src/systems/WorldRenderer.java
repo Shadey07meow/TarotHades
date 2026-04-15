@@ -20,7 +20,7 @@ public class WorldRenderer {
     private Vector2 centerPosition = new Vector2(950, 420);
     private int distanceFromCenter = 20 * 4 ;
 
-    private boolean debugMode = true;
+    private boolean debugMode = false;
 
     // Constructor
     public WorldRenderer(Player player)

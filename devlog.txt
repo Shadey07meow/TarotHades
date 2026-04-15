@@ -11,6 +11,16 @@ KEEP THIS ON TOP
     (Shadey07)
     -  Made map renderer (Will work on deets later)
 
+
+--> 14/04/2026
+    (CalRya)
+    - Added Mock ups for all the tarot cards
+    - Made skip button for prologue
+    - Randomizer/Button for tarot card reward
+    - Changed OrangeBlend -> RedBlend
+    - Added CardManager.java
+    - Added Card.java
+    
 --> 13/04/2026
     (CalRya)
     - Added WIP Map
