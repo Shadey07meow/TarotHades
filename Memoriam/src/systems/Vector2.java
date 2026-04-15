@@ -5,10 +5,10 @@ public class Vector2 {
     /// Will be able to do quick vector operations
     
     // Does not need setters or getters, they can be manipulated at any point in time
-    public int x = 0;
-    public int y = 0;
+    public double x = 0;
+    public double y = 0;
 
-    public Vector2(int x, int y)
+    public Vector2(double x, double y)
     {
         this.x = x;
         this.y = y;

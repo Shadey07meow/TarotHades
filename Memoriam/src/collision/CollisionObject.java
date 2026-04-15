@@ -1,9 +1,6 @@
 package collision;
 
-import java.awt.Color;
-
 import object.*;
-import scenes.*;
 import systems.*;
 
 public abstract class CollisionObject {

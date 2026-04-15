@@ -84,8 +84,6 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
-
-        
     }
     
     

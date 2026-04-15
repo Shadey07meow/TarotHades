@@ -127,8 +127,8 @@ public class GameStart extends PlayableScreen {
             } else {
                 graphics2.setColor(obj.getColor());
                 graphics2.fillRect(
-                    obj.getX(),
-                    obj.getY(),
+                    (int) obj.getRenderX(),
+                    (int) obj.getRenderY(),
                     obj.getScaledWidth(),
                     obj.getScaledHeight()
                 );
@@ -149,9 +149,11 @@ public class GameStart extends PlayableScreen {
         }
         
         /////// Should make an arrayList for every GameObject present in a scene so that they autoUpdate 
-        for (GameObject obj : objects) {
-            obj.update();
+        for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).update();
         }
+
+        objects.removeIf(obj -> obj.getScale() <= 0);
         
  
     }
