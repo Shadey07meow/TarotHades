@@ -12,6 +12,8 @@ public class ImageLibrary
     public final Image exitBtn;
     public final Image optionBtn;
     public final Image startBtn;
+    public final Image backBtn;
+    public final Image placeholderBtn;
 
     // Player
     public final Image playerSpritesUP;
@@ -25,6 +27,17 @@ public class ImageLibrary
 
     // map
     public final Image map;
+
+    // cards
+    public final Image Empress;
+    public final Image KnightOfWands;
+    public final Image Magician;
+    public final Image NineOfPentacles;
+    public final Image QueenOfCups;
+    public final Image TenOfSwords;
+    public final Image TwoOfCups;
+    public final Image AceOfWands;
+    public final Image Death;
 
     public ImageLibrary()
     {
@@ -42,13 +55,25 @@ public class ImageLibrary
 
         // Backgrounds
         background = new ImageIcon(getClass().getResource("assets/Panels/backgroundImage.png")).getImage();
-        exitBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
-        optionBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
-        startBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
+        exitBtn = new ImageIcon(getClass().getResource("assets/Panels/exitBtn.png")).getImage();
+        optionBtn = new ImageIcon(getClass().getResource("assets/Panels/creditsBtn.png")).getImage();
+        startBtn = new ImageIcon(getClass().getResource("assets/Panels/startBtn.png")).getImage();
+        backBtn = new ImageIcon(getClass().getResource("assets/Panels/backBtn.png")).getImage();
+        placeholderBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
 
         // Maps
         map = new ImageIcon(getClass().getResource("assets/MainAssets/mapTest.png")).getImage();
-
+        
+        // cards
+        Empress = new ImageIcon(getClass().getResource("assets/Cards/Empress.png")).getImage();
+        KnightOfWands = new ImageIcon(getClass().getResource("assets/Cards/KnightOfWands.png")).getImage();
+        Magician = new ImageIcon(getClass().getResource("assets/Cards/Magician.png")).getImage();
+        NineOfPentacles = new ImageIcon(getClass().getResource("assets/Cards/NineOfPentacles.png")).getImage();
+        QueenOfCups = new ImageIcon(getClass().getResource("assets/Cards/QueenOfCups.png")).getImage();
+        TenOfSwords = new ImageIcon(getClass().getResource("assets/Cards/TenOfSwords.png")).getImage();
+        TwoOfCups = new ImageIcon(getClass().getResource("assets/Cards/TwoOfCups.png")).getImage();
+        AceOfWands = new ImageIcon(getClass().getResource("assets/Cards/AceOfWands.png")).getImage();
+        Death = new ImageIcon(getClass().getResource("assets/Cards/Death.png")).getImage();
     }
 
     

@@ -21,15 +21,16 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 
-
 public class GameFrame extends JFrame {
 
     private final GameStart gameStart;
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
     private final LoseScreen loseScreen;
+    private final PauseScreen pauseScreen;
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
+    private final PrologueScreen prologueScreen;
     Image cursor = new ImageLibrary().quillCursor;
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
@@ -59,13 +60,15 @@ public class GameFrame extends JFrame {
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
         loseScreen = new LoseScreen(this);
-
-
+        pauseScreen = new PauseScreen(this);
+        prologueScreen = new PrologueScreen(this);
 
         this.allPanels.add(gameStart);
         this.allPanels.add(creditScreen);
         this.allPanels.add(menuScreen);
         this.allPanels.add(loseScreen);
+        this.allPanels.add(pauseScreen);
+        this.allPanels.add(prologueScreen);
        
         // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)
@@ -109,8 +112,6 @@ public class GameFrame extends JFrame {
     
     // Quick way to create an Image button
     public JButton createImageButton(Image img, int width, int height) {
-
-
 
 
         Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);

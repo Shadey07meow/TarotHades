@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import scenes.*;
@@ -28,6 +29,17 @@ public class GameStart extends PlayableScreen {
 
     private Image map;
 
+    // chest system
+    private boolean showChestUI = false;
+    private ArrayList<Card> currentCards = new ArrayList<>();
+    private CardManager cardManager;
+
+    private Rectangle chestButton;
+    private Rectangle backButton;
+
+    private float chestAnim = 0f;
+    private float cardFlip = 0f;
+
 
     public GameStart(GameFrame gameFrame) {
         super("start");
@@ -42,7 +54,7 @@ public class GameStart extends PlayableScreen {
         title.setFont(title.getFont().deriveFont(32f));
         title.setBounds(100, 100, 400, 100);
 
-        killButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+        killButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 200, 100);
 
         killButton.addActionListener(e -> {
         if (player != null) {
@@ -50,7 +62,7 @@ public class GameStart extends PlayableScreen {
         }
          });
 
-        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().startBtn, 200, 100);
+        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
@@ -62,6 +74,32 @@ public class GameStart extends PlayableScreen {
 
         add(bottomPanel, BorderLayout.SOUTH);
         add(title, BorderLayout.NORTH);
+
+        // chest init
+        cardManager = new CardManager(new ImageLibrary());
+
+        chestButton = new Rectangle(50, 200, 200, 200);
+        backButton = new Rectangle(860, 650, 200, 80);
+
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+
+                if (!showChestUI && chestButton.contains(e.getPoint())) {
+                    currentCards.clear();
+                    currentCards.add(cardManager.drawCard());
+                    currentCards.add(cardManager.drawCard());
+                    currentCards.add(cardManager.drawCard());
+                    showChestUI = true;
+                    chestAnim = 0f;
+                    cardFlip = 0f;
+                }
+
+                if (showChestUI && backButton.contains(e.getPoint())) {
+                    showChestUI = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -70,7 +108,13 @@ public class GameStart extends PlayableScreen {
 
         objects.clear();
 
-        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, objects,gameFrame); 
+        player = new Player(
+            new Vector2(getWidth() / 2, getHeight() / 2),
+            3, 5, 10,
+            inputManager,
+            objects,
+            gameFrame
+        ); 
         player.setCollider(new RectangleCollider(player, true));
 
         // Add player 
@@ -145,6 +189,61 @@ public class GameStart extends PlayableScreen {
                 );
             }
         }
+
+        if (!showChestUI) {
+
+            graphics2.drawImage(
+                new ImageLibrary().placeholderBtn,
+                chestButton.x,
+                chestButton.y,
+                chestButton.width,
+                chestButton.height,
+                null
+            );
+        }
+
+        if (showChestUI) {
+
+            graphics2.setColor(new Color(0, 0, 0, 200));
+            graphics2.fillRect(0, 0, getWidth(), getHeight());
+
+            int cardW = 300;
+            int cardH = 450;
+
+            int spacing = 40;
+            int totalWidth = (cardW * 3) + (spacing * 2);
+
+            int startX = (getWidth() - totalWidth) / 2;
+            int y = (getHeight() - cardH) / 2;
+
+            for (int i = 0; i < currentCards.size(); i++) {
+
+                Card c = currentCards.get(i);
+
+                if (c != null && c.image != null) {
+
+                    int x = startX + i * (cardW + spacing);
+
+                    graphics2.drawImage(
+                        c.image,
+                        x,
+                        y,
+                        cardW,
+                        cardH,
+                        null
+                    );
+                }
+            }
+
+            graphics2.drawImage(
+                new ImageLibrary().backBtn,
+                backButton.x,
+                backButton.y,
+                backButton.width,
+                backButton.height,
+                null
+            );
+        }
     }
 
     @Override
@@ -152,6 +251,12 @@ public class GameStart extends PlayableScreen {
     {
         // logic handled in paint/update cycle
         // update game logic
+
+        // when esc is press, show pause panel
+         if (inputManager.isPausePressed()) {
+            gameFrame.showPanel("pause");
+            return;
+        }
         
         /////// Should make an arrayList for every GameObject present in a scene so that they autoUpdate 
         for (GameObject obj : objects) {
