@@ -24,8 +24,14 @@ KEEP THIS ON TOP
         - store it in getCollidingWith
         -->  15/04/2026
     (Shadey07)
-    -  Made map renderer (Will work on deets later)
-
+    -  Made map renderer
+        - Handles movement of the map when the player moves
+            - When the player reaches a certain distance from the center, the map moves instead of the player
+        - This class contains all of the current gameObjects in a scenes
+        - Made playable panel draw all the objects in a scene instead of putting it in game start 
+    - Added additional function in the Vector2 class
+        - public static Vector2 distance
+            - Gets the distance between two points (Vector2)
 
 --> 14/04/2026
     (CalRya)
