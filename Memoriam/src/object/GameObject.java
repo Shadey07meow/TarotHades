@@ -34,7 +34,7 @@ public class GameObject {
         this.renderY = 0;
     }
 
-    public GameObject(int x, int y)
+    public GameObject(double x, double y)
     {
         this.position.x = x;
         this.position.y = y;
