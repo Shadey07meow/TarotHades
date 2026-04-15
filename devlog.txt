@@ -25,6 +25,7 @@ KEEP THIS ON TOP
     - Added GameStart parameter to Player
     - Changed hardcoded screen size to GameStart.getWidth() and GameStart.getHeight()
     - Added keepInsideScreen() in update() in Player
+        - player no longer goes out of screen
 
 --> 14/04/2026
     (CalRya)
