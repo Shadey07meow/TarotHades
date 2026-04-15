@@ -1,11 +1,6 @@
 package scenes;
 
-import scenes.*;
-import systems.*;
-import collision.*;
-import object.*;
 import images.*;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -13,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class CreditScreen extends UIScreen {
-    private JButton exitBtn;
+    private JButton backBtn;
 
     public CreditScreen(GameFrame gameFrame){
         // Credit screen, shows people who contributed to the project
@@ -26,15 +21,15 @@ public class CreditScreen extends UIScreen {
         add(title, BorderLayout.NORTH);
 
 
-        exitBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 150, 60); // change when theres exit img
-        exitBtn.addActionListener(e -> {
+        backBtn = gameFrame.createImageButton(new ImageLibrary().backBtn, 150, 60); // change when theres exit img
+        backBtn.addActionListener(e -> {
             gameFrame.showPanel("menu"); // go back to main menu
         });
 
         // Button panel at bottom
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false); 
-        bottomPanel.add(exitBtn);
+        bottomPanel.add(backBtn);
         add(bottomPanel, BorderLayout.SOUTH); 
     }
 }

@@ -16,6 +16,7 @@ public class InputManager implements KeyListener, MouseListener{
     private Vector2 moveVector = new Vector2();
     private Vector2 clickPosition = new Vector2();
     private boolean mouse1down;
+    private boolean pausePressed = false;
     
     private boolean movingUp;
     private boolean movingDown;
@@ -54,7 +55,13 @@ public class InputManager implements KeyListener, MouseListener{
         {
             this.movingDown = true;            
         }
-        updMovement();
+
+// for esc button
+        if(k.getKeyCode() == KeyEvent.VK_ESCAPE){
+            pausePressed = true;
+        }
+        
+        updMovement();  
     }
 
     @Override
@@ -161,6 +168,14 @@ public class InputManager implements KeyListener, MouseListener{
     public int getInputY() {return this.moveVector.y;}
     public Vector2 getInputVector() {return  this.moveVector;}
     public boolean getClickingStatus() {return this.mouse1down;}
+    
+    public boolean isPausePressed() {
+        boolean temp = pausePressed;
+        pausePressed = false;
+        return temp;
+    }
 
 
 }
+
+

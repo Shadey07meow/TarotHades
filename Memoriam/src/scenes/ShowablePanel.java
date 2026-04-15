@@ -1,10 +1,5 @@
 package scenes;
 
-import scenes.*;
-import systems.*;
-import collision.*;
-import object.*;
-
 import javax.swing.JPanel;
 
 
