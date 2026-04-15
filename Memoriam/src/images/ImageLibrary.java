@@ -39,10 +39,11 @@ public class ImageLibrary
     public final Image AceOfWands;
     public final Image Death;
 
+    // Objects
+    public final Image treasureChest;
+
     public ImageLibrary()
     {
-
-
         // Player Sprites
         playerSpritesUP = new ImageIcon(getClass().getResource("assets/PlayerSprites/foolUp.png")).getImage();   
         playerSpritesDOWN =  new ImageIcon(getClass().getResource("assets/PlayerSprites/foolDown.png")).getImage();
@@ -74,6 +75,9 @@ public class ImageLibrary
         TwoOfCups = new ImageIcon(getClass().getResource("assets/Cards/TwoOfCups.png")).getImage();
         AceOfWands = new ImageIcon(getClass().getResource("assets/Cards/AceOfWands.png")).getImage();
         Death = new ImageIcon(getClass().getResource("assets/Cards/Death.png")).getImage();
+        
+        // Objects
+        treasureChest = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChest.png")).getImage();//
     }
 
     

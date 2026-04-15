@@ -51,7 +51,7 @@ public class Player extends GameObject {
         if(canMove)
         {
             movePlayer();
-            System.out.println("I am inside the circle");
+            //System.out.println("I am inside the circle");
         }
         combatMethod();
 
@@ -74,7 +74,7 @@ public class Player extends GameObject {
         Vector2 speedVector = Vector2.multiply(inputs.getInputVector(), this.speed);
 
 
-        System.out.println(speedVector.toString());
+        //System.out.println(speedVector.toString());
 
         // move x
         move(speedVector);

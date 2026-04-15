@@ -18,7 +18,7 @@ public class WorldRenderer {
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
     private Player worldPlayer = null;
     private Vector2 centerPosition = new Vector2(950, 420);
-    private int distanceFromCenter = 50 * 4 ;
+    private int distanceFromCenter = 20 * 4 ;
 
     private boolean debugMode = false;
 
@@ -40,7 +40,6 @@ public class WorldRenderer {
         this.objectList.add(0, obj);
     }
 
-    
     // Needs a center point, is already set in the beginning of the java file
     
 

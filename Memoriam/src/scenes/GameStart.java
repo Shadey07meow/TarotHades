@@ -128,6 +128,8 @@ public class GameStart extends PlayableScreen {
         GameObject bgObject = new GameObject(100, 500, 1);
         bgObject.setImage(new ImageLibrary().map);
 
+        TreasureChest tr1 = new TreasureChest(100, 100, player, 2);
+
         // Add walls (unmovable) 
         //objects.add(new CollisionObject(300, 300, 50, false)); 
         
@@ -136,6 +138,7 @@ public class GameStart extends PlayableScreen {
 
         world.addObject(box1);
         world.addObject(box2);
+        world.addObject(tr1);
         world.addObject(bgObject);
 
         box1.setObjects(world.getObjectList());
