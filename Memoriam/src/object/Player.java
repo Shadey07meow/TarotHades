@@ -13,7 +13,7 @@ public class Player extends GameObject {
     /// Handles movement, health, attacks and stuff like that
 
     
-    private int speed = 1;
+    private int speed = 1000;
     private int health = 1;
     private GameFrame gameFrame;
     private InputManager inputs = null;
@@ -52,6 +52,7 @@ public class Player extends GameObject {
         if(canMove)
         {
             movePlayer();
+            System.out.println("I am inside the circle");
         }
         combatMethod();
 
@@ -71,18 +72,13 @@ public class Player extends GameObject {
     private void movePlayer() 
     {
         Vector2 inpVector = inputs.getInputVector();
+        Vector2 speedVector = Vector2.multiply(inputs.getInputVector(), this.speed);
 
-        int dx = inpVector.x * speed;
-        int dy = inpVector.y * speed;
+
+        System.out.println(speedVector.toString());
 
         // move x
-        move(dx, 0);
-        //handleCollision(dx, 0);
-
-        // move y
-        move(0, dy);
-        //handleCollision(0, dy);
-
+        move(speedVector);
         // stops at screen edges
         keepInsideScreen();
 

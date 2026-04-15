@@ -32,8 +32,6 @@ public class GameFrame extends JFrame {
     private final JPanel parentPanel;
     private final PrologueScreen prologueScreen;
 
-    // Variable that gets screen size
-    static private Vector2 screenSize;
     
     Image cursor = new ImageLibrary().quillCursor;
     
@@ -89,8 +87,6 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
-
-        screenSize = new Vector2(this.getHeight(), this.getWidth());
     }
     
     
@@ -131,11 +127,6 @@ public class GameFrame extends JFrame {
         return button;
     }
 
-    public static Vector2 getScreenSize()
-    {
-        return screenSize;
-    }
-    
 }
     
    

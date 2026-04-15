@@ -102,6 +102,12 @@ public class GameObject {
         this.position.y -= y;
     }
 
+    public void move(Vector2 a)
+    {
+        this.position.x += a.x;
+        this.position.y -= a.y;
+    }
+
     public int getScaledWidth()
     {
         if (image == null) return scale;

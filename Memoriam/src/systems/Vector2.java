@@ -48,12 +48,27 @@ public class Vector2 {
 
     public static int distance(Vector2 a, Vector2 b)
     {
-        return (int)Math.sqrt(((a.x - b.x))^2 + (a.y + b.y)^2);
+        int xDiff  = (int)Math.pow((b.x - a.x), 2);
+        int yDiff  = (int)Math.pow((b.y - a.y), 2);
+        return (int)Math.sqrt(xDiff + yDiff);
     }
 
     public String toString()
     {
         String output = "(" + String.valueOf(this.x) + " " + String.valueOf(this.y) + ")" ;
         return output;
+    }
+
+    static public Vector2 normalized(Vector2 a)
+    {
+        int x1  = (a.x >= 0) ?  1 :  -1;
+        int y1  = (a.y >= 0) ?  1 :  -1;
+
+        if(a.x == 0) x1 = 0;
+        if(a.y == 0) y1 = 0;
+
+        return new Vector2(x1, y1);
+
+        
     }
 }

@@ -16,8 +16,9 @@ public class WorldRenderer {
 
     // Object list MUST include player
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
-    private static final Vector2 centerPosition = new Vector2(950, 420);
-    private int distanceFromCenter = 32 * 4;
+    private Player worldPlayer = null;
+    private Vector2 centerPosition = new Vector2(950, 420);
+    private int distanceFromCenter = 75 * 4;
 
     private boolean debugMode = true;
 
@@ -25,7 +26,7 @@ public class WorldRenderer {
     public WorldRenderer(Player player)
     {
         this.player = player;
-        objectList.add(player);
+        this.setPlayer(this.player);
     }
 
     public WorldRenderer()
@@ -36,7 +37,7 @@ public class WorldRenderer {
     // Add game object to the game world
     public void addObject(GameObject obj)
     {
-        this.objectList.add(obj);
+        this.objectList.add(0, obj);
     }
 
     
@@ -53,8 +54,8 @@ public class WorldRenderer {
     // Update world position
     public void updateWorld()
     {
-
-
+        this.player.update();
+        
         if(checkPlayerDistanceFromCenter())
         {
             // moving world logic
@@ -69,16 +70,33 @@ public class WorldRenderer {
 
         if (debugMode)
         {
-            System.out.println(checkPlayerDistanceFromCenter());
-            System.out.println(Vector2.distance(centerPosition, player.getPosition()));
+            ///System.out.println(checkPlayerDistanceFromCenter());
+            ///System.out.println(Vector2.distance(centerPosition, player.getPosition()));
         }
     }
 
     public void moveObjectsWithWorld()
     {
+        boolean p = false;
+        int count = 0;
         for (GameObject obj : objectList)
-        {
-            obj.move(player.getVelocity().x, player.getVelocity().y);
+        {   
+            if(count == objectList.size() - 1) p = true;
+            
+            if(p == false)
+            {
+                // Move objects
+                obj.move(-player.getVelocity().x, -player.getVelocity().y);
+                obj.interpolate(1);
+                count++;
+                
+            } else
+            {
+                // Move player
+                Vector2 inpVec = Vector2.normalized(player.getVelocity()); 
+                obj.move(-player.getVelocity().x, -player.getVelocity().y);
+
+            }
         }
     }
 
@@ -93,15 +111,20 @@ public class WorldRenderer {
         return  this.objectList;
     }
 
-    public void setPlayer(Player p)
+    private void setPlayer(Player p)
     {
         this.player = p;
+
+        if(objectList.size() - 1 > 0)
+        {
+            objectList.add(objectList.size() - 1, p);    
+        } else
+        {
+            objectList.add(0, p);
+        }
     }
 
-    public Player getPlayer()
-    {
-        return this.player;
-    }
+
 
     public boolean getDebug()
     {
@@ -113,7 +136,18 @@ public class WorldRenderer {
     {
         return this.centerPosition;
     }    
-    
+
+    public void setCenterPosition(Vector2 v)
+    {
+        this.centerPosition = v;
+    }    
+
+    public Player getPlayer()
+    {
+        return this.worldPlayer;
+    }
+
+
     public int getDistanceFromCenter()
     {
         return this.distanceFromCenter;

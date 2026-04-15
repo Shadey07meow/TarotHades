@@ -51,7 +51,7 @@ public class ImageLibrary
         placeholderBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
 
         // Maps
-        map = new ImageIcon(getClass().getResource("assets/MainAssets/mapTest.png")).getImage();
+        map = new ImageIcon(getClass().getResource("assets/MainAssets/mapTest.png")).getImage().getScaledInstance(32 * 80, 16 * 80, Image.SCALE_SMOOTH);
 
     }
 

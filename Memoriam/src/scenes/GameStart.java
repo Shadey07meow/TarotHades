@@ -24,7 +24,6 @@ public class GameStart extends PlayableScreen {
 
     private GameFrame gameFrame;
     private JButton killButton;
-
     private Image map;
 
 
@@ -63,7 +62,6 @@ public class GameStart extends PlayableScreen {
 
         add(bottomPanel, BorderLayout.SOUTH);
         add(title, BorderLayout.NORTH);
-        super.setCenter(new Vector2(getHeight(), getWidth()));
 
     }
 
@@ -73,9 +71,10 @@ public class GameStart extends PlayableScreen {
         // Make World renderer
         super.startGamePanel();
         
-        
-        player = new Player(new Vector2(getWidth() / 2, getHeight() / 2), 3, 5, 10, inputManager, gameFrame); 
+        Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
+        player = new Player(centerHalf, 3, 10, 10, inputManager, gameFrame); 
         world = new WorldRenderer(player);
+        world.setCenterPosition(centerHalf);
     
 
         player.setCollider(new RectangleCollider(player, true));
@@ -91,6 +90,10 @@ public class GameStart extends PlayableScreen {
         GameObject box2 = new GameObject(300, 300, 50);
         box2.setCollider(new RectangleCollider(box2, true));
 
+        // Background  object,  scuffed, have to optimize this later
+        GameObject bgObject = new GameObject(100, 500, 1);
+        bgObject.setImage(new ImageLibrary().map);
+
         // Add walls (unmovable) 
         //objects.add(new CollisionObject(300, 300, 50, false)); 
         
@@ -99,6 +102,7 @@ public class GameStart extends PlayableScreen {
 
         world.addObject(box1);
         world.addObject(box2);
+        world.addObject(bgObject);
     }
 
     @Override
@@ -115,7 +119,15 @@ public class GameStart extends PlayableScreen {
     public void update()
     {
         super.update();
+        
         // Move player
+        if(world != null)
+        {
+            if(world.getPlayer() != null)
+            {
+                world.getPlayer().update();
+            }
+        }
         // logic handled in paint/update cycle
         // update game logic
 
