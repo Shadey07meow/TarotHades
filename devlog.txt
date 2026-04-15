@@ -8,6 +8,7 @@ KEEP THIS ON TOP
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
      
 --> 13/04/2026
+<<<<<<< Updated upstream
     (Herielle)
     - Implemented Pause Screen Systems
         - Created PauseScreen.java
@@ -18,6 +19,16 @@ KEEP THIS ON TOP
             - keypressed and  method to check if isPausePressed
             
 
+=======
+    (CalRya)
+    - Added WIP Map
+    - Added SceneManager.java
+        - Added PrologueScreen.java
+            - Game Prologue
+        - Finished Start Screen and Buttons
+    
+    
+>>>>>>> Stashed changes
 
 --> 11/04/2026
     (Shadey07)
