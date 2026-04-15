@@ -94,6 +94,8 @@ public class GameStart extends PlayableScreen {
         GameObject bgObject = new GameObject(100, 500, 1);
         bgObject.setImage(new ImageLibrary().map);
 
+        TreasureChest tr1 = new TreasureChest(100, 100, player, 2);
+
         // Add walls (unmovable) 
         //objects.add(new CollisionObject(300, 300, 50, false)); 
         
@@ -102,6 +104,7 @@ public class GameStart extends PlayableScreen {
 
         world.addObject(box1);
         world.addObject(box2);
+        world.addObject(tr1);
         world.addObject(bgObject);
     }
 
@@ -112,8 +115,83 @@ public class GameStart extends PlayableScreen {
     }
 
 
-  
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
 
+        Graphics2D graphics2 = (Graphics2D) g;
+
+        
+
+        // // render smooth position
+        // graphics2.drawImage(
+        //     player.getImage(),
+        //     (int) player.getRenderX() - ((int)player.getScaledWidth() / 2) ,
+        //     (int) player.getRenderY() - ((int) player.getScaledHeight() / 2),
+        //     player.getScaledWidth(),
+        //     player.getScaledHeight(),
+        //     null
+        // );
+        // Debug mode, make a point at the middle of the object
+        // graphics2.setColor(Color.BLUE);
+        // graphics2.fillRect(object1.getX(), object1.getY(), 4, 4);
+
+        
+            graphics2.drawImage(
+                new ImageLibrary().placeholderBtn,
+                chestButton.x,
+                chestButton.y,
+                chestButton.width,
+                chestButton.height,
+                null
+            );
+        
+
+
+
+        if (showChestUI) {
+            graphics2.setColor(new Color(0, 0, 0, 200));
+            graphics2.fillRect(0, 0, getWidth(), getHeight());
+
+            int cardW = 300;
+            int cardH = 450;
+
+            int spacing = 40;
+            int totalWidth = (cardW * 3) + (spacing * 2);
+
+            int startX = (getWidth() - totalWidth) / 2;
+            int y = (getHeight() - cardH) / 2;
+
+            for (int i = 0; i < currentCards.size(); i++) {
+
+                Card c = currentCards.get(i);
+
+                if (c != null && c.image != null) {
+
+                    int x = startX + i * (cardW + spacing);
+
+                    graphics2.drawImage(
+                        c.image,
+                        x,
+                        y,
+                        cardW,
+                        cardH,
+                        null
+                    );
+                }
+            }
+
+            graphics2.drawImage(
+                new ImageLibrary().backBtn,
+                backButton.x,
+                backButton.y,
+                backButton.width,
+                backButton.height,
+                null
+            );
+        }
+    }
 
     @Override
     public void update()

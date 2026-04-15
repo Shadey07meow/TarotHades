@@ -49,6 +49,31 @@ public class GameObject {
         this.renderY = y;
     }
 
+    public GameObject(Vector2  v)
+    {
+        this.position.x = v.x;
+        this.position.y = v.y;
+        this.scale = 1;
+        this.color = Color.BLACK;
+        this.image = null;
+
+        this.renderX = v.x;
+        this.renderY = v.y;
+    }
+
+    public GameObject(Vector2  v, int s)
+    {
+        this.position.x = v.x;
+        this.position.y = v.y;
+        this.scale = s;
+        this.color = Color.BLACK;
+        this.image = null;
+
+        this.renderX = v.x;
+        this.renderY = v.y;
+    }
+
+
     public GameObject(int x, int y, int s)
     {
         this.position.x = x;
