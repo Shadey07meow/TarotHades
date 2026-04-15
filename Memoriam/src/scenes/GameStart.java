@@ -116,9 +116,11 @@ public class GameStart extends PlayableScreen {
             gameFrame
         ); 
         player.setCollider(new RectangleCollider(player, true));
+        
 
         // Add player 
         objects.add(player); 
+        player.setObjects(objects);
         
 
         GameObject box1 = new GameObject(300, 300, 50);
@@ -135,6 +137,9 @@ public class GameStart extends PlayableScreen {
 
         objects.add(box1);
         objects.add(box2);
+
+        box1.setObjects(objects);
+        box2.setObjects(objects);
     }
 
     @Override

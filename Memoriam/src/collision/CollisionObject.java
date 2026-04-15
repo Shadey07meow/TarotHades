@@ -6,12 +6,16 @@ import object.*;
 import scenes.*;
 import systems.*;
 
+import java.util.ArrayList;
+
 public abstract class CollisionObject {
   
 
     protected boolean isMovable;
     protected Vector2 position;
     protected GameObject connectedGameObject;
+
+    protected ArrayList<CollisionObject> collidingWith = new ArrayList<>();
     
     public CollisionObject(GameObject object, boolean movable) 
     {
@@ -26,6 +30,9 @@ public abstract class CollisionObject {
     
     public GameObject getGameObject() 
     {return this.connectedGameObject;}
+
+    public ArrayList<CollisionObject> getCollidingWith() 
+    {return collidingWith;}
 
     
 

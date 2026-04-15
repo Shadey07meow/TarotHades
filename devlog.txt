@@ -7,7 +7,22 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
     
-
+--> 15/04/2026
+    (zam2643)
+    - Added ArrayList<CollisionObject> collidingWith in CollisionObject 
+        - to store current collisions
+        - added getCollidingWith() 
+    - Completed isColliding() in RectangleCollider 
+        - using AABB collision logic
+    - Added updateBounds() calls inside isColliding() 
+    - Added ArrayList<GameObject> objects in GameObject
+    - Created setObjects(ArrayList<GameObject>) method in GameObject
+    - Passed objects list from GameStart to each GameObject using setObjects()
+    - Implemented checkCollisions() in GameObject to:
+        - loop through all objects
+        - detect collisions using isColliding()
+        - store it in getCollidingWith
+        
 --> 14/04/2026
     (CalRya)
     - Added Mock ups for all the tarot cards
