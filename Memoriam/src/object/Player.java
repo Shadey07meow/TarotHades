@@ -13,13 +13,14 @@ public class Player extends GameObject {
     /// Handles movement, health, attacks and stuff like that
 
     
-    private int speed = 1;
+    private int speed = 1000;
     private int health = 1;
     private GameFrame gameFrame;
     private InputManager inputs = null;
     private boolean hasShotProjectile = false;
     private ImageLibrary imgLib = new ImageLibrary();
     private boolean isDead = false;
+    private boolean canMove = true;
 
     // for sprites
     private final Image spriteUp = imgLib.playerSpritesUP;
@@ -27,25 +28,19 @@ public class Player extends GameObject {
     private final Image spriteLeft = imgLib.playerSpritesLEFT;
     private final Image spriteRight = imgLib.playerSpritesRIGHT;
 
-    // game objects
-    private ArrayList<GameObject> objects;
 
 
 
-    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs, GameFrame gameFrame)
+    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, GameFrame gameFrame)
     {
         super(position.x, position.y, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
-        this.objects = objs;
         this.gameFrame = gameFrame;
         setImage(spriteDown);
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
 
     @Override
     public void update()
@@ -53,7 +48,11 @@ public class Player extends GameObject {
         super.update();
         if (isDead) return;
 
-        movePlayer();
+        if(canMove)
+        {
+            movePlayer();
+            System.out.println("I am inside the circle");
+        }
         combatMethod();
 
         // loser condition
@@ -72,18 +71,13 @@ public class Player extends GameObject {
     private void movePlayer() 
     {
         Vector2 inpVector = inputs.getInputVector();
+        Vector2 speedVector = Vector2.multiply(inputs.getInputVector(), this.speed);
 
-        int dx = inpVector.x * speed;
-        int dy = inpVector.y * speed;
+
+        System.out.println(speedVector.toString());
 
         // move x
-        move(dx, 0);
-        //handleCollision(dx, 0);
-
-        // move y
-        move(0, dy);
-        //handleCollision(0, dy);
-
+        move(speedVector);
         // stops at screen edges
         keepInsideScreen();
 
@@ -175,4 +169,18 @@ public class Player extends GameObject {
         if (getY() + halfH > maxY) setY(maxY - halfH);
     }
 
+    // Setters getters
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setMovable(boolean v)
+    {
+        this.canMove = v;
+    }
+
+    public Vector2 getVelocity()
+    {
+        return Vector2.multiply(inputs.getInputVector(), speed);
+    }
 }

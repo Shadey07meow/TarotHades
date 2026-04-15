@@ -31,13 +31,16 @@ public class GameFrame extends JFrame {
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
     private final PrologueScreen prologueScreen;
+
+    
     Image cursor = new ImageLibrary().quillCursor;
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
     // Game frame will contain the entire frame of the game
 
-    public GameFrame(Dimension resolution) {        
+    public GameFrame(Dimension resolution) {   
+             
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
@@ -84,8 +87,6 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
-
-        
     }
     
     
@@ -125,7 +126,7 @@ public class GameFrame extends JFrame {
 
         return button;
     }
-    
+
 }
     
    

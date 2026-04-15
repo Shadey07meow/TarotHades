@@ -22,11 +22,9 @@ import object.*;
 public class GameStart extends PlayableScreen {
 
 
-    ArrayList<GameObject> objects = new ArrayList<GameObject>();
-    Player player;
+
     private GameFrame gameFrame;
     private JButton killButton;
-
     private Image map;
 
     // chest system
@@ -43,6 +41,8 @@ public class GameStart extends PlayableScreen {
 
     public GameStart(GameFrame gameFrame) {
         super("start");
+
+
          this.gameFrame = gameFrame;
 
         setBackground(Color.GRAY);
@@ -105,20 +105,20 @@ public class GameStart extends PlayableScreen {
     @Override
     public void startGamePanel()
     { 
+        // Make World renderer
+        super.startGamePanel();
+        
+        Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
+        player = new Player(centerHalf, 3, 10, 10, inputManager, gameFrame); 
+        world = new WorldRenderer(player);
+        world.setCenterPosition(centerHalf);
+    
 
-        objects.clear();
-
-        player = new Player(
-            new Vector2(getWidth() / 2, getHeight() / 2),
-            3, 5, 10,
-            inputManager,
-            objects,
-            gameFrame
-        ); 
         player.setCollider(new RectangleCollider(player, true));
 
         // Add player 
-        objects.add(player); 
+    
+
         
 
         GameObject box1 = new GameObject(300, 300, 50);
@@ -127,14 +127,19 @@ public class GameStart extends PlayableScreen {
         GameObject box2 = new GameObject(300, 300, 50);
         box2.setCollider(new RectangleCollider(box2, true));
 
+        // Background  object,  scuffed, have to optimize this later
+        GameObject bgObject = new GameObject(100, 500, 1);
+        bgObject.setImage(new ImageLibrary().map);
+
         // Add walls (unmovable) 
         //objects.add(new CollisionObject(300, 300, 50, false)); 
         
         // Add box (movable) 
         //objects.add(new CollisionObject(500, 300, 50, true));
 
-        objects.add(box1);
-        objects.add(box2);
+        world.addObject(box1);
+        world.addObject(box2);
+        world.addObject(bgObject);
     }
 
     @Override
@@ -168,27 +173,6 @@ public class GameStart extends PlayableScreen {
         // graphics2.setColor(Color.BLUE);
         // graphics2.fillRect(object1.getX(), object1.getY(), 4, 4);
 
-        for (GameObject obj : objects) {
-
-            if (obj.getImage() != null) {
-                graphics2.drawImage(
-                    obj.getImage(),
-                    (int) obj.getRenderX() - (obj.getScaledWidth() / 2),
-                    (int) obj.getRenderY() - (obj.getScaledHeight() / 2),
-                    obj.getScaledWidth(),
-                    obj.getScaledHeight(),
-                    null
-                );
-            } else {
-                graphics2.setColor(obj.getColor());
-                graphics2.fillRect(
-                    obj.getX(),
-                    obj.getY(),
-                    obj.getScaledWidth(),
-                    obj.getScaledHeight()
-                );
-            }
-        }
 
         if (!showChestUI) {
 
@@ -249,6 +233,16 @@ public class GameStart extends PlayableScreen {
     @Override
     public void update()
     {
+        super.update();
+        
+        // Move player
+        if(world != null)
+        {
+            if(world.getPlayer() != null)
+            {
+                world.getPlayer().update();
+            }
+        }
         // logic handled in paint/update cycle
         // update game logic
 
@@ -259,10 +253,5 @@ public class GameStart extends PlayableScreen {
         }
         
         /////// Should make an arrayList for every GameObject present in a scene so that they autoUpdate 
-        for (GameObject obj : objects) {
-            obj.update();
-        }
-        
- 
     }
 }
