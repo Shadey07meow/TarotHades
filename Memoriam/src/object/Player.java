@@ -15,6 +15,7 @@ public class Player extends GameObject {
     
     private int speed = 1000;
     private int health = 1;
+    private int fireCooldown = 0;
     private GameFrame gameFrame;
     private InputManager inputs = null;
     private boolean hasShotProjectile = false;
@@ -46,6 +47,10 @@ public class Player extends GameObject {
     public void update()
     {
         super.update();
+        // cooldown
+        if (fireCooldown > 0)
+            fireCooldown--;
+       
         if (isDead) return;
 
         if(canMove)
@@ -74,7 +79,7 @@ public class Player extends GameObject {
         Vector2 speedVector = Vector2.multiply(inputs.getInputVector(), this.speed);
 
 
-        //System.out.println(speedVector.toString());
+
 
         // move x
         move(speedVector);
@@ -92,24 +97,24 @@ public class Player extends GameObject {
 
     private void combatMethod()
     {
-        // Checks if we have shot projectile
-        if(hasShotProjectile == false)
+        // shoot once per click
+    if(!hasShotProjectile)
+    {
+        if(inputs.getClickingStatus())
         {
-            if(inputs.getClickingStatus() == true)
-            {
-                // Shooting projectile logic
-                hasShotProjectile = true;
-            }
-        } 
-        else
-        {
-            // On mouse release, reset shooting logic
-            if(inputs.getClickingStatus() == false)
-            {
-                // Shooting projectile logic
-                hasShotProjectile = true;
-            }
+            shootProjectile();
+            hasShotProjectile = true;
         }
+    }
+    else
+    {
+        // reset when mouse released
+        if(!inputs.getClickingStatus())
+        {
+            hasShotProjectile = false;
+        }
+    }
+
     }
 
     /*
@@ -167,6 +172,38 @@ public class Player extends GameObject {
 
         if (getX() + halfW > maxX) setX(maxX - halfW);
         if (getY() + halfH > maxY) setY(maxY - halfH);
+    }
+
+    private void shootProjectile(){
+    if (fireCooldown != 0) return;
+
+    double spawnX = getX();
+    double spawnY = getY(); 
+
+    Vector2 click = inputs.getClickPosition();
+
+    double dx = click.x - spawnX;
+    double dy = click.y - spawnY;
+
+    double length = Math.sqrt(dx * dx + dy * dy);
+    if (length == 0) return;
+
+    double vx = (dx / length) * 8;
+    double vy = -(dy / length) * 8;
+
+    Vector2 velocity = new Vector2(
+        (int)Math.round(vx),
+        (int)Math.round(vy)
+    );
+
+      objects.add(new Projectile(
+        (int)spawnX,
+        (int)spawnY,
+        velocity,
+        30
+    ));
+        fireCooldown = 10;
+        System.out.println("Shot fired");
     }
 
     // Setters getters

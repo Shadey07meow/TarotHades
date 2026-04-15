@@ -1,9 +1,6 @@
 package collision;
 
-import java.awt.Color;
-
 import object.*;
-import scenes.*;
 import systems.*;
 
 import java.util.ArrayList;

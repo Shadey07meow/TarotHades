@@ -15,6 +15,7 @@ public class InputManager implements KeyListener, MouseListener{
     // Variables
     private Vector2 moveVector = new Vector2();
     private Vector2 clickPosition = new Vector2();
+    
     private boolean mouse1down;
     private boolean pausePressed = false;
     
@@ -93,20 +94,15 @@ public class InputManager implements KeyListener, MouseListener{
 
     /// Mouse listener methods
     @Override
-    public void mouseClicked(MouseEvent m)
+    public void mousePressed(MouseEvent m)
     {
         if(m.getButton() == MouseEvent.BUTTON1)
         {
             setClicking(true);
-            System.out.println("You clicked");
-            this.clickPosition.x = m.getLocationOnScreen().x;
-            this.clickPosition.y = m.getLocationOnScreen().y;
+            this.clickPosition.x = m.getX();
+            this.clickPosition.y = m.getY();
         }
     }
-    
-    @Override
-    public void mousePressed(MouseEvent m)
-    {}
 
     @Override
     public void mouseReleased(MouseEvent m)
@@ -114,11 +110,12 @@ public class InputManager implements KeyListener, MouseListener{
         if(m.getButton() == MouseEvent.BUTTON1)
         {
             setClicking(false);
-            this.clickPosition.x = 0;
-            this.clickPosition.y = 0;
+            
         }
     }
-
+    @Override
+    public void mouseClicked(MouseEvent m) {}
+    
     @Override
     public void mouseEntered(MouseEvent m)
     {}
@@ -164,9 +161,10 @@ public class InputManager implements KeyListener, MouseListener{
 
     private void setClicking(boolean v){this.mouse1down = v;}
 
-    public int getInputX() {return this.moveVector.x;}
-    public int getInputY() {return this.moveVector.y;}
+    public double getInputX() {return this.moveVector.x;}
+    public double getInputY() {return this.moveVector.y;}
     public Vector2 getInputVector() {return  this.moveVector;}
+    public Vector2 getClickPosition() {return clickPosition;}
     public boolean getClickingStatus() {return this.mouse1down;}
     
     public boolean isPausePressed() {

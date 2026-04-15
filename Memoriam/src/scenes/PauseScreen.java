@@ -1,12 +1,11 @@
 package scenes;
 
+import images.ImageLibrary;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import images.ImageLibrary;
 
 
 public class PauseScreen extends UIScreen {

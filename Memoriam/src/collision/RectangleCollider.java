@@ -2,7 +2,6 @@ package collision;
 
 
 import object.*;
-import scenes.*;
 import systems.*;
 
 public class RectangleCollider extends CollisionObject {

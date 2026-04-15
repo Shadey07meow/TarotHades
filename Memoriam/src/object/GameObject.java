@@ -1,13 +1,11 @@
 package object;
 
+import collision.*;
 import java.awt.Color;
 import java.awt.Image;
-
-import scenes.*;
 import systems.*;
 import collision.*;
 import object.*;
-
 import java.util.ArrayList;
 
 public class GameObject {
@@ -40,7 +38,7 @@ public class GameObject {
         this.renderY = 0;
     }
 
-    public GameObject(int x, int y)
+    public GameObject(double x, double y)
     {
         this.position.x = x;
         this.position.y = y;
@@ -77,7 +75,21 @@ public class GameObject {
     }
 
 
-    public GameObject(int x, int y, int s)
+    public GameObject(Vector2  v)
+    {
+        this.position.x = v.x;
+        this.position.y = v.y;
+        this.scale = 1;
+        this.color = Color.BLACK;
+        this.image = null;
+
+        this.renderX = v.x;
+        this.renderY = v.y;
+    }
+
+
+
+    public GameObject(double x, double y, int s)
     {
         this.position.x = x;
         this.position.y = y;
@@ -110,8 +122,8 @@ public class GameObject {
     public void setObjects(ArrayList<GameObject> objs){ this.objects = objs;}
 
     // Getters
-    public int getX() { return this.position.x; }
-    public int getY() { return this.position.y; }
+    public double getX() { return this.position.x; }
+    public double getY() { return this.position.y; }
     public Vector2 getPosition() { return this.position; }
     public int getScale() { return this.scale; }
     public Color getColor() { return this.color; }
@@ -125,7 +137,7 @@ public class GameObject {
     }
 
     // Movement (logic position)
-    public void move(int x, int y)
+    public void move(double x, double y)
     {
         this.position.x += x;
         this.position.y -= y;

@@ -36,6 +36,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // Adds input manager
         addKeyListener(inputManager); 
         addMouseListener(inputManager);
+        setFocusable(true);
     }
     
     @Override
