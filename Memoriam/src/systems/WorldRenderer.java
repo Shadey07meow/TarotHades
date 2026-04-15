@@ -18,9 +18,9 @@ public class WorldRenderer {
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
     private Player worldPlayer = null;
     private Vector2 centerPosition = new Vector2(950, 420);
-    private int distanceFromCenter = 75 * 4;
+    private int distanceFromCenter = 50 * 4 ;
 
-    private boolean debugMode = true;
+    private boolean debugMode = false;
 
     // Constructor
     public WorldRenderer(Player player)

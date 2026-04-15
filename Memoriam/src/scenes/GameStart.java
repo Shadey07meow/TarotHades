@@ -1,4 +1,6 @@
 package scenes;
+import collision.*;
+import images.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,18 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-
-import scenes.*;
-import systems.*;
-import collision.*;
-import images.*;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import object.*;
+import systems.*;
 
 public class GameStart extends PlayableScreen {
 
@@ -156,9 +151,7 @@ public class GameStart extends PlayableScreen {
 
         Graphics2D graphics2 = (Graphics2D) g;
 
-        if (map != null) {
-            graphics2.drawImage(map, 0, 0, getWidth(), getHeight(), null);
-        }
+        
 
         // // render smooth position
         // graphics2.drawImage(
