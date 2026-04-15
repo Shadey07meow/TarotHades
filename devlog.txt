@@ -16,13 +16,16 @@ KEEP THIS ON TOP
         - using AABB collision logic
     - Added updateBounds() calls inside isColliding() 
     - Added ArrayList<GameObject> objects in GameObject
-    - Created setObjects(ArrayList<GameObject>) method in GameObject
+    - Added setObjects(ArrayList<GameObject>)in GameObject
     - Passed objects list from GameStart to each GameObject using setObjects()
     - Implemented checkCollisions() in GameObject to:
         - loop through all objects
         - detect collisions using isColliding()
         - store it in getCollidingWith
-        
+    - Added GameStart parameter to Player
+    - Changed hardcoded screen size to GameStart.getWidth() and GameStart.getHeight()
+    - Added keepInsideScreen() in update() in Player
+
 --> 14/04/2026
     (CalRya)
     - Added Mock ups for all the tarot cards

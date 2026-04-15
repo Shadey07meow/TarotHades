@@ -113,7 +113,8 @@ public class GameStart extends PlayableScreen {
             3, 5, 10,
             inputManager,
             objects,
-            gameFrame
+            gameFrame,
+            this
         ); 
         player.setCollider(new RectangleCollider(player, true));
         

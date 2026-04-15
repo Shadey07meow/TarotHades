@@ -16,6 +16,7 @@ public class Player extends GameObject {
     private int speed = 1;
     private int health = 1;
     private GameFrame gameFrame;
+    private GameStart gameStart;
     private InputManager inputs = null;
     private boolean hasShotProjectile = false;
     private ImageLibrary imgLib = new ImageLibrary();
@@ -32,7 +33,7 @@ public class Player extends GameObject {
 
 
 
-    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs, GameFrame gameFrame)
+    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, ArrayList<GameObject> objs, GameFrame gameFrame, GameStart gameStart)
     {
         super(position.x, position.y, scale);
         this.speed = speed;
@@ -40,6 +41,7 @@ public class Player extends GameObject {
         this.inputs = inps;
         this.objects = objs;
         this.gameFrame = gameFrame;
+        this.gameStart = gameStart;
         setImage(spriteDown);
     }
 
@@ -54,6 +56,7 @@ public class Player extends GameObject {
         if (isDead) return;
 
         movePlayer();
+        keepInsideScreen();
         combatMethod();
 
         // loser condition
@@ -165,14 +168,14 @@ public class Player extends GameObject {
         int halfW = getScaledWidth() / 2;
         int halfH = getScaledHeight() / 2;
 
-        int maxX = 1920;
-        int maxY = 1080;
+        int screenWidth = gameStart.getWidth();
+        int screenHeight = gameStart.getHeight();
 
         if (getX() - halfW < 0) setX(halfW);
         if (getY() - halfH < 0) setY(halfH);
 
-        if (getX() + halfW > maxX) setX(maxX - halfW);
-        if (getY() + halfH > maxY) setY(maxY - halfH);
+        if (getX() + halfW > screenWidth) setX(screenWidth - halfW);
+        if (getY() + halfH > screenHeight) setY(screenHeight - halfH);
     }
 
 }
