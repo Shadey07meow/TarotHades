@@ -77,7 +77,15 @@ public class RectangleCollider extends CollisionObject {
 
         // Method compares this specific globalBounds for collision object to another globalBounds collision object
         
-        return false;
+        RectangleCollider other = (RectangleCollider) comparedObject;
+
+        this.updateBounds();
+        other.updateBounds();
+
+        return this.globalBounds.RIGHT.x > other.globalBounds.LEFT.x &&
+           this.globalBounds.LEFT.x < other.globalBounds.RIGHT.x &&
+           this.globalBounds.BOTTOM.y > other.globalBounds.TOP.y &&
+           this.globalBounds.TOP.y < other.globalBounds.BOTTOM.y;
     }
     
 }

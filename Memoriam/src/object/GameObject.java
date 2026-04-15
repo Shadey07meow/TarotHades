@@ -8,6 +8,8 @@ import systems.*;
 import collision.*;
 import object.*;
 
+import java.util.ArrayList;
+
 public class GameObject {
 
     /// What is a GameObject?
@@ -20,6 +22,7 @@ public class GameObject {
     protected Color color;
     protected Image image;
     protected CollisionObject collider;
+    protected ArrayList<GameObject> objects;
 
     // for interpolation (prev positions)
     protected double renderX;
@@ -79,6 +82,7 @@ public class GameObject {
     public void setScale(int s) { this.scale = s; }
     public void setColor(Color c) { this.color = c; }
     public void setImage(Image i) { this.image = i; }
+    public void setObjects(ArrayList<GameObject> objs){ this.objects = objs;}
 
     // Getters
     public int getX() { return this.position.x; }
@@ -151,7 +155,21 @@ public class GameObject {
 
     public void checkCollisions()
     {
-        
+        collider.getCollidingWith().clear();
+
+        for (GameObject obj : objects) {
+
+            if (obj == this) continue;
+
+            if (obj.getCollider() != null) {
+
+                CollisionObject otherCol = obj.getCollider();
+
+                if (collider.isColliding(otherCol)) {
+                    collider.getCollidingWith().add(otherCol);
+                }
+            }
+        }
 
     }
 
