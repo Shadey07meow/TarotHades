@@ -115,7 +115,7 @@ public class GameStart extends PlayableScreen {
         // Add player 
     
 
-        player.setObjects(objects);
+        player.setObjects(world.getObjectList());
         
 
         GameObject box1 = new GameObject(300, 300, 50);
@@ -138,8 +138,8 @@ public class GameStart extends PlayableScreen {
         world.addObject(box2);
         world.addObject(bgObject);
 
-        box1.setObjects(objects);
-        box2.setObjects(objects);
+        box1.setObjects(world.getObjectList());
+        box2.setObjects(world.getObjectList());
     }
 
     @Override
