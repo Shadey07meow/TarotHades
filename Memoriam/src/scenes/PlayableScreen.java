@@ -127,7 +127,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         if(world !=  null)
         {
             world.updateWorld();
+
         }
+
+                
+        
+
+        
+        
     }
 
     @Override

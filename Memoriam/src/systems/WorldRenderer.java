@@ -72,6 +72,8 @@ public class WorldRenderer {
             ///System.out.println(checkPlayerDistanceFromCenter());
             ///System.out.println(Vector2.distance(centerPosition, player.getPosition()));
         }
+
+
     }
 
     public void moveObjectsWithWorld()

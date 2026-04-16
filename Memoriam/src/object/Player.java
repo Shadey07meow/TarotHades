@@ -159,6 +159,10 @@ public class Player extends GameObject {
     }
          */
 
+    public void minusHP(int  a)
+    {
+        this.health -= a;
+    }
 
     private void keepInsideScreen() {
         int halfW = getScaledWidth() / 2;

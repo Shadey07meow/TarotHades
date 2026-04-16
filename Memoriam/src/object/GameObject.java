@@ -160,6 +160,13 @@ public class GameObject {
         /// alpha = moves at a fraction of a distant towards the target
     }
 
+
+    // Method called at panel  start
+    //public void  start()
+    //{
+
+    //}
+
     // Overridable update method, on default it interpolates the object
     public void update()
     {
