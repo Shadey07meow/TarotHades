@@ -156,8 +156,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             } else {
                 graphics2.setColor(obj.getColor());
                 graphics2.fillRect(
-                    obj.getX(),
-                    obj.getY(),
+                    (int)obj.getX(),
+                    (int)obj.getY(),
                     obj.getScaledWidth(),
                     obj.getScaledHeight()
                 );
@@ -172,8 +172,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                 g.setColor(Color.BLUE);
                 graphics2.setStroke(new BasicStroke(20));
                 g.drawOval(
-                    world.getCenterPosition().x - (world.getDistanceFromCenter()), 
-                    world.getCenterPosition().y - (world.getDistanceFromCenter()), 
+                    (int)(world.getCenterPosition().x - (world.getDistanceFromCenter())), 
+                    (int)(world.getCenterPosition().y - (world.getDistanceFromCenter())), 
                     world.getDistanceFromCenter() * 2, 
                     world.getDistanceFromCenter() * 2);
             }
