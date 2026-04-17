@@ -45,10 +45,10 @@ public class ImageLibrary
     public ImageLibrary()
     {
         // Player Sprites
-        playerSpritesUP = new ImageIcon(getClass().getResource("assets/PlayerSprites/foolUp.png")).getImage();   
-        playerSpritesDOWN =  new ImageIcon(getClass().getResource("assets/PlayerSprites/foolDown.png")).getImage();
-        playerSpritesLEFT = new ImageIcon(getClass().getResource("assets/PlayerSprites/foolLeft.png")).getImage();
-        playerSpritesRIGHT = new ImageIcon(getClass().getResource("assets/PlayerSprites/foolRight.png")).getImage();
+        playerSpritesUP =       new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_back.gif")).getImage();   
+        playerSpritesDOWN =     new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_front.gif")).getImage();
+        playerSpritesLEFT =     new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_left.gif")).getImage();
+        playerSpritesRIGHT =    new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_right.gif")).getImage();
 
         // Cursor
         quillCursor = new ImageIcon(getClass().getResource("assets/MainAssets/cursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
