@@ -10,6 +10,9 @@ KEEP THIS ON TOP
 --> 17/04//2026
     (Shadey07)
     - Put created animated idle animations into game    
+    - Made shooting working
+        - Made the world renderer the array list of objects which will be updated instead of a base array list on the playable  screen
+        - Attempt to make a map object class 
 
 
 --> 15/04/2026
