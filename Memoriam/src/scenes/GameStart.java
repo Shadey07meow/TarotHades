@@ -39,6 +39,7 @@ public class GameStart extends PlayableScreen {
 
 
          this.gameFrame = gameFrame;
+         this.world = new WorldRenderer();
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
@@ -102,10 +103,11 @@ public class GameStart extends PlayableScreen {
     { 
         // Make World renderer
         super.startGamePanel();
+        world = new WorldRenderer();
         
         Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
         player = new Player(centerHalf, 3, 10, 10, inputManager, gameFrame); 
-        world = new WorldRenderer(player);
+        world.setPlayer(player);
         world.setCenterPosition(centerHalf);
     
 
@@ -158,22 +160,6 @@ public class GameStart extends PlayableScreen {
         super.paintComponent(g);
 
         Graphics2D graphics2 = (Graphics2D) g;
-
-        
-
-        // // render smooth position
-        // graphics2.drawImage(
-        //     player.getImage(),
-        //     (int) player.getRenderX() - ((int)player.getScaledWidth() / 2) ,
-        //     (int) player.getRenderY() - ((int) player.getScaledHeight() / 2),
-        //     player.getScaledWidth(),
-        //     player.getScaledHeight(),
-        //     null
-        // );
-        // Debug mode, make a point at the middle of the object
-        // graphics2.setColor(Color.BLUE);
-        // graphics2.fillRect(object1.getX(), object1.getY(), 4, 4);
-
 
         if (!showChestUI) {
 
@@ -237,13 +223,7 @@ public class GameStart extends PlayableScreen {
         super.update();
         
         // Move player
-        if(world != null)
-        {
-            if(world.getPlayer() != null)
-            {
-                world.getPlayer().update();
-            }
-        }
+
         // logic handled in paint/update cycle
         // update game logic
 

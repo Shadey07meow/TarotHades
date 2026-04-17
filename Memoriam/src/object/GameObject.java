@@ -16,7 +16,7 @@ public class GameObject {
     /// It also has a render position for interpolation (smooth movement)
 
     protected Vector2 position = new Vector2(0, 0);
-    protected int scale;
+    protected double  scale;
     protected Color color;
     protected Image image;
     protected CollisionObject collider;
@@ -50,7 +50,7 @@ public class GameObject {
         this.renderY = y;
     }
 
-    public GameObject(Vector2  v, int s)
+    public GameObject(Vector2  v, double s)
     {
         this.position.x = v.x;
         this.position.y = v.y;
@@ -77,7 +77,7 @@ public class GameObject {
 
 
 
-    public GameObject(double x, double y, int s)
+    public GameObject(double x, double y, double s)
     {
         this.position.x = x;
         this.position.y = y;
@@ -113,7 +113,7 @@ public class GameObject {
     public double getX() { return this.position.x; }
     public double getY() { return this.position.y; }
     public Vector2 getPosition() { return this.position; }
-    public int getScale() { return this.scale; }
+    public double  getScale() { return this.scale; }
     public Color getColor() { return this.color; }
     public Image getImage() { return this.image; }
 
@@ -137,13 +137,13 @@ public class GameObject {
         this.position.y -= a.y;
     }
 
-    public int getScaledWidth()
+    public double getScaledWidth()
     {
         if (image == null) return scale;
         return image.getWidth(null) * scale;
     }
 
-    public int getScaledHeight()
+    public double getScaledHeight()
     {
         if (image == null) return scale;
         return image.getHeight(null) * scale;
@@ -187,6 +187,9 @@ public class GameObject {
 
     public void checkCollisions()
     {
+
+        /*
+        
         collider.getCollidingWith().clear();
 
         for (GameObject obj : objects) {
@@ -202,6 +205,8 @@ public class GameObject {
                 }
             }
         }
+        
+        */
 
     }
 

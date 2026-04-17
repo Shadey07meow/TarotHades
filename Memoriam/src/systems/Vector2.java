@@ -68,7 +68,6 @@ public class Vector2 {
         if(a.y == 0) y1 = 0;
 
         return new Vector2(x1, y1);
-
-        
     }
+
 }

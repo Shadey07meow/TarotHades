@@ -12,7 +12,9 @@ public class WorldRenderer {
 
     // Class containing all the information about the objects in it
     // Needs player class in order to determine position changes
+    // Also needs a class in order to render the map first always, ensuring it'll always appear last
     private Player player;
+    private Map map;
 
     // Object list MUST include player
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
@@ -21,23 +23,36 @@ public class WorldRenderer {
     private int distanceFromCenter = 20 * 4 ;
 
     private boolean debugMode = false;
+    private boolean addingItem = false;
 
     // Constructor
     public WorldRenderer(Player player)
     {
         this.player = player;
+        this.map = new Map(null, player.getPosition(), 1);
         this.setPlayer(this.player);
     }
 
     public WorldRenderer()
     {
         this.player = null;
+        this.map = null;
     }
 
     // Add game object to the game world
     public void addObject(GameObject obj)
     {
-        this.objectList.add(0, obj);
+        this.addingItem = true;
+        this.objectList.add(1, obj);
+        System.out.println("Added an object to the scene");
+    }
+
+    // Sets the first object of the world into a map
+    public void setMap(Map m)
+    {
+        this.addingItem = true;
+        this.objectList.set(0, m);
+        System.out.println("Set map scene");
     }
 
     // Needs a center point, is already set in the beginning of the java file
@@ -53,27 +68,46 @@ public class WorldRenderer {
     // Update world position
     public void updateWorld()
     {
-        this.player.update();
-        
-        if(checkPlayerDistanceFromCenter())
+
+        // Update player first
+        if(this.player != null && this.addingItem)
         {
-            // moving world logic
-            player.setMovable(false);
-            moveObjectsWithWorld();
+            for (int x = 0; x < this.objectList.size(); x++)
+            {  
+                // Updates everything but the player
+                if(this.objectList.get(x) != (GameObject)this.player)
+                {
+                    this.objectList.get(x).update();
+                } else
+                {
+                    ///// Updates the player
+                    this.player.update();
+                    if (debugMode)
+                    {
+                        ///System.out.println(checkPlayerDistanceFromCenter());
+                        ///System.out.println(Vector2.distance(centerPosition, player.getPosition()));
+                    }
+                }
+            } 
+
+            if(checkPlayerDistanceFromCenter())
+                    {
+                        // moving world logic
+                        player.setMovable(false);
+                        moveObjectsWithWorld();
+                    }
+                    else
+                    {
+                        // Not moving world logic
+                        player.setMovable(true);
+                }
+
+                
         }
         else
         {
-            // Not moving world logic
-            player.setMovable(true);
+            this.addingItem = false;
         }
-
-        if (debugMode)
-        {
-            ///System.out.println(checkPlayerDistanceFromCenter());
-            ///System.out.println(Vector2.distance(centerPosition, player.getPosition()));
-        }
-
-
     }
 
     public void moveObjectsWithWorld()
@@ -94,17 +128,23 @@ public class WorldRenderer {
             } else
             {
                 // Move player
-                Vector2 inpVec = Vector2.normalized(player.getVelocity()); 
                 obj.move(-player.getVelocity().x, -player.getVelocity().y);
 
             }
         }
     }
 
+    // Method to auto close the worldrenderer
+    public void closeWorld()
+    {
+        for(GameObject obj : this.objectList)
+        {
+            this.objectList.remove(obj);
+        }
 
+        this.player = null;
 
-    
-    
+    }
 
     // Setters getters
     public ArrayList<GameObject> getObjectList()
@@ -112,9 +152,10 @@ public class WorldRenderer {
         return  this.objectList;
     }
 
-    private void setPlayer(Player p)
+    public void setPlayer(Player p)
     {
         this.player = p;
+        p.setWorldRenderer(this);
 
         if(objectList.size() - 1 > 0)
         {
@@ -124,8 +165,6 @@ public class WorldRenderer {
             objectList.add(0, p);
         }
     }
-
-
 
     public boolean getDebug()
     {
@@ -147,7 +186,6 @@ public class WorldRenderer {
     {
         return this.worldPlayer;
     }
-
 
     public int getDistanceFromCenter()
     {
