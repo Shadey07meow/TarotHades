@@ -12,7 +12,9 @@ KEEP THIS ON TOP
     - Put created animated idle animations into game    
     - Made shooting working
         - Made the world renderer the array list of objects which will be updated instead of a base array list on the playable  screen
-        - Attempt to make a map object class 
+    - Made the map renderer now render things properly when drawing all the objects inside
+        - The map will now be always drawn first
+        - The player will now be always drawn last
 
 
 --> 15/04/2026
