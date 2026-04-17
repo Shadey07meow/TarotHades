@@ -145,29 +145,33 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
         // Draws all the images in the world renderer
 
-        // In world renderer, the map must always be drawn first
-        for (GameObject obj : world.getObjectList()) {
-            if (obj.getImage() != null) {
-                graphics2.drawImage(
-                    obj.getImage(),
-                    (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
-                    (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
-                    (int)obj.getScaledWidth(),
-                    (int)obj.getScaledHeight(),
-                    null
-                );
-            } else {
-                graphics2.setColor(obj.getColor());
-                graphics2.fillRect(
-                    (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
-                    (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
-                    (int)obj.getScaledWidth(),
-                    (int)obj.getScaledHeight()
-                    
-                );
+        if(world != null)
+        {
+            // In world renderer, the map must always be drawn first
+            for (GameObject obj : world.getObjectList()) {
+                if (obj.getImage() != null) {
+                    graphics2.drawImage(
+                        obj.getImage(),
+                        (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
+                        (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
+                        (int)obj.getScaledWidth(),
+                        (int)obj.getScaledHeight(),
+                        null
+                    );
+                } else {
+                    graphics2.setColor(obj.getColor());
+                    graphics2.fillRect(
+                        (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
+                        (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
+                        (int)obj.getScaledWidth(),
+                        (int)obj.getScaledHeight()
+                        
+                    );
+                }
             }
+    
         }
-
+        
         if(world != null)
         {
             if(world.getDebug() == true)

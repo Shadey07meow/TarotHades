@@ -103,14 +103,20 @@ public class GameStart extends PlayableScreen {
     { 
         // Make World renderer
         super.startGamePanel();
-        world = new WorldRenderer();
         
         Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
         player = new Player(centerHalf, 3, 10, 10, inputManager, gameFrame); 
-        world.setPlayer(player);
+        Map bgObject = new Map(new ImageLibrary().map, new Vector2(100, 500), 1 );
+        // Map Creation
+        
+        
+        world = new WorldRenderer(player, bgObject);
+        System.out.println("I ran here");
         world.setCenterPosition(centerHalf);
-    
 
+        
+  
+        
         player.setCollider(new RectangleCollider(player, true));
         
 
@@ -118,17 +124,11 @@ public class GameStart extends PlayableScreen {
     
 
         player.setObjects(world.getObjectList());
-        
-
         GameObject box1 = new GameObject(300, 300, 50);
         box1.setCollider(new RectangleCollider(box1, true));
-
         GameObject box2 = new GameObject(300, 300, 50);
         box2.setCollider(new RectangleCollider(box2, true));
-
         // Background  object,  scuffed, have to optimize this later
-        GameObject bgObject = new GameObject(100, 500, 1);
-        bgObject.setImage(new ImageLibrary().map);
 
         TreasureChest tr1 = new TreasureChest(100, 100, player, 2);
 
@@ -141,7 +141,6 @@ public class GameStart extends PlayableScreen {
         world.addObject(box1);
         world.addObject(box2);
         world.addObject(tr1);
-        world.addObject(bgObject);
 
         box1.setObjects(world.getObjectList());
         box2.setObjects(world.getObjectList());
