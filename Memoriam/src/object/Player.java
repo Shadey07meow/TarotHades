@@ -23,6 +23,9 @@ public class Player extends GameObject {
     private boolean isDead = false;
     private boolean canMove = true;
 
+    // World renderer
+    private WorldRenderer world;
+
     // for sprites
     private final Image spriteUp = imgLib.playerSpritesUP;
     private final Image spriteDown = imgLib.playerSpritesDOWN;
@@ -39,6 +42,7 @@ public class Player extends GameObject {
         this.health = health;
         this.inputs = inps;
         this.gameFrame = gameFrame;
+        this.world = null;
         setImage(spriteDown);
     }
 
@@ -47,26 +51,29 @@ public class Player extends GameObject {
     public void update()
     {
         super.update();
-        // cooldown
-        if (fireCooldown > 0)
-            fireCooldown--;
-       
-        if (isDead) return;
 
-        if(canMove)
+        if(world != null)
         {
-            movePlayer();
-            //System.out.println("I am inside the circle");
-        }
-        combatMethod();
-
-        // loser condition
-        if (health <= 0) {
-            isDead = true;
-            gameFrame.showPanel("lose");
-            return;
-        }
+            // cooldown
+            if (fireCooldown > 0)
+                fireCooldown--;
         
+            if (isDead) return;
+
+            if(canMove)
+            {
+                movePlayer();
+                //System.out.println("I am inside the circle");
+            }
+            combatMethod();
+
+            // loser condition
+            if (health <= 0) {
+                isDead = true;
+                gameFrame.showPanel("lose");
+                return;
+            }
+        }
 
         // Makes the rendering smooth
         // alpha = 0.25, you move towards the target by 25% every time
@@ -83,9 +90,6 @@ public class Player extends GameObject {
 
         // move x
         move(speedVector);
-        // stops at screen edges
-        keepInsideScreen();
-
         
 
         if (inpVector.x > 0) setImage(spriteRight);
@@ -164,64 +168,49 @@ public class Player extends GameObject {
         this.health -= a;
     }
 
-    private void keepInsideScreen() {
-        int halfW = getScaledWidth() / 2;
-        int halfH = getScaledHeight() / 2;
-
-        int maxX = 1920;
-        int maxY = 1080;
-
-        if (getX() - halfW < 0) setX(halfW);
-        if (getY() - halfH < 0) setY(halfH);
-
-        if (getX() + halfW > maxX) setX(maxX - halfW);
-        if (getY() + halfH > maxY) setY(maxY - halfH);
-    }
 
     private void shootProjectile(){
-    if (fireCooldown != 0) return;
+        // Checks if we can shoot after shooting the last shot
+        if (fireCooldown != 0) return;
 
-    double spawnX = getX();
-    double spawnY = getY(); 
 
-    Vector2 click = inputs.getClickPosition();
+        double spawnX = getX();
+        double spawnY = getY(); 
 
-    double dx = click.x - spawnX;
-    double dy = click.y - spawnY;
+        Vector2 click = inputs.getClickPosition();
 
-    double length = Math.sqrt(dx * dx + dy * dy);
-    if (length == 0) return;
+        double dx = click.x - spawnX;
+        double dy = click.y - spawnY;
 
-    double vx = (dx / length) * 8;
-    double vy = -(dy / length) * 8;
+        double length = Math.sqrt(dx * dx + dy * dy);
+        if (length == 0) return;
 
-    Vector2 velocity = new Vector2(
+        double vx = (dx / length) * 8;
+        double vy = -(dy / length) * 8;
+
+        Vector2 velocity = new Vector2(
         (int)Math.round(vx),
         (int)Math.round(vy)
-    );
+        );
 
-      objects.add(new Projectile(
+        world.addObject(new Projectile(
         (int)spawnX,
         (int)spawnY,
         velocity,
-        30
-    ));
+        30));
+
         fireCooldown = 10;
         System.out.println("Shot fired");
     }
 
     // Setters getters
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealth(int health) {this.health = health;}
+    public void setMovable(boolean v){this.canMove = v;}
+    public void setWorldRenderer(WorldRenderer w)
+    {
+        this.world = w;
+        System.out.println("Added a world renderer");
     }
 
-    public void setMovable(boolean v)
-    {
-        this.canMove = v;
-    }
-
-    public Vector2 getVelocity()
-    {
-        return Vector2.multiply(inputs.getInputVector(), speed);
-    }
+    public Vector2 getVelocity(){return Vector2.multiply(inputs.getInputVector(), speed);}
 }

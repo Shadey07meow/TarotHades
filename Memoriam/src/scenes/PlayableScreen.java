@@ -82,7 +82,10 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public void terminateWindow()
     {
         try
-        {gameLoop.interrupt();}
+        {gameLoop.interrupt();
+         world.closeWorld();
+         world = null;
+        }
         catch(Exception e)
         {System.out.println("Game Loop already stopped");}   
     }
@@ -126,15 +129,10 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
         if(world !=  null)
         {
-            world.updateWorld();
-
+            // Handles all the world logic, physics, camera movement, etc
+            if(world != null) world.updateWorld();
+            if(world.getPlayer() != null) world.getPlayer().update();
         }
-
-                
-        
-
-        
-        
     }
 
     @Override
@@ -143,30 +141,29 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // Playable screen class is the class responsible for all the drawing in the frames, do not put paint component in the individual levels anymore
         super.paintComponent(g);
         Graphics2D graphics2 = (Graphics2D) g;
-       
-        
 
 
- 
+        // Draws all the images in the world renderer
 
-
+        // In world renderer, the map must always be drawn first
         for (GameObject obj : world.getObjectList()) {
             if (obj.getImage() != null) {
                 graphics2.drawImage(
                     obj.getImage(),
-                    (int) obj.getRenderX() - (obj.getScaledWidth() / 2),
-                    (int) obj.getRenderY() - (obj.getScaledHeight() / 2),
-                    obj.getScaledWidth(),
-                    obj.getScaledHeight(),
+                    (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
+                    (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
+                    (int)obj.getScaledWidth(),
+                    (int)obj.getScaledHeight(),
                     null
                 );
             } else {
                 graphics2.setColor(obj.getColor());
                 graphics2.fillRect(
-                    (int)obj.getX(),
-                    (int)obj.getY(),
-                    obj.getScaledWidth(),
-                    obj.getScaledHeight()
+                    (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
+                    (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
+                    (int)obj.getScaledWidth(),
+                    (int)obj.getScaledHeight()
+                    
                 );
             }
         }

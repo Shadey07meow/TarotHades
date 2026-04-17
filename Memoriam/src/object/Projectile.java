@@ -18,6 +18,7 @@ public class Projectile extends GameObject{
     @Override
     public void update(){
         super.update();
+        System.out.println("I am moving right now");
 
         move((int)velocity.x, (int)velocity.y);
 
