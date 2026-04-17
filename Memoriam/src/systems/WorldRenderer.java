@@ -23,13 +23,22 @@ public class WorldRenderer {
     private int distanceFromCenter = 20 * 4 ;
 
     private boolean debugMode = false;
-    private boolean addingItem = false;
 
-    // Constructor
+    // Constructors
     public WorldRenderer(Player player)
     {
         this.player = player;
         this.map = new Map(null, player.getPosition(), 1);
+
+        this.setMap(this.map);
+        this.setPlayer(this.player);
+    }
+
+    public WorldRenderer(Player player, Map  m)
+    {
+        this.player = player;
+        this.map = m;
+        this.setMap(this.map);
         this.setPlayer(this.player);
     }
 
@@ -42,35 +51,37 @@ public class WorldRenderer {
     // Add game object to the game world
     public void addObject(GameObject obj)
     {
-        this.addingItem = true;
+        // Checks if there is a map
+        if(this.objectList.get(0) == null)
+        {
+            System.out.println("There is no map yet, cannot add objects");
+            return;
+        }
+
+        if(obj == (GameObject)this.player || obj == (GameObject)this.map )
+        {
+            System.out.println("There can only be one instance of this object in this class");
+            return;    
+        }
+
         this.objectList.add(1, obj);
         System.out.println("Added an object to the scene");
     }
 
-    // Sets the first object of the world into a map
-    public void setMap(Map m)
-    {
-        this.addingItem = true;
-        this.objectList.set(0, m);
-        System.out.println("Set map scene");
-    }
 
     // Needs a center point, is already set in the beginning of the java file
-    
-
     // If distance of the player from the center point is greater than some amount, then move the world instead of the player
     public boolean checkPlayerDistanceFromCenter()
     {
         return (Vector2.distance(centerPosition, player.getPosition()) > distanceFromCenter);
     }
 
-
     // Update world position
     public void updateWorld()
     {
 
         // Update player first
-        if(this.player != null && this.addingItem)
+        if(this.player != null)
         {
             for (int x = 0; x < this.objectList.size(); x++)
             {  
@@ -103,10 +114,6 @@ public class WorldRenderer {
                 }
 
                 
-        }
-        else
-        {
-            this.addingItem = false;
         }
     }
 
@@ -152,25 +159,41 @@ public class WorldRenderer {
         return  this.objectList;
     }
 
+    // Sets the last object of the list to be the player
     public void setPlayer(Player p)
     {
         this.player = p;
         p.setWorldRenderer(this);
 
-        if(objectList.size() - 1 > 0)
+        // Checks if there is a map
+        if(this.objectList.get(0) == null)
         {
-            objectList.add(objectList.size() - 1, p);    
-        } else
-        {
-            objectList.add(0, p);
+            System.out.println("There is no map yet, cannot add objects");
+            return;
         }
+
+
+        if(objectList.size() == 1)
+        {
+            objectList.add(1, p);    
+        }  else if (objectList.size() > 1)
+        {
+            objectList.add(objectList.size() - 1, p);
+        }
+    }
+
+    // Sets the first object of the world into a map
+    public void setMap(Map m)
+    {
+        this.map = m;
+        this.objectList.add(0, m);
+        System.out.println("Set map scene");
     }
 
     public boolean getDebug()
     {
         return this.debugMode;
     }
-    
     
     public Vector2 getCenterPosition()
     {
