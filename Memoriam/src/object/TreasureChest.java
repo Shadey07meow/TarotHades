@@ -33,7 +33,7 @@ public class TreasureChest extends GameObject {
     @Override
     public void update()
     {
-        System.out.println(Vector2.distance(this.position, this.targetPlayer.position));
+        //System.out.println(Vector2.distance(this.position, this.targetPlayer.position));
         if(checkPlayerDistance())
         {
             System.out.println("Hello there,  I am now in interaction distance");
