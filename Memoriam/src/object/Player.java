@@ -14,6 +14,7 @@ public class Player extends GameObject {
 
     
     private int speed = 1000;
+    private double projectileSpeed = 15;
     private int health = 1;
     private int fireCooldown = 0;
     private GameFrame gameFrame;
@@ -195,8 +196,8 @@ public class Player extends GameObject {
         double length = Math.sqrt(dx * dx + dy * dy);
         if (length == 0) return;
 
-        double vx = (dx / length) * 8;
-        double vy = -(dy / length) * 8;
+        double vx = (dx / length) * projectileSpeed;
+        double vy = -(dy / length) * projectileSpeed;
 
         Vector2 velocity = new Vector2(
         (int)Math.round(vx),
@@ -207,9 +208,9 @@ public class Player extends GameObject {
         (int)spawnX,
         (int)spawnY,
         velocity,
-        30));
+        1));
 
-        fireCooldown = 10;
+        fireCooldown = 5;
         System.out.println("Shot fired");
     }
 
