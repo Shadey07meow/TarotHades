@@ -22,15 +22,16 @@ public class Player extends GameObject {
     private ImageLibrary imgLib = new ImageLibrary();
     private boolean isDead = false;
     private boolean canMove = true;
+    private boolean isInteracting = false;
 
     // World renderer
     private WorldRenderer world;
 
     // for sprites
-    private final Image spriteUp = imgLib.playerSpritesUP;
-    private final Image spriteDown = imgLib.playerSpritesDOWN;
-    private final Image spriteLeft = imgLib.playerSpritesLEFT;
-    private final Image spriteRight = imgLib.playerSpritesRIGHT;
+    private final Image spriteDown = new ImageLibrary().playerSpritesDOWN;
+    private final Image spriteUp = new ImageLibrary().playerSpritesUP;
+    private final Image spriteLeft = new ImageLibrary().playerSpritesLEFT;
+    private final Image spriteRight = new ImageLibrary().playerSpritesRIGHT;
 
 
 
@@ -54,19 +55,9 @@ public class Player extends GameObject {
 
         if(world != null)
         {
-            // cooldown
-            if (fireCooldown > 0)
-                fireCooldown--;
-        
-            if (isDead) return;
 
-            if(canMove)
-            {
-                movePlayer();
-                //System.out.println("I am inside the circle");
-            }
-            combatMethod();
-
+            inputOperations();
+            
             // loser condition
             if (health <= 0) {
                 isDead = true;
@@ -78,6 +69,24 @@ public class Player extends GameObject {
         // Makes the rendering smooth
         // alpha = 0.25, you move towards the target by 25% every time
         // makes it smoother
+    }
+
+
+    public void inputOperations()
+    {
+        // cooldown
+            if (fireCooldown > 0)
+                fireCooldown--;
+        
+            if (isDead) return;
+
+            if(canMove)
+            {
+                movePlayer();
+                //System.out.println("I am inside the circle");
+            }
+            combatMethod();
+            checkInteracting();
     }
 
     private void movePlayer() 
@@ -94,7 +103,8 @@ public class Player extends GameObject {
 
         if (inpVector.x > 0) setImage(spriteRight);
         else if (inpVector.x < 0) setImage(spriteLeft);
-        else if (inpVector.y > 0) setImage(spriteUp);
+        
+        if (inpVector.y > 0) setImage(spriteUp);
         else if (inpVector.y < 0) setImage(spriteDown);
     }
 
@@ -213,4 +223,10 @@ public class Player extends GameObject {
     }
 
     public Vector2 getVelocity(){return Vector2.multiply(inputs.getInputVector(), speed);}
+    public boolean isInteracting(){ return this.isInteracting;}
+
+    public void checkInteracting()
+    {
+        isInteracting = inputs.getIsInteracting();
+    }
 }

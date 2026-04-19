@@ -1,6 +1,7 @@
 package scenes;
 
 import java.awt.Dimension;
+import images.*;
 
 public class MainGameDriver
 {
@@ -17,5 +18,6 @@ public class MainGameDriver
         ///         Initiate the frame
         
         GameFrame gameFrame = new GameFrame(RESOLUTION);
+
     }
 }

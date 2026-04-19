@@ -23,7 +23,7 @@ public class GameStart extends PlayableScreen {
     private Image map;
 
     // chest system
-    private boolean showChestUI = false;
+    public boolean showChestUI = false;
     private ArrayList<Card> currentCards = new ArrayList<>();
     private CardManager cardManager;
 
@@ -39,7 +39,7 @@ public class GameStart extends PlayableScreen {
 
 
          this.gameFrame = gameFrame;
-         this.world = new WorldRenderer();
+         this.world = new WorldRenderer(this);
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
@@ -74,28 +74,6 @@ public class GameStart extends PlayableScreen {
         // chest init
         cardManager = new CardManager(new ImageLibrary());
 
-        chestButton = new Rectangle(50, 200, 200, 200);
-        backButton = new Rectangle(860, 650, 200, 80);
-
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mousePressed(java.awt.event.MouseEvent e) {
-
-                if (!showChestUI && chestButton.contains(e.getPoint())) {
-                    currentCards.clear();
-                    currentCards.add(cardManager.drawCard());
-                    currentCards.add(cardManager.drawCard());
-                    currentCards.add(cardManager.drawCard());
-                    showChestUI = true;
-                    chestAnim = 0f;
-                    cardFlip = 0f;
-                }
-
-                if (showChestUI && backButton.contains(e.getPoint())) {
-                    showChestUI = false;
-                }
-            }
-        });
     }
 
     @Override
@@ -110,7 +88,7 @@ public class GameStart extends PlayableScreen {
         // Map Creation
         
         
-        world = new WorldRenderer(player, bgObject);
+        world = new WorldRenderer(player, bgObject, this);
         System.out.println("I ran here");
         world.setCenterPosition(centerHalf);
 
@@ -130,7 +108,7 @@ public class GameStart extends PlayableScreen {
         box2.setCollider(new RectangleCollider(box2, true));
         // Background  object,  scuffed, have to optimize this later
 
-        TreasureChest tr1 = new TreasureChest(100, 100, player, 2);
+        TreasureChest tr1 = new TreasureChest(100, 100, player, 2, this);
 
         // Add walls (unmovable) 
         //objects.add(new CollisionObject(300, 300, 50, false)); 
@@ -152,6 +130,17 @@ public class GameStart extends PlayableScreen {
         // Does nothing on exit i think
     }
 
+    public void showCards()
+    {
+        currentCards.clear();
+        currentCards.add(cardManager.drawCard());
+        currentCards.add(cardManager.drawCard());
+        currentCards.add(cardManager.drawCard());
+        showChestUI = !showChestUI;
+        chestAnim = 0f;
+        cardFlip = 0f;
+    }
+
 
     @Override
     public void paintComponent(Graphics g)
@@ -160,17 +149,6 @@ public class GameStart extends PlayableScreen {
 
         Graphics2D graphics2 = (Graphics2D) g;
 
-        if (!showChestUI) {
-
-            graphics2.drawImage(
-                new ImageLibrary().placeholderBtn,
-                chestButton.x,
-                chestButton.y,
-                chestButton.width,
-                chestButton.height,
-                null
-            );
-        }
 
         if (showChestUI) {
 
@@ -205,14 +183,7 @@ public class GameStart extends PlayableScreen {
                 }
             }
 
-            graphics2.drawImage(
-                new ImageLibrary().backBtn,
-                backButton.x,
-                backButton.y,
-                backButton.width,
-                backButton.height,
-                null
-            );
+
         }
     }
 

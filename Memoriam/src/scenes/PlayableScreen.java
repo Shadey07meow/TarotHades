@@ -184,6 +184,16 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                     (int)(world.getCenterPosition().y - (world.getDistanceFromCenter())), 
                     world.getDistanceFromCenter() * 2, 
                     world.getDistanceFromCenter() * 2);
+
+                for (GameObject obj : world.getObjectList()) {
+                    if (obj.getImage() != null) {
+                        graphics2.fillRect(
+                            (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
+                            (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
+                            50,
+                            50);
+                    }
+                }
             }
 
         }

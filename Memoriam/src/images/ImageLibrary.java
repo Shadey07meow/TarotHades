@@ -41,19 +41,21 @@ public class ImageLibrary
 
     // Objects
     public final Image treasureChest;
+    public final Image treasureChestH;
 
     public ImageLibrary()
     {
+        
         // Player Sprites
-        playerSpritesUP =       new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_back.gif")).getImage();   
         playerSpritesDOWN =     new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_front.gif")).getImage();
         playerSpritesLEFT =     new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_left.gif")).getImage();
+        playerSpritesUP =       new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_back.gif")).getImage();   
         playerSpritesRIGHT =    new ImageIcon(getClass().getResource("assets/PlayerSprites/animated/idle/fool_idle_right.gif")).getImage();
-
+        
         // Cursor
         quillCursor = new ImageIcon(getClass().getResource("assets/MainAssets/cursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
         swordCursor = new ImageIcon(getClass().getResource("assets/MainAssets/swordCursor.png")).getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
-
+        
         // Backgrounds
         background = new ImageIcon(getClass().getResource("assets/Panels/backgroundImage.png")).getImage();
         exitBtn = new ImageIcon(getClass().getResource("assets/Panels/exitBtn.png")).getImage();
@@ -61,7 +63,7 @@ public class ImageLibrary
         startBtn = new ImageIcon(getClass().getResource("assets/Panels/startBtn.png")).getImage();
         backBtn = new ImageIcon(getClass().getResource("assets/Panels/backBtn.png")).getImage();
         placeholderBtn = new ImageIcon(getClass().getResource("assets/Panels/placeholderBtn.png")).getImage();
-
+        
         // Maps
         map = new ImageIcon(getClass().getResource("assets/MainAssets/mapTest.png")).getImage().getScaledInstance(32 * 80, 16 * 80, Image.SCALE_SMOOTH);
         
@@ -78,7 +80,10 @@ public class ImageLibrary
         
         // Objects
         treasureChest = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChest.png")).getImage();//
+        treasureChestH = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png")).getImage();//
     }
 
+
+    
     
 }

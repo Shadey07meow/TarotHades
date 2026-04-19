@@ -15,6 +15,7 @@ public class WorldRenderer {
     // Also needs a class in order to render the map first always, ensuring it'll always appear last
     private Player player;
     private Map map;
+    private PlayableScreen gamePanel;
 
     // Object list MUST include player
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
@@ -25,25 +26,29 @@ public class WorldRenderer {
     private boolean debugMode = false;
 
     // Constructors
-    public WorldRenderer(Player player)
+    public WorldRenderer(Player player, PlayableScreen s)
     {
         this.player = player;
         this.map = new Map(null, player.getPosition(), 1);
+        this.gamePanel = s;
 
         this.setMap(this.map);
         this.setPlayer(this.player);
     }
 
-    public WorldRenderer(Player player, Map  m)
+    public WorldRenderer(Player player, Map  m,  PlayableScreen s)
     {
         this.player = player;
         this.map = m;
+        this.gamePanel = s;
+
         this.setMap(this.map);
         this.setPlayer(this.player);
     }
 
-    public WorldRenderer()
+    public WorldRenderer(PlayableScreen s)
     {
+        this.gamePanel = s;
         this.player = null;
         this.map = null;
     }
@@ -73,7 +78,7 @@ public class WorldRenderer {
     // If distance of the player from the center point is greater than some amount, then move the world instead of the player
     public boolean checkPlayerDistanceFromCenter()
     {
-        return (Vector2.distance(centerPosition, player.getPosition()) > distanceFromCenter);
+        return (Vector2.distance(centerPosition, this.player.getPosition()) > distanceFromCenter);
     }
 
     // Update world position
@@ -85,7 +90,8 @@ public class WorldRenderer {
         {
             for (int x = 0; x < this.objectList.size(); x++)
             {  
-                // Updates everything but the player
+
+                /*
                 if(this.objectList.get(x) != (GameObject)this.player)
                 {
                     this.objectList.get(x).update();
@@ -99,18 +105,21 @@ public class WorldRenderer {
                         ///System.out.println(Vector2.distance(centerPosition, player.getPosition()));
                     }
                 }
+                */
+
+                this.objectList.get(x).update();
+
+
+
+                // Updates everything but the player
+                
             } 
 
             if(checkPlayerDistanceFromCenter())
-                    {
-                        // moving world logic
-                        player.setMovable(false);
-                        moveObjectsWithWorld();
-                    }
-                    else
-                    {
-                        // Not moving world logic
-                        player.setMovable(true);
+                {
+                    // moving world logic
+                    //player.setMovable(false);
+                    moveObjectsWithWorld();
                 }
 
                 
@@ -125,19 +134,24 @@ public class WorldRenderer {
         {   
             if(count == objectList.size() - 1) p = true;
             
-            if(p == false)
-            {
+   
                 // Move objects
-                obj.move(-player.getVelocity().x, -player.getVelocity().y);
+                // Move everything horizontally
+                if(!atMapBorderY())
+                {
+                    obj.move(0, -player.getVelocity().y);    
+                } 
+                if(!atMapBorderX())
+                {
+                    obj.move(-player.getVelocity().x, 0);    
+                } 
+
+
+                
                 obj.interpolate(1);
                 count++;
                 
-            } else
-            {
-                // Move player
-                obj.move(-player.getVelocity().x, -player.getVelocity().y);
-
-            }
+            
         }
     }
 
@@ -215,5 +229,53 @@ public class WorldRenderer {
         return this.distanceFromCenter;
     }
     
-    
+    public boolean atMapBorderY()
+    {
+        boolean b = false;
+        
+        // Checks whether the top of the map is at the edge of the top of the screen
+        if(player.getVelocity().y < 0)
+        {
+            if((int)map.getPosition().y + (int)(map.getScaledHeight() / 2) < gamePanel.getHeight()) 
+            {
+                b = true;
+            }
+        } else
+        if(player.getVelocity().y > 0)
+        {
+            if((int)map.getPosition().y - (int)(map.getScaledHeight() / 2) > 0) 
+            {
+                b = true;
+            }
+        }
+ 
+
+
+        return b;
+    }
+
+    public boolean atMapBorderX()
+    {
+        boolean b = false;
+        
+        if(player.getVelocity().x < 0)
+        {
+            if((int)map.getPosition().x - (int)(map.getScaledWidth() / 2) > 0) 
+            {
+                b = true;
+            }
+        } else 
+
+        if(player.getVelocity().x > 0)
+        {
+            if((int)map.getPosition().x + (int)(map.getScaledWidth() / 2) <  gamePanel.getWidth()) 
+            {
+                b = true;
+
+            }
+        }
+ 
+
+        return b;
+    }
 }

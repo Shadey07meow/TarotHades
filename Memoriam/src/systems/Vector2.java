@@ -46,11 +46,11 @@ public class Vector2 {
         return new Vector2(a.x * s, a.y * s);
     }
 
-    public static int distance(Vector2 a, Vector2 b)
+    public static double distance(Vector2 a, Vector2 b)
     {
-        int xDiff  = (int)Math.pow((b.x - a.x), 2);
-        int yDiff  = (int)Math.pow((b.y - a.y), 2);
-        return (int)Math.sqrt(xDiff + yDiff);
+        double xDiff  = Math.pow((b.x - a.x), 2);
+        double yDiff  = (int)Math.pow((b.y - a.y), 2);
+        return Math.sqrt(xDiff + yDiff);
     }
 
     public String toString()

@@ -24,6 +24,7 @@ public class InputManager implements KeyListener, MouseListener{
     private boolean movingLeft;
     private boolean movingRight;
 
+    private boolean isInteracting;
 
 
     public InputManager()
@@ -56,6 +57,10 @@ public class InputManager implements KeyListener, MouseListener{
         {
             this.movingDown = true;            
         }
+        if(inp == 'e' || inp == 'E')
+        {
+            this.isInteracting = true;
+        }
 
 // for esc button
         if(k.getKeyCode() == KeyEvent.VK_ESCAPE){
@@ -86,6 +91,13 @@ public class InputManager implements KeyListener, MouseListener{
         {
             this.movingDown = false;            
         }
+
+
+        if(inp == 'e' || inp == 'E')
+        {
+            this.isInteracting = false;
+        }
+
         updMovement();
     }
 
@@ -166,7 +178,8 @@ public class InputManager implements KeyListener, MouseListener{
     public Vector2 getInputVector() {return  this.moveVector;}
     public Vector2 getClickPosition() {return clickPosition;}
     public boolean getClickingStatus() {return this.mouse1down;}
-    
+    public boolean getIsInteracting(){return this.isInteracting;}
+
     public boolean isPausePressed() {
         boolean temp = pausePressed;
         pausePressed = false;
