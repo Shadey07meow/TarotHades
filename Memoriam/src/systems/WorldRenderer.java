@@ -22,6 +22,8 @@ public class WorldRenderer {
     private Player worldPlayer = null;
     private Vector2 centerPosition = new Vector2(950, 420);
     private int distanceFromCenter = 20 * 4 ;
+    private final double xThresholdd = 150; 
+    private final double yThresholdd = 150; 
 
     private boolean debugMode = false;
 
@@ -78,7 +80,7 @@ public class WorldRenderer {
     // If distance of the player from the center point is greater than some amount, then move the world instead of the player
     public boolean checkPlayerDistanceFromCenter()
     {
-        return (Vector2.distance(centerPosition, this.player.getPosition()) > distanceFromCenter);
+        return (Vector2.distance(this.centerPosition, this.player.getPosition()) > distanceFromCenter);
     }
 
     // Update world position
@@ -90,37 +92,40 @@ public class WorldRenderer {
         {
             for (int x = 0; x < this.objectList.size(); x++)
             {  
-
-                /*
-                if(this.objectList.get(x) != (GameObject)this.player)
-                {
-                    this.objectList.get(x).update();
-                } else
-                {
-                    ///// Updates the player
-                    this.player.update();
-                    if (debugMode)
-                    {
-                        ///System.out.println(checkPlayerDistanceFromCenter());
-                        ///System.out.println(Vector2.distance(centerPosition, player.getPosition()));
-                    }
-                }
-                */
-
                 this.objectList.get(x).update();
-
-
-
-                // Updates everything but the player
-                
             } 
 
+            // This is the world clamping logic
+            
+
+            boolean willMoveRight = (this.player.getPosition().x > this.centerPosition.x + xThresholdd) &&  (this.player.getVelocity().x > 0);
+            boolean willMoveLeft = (this.player.getPosition().x < this.centerPosition.x - xThresholdd) &&  (this.player.getVelocity().x < 0);
+            
+            boolean willMoveUp = (this.player.getPosition().y > this.centerPosition.y + yThresholdd) &&  (this.player.getVelocity().y < 0);
+            boolean willMoveDown = (this.player.getPosition().y < this.centerPosition.y - yThresholdd) &&  (this.player.getVelocity().y > 0);
+            if(willMoveRight|| willMoveLeft)
+            {
+                // Runs if the player is outside the bounding box of left and right 
+                System.out.println("I am outside the x threshold");
+                moveObjectsWithWorldX();
+            }
+
+            if( willMoveDown || willMoveUp)
+            {
+                // Runs if the player is outside the bounding box of left and right 
+                System.out.println("I am outside the y threshold");
+                moveObjectsWithWorldY();
+            }
+
+            /*
+            
             if(checkPlayerDistanceFromCenter())
-                {
-                    // moving world logic
-                    //player.setMovable(false);
-                    moveObjectsWithWorld();
-                }
+            {
+                // moving world logic
+                // player.setMovable(false);
+                moveObjectsWithWorld();
+            }
+            */
 
                 
         }
@@ -128,30 +133,48 @@ public class WorldRenderer {
 
     public void moveObjectsWithWorld()
     {
-        boolean p = false;
-        int count = 0;
         for (GameObject obj : objectList)
         {   
-            if(count == objectList.size() - 1) p = true;
-            
-   
-                // Move objects
-                // Move everything horizontally
-                if(!atMapBorderY())
-                {
-                    obj.move(0, -player.getVelocity().y);    
-                } 
-                if(!atMapBorderX())
-                {
-                    obj.move(-player.getVelocity().x, 0);    
-                } 
+        
+            // Move objects
+            // Move everything horizontally
+            if(!atMapBorderY())
+            {
+                obj.move(0, -player.getVelocity().y);    
+            } 
+            if(!atMapBorderX())
+            {
+                obj.move(-player.getVelocity().x, 0);    
+            } 
+            obj.interpolate(1);
+        }
+    }
+
+    public void moveObjectsWithWorldY()
+    {
+        for (GameObject obj : objectList)
+        {   
+        
+            // Move objects
+            // Move everything horizontally
+            if(!atMapBorderY())
+            {
+                obj.move(0, -player.getVelocity().y);    
+            } 
+            obj.interpolate(1);
+        }
+    }
 
 
-                
-                obj.interpolate(1);
-                count++;
-                
-            
+    public void moveObjectsWithWorldX()
+    {
+        for (GameObject obj : objectList)
+        {   
+            if(!atMapBorderX())
+            {
+                obj.move(-player.getVelocity().x, 0);    
+            } 
+            obj.interpolate(1);
         }
     }
 
