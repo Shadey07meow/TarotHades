@@ -42,6 +42,7 @@ public class ImageLibrary
     // Objects
     public final Image treasureChest;
     public final Image treasureChestH;
+    public final Image projectile;
 
     public ImageLibrary()
     {
@@ -81,6 +82,7 @@ public class ImageLibrary
         // Objects
         treasureChest = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChest.png")).getImage();//
         treasureChestH = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png")).getImage();//
+        projectile =  new ImageIcon(getClass().getResource("assets/objects/projectile.png")).getImage().getScaledInstance(16 * 2, 16 * 2, Image.SCALE_SMOOTH);
     }
 
 

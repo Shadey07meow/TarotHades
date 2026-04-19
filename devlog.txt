@@ -11,6 +11,9 @@ KEEP THIS ON TOP
     (Shadey07)
     - Made the map rendering limited to the limits of the Map
         - Note: Add margins later so that the image of the map does not get spotted
+    - Bugs found:
+        - When exiting a scene, thread stops at a position where player is also gone
+        
 
 --> 17/04//2026
     (Shadey07)
