@@ -6,7 +6,7 @@ import scenes.*;
 public class TreasureChest extends GameObject {
     
     // When player presses letter E, the treasure chest panel pops up
-    private int interactionDistance = 300;
+    private int interactionDistance = 150;
     private Player targetPlayer =  null;
     private GameStart world;
     

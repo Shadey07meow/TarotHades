@@ -40,10 +40,34 @@ public class Vector2 {
         // Add 2 vectors
         return new Vector2(a.x - b.x, a.y - b.y);
     }
-    public static Vector2 multiply(Vector2 a, int s)
+    public static Vector2 multiply(Vector2 a, double s)
     {
         // Multiply a vector and a scalar number
         return new Vector2(a.x * s, a.y * s);
+    }
+
+    public static Vector2 magConvert(Vector2 a, double m)
+    {
+        // Converts the current vector to have the magnitude of the input
+
+        // Make unit vector
+        double mag = a.findMag();
+        Vector2 unitV = new Vector2(a.x/mag, a.y/mag);
+        Vector2 desV = new Vector2(unitV.x * m, unitV.y * m);
+
+        return desV;
+    }
+
+    public double findMag()
+    {
+        // finds magnitude of a current Vector2
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+
+    public static double findMag(Vector2 a) 
+    {
+        // finds the magnitude of a given Vector2
+        return Math.sqrt(Math.pow(a.x, 2) + Math.pow(a.y, 2));
     }
 
     public static double distance(Vector2 a, Vector2 b)
@@ -52,22 +76,23 @@ public class Vector2 {
         double yDiff  = (int)Math.pow((b.y - a.y), 2);
         return Math.sqrt(xDiff + yDiff);
     }
-
-    public String toString()
-    {
-        String output = "(" + String.valueOf(this.x) + " " + String.valueOf(this.y) + ")" ;
-        return output;
-    }
-
+    
     static public Vector2 normalized(Vector2 a)
     {
         int x1  = (a.x >= 0) ?  1 :  -1;
         int y1  = (a.y >= 0) ?  1 :  -1;
-
+        
         if(a.x == 0) x1 = 0;
         if(a.y == 0) y1 = 0;
-
+        
         return new Vector2(x1, y1);
+    }
+
+    @Override
+    public String toString()
+    {
+        String output = "(" + String.valueOf(this.x) + " " + String.valueOf(this.y) + ")" ;
+        return output;
     }
 
 }
