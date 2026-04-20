@@ -87,7 +87,7 @@ public class GameStart extends PlayableScreen {
         
         this.world = new WorldRenderer(player, bgObject, this);
         
-        
+
         System.out.println("I ran here");
         this.world.setCenterPosition(centerHalf);
 
