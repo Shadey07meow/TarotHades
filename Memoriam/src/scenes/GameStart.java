@@ -54,7 +54,7 @@ public class GameStart extends PlayableScreen {
 
         killButton.addActionListener(e -> {
         if (player != null) {
-            player.setHealth(0);
+           player.minusHP(1); // minus 1 heart
         }
          });
 

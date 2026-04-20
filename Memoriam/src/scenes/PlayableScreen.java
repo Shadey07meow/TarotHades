@@ -1,10 +1,10 @@
 package scenes;
 
-import java.awt.Graphics;
-import java.awt.Color;
+import images.ImageLibrary;
 import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import object.GameObject;
 import object.Player;
 import systems.*;
@@ -198,7 +198,38 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
         }
 
+        if (player !=null){
+            int heartSize = 40;
+            int spacing = 5;
+            int maxHealth = 10;
+
+            ImageLibrary img = new ImageLibrary();
+
+            for (int i =0; i<maxHealth; i++){
+                int x = 20 +(i*(heartSize + spacing));
+                int y = 20;
+
+                if (i<player.getHealth()){
+                    graphics2.drawImage(
+                    img.heart,
+                    x,
+                    y,
+                    heartSize,
+                    heartSize,
+                    null);
+                }
+                else{
+                    graphics2.drawImage(
+                    img.deadHeart,
+                    x,
+                    y,
+                    heartSize,
+                    heartSize,
+                    null);
+                }
+            }
+
+        }
+
     }
-
-
 }

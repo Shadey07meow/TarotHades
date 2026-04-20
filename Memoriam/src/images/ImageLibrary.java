@@ -43,6 +43,8 @@ public class ImageLibrary
     public final Image treasureChest;
     public final Image treasureChestH;
     public final Image projectile;
+    public final Image heart;
+    public final Image deadHeart;
 
     public ImageLibrary()
     {
@@ -83,6 +85,8 @@ public class ImageLibrary
         treasureChest = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChest.png")).getImage();//
         treasureChestH = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png")).getImage();//
         projectile =  new ImageIcon(getClass().getResource("assets/objects/projectile.png")).getImage().getScaledInstance(16 * 2, 16 * 2, Image.SCALE_SMOOTH);
+        heart = new ImageIcon(getClass().getResource("assets/MainAssets/heart.png")).getImage();
+        deadHeart = new ImageIcon(getClass().getResource("assets/MainAssets/heartDead.png")).getImage();
     }
 
 
