@@ -38,8 +38,7 @@ public class GameStart extends PlayableScreen {
         super("start");
 
 
-         this.gameFrame = gameFrame;
-         this.world = new WorldRenderer(this);
+        this.gameFrame = gameFrame;
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
@@ -88,9 +87,11 @@ public class GameStart extends PlayableScreen {
         // Map Creation
         
         
-        world = new WorldRenderer(player, bgObject, this);
+        this.world = new WorldRenderer(player, bgObject, this);
+        
+        
         System.out.println("I ran here");
-        world.setCenterPosition(centerHalf);
+        this.world.setCenterPosition(centerHalf);
 
         
   

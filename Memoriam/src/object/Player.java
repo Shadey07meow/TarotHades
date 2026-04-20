@@ -2,44 +2,43 @@ package object;
 
 import images.*;
 import java.awt.Image;
-import java.util.ArrayList;
 import scenes.*;
 import systems.*;
 
-public class Player extends GameObject {
+public class Player extends Entity {
 
     /// Player Game Object
     /// Stores position and parameters for the player
     /// Handles movement, health, attacks and stuff like that
-
+    private final GameFrame gameFrame;
+    private final ImageLibrary imgLib = new ImageLibrary();
     
-    private int speed = 1000;
-    private double projectileSpeed = 15;
-    private int health = 1;
-    private int fireCooldown = 0;
-    private GameFrame gameFrame;
     private InputManager inputs = null;
-    private boolean hasShotProjectile = false;
-    private ImageLibrary imgLib = new ImageLibrary();
-    private boolean isDead = false;
-    private boolean canMove = true;
-    private boolean isInteracting = false;
-
+    
+    // Combat variables
+    private final double projectileSpeed = 15;
+    private final double fireCooldown = 10;
+    
     // World renderer
     private WorldRenderer world;
-
+    
     // for sprites
-    private final Image spriteDown = new ImageLibrary().playerSpritesDOWN;
-    private final Image spriteUp = new ImageLibrary().playerSpritesUP;
-    private final Image spriteLeft = new ImageLibrary().playerSpritesLEFT;
-    private final Image spriteRight = new ImageLibrary().playerSpritesRIGHT;
-
-
+    private final Image spriteDown = imgLib.playerSpritesDOWN;
+    private final Image spriteUp = imgLib.playerSpritesUP;
+    private final Image spriteLeft = imgLib.playerSpritesLEFT;
+    private final Image spriteRight = imgLib.playerSpritesRIGHT;
+    
+    // Tracker variables
+    private boolean hasShotProjectile = false;
+    private boolean isInteracting = false;
+    private boolean isDead = false;
+    private double currentCooldown = 0;
+    
 
 
     public Player(Vector2 position, int scale, int speed, int health, InputManager inps, GameFrame gameFrame)
     {
-        super(position.x, position.y, scale);
+        super(position, scale);
         this.speed = speed;
         this.health = health;
         this.inputs = inps;
@@ -57,14 +56,18 @@ public class Player extends GameObject {
         if(world != null)
         {
 
-            inputOperations();
-            
-            // loser condition
-            if (health <= 0) {
-                isDead = true;
+            if (!isDead)
+            {
+                // loser condition
+                inputOperations();
+            } else
+            {
+                    
                 gameFrame.showPanel("lose");
-                return;
             }
+
+            isDead = (health <= 0);
+
         }
 
         // Makes the rendering smooth
@@ -75,19 +78,10 @@ public class Player extends GameObject {
 
     public void inputOperations()
     {
-        // cooldown
-            if (fireCooldown > 0)
-                fireCooldown--;
-        
-            if (isDead) return;
 
-            if(canMove)
-            {
-                movePlayer();
-                //System.out.println("I am inside the circle");
-            }
-            combatMethod();
-            checkInteracting();
+        movePlayer();        
+        combatMethod();
+        checkInteracting();
     }
 
     private void movePlayer() 
@@ -95,13 +89,14 @@ public class Player extends GameObject {
         Vector2 inpVector = inputs.getInputVector();
         Vector2 speedVector = Vector2.multiply(inputs.getInputVector(), this.speed);
 
+        // Clamp movement speed so that it never exceeds speed
+        if(Math.abs(speedVector.findMag()) > speed) speedVector = Vector2.magConvert(speedVector, speed);
 
-
-
-        // move x
+        
         move(speedVector);
         
 
+        // Set images, make looking up and down priority
         if (inpVector.x > 0) setImage(spriteRight);
         else if (inpVector.x < 0) setImage(spriteLeft);
         
@@ -112,24 +107,28 @@ public class Player extends GameObject {
 
     private void combatMethod()
     {
-        // shoot once per click
-    if(!hasShotProjectile)
-    {
-        if(inputs.getClickingStatus())
-        {
-            shootProjectile();
-            hasShotProjectile = true;
-        }
-    }
-    else
-    {
-        // reset when mouse released
-        if(!inputs.getClickingStatus())
-        {
-            hasShotProjectile = false;
-        }
-    }
 
+
+        if (currentCooldown > 0) currentCooldown--;
+        
+
+        // shoot once per click
+        if(!hasShotProjectile)
+        {
+            if(inputs.getClickingStatus())
+            {
+                shootProjectile();
+                hasShotProjectile = true;
+            }
+        }
+        else
+        {
+            // reset when mouse released
+            if(!inputs.getClickingStatus())
+            {
+                hasShotProjectile = false;
+            }
+        }
     }
 
     /*
@@ -172,17 +171,14 @@ public class Player extends GameObject {
             }
         }
     }
-         */
-
-    public void minusHP(int  a)
-    {
-        this.health -= a;
-    }
-
+    */
 
     private void shootProjectile(){
         // Checks if we can shoot after shooting the last shot
-        if (fireCooldown != 0) return;
+        // cooldown
+        
+    
+        if (currentCooldown != 0) return;
 
 
         double spawnX = getX();
@@ -210,13 +206,12 @@ public class Player extends GameObject {
         velocity,
         1));
 
-        fireCooldown = 5;
+        currentCooldown = fireCooldown;
         System.out.println("Shot fired");
     }
 
     // Setters getters
-    public void setHealth(int health) {this.health = health;}
-    public void setMovable(boolean v){this.canMove = v;}
+
     public void setWorldRenderer(WorldRenderer w)
     {
         this.world = w;

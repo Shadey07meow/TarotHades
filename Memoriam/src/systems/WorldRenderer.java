@@ -61,7 +61,7 @@ public class WorldRenderer {
         // Checks if there is a map
         if(this.objectList.get(0) == null)
         {
-            System.out.println("There is no map yet, cannot add objects");
+            //System.out.println("There is no map yet, cannot add objects");
             return;
         }
 
@@ -72,7 +72,7 @@ public class WorldRenderer {
         }
 
         this.objectList.add(1, obj);
-        System.out.println("Added an object to the scene");
+        //System.out.println("Added an object to the scene");
     }
 
 
@@ -187,6 +187,7 @@ public class WorldRenderer {
         }
 
         this.player = null;
+        this.map = null;
 
     }
 
@@ -287,9 +288,8 @@ public class WorldRenderer {
             {
                 b = true;
             }
-        } else 
-
-        if(player.getVelocity().x > 0)
+        }
+        else if(player.getVelocity().x > 0)
         {
             if((int)map.getPosition().x + (int)(map.getScaledWidth() / 2) <  gamePanel.getWidth()) 
             {

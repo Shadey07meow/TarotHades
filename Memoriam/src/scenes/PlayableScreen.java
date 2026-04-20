@@ -18,7 +18,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     protected WorldRenderer world = null;
     protected Player player;
-    Thread gameLoop = null;
+    private Thread gameLoop = null;
+    private boolean isRunning = true;
     InputManager inputManager = new InputManager();
     static int framesPerSecond = 60;
     protected Vector2 center = new Vector2();
@@ -31,7 +32,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // Lets work on making shit appear first
 
         // Initiates game loop
-        gameLoop = new Thread(this);
+        this.gameLoop = new Thread(this);
+        this.isRunning = true;
   
         // Adds input manager
         addKeyListener(inputManager); 
@@ -54,9 +56,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     @Override
     public void onInitiate()
     {
+        this.isRunning = true;
+        System.out.println("1 - isRunning : " + String.valueOf(this.isRunning));
+        this.gameLoop = new Thread(this);
         requestFocusInWindow();
         initWindow();
         startGamePanel();
+        System.out.println("2 - isRunning : " + String.valueOf(this.isRunning));
+        
     }
     
     @Override
@@ -71,23 +78,28 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public void initWindow()
     {
         requestFocusInWindow();
+        this.world = new WorldRenderer(this);
+        System.out.println("Initialized : " + this.getName());
+
         // Initialized first before running game loop
         try
-        {gameLoop.start();}
+        {
+            this.gameLoop.start();
+        }
         catch(Exception e)
-        {System.out.println("Game Loop already running");}
-        
+        {
+            System.out.println("Game Loop already running");        }
     }
     
     public void terminateWindow()
     {
         try
-        {gameLoop.interrupt();
-         world.closeWorld();
-         world = null;
+        {
+            closeGameLoop();
+            this.world.closeWorld();
         }
         catch(Exception e)
-        {System.out.println("Game Loop already stopped");}   
+        {System.out.println("Game Loop already stopped : " + e.getMessage());}   
     }
     
     public void startGamePanel()
@@ -105,10 +117,16 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     @Override
     public void run()
     {
-        while (gameLoop != null) {
+        System.out.println("Thread started");
+
+
+        while(this.isRunning)
+        {
+            //System.out.println("Update function is being called");
+
             // Call update function
             update();
-
+    
             // Paint the panel every frame
             try {
                 Thread.sleep(1000 / framesPerSecond);
@@ -117,10 +135,16 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             {
                 System.out.println("Cannot be paused");
             }
-
+    
             repaint();
-        }
+        } 
 
+        System.out.println("Thread stopped");
+    }
+
+    public void closeGameLoop()
+    {
+        this.isRunning = false;
     }
 
 
@@ -147,6 +171,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
         if(world != null)
         {
+            //System.out.println("I am rendering shit rn");
+            
             // In world renderer, the map must always be drawn first
             for (GameObject obj : world.getObjectList()) {
                 if (obj.getImage() != null) {
