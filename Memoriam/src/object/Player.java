@@ -11,7 +11,7 @@ public class Player extends Entity {
     /// Stores position and parameters for the player
     /// Handles movement, health, attacks and stuff like that
     private final GameFrame gameFrame;
-    private final ImageLibrary imgLib = new ImageLibrary();
+    private ImageLibrary imgLib = ImageLibrary.get();
     
     private InputManager inputs = null;
     
@@ -23,17 +23,19 @@ public class Player extends Entity {
     private WorldRenderer world;
     
     // for sprites
-    private final Image spriteDown = imgLib.playerSpritesDOWN;
-    private final Image spriteUp = imgLib.playerSpritesUP;
-    private final Image spriteLeft = imgLib.playerSpritesLEFT;
-    private final Image spriteRight = imgLib.playerSpritesRIGHT;
-    
-    // Tracker variables
+    private final Image spriteDown = ImageLibrary.get().playerSpritesDOWN;
+    private final Image spriteUp = ImageLibrary.get().playerSpritesUP;
+    private final Image spriteLeft = ImageLibrary.get().playerSpritesLEFT;
+    private final Image spriteRight = ImageLibrary.get().playerSpritesRIGHT;
+
+      // Tracker variables
     private boolean hasShotProjectile = false;
     private boolean isInteracting = false;
     private boolean isDead = false;
     private double currentCooldown = 0;
     
+
+
 
 
     public Player(Vector2 position, int scale, int speed, int health, InputManager inps, GameFrame gameFrame)

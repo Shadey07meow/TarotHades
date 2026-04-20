@@ -1,43 +1,59 @@
 package scenes;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import images.ImageLibrary;
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class LoseScreen extends UIScreen {
 
     private JButton retryBtn;
     private JButton menuBtn;
+    private final Image loseScreen;
 
     public LoseScreen(GameFrame gameFrame) {
+
         super("lose");
+
+        this.loseScreen = ImageLibrary.get().loseScreen;
 
         setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("You Lost");
-        title.setFont(new Font("Arial", Font.BOLD, 64));
-        title.setHorizontalAlignment(JLabel.CENTER);
-
-        add(title, BorderLayout.NORTH);
-
-        retryBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        retryBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
         retryBtn.addActionListener(e -> {
-            gameFrame.showPanel("start"); // retry game
+            gameFrame.showPanel("start");
         });
 
-        menuBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        menuBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
         menuBtn.addActionListener(e -> {
-            gameFrame.showPanel("menu"); // back to menu
+            gameFrame.showPanel("menu");
         });
+
+        gameFrame.addHoverEffect(
+            menuBtn,
+            ImageLibrary.get().optionBtn,
+            ImageLibrary.get().optionBtnHover,
+            353, 100
+        );
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setOpaque(false);
         buttonPanel.add(retryBtn);
         buttonPanel.add(menuBtn);
 
-        add(buttonPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+
+        if (loseScreen != null)
+        {
+            g.drawImage(loseScreen, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }

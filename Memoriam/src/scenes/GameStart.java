@@ -14,13 +14,36 @@ import javax.swing.JPanel;
 import object.*;
 import systems.*;
 
+
 public class GameStart extends PlayableScreen {
 
-
-
+    // main game screen
     private GameFrame gameFrame;
     private JButton killButton;
+    private JButton menuButton;
     private Image map;
+
+    // level system
+    private int currentLevel = 1;
+
+    private LevelFactory levelFactory;
+    private String levelText = "";
+    private boolean showLevelText = false;
+    private JButton nextLevelButton;
+    private int hoveredCardIndex = -1;
+    private String selectedCardName = "";
+    private int selectedCardTimer = 0;
+
+    // powerup
+    private ArrayList<Card> spinCards = new ArrayList<>();
+    private int chestState = 0; 
+    private int spinTicks = 0;
+    private int selectedCardIndex = -1;
+    private boolean chestSelectionMode = false;
+
+    // transition
+    private boolean isFading = false;
+    private float fade = 0f;
 
     // chest system
     public boolean showChestUI = false;
@@ -43,33 +66,41 @@ public class GameStart extends PlayableScreen {
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
 
-        map = new ImageLibrary().map;
-
+        map = ImageLibrary.get().map;
 
   
 
-        killButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 200, 100);
+        killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 200, 100);
 
         killButton.addActionListener(e -> {
         if (player != null) {
            player.minusHP(1); // minus 1 heart
         }
          });
+        // button
+        killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 353, 100);
+        killButton.addActionListener(e -> { if (player != null) {player.setHealth(0);}});
 
-        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
-        menuButton.addActionListener(e -> {
-            gameFrame.showPanel("menu");
-        });
+        menuButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
+        menuButton.addActionListener(e -> {gameFrame.showPanel("menu");});
+
+        gameFrame.addHoverEffect(menuButton, ImageLibrary.get().optionBtn, ImageLibrary.get().optionBtnHover, 353, 100);
+        gameFrame.addHoverEffect(killButton, ImageLibrary.get().placeholderBtn, ImageLibrary.get().placeholderBtnHover, 353, 100);
+
+        // temporary next level (replace with the opening thing)
+        nextLevelButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
+        nextLevelButton.addActionListener(e -> {requestLevelChange();});
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
         bottomPanel.add(killButton);
         bottomPanel.add(menuButton);
+        bottomPanel.add(nextLevelButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
 
         // chest init
-        cardManager = new CardManager(new ImageLibrary());
+        cardManager = new CardManager(ImageLibrary.get());
 
     }
 
@@ -81,7 +112,8 @@ public class GameStart extends PlayableScreen {
         
         Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
         player = new Player(centerHalf, 3, 10, 10, inputManager, gameFrame); 
-        Map bgObject = new Map(new ImageLibrary().map, new Vector2(100, 500), 1 );
+        Map bgObject = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1 );
+        
         // Map Creation
         
         
@@ -96,10 +128,7 @@ public class GameStart extends PlayableScreen {
         
         player.setCollider(new RectangleCollider(player, true));
         
-
         // Add player 
-    
-
         player.setObjects(world.getObjectList());
         GameObject box1 = new GameObject(300, 300, 50);
         box1.setCollider(new RectangleCollider(box1, true));
@@ -131,17 +160,154 @@ public class GameStart extends PlayableScreen {
         // Does nothing on exit i think
     }
 
+    // chest methods
+    public void openChest() {
+
+        if (showChestUI) return;
+
+        showChestUI = true;
+        chestState = 1;
+
+        spinCards.clear();
+        spinTicks = 0;
+    }
+
+    public void closeChestUI() {
+        showChestUI = false;
+        currentCards.clear();
+    }
+
+    @Override
+    public void update() {
+
+        super.update(); // THIS already updates world + player
+
+            if (chestState == 1) {
+
+        spinTicks++;
+
+        int speed = Math.max(2, 10 - spinTicks / 10);
+
+            if (spinTicks % speed == 0) {
+
+                currentCards.clear();
+
+                currentCards.add(cardManager.drawCard());
+                currentCards.add(cardManager.drawCard());
+                currentCards.add(cardManager.drawCard());
+            }
+
+            if (spinTicks > 60) {
+                chestState = 2; // stop spinning, allow selection
+            }
+        }
+
+        // fade logic only
+        if (isFading) {
+
+            // force UI cleanup during fade
+            showChestUI = false;
+            currentCards.clear();
+
+            fade += 0.05f;
+
+            if (fade >= 1f) {
+                fade = 1f;
+
+                currentLevel++;
+
+                LevelFactory.loadLevel(currentLevel, world, player, this);
+
+                isFading = false;
+                fade = 0f;
+            }
+        }
+
+        if (showChestUI && chestState == 2 && inputManager.getClickingStatus()) {
+
+            int cardW = 300;
+            int cardH = 450;
+            int spacing = 40;
+
+            int totalWidth = (cardW * 3) + (spacing * 2);
+            int startX = (getWidth() - totalWidth) / 2;
+            int y = (getHeight() - cardH) / 2;
+
+            Vector2 click = inputManager.getClickPosition();
+
+        for (int i = 0; i < currentCards.size(); i++) {
+
+            int x = startX + i * (cardW + spacing);
+
+            Rectangle rect = new Rectangle(x, y, cardW, cardH);
+
+            if (rect.contains(click.x, click.y)) {
+
+                selectedCardIndex = i;
+                selectCard(i);
+
+                break;
+            }
+        }
+        }
+                // HOVER DETECTION
+        if (showChestUI && chestState == 2) {
+
+            int cardW = 300;
+            int cardH = 450;
+            int spacing = 40;
+
+            int totalWidth = (cardW * 3) + (spacing * 2);
+            int startX = (getWidth() - totalWidth) / 2;
+            int y = (getHeight() - cardH) / 2;
+
+            Vector2 mouse = inputManager.getClickPosition(); // last mouse pos
+
+            hoveredCardIndex = -1;
+
+            for (int i = 0; i < currentCards.size(); i++) {
+
+                int x = startX + i * (cardW + spacing);
+
+                Rectangle rect = new Rectangle(x, y, cardW, cardH);
+
+                if (rect.contains(mouse.x, mouse.y)) {
+                    hoveredCardIndex = i;
+                    break;
+                }
+            }
+        }
+        if (selectedCardTimer > 0) {selectedCardTimer--;}
+        
+        }
+
+    // level methods
+
+    public void setLevelText(String text) {
+        levelText = text;
+        showLevelText = true;
+    }
+
+    public void clearLevelText() {
+        showLevelText = false;
+    }
+
+    // card stuff
     public void showCards()
     {
         currentCards.clear();
         currentCards.add(cardManager.drawCard());
         currentCards.add(cardManager.drawCard());
         currentCards.add(cardManager.drawCard());
-        showChestUI = !showChestUI;
+
+        showChestUI = true;
+        chestSelectionMode = true;
+
+        selectedCardIndex = -1;
+
         chestAnim = 0f;
         cardFlip = 0f;
     }
-
 
     @Override
     public void paintComponent(Graphics g)
@@ -149,7 +315,6 @@ public class GameStart extends PlayableScreen {
         super.paintComponent(g);
 
         Graphics2D graphics2 = (Graphics2D) g;
-
 
         if (showChestUI) {
 
@@ -167,11 +332,23 @@ public class GameStart extends PlayableScreen {
 
             for (int i = 0; i < currentCards.size(); i++) {
 
+                int x = startX + i * (cardW + spacing);
+
                 Card c = currentCards.get(i);
 
-                if (c != null && c.image != null) {
+                // hover grey
+                if (i == hoveredCardIndex) {
+                    graphics2.setColor(new Color(0, 0, 0, 120));
+                    graphics2.fillRect(x, y, cardW, cardH);
+                }
 
-                    int x = startX + i * (cardW + spacing);
+                // select highlight
+                if (i == selectedCardIndex) {
+                    graphics2.setColor(new Color(255, 255, 0, 100));
+                    graphics2.fillRect(x, y, cardW, cardH);
+                }
+
+                if (c != null && c.image != null) {
 
                     graphics2.drawImage(
                         c.image,
@@ -183,30 +360,87 @@ public class GameStart extends PlayableScreen {
                     );
                 }
             }
+        }
 
+        // selected card game
+        if (selectedCardTimer > 0) {
 
+            g.setColor(Color.WHITE);
+            g.setFont(g.getFont().deriveFont(40f));
+
+            int width = g.getFontMetrics().stringWidth(selectedCardName);
+
+            g.drawString(
+                selectedCardName,
+                (getWidth() - width) / 2,
+                getHeight() / 2 + 200
+            );
+        }
+
+        if (showLevelText) {
+
+            g.setColor(Color.WHITE);
+            g.setFont(g.getFont().deriveFont(48f));
+
+            int width = g.getFontMetrics().stringWidth(levelText);
+
+            g.drawString(
+                levelText,
+                (getWidth() - width) / 2,
+                getHeight() / 2
+            );
+        }
+
+        if (fade > 0f) {
+
+            Graphics2D g2 = (Graphics2D) g;
+
+            g2.setColor(new Color(0, 0, 0, (int)(fade * 255)));
+            g2.fillRect(0, 0, getWidth(), getHeight());
         }
     }
 
-    @Override
-    public void update()
-    {
-        super.update();
-        
-        // Move player
+    public void selectCard(int index) {
 
-        // logic handled in paint/update cycle
-        // update game logic
+        Card c = currentCards.get(index);
+        if (c == null) return;
 
-        // when esc is press, show pause panel
-         if (inputManager.isPausePressed()) {
-            gameFrame.showPanel("pause");
-            return;
-        }
-        
-        /////// Should make an arrayList for every GameObject present in a scene so that they autoUpdate 
-        
+        selectedCardIndex = index;
 
- 
+        selectedCardName = c.name;
+        selectedCardTimer = 60; // show for ~1 second
+
+        System.out.println("Selected: " + c.name);
+
+        showChestUI = false;
+        chestState = 0;
+
+        javax.swing.Timer t = new javax.swing.Timer(800, e -> {
+            triggerLevelChange();
+        });
+
+        t.setRepeats(false);
+        t.start();
+    }
+
+    private void resetUIOnTransition() {
+        showChestUI = false;
+        currentCards.clear();
+        showLevelText = false;
+    }
+
+
+    public void requestLevelChange() {
+        isFading = true;
+
+        showChestUI = false;
+        showLevelText = false;
+    }
+
+    public void triggerLevelChange() {
+        isFading = true;
+
+        resetUIOnTransition();
     }
 }
+

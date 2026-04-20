@@ -1,8 +1,8 @@
 package object;
 
 import images.ImageLibrary;
-import systems.*;
 import scenes.*;
+import systems.*;
 public class TreasureChest extends GameObject {
     
     // When player presses letter E, the treasure chest panel pops up
@@ -17,7 +17,7 @@ public class TreasureChest extends GameObject {
         super(v,  s);
         this.targetPlayer =  p;
         this.world = world;
-        setImage(new ImageLibrary().treasureChest);
+        setImage(ImageLibrary.get().treasureChest);
     }     
     
     public TreasureChest(int a, int b, Player  p,  int s, GameStart world)
@@ -25,7 +25,7 @@ public class TreasureChest extends GameObject {
         super(a, b, s);
         this.targetPlayer =  p;
         this.world = world;
-        setImage(new ImageLibrary().treasureChest);
+        setImage(ImageLibrary.get().treasureChest);
         
     } 
 
@@ -37,11 +37,11 @@ public class TreasureChest extends GameObject {
         if(checkPlayerDistance())
         {
             System.out.println("Hello there,  I am now in interaction distance");
-            setImage(new ImageLibrary().treasureChestH);
+            setImage(ImageLibrary.get().treasureChestH);
             doInteractionLogic();
         } else
         {
-            setImage(new ImageLibrary().treasureChest);
+            setImage(ImageLibrary.get().treasureChest);
             world.showChestUI = false;
 
         }
@@ -57,14 +57,11 @@ public class TreasureChest extends GameObject {
         return isWithinInteraction;   
     }
 
-    public void doInteractionLogic()
-    {
-        // When pressed, the card-popup will appear
-        if(targetPlayer.isInteracting())
-        {
-            world.showCards();
-            world.showChestUI = true;
+    public void doInteractionLogic() {
 
+        if (targetPlayer.isInteracting()) {
+
+            world.openChest();
         }
     }
 }

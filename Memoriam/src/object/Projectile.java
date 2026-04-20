@@ -1,7 +1,6 @@
 package object;
-import java.awt.Color;
-
 import images.ImageLibrary;
+import java.awt.Color;
 import systems.*;
 
 public class Projectile extends GameObject{
@@ -14,7 +13,7 @@ public class Projectile extends GameObject{
     public Projectile(int x, int y, Vector2 velocity, int scale){
         super(x, y, scale);
         this.velocity = velocity;
-        this.setImage(new ImageLibrary().projectile);
+        this.setImage(ImageLibrary.get().projectile);
         setColor(Color.RED);
     }
 

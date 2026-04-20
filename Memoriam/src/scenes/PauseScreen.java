@@ -23,15 +23,22 @@ public class PauseScreen extends UIScreen {
         title.setHorizontalAlignment(JLabel.CENTER);
         add(title, BorderLayout.NORTH);
 
-        resumeBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        resumeBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
         resumeBtn.addActionListener(e -> {
             gameFrame.showPanel("start"); // resume game
         });
 
-        menuBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        menuBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
         menuBtn.addActionListener(e -> {
             gameFrame.showPanel("menu"); // menu
         });
+        
+        gameFrame.addHoverEffect(
+            menuBtn,
+            ImageLibrary.get().optionBtn,
+            ImageLibrary.get().optionBtnHover,
+            353, 100
+        );
 
         JPanel panel = new JPanel();
         panel.setOpaque(false);

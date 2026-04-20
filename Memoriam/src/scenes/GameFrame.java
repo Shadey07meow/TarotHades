@@ -32,8 +32,10 @@ public class GameFrame extends JFrame {
     private final JPanel parentPanel;
     private final PrologueScreen prologueScreen;
 
+    private volatile boolean assetsLoaded = false;
+
     
-    Image cursor = new ImageLibrary().quillCursor;
+    Image cursor = ImageLibrary.get().quillCursor;
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 
@@ -53,6 +55,7 @@ public class GameFrame extends JFrame {
         );
 
         setCursor(customCursor);
+        
 
         // Panel containing all the screens we can switch to
         parentPanel = new JPanel(cardLayout);
@@ -125,6 +128,43 @@ public class GameFrame extends JFrame {
         button.setOpaque(false);
 
         return button;
+    }
+
+    // quick hover button
+    public void addHoverEffect(JButton button, Image normal, Image hover, int width, int height) {
+
+        Image normalScaled = normal.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        Image hoverScaled = hover.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+
+        button.setIcon(new ImageIcon(normalScaled));
+
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent e) {
+                button.setIcon(new ImageIcon(hoverScaled));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent e) {
+                button.setIcon(new ImageIcon(normalScaled));
+            }
+        });
+    }
+
+    // asset loader trigger??
+    public void loadAssetsAsync(Runnable onFinished){
+        assetsLoaded = false;
+
+        new Thread(() -> {
+
+            // Force ImageLibrary initialization (this is your "loading work")
+            ImageLibrary.get();
+
+            assetsLoaded = true;
+
+            javax.swing.SwingUtilities.invokeLater(onFinished);
+
+        }).start();
     }
 
 }
