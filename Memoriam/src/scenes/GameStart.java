@@ -45,9 +45,8 @@ public class GameStart extends PlayableScreen {
 
         map = new ImageLibrary().map;
 
-        JLabel title = new JLabel("Game start");
-        title.setFont(title.getFont().deriveFont(32f));
-        title.setBounds(100, 100, 400, 100);
+
+  
 
         killButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 200, 100);
 
@@ -68,7 +67,6 @@ public class GameStart extends PlayableScreen {
         bottomPanel.add(menuButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
-        add(title, BorderLayout.NORTH);
 
         // chest init
         cardManager = new CardManager(new ImageLibrary());
