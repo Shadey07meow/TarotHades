@@ -105,6 +105,7 @@ public class GameStart extends PlayableScreen {
         box1.setCollider(new RectangleCollider(box1, true));
         GameObject box2 = new GameObject(300, 300, 50);
         box2.setCollider(new RectangleCollider(box2, true));
+        BlueWisp bluey = new BlueWisp(player.getPosition(), 4);
         // Background  object,  scuffed, have to optimize this later
 
         TreasureChest tr1 = new TreasureChest(100, 100, player, 2, this);
@@ -118,6 +119,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(box1);
         world.addObject(box2);
         world.addObject(tr1);
+        world.addObject(bluey);
 
         box1.setObjects(world.getObjectList());
         box2.setObjects(world.getObjectList());

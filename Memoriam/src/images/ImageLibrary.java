@@ -21,6 +21,10 @@ public class ImageLibrary
     public final Image playerSpritesLEFT;
     public final Image playerSpritesRIGHT;
 
+    // Enemy Blue
+    public final Image blueRIGHT;
+    public final Image blueLEFT;
+
     // Cursor
     public final Image quillCursor;
     public final Image swordCursor;
@@ -83,6 +87,12 @@ public class ImageLibrary
         treasureChest = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChest.png")).getImage();//
         treasureChestH = new ImageIcon(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png")).getImage();//
         projectile =  new ImageIcon(getClass().getResource("assets/objects/projectile.png")).getImage().getScaledInstance(16 * 2, 16 * 2, Image.SCALE_SMOOTH);
+        
+        // Enemy Sprites
+        blueLEFT =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueLeft.gif")).getImage();
+        blueRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueRight.gif")).getImage();
+        
+    
     }
 
 
