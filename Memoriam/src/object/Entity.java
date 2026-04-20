@@ -5,7 +5,7 @@ import systems.*;
 public abstract class Entity extends GameObject
 {
     
-    protected double health = 5;
+    protected int health = 5;
     protected double speed = 10;
 
     public Entity(Vector2 position, double s)
