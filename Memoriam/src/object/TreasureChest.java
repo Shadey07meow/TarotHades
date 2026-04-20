@@ -57,14 +57,11 @@ public class TreasureChest extends GameObject {
         return isWithinInteraction;   
     }
 
-    public void doInteractionLogic()
-    {
-        // When pressed, the card-popup will appear
-        if(targetPlayer.isInteracting())
-        {
-            world.showCards();
-            world.showChestUI = true;
+    public void doInteractionLogic() {
 
+        if (targetPlayer.isInteracting()) {
+
+            world.openChest();
         }
     }
 }

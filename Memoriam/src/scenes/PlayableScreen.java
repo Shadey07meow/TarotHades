@@ -148,20 +148,21 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     }
 
     @Override
-    public void paintComponent (Graphics g)
+    public void paintComponent(Graphics g)
     {
-        // Playable screen class is the class responsible for all the drawing in the frames, do not put paint component in the individual levels anymore
         super.paintComponent(g);
         Graphics2D graphics2 = (Graphics2D) g;
 
-
-        // Draws all the images in the world renderer
-
-        if(world != null)
+        if (world != null)
         {
-            // In world renderer, the map must always be drawn first
-            for (GameObject obj : world.getObjectList()) {
+            java.util.ArrayList<GameObject> safeList =
+                new java.util.ArrayList<>(world.getObjectList());
+
+            // DRAW OBJECTS
+            for (GameObject obj : safeList) {
+
                 if (obj.getImage() != null) {
+
                     graphics2.drawImage(
                         obj.getImage(),
                         (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
@@ -170,46 +171,49 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                         (int)obj.getScaledHeight(),
                         null
                     );
+
                 } else {
+
                     graphics2.setColor(obj.getColor());
+
                     graphics2.fillRect(
                         (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
                         (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
                         (int)obj.getScaledWidth(),
                         (int)obj.getScaledHeight()
-                        
                     );
                 }
             }
-    
         }
-        
-        if(world != null)
-        {
-            if(world.getDebug() == true)
-            {
-                
-                g.setColor(Color.BLUE);
-                graphics2.setStroke(new BasicStroke(20));
-                g.drawOval(
-                    (int)(world.getCenterPosition().x - (world.getDistanceFromCenter())), 
-                    (int)(world.getCenterPosition().y - (world.getDistanceFromCenter())), 
-                    world.getDistanceFromCenter() * 2, 
-                    world.getDistanceFromCenter() * 2);
 
-                for (GameObject obj : world.getObjectList()) {
-                    if (obj.getImage() != null) {
-                        graphics2.fillRect(
-                            (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
-                            (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
-                            50,
-                            50);
-                    }
+        if (world != null && world.getDebug())
+        {
+            g.setColor(Color.BLUE);
+            graphics2.setStroke(new BasicStroke(20));
+
+            g.drawOval(
+                (int)(world.getCenterPosition().x - (world.getDistanceFromCenter())),
+                (int)(world.getCenterPosition().y - (world.getDistanceFromCenter())),
+                world.getDistanceFromCenter() * 2,
+                world.getDistanceFromCenter() * 2
+            );
+
+            java.util.ArrayList<GameObject> debugList =
+                new java.util.ArrayList<>(world.getObjectList());
+
+            for (GameObject obj : debugList) {
+
+                if (obj.getImage() != null) {
+
+                    graphics2.fillRect(
+                        (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
+                        (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
+                        50,
+                        50
+                    );
                 }
             }
-
         }
-
     }
 
 
