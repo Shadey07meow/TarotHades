@@ -219,6 +219,7 @@ public class Player extends Entity {
     }
 
     public Vector2 getVelocity(){return Vector2.multiply(inputs.getInputVector(), speed);}
+    public int getHealth() {return this.health;}
     public boolean isInteracting(){ return this.isInteracting;}
 
     public void checkInteracting()
