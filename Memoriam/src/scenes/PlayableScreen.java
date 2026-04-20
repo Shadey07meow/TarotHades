@@ -1,10 +1,9 @@
 package scenes;
 
-import java.awt.Graphics;
-import java.awt.Color;
 import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import object.GameObject;
 import object.Player;
 import systems.*;
@@ -125,7 +124,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
 
     // Update function for all playable screen, Override this for game logic
-    protected  void update()
+   /* protected  void update()
     {
         if(world !=  null)
         {
@@ -133,6 +132,19 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             if(world != null) world.updateWorld();
             if(world.getPlayer() != null) world.getPlayer().update();
         }
+    }*/
+
+   // testing -calrya
+    protected void update()
+    {
+        if (world == null) return;
+
+        if (world.getPlayer() != null)
+        {
+            world.getPlayer().update();
+        }
+
+        world.updateWorld();
     }
 
     @Override

@@ -2,7 +2,6 @@ package object;
 
 import images.*;
 import java.awt.Image;
-import java.util.ArrayList;
 import scenes.*;
 import systems.*;
 
@@ -20,7 +19,7 @@ public class Player extends GameObject {
     private GameFrame gameFrame;
     private InputManager inputs = null;
     private boolean hasShotProjectile = false;
-    private ImageLibrary imgLib = new ImageLibrary();
+    private ImageLibrary imgLib = ImageLibrary.get();
     private boolean isDead = false;
     private boolean canMove = true;
     private boolean isInteracting = false;
@@ -29,10 +28,10 @@ public class Player extends GameObject {
     private WorldRenderer world;
 
     // for sprites
-    private final Image spriteDown = new ImageLibrary().playerSpritesDOWN;
-    private final Image spriteUp = new ImageLibrary().playerSpritesUP;
-    private final Image spriteLeft = new ImageLibrary().playerSpritesLEFT;
-    private final Image spriteRight = new ImageLibrary().playerSpritesRIGHT;
+    private final Image spriteDown = ImageLibrary.get().playerSpritesDOWN;
+    private final Image spriteUp = ImageLibrary.get().playerSpritesUP;
+    private final Image spriteLeft = ImageLibrary.get().playerSpritesLEFT;
+    private final Image spriteRight = ImageLibrary.get().playerSpritesRIGHT;
 
 
 

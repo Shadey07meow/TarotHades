@@ -44,13 +44,13 @@ public class GameStart extends PlayableScreen {
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
 
-        map = new ImageLibrary().map;
+        map = ImageLibrary.get().map;
 
         JLabel title = new JLabel("Game start");
         title.setFont(title.getFont().deriveFont(32f));
         title.setBounds(100, 100, 400, 100);
 
-        killButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 200, 100);
+        killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 353, 100);
 
         killButton.addActionListener(e -> {
         if (player != null) {
@@ -58,10 +58,25 @@ public class GameStart extends PlayableScreen {
         }
          });
 
-        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+        JButton menuButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
+
+        gameFrame.addHoverEffect(
+            menuButton,
+            ImageLibrary.get().optionBtn,
+            ImageLibrary.get().optionBtnHover,
+            353, 100
+        );
+
+        gameFrame.addHoverEffect(
+            killButton,
+            ImageLibrary.get().placeholderBtn,
+            ImageLibrary.get().placeholderBtnHover,
+            353, 100
+        );
+
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
@@ -72,7 +87,7 @@ public class GameStart extends PlayableScreen {
         add(title, BorderLayout.NORTH);
 
         // chest init
-        cardManager = new CardManager(new ImageLibrary());
+        cardManager = new CardManager(ImageLibrary.get());
 
     }
 
@@ -84,7 +99,7 @@ public class GameStart extends PlayableScreen {
         
         Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
         player = new Player(centerHalf, 3, 10, 10, inputManager, gameFrame); 
-        Map bgObject = new Map(new ImageLibrary().map, new Vector2(100, 500), 1 );
+        Map bgObject = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1 );
         // Map Creation
         
         

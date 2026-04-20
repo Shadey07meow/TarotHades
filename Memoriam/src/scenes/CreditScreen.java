@@ -21,10 +21,11 @@ public class CreditScreen extends UIScreen {
         add(title, BorderLayout.NORTH);
 
 
-        backBtn = gameFrame.createImageButton(new ImageLibrary().backBtn, 150, 60); // change when theres exit img
+        backBtn = gameFrame.createImageButton(ImageLibrary.get().backBtn, 150, 60); // change when theres exit img
         backBtn.addActionListener(e -> {
             gameFrame.showPanel("menu"); // go back to main menu
         });
+        
 
         // Button panel at bottom
         JPanel bottomPanel = new JPanel();
