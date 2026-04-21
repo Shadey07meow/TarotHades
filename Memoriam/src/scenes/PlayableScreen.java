@@ -5,6 +5,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+
 import object.GameObject;
 import object.Player;
 import systems.*;
@@ -181,29 +183,31 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         if (world != null)
         {
             //System.out.println("I am rendering shit rn");
-            
+            ArrayList<GameObject> list = world.getObjectList();
+
             // In world renderer, the map must always be drawn first
-            for (GameObject obj : world.getObjectList()) {
-                if (obj.getImage() != null) {
+            for (int x = 0; x < world.getObjectList().size(); x++) 
+            {
+                if (list.get(x).getImage() != null) {
 
                     graphics2.drawImage(
-                        obj.getImage(),
-                        (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
-                        (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
-                        (int)obj.getScaledWidth(),
-                        (int)obj.getScaledHeight(),
+                        list.get(x).getImage(),
+                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
+                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
+                        (int)list.get(x).getScaledWidth(),
+                        (int)list.get(x).getScaledHeight(),
                         null
                     );
 
                 } else {
 
-                    graphics2.setColor(obj.getColor());
+                    graphics2.setColor(list.get(x).getColor());
 
                     graphics2.fillRect(
-                        (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
-                        (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
-                        (int)obj.getScaledWidth(),
-                        (int)obj.getScaledHeight()
+                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
+                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
+                        (int) list.get(x).getScaledWidth(),
+                        (int) list.get(x).getScaledHeight()
                     );
                 }
             }
@@ -243,7 +247,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             int spacing = 5;
             int maxHealth = 10;
 
-            ImageLibrary img = new ImageLibrary();
+            ImageLibrary img = ImageLibrary.get();
 
             for (int i =0; i<maxHealth; i++){
                 int x = 20 +(i*(heartSize + spacing));

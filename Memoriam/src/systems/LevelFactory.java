@@ -22,11 +22,10 @@ public class LevelFactory {
 
             case 1 -> {
                 System.out.println("Level 1: Awakening");
-
                 showLevelMessage(scene, "LEVEL 1: AWAKENING");
-
+                
                 player.setPosition(300, 300);
-
+                
                 world.addObject(new TreasureChest(200, 200, player, 2, scene));
             }
 
@@ -36,6 +35,7 @@ public class LevelFactory {
                 showLevelMessage(scene, "LEVEL 2: HALLWAYS");
 
                 player.setPosition(400, 300);
+                
 
                 world.addObject(new GameObject(500, 400, 50));
             }

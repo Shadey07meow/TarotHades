@@ -78,6 +78,10 @@ public class ImageLibrary
     public final BufferedImage treasureChestH;
     public final BufferedImage projectile;
 
+    // Player UI
+    public final Image heart;
+    public final Image deadHeart;
+
     private ImageLibrary()
     {
         try {
@@ -161,7 +165,11 @@ public class ImageLibrary
             blueLEFT =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueLeft.gif")).getImage();
             blueRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueRight.gif")).getImage();
         
-
+            // Player UI
+            heart = new ImageIcon(getClass().getResource("assets/MainAssets/heart.png")).getImage();
+            deadHeart = new ImageIcon(getClass().getResource("assets/MainAssets/heartDead.png")).getImage();
+ 
+            
         } catch (IOException | IllegalArgumentException e) {
             throw new RuntimeException("Failed to load images: " + e.getMessage(), e);
         }

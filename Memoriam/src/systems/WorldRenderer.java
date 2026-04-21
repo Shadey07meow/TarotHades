@@ -106,14 +106,14 @@ public class WorldRenderer {
             if(willMoveRight|| willMoveLeft)
             {
                 // Runs if the player is outside the bounding box of left and right 
-                System.out.println("I am outside the x threshold");
+                ///System.out.println("I am outside the x threshold");
                 moveObjectsWithWorldX();
             }
 
             if( willMoveDown || willMoveUp)
             {
                 // Runs if the player is outside the bounding box of left and right 
-                System.out.println("I am outside the y threshold");
+                //System.out.println("I am outside the y threshold");
                 moveObjectsWithWorldY();
             }
 
@@ -308,10 +308,13 @@ public class WorldRenderer {
 
     this.map = map;
 
-    objectList.add(map);
-    objectList.add(player);
 
     this.player = player;
+
+
+    this.setMap(map);
+    this.setPlayer(player);
+
     player.setWorldRenderer(this);
 }
 }
