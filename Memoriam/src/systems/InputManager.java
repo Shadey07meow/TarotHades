@@ -4,10 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-
-
-public class InputManager implements KeyListener, MouseListener{
+public class InputManager implements KeyListener, MouseListener, MouseMotionListener{
     // Detect inputs
     // If input is detected, make a variable here change
 
@@ -15,8 +14,11 @@ public class InputManager implements KeyListener, MouseListener{
     // Variables
     private Vector2 moveVector = new Vector2();
     private Vector2 clickPosition = new Vector2();
+    private Vector2 mousePosition = new Vector2();
     
-    private boolean mouse1down;
+    
+    private boolean mousePressed = false;
+    private boolean mouseClicked = false;
     private boolean pausePressed = false;
     
     private boolean movingUp;
@@ -110,9 +112,15 @@ public class InputManager implements KeyListener, MouseListener{
     {
         if(m.getButton() == MouseEvent.BUTTON1)
         {
-            setClicking(true);
+           
+            mousePressed = true;
+            mouseClicked = true;
+
             this.clickPosition.x = m.getX();
             this.clickPosition.y = m.getY();
+
+            System.out.println("CLICK DETECTED: " + m.getX() + "," + m.getY());
+            
         }
     }
 
@@ -121,10 +129,12 @@ public class InputManager implements KeyListener, MouseListener{
     {
         if(m.getButton() == MouseEvent.BUTTON1)
         {
-            setClicking(false);
+              mousePressed = false;
             
         }
     }
+
+
     @Override
     public void mouseClicked(MouseEvent m) {}
     
@@ -136,48 +146,55 @@ public class InputManager implements KeyListener, MouseListener{
     public void mouseExited(MouseEvent m)
     {}
     
+    /// MOUSE MOTION
+    @Override
+    public void mouseMoved(MouseEvent m) {
+        mousePosition.x = m.getX();
+        mousePosition.y = m.getY();
+    }
 
+    @Override
+    public void mouseDragged(MouseEvent m) {
+        mousePosition.x = m.getX();
+        mousePosition.y = m.getY();
+    }
+    
+    
     // Input manager methods
     private void updMovement()
     {
         // Handles Y
-        if(movingDown && movingUp)
-        {
+        if(movingDown && movingUp){
             this.moveVector.y = 0;
-        } else if(movingUp)
-        {
+        } else if(movingUp){
             this.moveVector.y = 1;
-        }else if (movingDown)
-        {
+        } else if (movingDown){
             this.moveVector.y = -1;
-        } else
-        {
+        } else {
             this.moveVector.y = 0;
         }
 
         // Handles X
-        if(movingLeft && movingRight)
-        {
+        if(movingLeft && movingRight){
             this.moveVector.x = 0;
-        } else if(movingRight)
-        {
+        } else if(movingRight){
             this.moveVector.x = 1;
-        }else if (movingLeft)
-        {
+        } else if (movingLeft){
             this.moveVector.x = -1;
-        } else
-        {
+        } else{
             this.moveVector.x = 0;
         }
     }
 
-    private void setClicking(boolean v){this.mouse1down = v;}
+    
 
     public double getInputX() {return this.moveVector.x;}
     public double getInputY() {return this.moveVector.y;}
-    public Vector2 getInputVector() {return  this.moveVector;}
+   
+   public Vector2 getInputVector() {return  this.moveVector;}
+    
     public Vector2 getClickPosition() {return clickPosition;}
-    public boolean getClickingStatus() {return this.mouse1down;}
+    public Vector2 getMousePosition() {return mousePosition;}
     public boolean getIsInteracting(){return this.isInteracting;}
 
     public boolean isPausePressed() {
@@ -185,6 +202,14 @@ public class InputManager implements KeyListener, MouseListener{
         pausePressed = false;
         return temp;
     }
+
+    public boolean consumeClick() {
+        boolean temp = mouseClicked;
+        mouseClicked = false;
+        return temp;
+    }
+
+    
 
 
 }

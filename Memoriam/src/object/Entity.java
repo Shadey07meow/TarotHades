@@ -2,8 +2,7 @@ package object;
 
 import systems.*;
 
-public abstract class Entity extends GameObject
-{
+public abstract class Entity extends GameObject {
     
     protected int health = 5;
     protected double speed = 10;

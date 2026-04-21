@@ -1,8 +1,5 @@
 package systems;
 
-
-import java.lang.Math;
-
 public class Vector2 {
     /// A class to quickly store 2 points
     /// Will be able to do quick vector operations
