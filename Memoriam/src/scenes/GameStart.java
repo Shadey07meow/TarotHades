@@ -223,6 +223,12 @@ public class GameStart extends PlayableScreen {
 
                 currentLevel++;
 
+                if (currentLevel > 5) {
+                currentLevel = 5; // lock at final boss
+                showFinalMessage();
+                return;
+                }
+
                 LevelFactory.loadLevel(currentLevel, world, player, this);
 
                 isFading = false;
@@ -450,6 +456,18 @@ public class GameStart extends PlayableScreen {
         isFading = true;
 
         resetUIOnTransition();
+    }
+
+    private void showFinalMessage() {
+        setLevelText("YOU HAVE REACHED THE END");
+
+        javax.swing.Timer t = new javax.swing.Timer(3000, e -> {
+            clearLevelText();
+            gameFrame.showPanel("menu"); // or credits screen
+        });
+
+        t.setRepeats(false);
+        t.start();
     }
 }
 

@@ -12,63 +12,78 @@ public class LevelFactory {
 
         Map map = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1);
 
-        // RESET WORLD FIRST (IMPORTANT)
         world.resetWorld(map, player);
-
-        // ALWAYS close UI on level change
         scene.closeChestUI();
+
+        player.setUIOpen(false);
+
+        buildLevel(id, world, player, scene);
+
+        spawnChest(world, player, scene);
+
+        showLevelMessage(scene, "LEVEL " + id);
+    }
+
+    private static void buildLevel(int id, WorldRenderer world, Player player, GameStart scene) {
 
         switch (id) {
 
             case 1 -> {
-                System.out.println("Level 1: Awakening");
-                showLevelMessage(scene, "LEVEL 1: AWAKENING");
-                
-                player.setPosition(300, 300);
-                
-                world.addObject(new TreasureChest(200, 200, player, 2, scene));
+                setSpawn(player, 300, 300);
+
+                addEnemy(world, new BlueWisp(player.getPosition(), 2));
             }
 
             case 2 -> {
-                System.out.println("Level 2: Hallways");
+                setSpawn(player, 400, 300);
 
-                showLevelMessage(scene, "LEVEL 2: HALLWAYS");
-
-                player.setPosition(400, 300);
-                
-
-                world.addObject(new GameObject(500, 400, 50));
+                addObject(world, new GameObject(500, 400, 50));
             }
 
             case 3 -> {
-                System.out.println("Level 3: Ruins");
+                setSpawn(player, 500, 500);
 
-                showLevelMessage(scene, "LEVEL 3: RUINS");
-
-                player.setPosition(500, 500);
+                addObject(world, new GameObject(350, 350, 80));
             }
 
             case 4 -> {
-                System.out.println("Level 4: Trials");
+                setSpawn(player, 600, 300);
 
-                showLevelMessage(scene, "LEVEL 4: TRIALS");
-
-                player.setPosition(600, 300);
+                addObject(world, new GameObject(700, 200, 60));
             }
 
             case 5 -> {
-                System.out.println("FINAL BOSS: The Fool");
-
-                showLevelMessage(scene, "FINAL BOSS");
-
-                player.setPosition(500, 500);
+                setSpawn(player, 500, 500);
 
                 GameObject boss = new GameObject(700, 500, 120);
                 boss.setColor(Color.RED);
 
-                world.addObject(boss);
+                addEnemy(world, boss);
+            }
+
+            default -> {
+                System.out.println("Invalid level: " + id);
+                setSpawn(player, 300, 300);
             }
         }
+    }
+
+
+    private static void setSpawn(Player player, int x, int y) {
+        player.setPosition(x, y);
+    }
+
+    private static void addObject(WorldRenderer world, GameObject obj) {
+        world.addObject(obj);
+    }
+
+    private static void addEnemy(WorldRenderer world, GameObject obj) {
+        world.addObject(obj);
+    }
+
+
+    private static void spawnChest(WorldRenderer world, Player player, GameStart scene) {
+        world.addObject(new TreasureChest(200, 200, player, 2, scene));
     }
 
     private static void showLevelMessage(GameStart scene, String text) {
