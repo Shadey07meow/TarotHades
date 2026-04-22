@@ -31,7 +31,7 @@ public class WorldRenderer {
     public WorldRenderer(Player player, PlayableScreen s)
     {
         this.player = player;
-        this.map = new Map(null, player.getPosition(), 1);
+        this.map = new Map(null, player.getPosition(), 1, s);
         this.gamePanel = s;
 
         this.setMap(this.map);

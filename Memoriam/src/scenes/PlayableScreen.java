@@ -1,13 +1,16 @@
 package scenes;
 
-import java.awt.Graphics;
-import java.awt.Color;
+import images.ImageLibrary;
 import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import object.GameObject;
 import object.Player;
 import systems.*;
+
 
 
 
@@ -96,7 +99,11 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         try
         {
             closeGameLoop();
-            this.world.closeWorld();
+            if(world != null)
+            {
+
+                this.world.closeWorld();
+            }
         }
         catch(Exception e)
         {System.out.println("Game Loop already stopped : " + e.getMessage());}   
@@ -110,10 +117,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
 
     }
- 
-    
-
-    
+  
     @Override
     public void run()
     {
@@ -148,15 +152,17 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     }
 
 
-    // Update function for all playable screen, Override this for game logic
-    protected  void update()
+    protected void update()
     {
-        if(world !=  null)
+        if (world == null) return;
+
+        if (world.getPlayer() != null)
         {
-            // Handles all the world logic, physics, camera movement, etc
-            if(world != null) world.updateWorld();
-            if(world.getPlayer() != null) world.getPlayer().update();
+            world.getPlayer().update();
+            updateCollisions();
         }
+
+        world.updateWorld();
     }
 
     @Override
@@ -226,5 +232,28 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
+    public InputManager getInputManager()
+    {
+        return this.inputManager;
+    }
+
+    public WorldRenderer getWorldRenderer()
+    {
+        return this.world;
+    }
+
+    public void updateCollisions()
+    {
+        for(int x = 0; x < world.getObjectList().size(); x++)
+        {
+            ArrayList<GameObject> list =  world.getObjectList();
+
+            if(list.get(x).getCollider() != null)
+            {
+                list.get(x).getCollider().checkCollisions();
+            }
+            
+        }
+    }
 
 }

@@ -2,6 +2,8 @@ package object;
 
 import images.*;
 import java.awt.Image;
+
+import collision.RectangleCollider;
 import scenes.*;
 import systems.*;
 
@@ -36,14 +38,19 @@ public class Player extends Entity {
     
 
 
-    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, GameFrame gameFrame)
+
+    public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
     {
-        super(position, scale);
+        super(position, scale, scrn);
         this.speed = speed;
         this.health = health;
-        this.inputs = inps;
+        
+        this.playScrn = scrn;
+        this.inputs = this.playScrn.getInputManager();
+        this.world = this.playScrn.getWorldRenderer();
+
         this.gameFrame = gameFrame;
-        this.world = null;
+        this.setCollider(new RectangleCollider(this, true));
         setImage(spriteDown);
     }
 
@@ -201,10 +208,11 @@ public class Player extends Entity {
         );
 
         world.addObject(new Projectile(
-        (int)spawnX,
-        (int)spawnY,
-        velocity,
-        1));
+            (int)spawnX,
+            (int)spawnY,
+            velocity,
+        1, 
+            this.playScrn));
 
         currentCooldown = fireCooldown;
         System.out.println("Shot fired");

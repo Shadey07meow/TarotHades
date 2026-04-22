@@ -11,6 +11,7 @@ public abstract class CollisionObject {
     protected boolean isMovable;
     protected Vector2 position;
     protected GameObject connectedGameObject;
+    protected boolean debugMode = false;
 
     protected ArrayList<CollisionObject> collidingWith = new ArrayList<>();
     
@@ -28,11 +29,12 @@ public abstract class CollisionObject {
     public GameObject getGameObject() 
     {return this.connectedGameObject;}
 
+    // Connected to the update function in gameObjects
+    public abstract  void checkCollisions();
+
+
     public ArrayList<CollisionObject> getCollidingWith() 
     {return collidingWith;}
-
-    
-
 
     // Collision check
     public abstract boolean isColliding(CollisionObject comparedObject);

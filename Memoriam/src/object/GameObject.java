@@ -4,6 +4,7 @@ import collision.*;
 import java.awt.Color;
 import java.awt.Image;
 import systems.*;
+import scenes.*;
 import collision.*;
 import object.*;
 import java.util.ArrayList;
@@ -20,13 +21,15 @@ public class GameObject {
     protected Color color;
     protected Image image;
     protected CollisionObject collider;
-    protected ArrayList<GameObject> objects;
+    protected WorldRenderer world;
+    protected PlayableScreen playScrn;
+
 
     // for interpolation (prev positions)
     protected double renderX;
     protected double renderY;
 
-    public GameObject()
+    public GameObject(PlayableScreen scrn)
     {
         this.position.x = 0;
         this.position.y = 0;
@@ -36,9 +39,11 @@ public class GameObject {
 
         this.renderX = 0;
         this.renderY = 0;
+
+        this.playScrn = scrn;
     }
 
-    public GameObject(double x, double y)
+    public GameObject(double x, double y, PlayableScreen scrn)
     {
         this.position.x = x;
         this.position.y = y;
@@ -48,9 +53,11 @@ public class GameObject {
 
         this.renderX = x;
         this.renderY = y;
+
+        this.playScrn = scrn;
     }
 
-    public GameObject(Vector2  v, double s)
+    public GameObject(Vector2  v, double s, PlayableScreen scrn)
     {
         this.position.x = v.x;
         this.position.y = v.y;
@@ -60,10 +67,11 @@ public class GameObject {
 
         this.renderX = v.x;
         this.renderY = v.y;
+
+        this.playScrn = scrn;
     }
 
-
-    public GameObject(Vector2  v)
+    public GameObject(Vector2  v, PlayableScreen scrn)
     {
         this.position.x = v.x;
         this.position.y = v.y;
@@ -73,11 +81,11 @@ public class GameObject {
 
         this.renderX = v.x;
         this.renderY = v.y;
+
+        this.playScrn = scrn;
     }
 
-
-
-    public GameObject(double x, double y, double s)
+    public GameObject(double x, double y, double s, PlayableScreen scrn)
     {
         this.position.x = x;
         this.position.y = y;
@@ -87,9 +95,11 @@ public class GameObject {
 
         this.renderX = x;
         this.renderY = y;
+
+        this.playScrn = scrn;
     }
 
-    public GameObject(GameObject spawnPoint)
+    public GameObject(GameObject spawnPoint, PlayableScreen scrn)
     {
         this.position.x = 0;
         this.position.y = 0;
@@ -99,6 +109,8 @@ public class GameObject {
 
         this.renderX = 0;
         this.renderY = 0;
+
+        this.playScrn = scrn;
     }
 
     // Setters
@@ -107,8 +119,8 @@ public class GameObject {
     public void setScale(int s) { this.scale = s; }
     public void setColor(Color c) { this.color = c; }
     public void setImage(Image i) { this.image = i; }
-    public void setObjects(ArrayList<GameObject> objs){ this.objects = objs;}
-
+    public void setWorld(WorldRenderer objs){ this.world = objs;}
+    
     // Getters
     public double getX() { return this.position.x; }
     public double getY() { return this.position.y; }
@@ -116,6 +128,7 @@ public class GameObject {
     public double  getScale() { return this.scale; }
     public Color getColor() { return this.color; }
     public Image getImage() { return this.image; }
+    public WorldRenderer getWorld(){ return this.world;}
 
     // Position
     public void setPosition(int x, int y)
@@ -171,9 +184,9 @@ public class GameObject {
     public void update()
     {
         // Check colliders if present
-        if(collider != null)
+        if(this.collider != null && this.world != null)
         {
-            checkCollisions();
+            this.collider.checkCollisions();
         }
         
         interpolate(1);
@@ -182,32 +195,8 @@ public class GameObject {
     // Collider
     public void setCollider(CollisionObject col)
     {
+        if(col == null) return;
         this.collider = col;
-    }
-
-    public void checkCollisions()
-    {
-
-        /*
-        
-        collider.getCollidingWith().clear();
-
-        for (GameObject obj : objects) {
-
-            if (obj == this) continue;
-
-            if (obj.getCollider() != null) {
-
-                CollisionObject otherCol = obj.getCollider();
-
-                if (collider.isColliding(otherCol)) {
-                    collider.getCollidingWith().add(otherCol);
-                }
-            }
-        }
-        
-        */
-
     }
 
     public CollisionObject getCollider()

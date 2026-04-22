@@ -1,6 +1,7 @@
 package collision;
 
 
+import jdk.net.UnixDomainPrincipal;
 import object.*;
 import systems.*;
 
@@ -31,6 +32,8 @@ public class RectangleCollider extends CollisionObject {
     {
         // Separate GameObject
         super(object, movable);
+        System.out.println("Created a rectangle collider");
+
         Vector2 halfScales = new Vector2(object.getScaledHeight() / 2, object.getScaledWidth() / 2);
         
         // Points for each one  
@@ -41,9 +44,36 @@ public class RectangleCollider extends CollisionObject {
 
         this.localBounds = new Bounds(point1, point2, point3, point4);
         updateBounds();
+    }
 
+    public RectangleCollider(GameObject object, boolean movable, Vector2 top, Vector2 bottom, Vector2 right, Vector2 left) 
+    {
+        // Separate GameObject
+        super(object, movable);
+        System.out.println("Created a rectangle collider");
+        
+        this.localBounds = new Bounds(top, bottom, right, left);
+        updateBounds();
     }
     
+    @Override
+    public void checkCollisions()
+    {
+        updateBounds();
+
+        // Clear first before updating
+        collidingWith.clear();
+
+        for(int x = 0; x < connectedGameObject.getWorld().getObjectList().size(); x++)
+        {
+            if(this.isColliding(connectedGameObject.getWorld().getObjectList().get(x).getCollider()))
+            {
+                collidingWith.add(connectedGameObject.getWorld().getObjectList().get(x).getCollider());
+            }
+        }
+        
+    }
+
     public void updateBounds()
     {
         Vector2 newT = Vector2.add(this.localBounds.TOP, this.connectedGameObject.getPosition());
@@ -55,6 +85,7 @@ public class RectangleCollider extends CollisionObject {
     }
 
 
+    @Override
     public boolean isColliding(CollisionObject comparedObject) 
     {   
         /*

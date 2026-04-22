@@ -1,6 +1,7 @@
 package object;
 
 import systems.*;
+import scenes.*;
 import images.*;
 
 public abstract class Enemy extends Entity {
@@ -8,9 +9,9 @@ public abstract class Enemy extends Entity {
     protected int detectionRange = 100;
     protected ImageLibrary img = new ImageLibrary();
 
-    public Enemy(Vector2 p, double s)
+    public Enemy(Vector2 p, double s, PlayableScreen scrn)
     {
-        super(p, s);
+        super(p, s, scrn);
     }
     
 }
