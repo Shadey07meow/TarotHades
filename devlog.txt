@@ -17,23 +17,56 @@ KEEP THIS ON TOP
     (Herielle)
     - Card System
         - Added Card.java
+            - updated to include Rarity and PlayerAbility fields
         - Added CardAbility.java
+            -  new functional interface for card effects
         - Added PlayerAbility.java
+            - new enum defining all unlockable abilities 
         - Added CardManager.java
+            - before it had a flast list of all cards, now it's split into level scaled rarity odds
         - Added Rarity.java
+            - defined the three card tiers
 
     -Player stats system
         - Added PlayerStats.java
+            - stats are computed dynamically using the formula (base + flatMods) * (1 + percentMods)
+            - handles damage (with defense reduction), healing
         - Added StatType.java
         - Added StatModifier.java
             - represents one stackable effect (flat or percent)
-
+        - Modified Player.java
+            -takes PlayerStats now instead of raw fields
+            - added applyAbility(PlayerAbility) 
+            - Added setUIOpen(boolean) — blocks combat input when chest UI is open
+            - minusHP, addHP, setHealth now connect to PlayerStats
+            - getHealth() and new getters
+        
     - PowerUp System
         - Added PowerUp.java
             - applies a bundle of stat modifer and has a name/desc
         - Added PowerUpManager.java
             - maps player ability to powerup, basically wiritng cards to stat effects
-    - DIRI PA INI TAPOS
+
+    - Modified InputManager.jaba
+        - now also implements MouseMotionListener
+        - added mouseMoved and mouseDragged
+        - replaced mouse1down / getClickingStatus() with mousePressed + mouseClicked + consumeClick() to avoid multi-frame click registration
+        - added separate mousePosition vector alongside clickPosition
+
+    - Modified GameStart.java
+        - openChest() now draws exactly 2 cards (was 3)
+        - selectCard() now calls player.applyAbility(c.ability) — cards actually do something now
+        - spinCards ArrayList removed (was unused)
+    
+    - Modified PlayableScreen.java
+        - added addMouseMotionListener(inputManager) so mouse movement is tracked from the start
+        - added requestFocusInWindow() in constructor
+
+    - Edited PlayableScreen.paintComponent
+        - heart bar now uses player.getMaxHP() instead of hardcoded 10
+
+
+
 
 --> 20/04/2026
     (CalRya)
