@@ -10,7 +10,7 @@ public class LevelFactory {
 
     public static void loadLevel(int id, WorldRenderer world, Player player, GameStart scene) {
 
-        Map map = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1);
+        Map map = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1, scene);
 
         world.resetWorld(map, player);
         scene.closeChestUI();
@@ -31,31 +31,31 @@ public class LevelFactory {
             case 1 -> {
                 setSpawn(player, 300, 300);
 
-                addEnemy(world, new BlueWisp(player.getPosition(), 2));
+                addEnemy(world, new BlueWisp(player.getPosition(), 2, scene));
             }
 
             case 2 -> {
                 setSpawn(player, 400, 300);
 
-                addObject(world, new GameObject(500, 400, 50));
+                addObject(world, new GameObject(500, 400, 50, scene) );
             }
 
             case 3 -> {
                 setSpawn(player, 500, 500);
 
-                addObject(world, new GameObject(350, 350, 80));
+                addObject(world, new GameObject(350, 350, 80, scene));
             }
 
             case 4 -> {
                 setSpawn(player, 600, 300);
 
-                addObject(world, new GameObject(700, 200, 60));
+                addObject(world, new GameObject(700, 200, 60, scene));
             }
 
             case 5 -> {
                 setSpawn(player, 500, 500);
 
-                GameObject boss = new GameObject(700, 500, 120);
+                GameObject boss = new GameObject(700, 500, 120, scene);
                 boss.setColor(Color.RED);
 
                 addEnemy(world, boss);

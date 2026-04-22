@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import object.GameObject;
 import object.Player;
 import systems.*;
+import collision.*;
+
 
 
 
@@ -99,7 +101,11 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         try
         {
             closeGameLoop();
-            this.world.closeWorld();
+            if(world != null)
+            {
+
+                this.world.closeWorld();
+            }
         }
         catch(Exception e)
         {System.out.println("Game Loop already stopped : " + e.getMessage());}   
@@ -113,10 +119,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
 
     }
- 
-    
-
-    
+  
     @Override
     public void run()
     {
@@ -151,18 +154,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     }
 
 
-    // Update function for all playable screen, Override this for game logic
-   /* protected  void update()
-    {
-        if(world !=  null)
-        {
-            // Handles all the world logic, physics, camera movement, etc
-            if(world != null) world.updateWorld();
-            if(world.getPlayer() != null) world.getPlayer().update();
-        }
-    }*/
-
-   // testing -calrya
     protected void update()
     {
         if (world == null) return;
@@ -170,6 +161,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         if (world.getPlayer() != null)
         {
             world.getPlayer().update();
+            updateCollisions();
         }
 
         world.updateWorld();
@@ -213,68 +205,64 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                 }
             }
         }
-
-        if (world != null && world.getDebug())
+        
+        if(world != null)
         {
-            g.setColor(Color.BLUE);
-            graphics2.setStroke(new BasicStroke(20));
+            // Draws World dddebug stuff first 
+            if(world.getDebug() == true)
+            {
+                graphics2.setStroke(new BasicStroke(2));
+                for (GameObject obj : world.getObjectList()) {
+                    if (obj.getCollider() != null) {
+                        if(obj.getCollider() instanceof RectangleCollider)
+                        {
+                            if(obj.getCollider().getIsColliding() == true)
+                            {
+                                g.setColor(obj.getCollider().activeColor);
+                            } else
+                            {
+                                g.setColor(obj.getCollider().inactiveColor);
+                            }
 
-            g.drawOval(
-                (int)(world.getCenterPosition().x - (world.getDistanceFromCenter())),
-                (int)(world.getCenterPosition().y - (world.getDistanceFromCenter())),
-                world.getDistanceFromCenter() * 2,
-                world.getDistanceFromCenter() * 2
-            );
 
-            java.util.ArrayList<GameObject> debugList =
-                new java.util.ArrayList<>(world.getObjectList());
-
-            for (GameObject obj : debugList) {
-
-                if (obj.getImage() != null) {
-
-                    graphics2.fillRect(
-                        (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
-                        (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
-                        50,
-                        50
-                    );
-                }
+                            RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                            graphics2.drawRect(
+                                (int) obj.getRenderX() - (((int)Math.abs(tempCol.getLocalBounds().LEFT.x) + (int)Math.abs(tempCol.getLocalBounds().RIGHT.x )) / 2),
+                                (int) obj.getRenderY() - (((int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + (int)Math.abs(tempCol.getLocalBounds().TOP.y )) / 2),
+                                (int)Math.abs(tempCol.getLocalBounds().LEFT.x) + Math.abs((int)tempCol.getLocalBounds().RIGHT.x ),
+                                (int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + Math.abs((int)tempCol.getLocalBounds().TOP.y )
+                            );
+                        }
+                    }
+                }         
             }
         }
-
-        if (player !=null){
-            int heartSize = 40;
-            int spacing = 5;
-            int maxHealth = player.getMaxHP(); 
-
-            ImageLibrary img = ImageLibrary.get();
-
-            for (int i =0; i<maxHealth; i++){
-                int x = 20 +(i*(heartSize + spacing));
-                int y = 20;
-
-                if (i<player.getHealth()){
-                    graphics2.drawImage(
-                    img.heart,
-                    x,
-                    y,
-                    heartSize,
-                    heartSize,
-                    null);
-                }
-                else{
-                    graphics2.drawImage(
-                    ImageLibrary.get().deadHeart,
-                    x,
-                    y,
-                    heartSize,
-                    heartSize,
-                    null);
-                }
-            }
-
-        }
-
     }
+
+
+    
+    public InputManager getInputManager()
+    {
+        return this.inputManager;
+    }
+
+    public WorldRenderer getWorldRenderer()
+    {
+        return this.world;
+    }
+    
+    public void updateCollisions()
+    {
+        for(int x = 0; x < world.getObjectList().size(); x++)
+        {
+            ArrayList<GameObject> list =  world.getObjectList();
+
+            if(list.get(x).getCollider() != null)
+            {
+                list.get(x).getCollider().checkCollisions();
+            }
+            
+        }
+    }
+
 }

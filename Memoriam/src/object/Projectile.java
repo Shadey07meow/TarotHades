@@ -1,7 +1,9 @@
 package object;
 import images.ImageLibrary;
 import java.awt.Color;
+
 import systems.*;
+import scenes.*;
 
 public class Projectile extends GameObject{
     // A projectile class with a constant velocity
@@ -10,8 +12,8 @@ public class Projectile extends GameObject{
      private Vector2 velocity;
     private int lifeTime = 120; // frames
 
-    public Projectile(int x, int y, Vector2 velocity, int scale){
-        super(x, y, scale);
+    public Projectile(int x, int y, Vector2 velocity, int scale, PlayableScreen scrn){
+        super(x, y, scale, scrn);
         this.velocity = velocity;
         this.setImage(ImageLibrary.get().projectile);
         setColor(Color.RED);

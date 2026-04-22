@@ -3,6 +3,7 @@ package object;
 import images.*;
 import java.awt.Image;
 import java.util.HashSet;
+import collision.RectangleCollider;
 import scenes.*;
 import systems.*;
 
@@ -36,11 +37,12 @@ public class Player extends Entity {
     private boolean isInteracting = false;
     private boolean isDead = false;
     private double currentCooldown = 0;
-    private boolean uiOpen = false;
-
-    public Player(Vector2 position, int scale, int speed, int health, InputManager inps, GameFrame gameFrame)
+    private boolean uiOpen = false;    
+    
+    
+    public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
     {
-        super(position, scale);
+        super(position, scale, scrn);
 
         this.stats = new PlayerStats(health, 10, 0, speed);
 
@@ -48,10 +50,18 @@ public class Player extends Entity {
         this.health = stats.getCurrentHP();
         this.speed  = stats.getSpeed();
 
-        this.inputs = inps;
+        
+        this.playScrn = scrn;
+        this.inputs = this.playScrn.getInputManager();
+        this.world = this.playScrn.getWorldRenderer();
+
         this.gameFrame = gameFrame;
-        this.world = null;
+
+        collider = new RectangleCollider(this, true, 40, 40, 40 ,40);
+
         setImage(spriteDown);
+
+
     }
 
 
@@ -65,7 +75,6 @@ public class Player extends Entity {
 
         if(world != null)
         {
-
             if (!isDead)
             {
                 // loser condition
@@ -239,10 +248,11 @@ public class Player extends Entity {
         );
 
         world.addObject(new Projectile(
-        (int)spawnX,
-        (int)spawnY,
-        velocity,
-        1));
+            (int)spawnX,
+            (int)spawnY,
+            velocity,
+        1, 
+            this.playScrn));
 
         currentCooldown = fireCooldown;
         System.out.println("Shot fired");

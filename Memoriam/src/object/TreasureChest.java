@@ -14,7 +14,7 @@ public class TreasureChest extends GameObject {
     // Check when the player is close enough to this particular
     public TreasureChest(Vector2  v, Player  p, int s, GameStart world)
     {
-        super(v,  s);
+        super(v, s, world);
         this.targetPlayer =  p;
         this.world = world;
         setImage(ImageLibrary.get().treasureChest);
@@ -22,7 +22,7 @@ public class TreasureChest extends GameObject {
     
     public TreasureChest(int a, int b, Player  p,  int s, GameStart world)
     {
-        super(a, b, s);
+        super(a, b, s, world);
         this.targetPlayer =  p;
         this.world = world;
         setImage(ImageLibrary.get().treasureChest);

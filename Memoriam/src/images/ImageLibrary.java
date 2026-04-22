@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 public class ImageLibrary
 {
     // Library of images
-        private static ImageLibrary instance;
+    private static ImageLibrary instance;
 
 
     public static ImageLibrary get() {

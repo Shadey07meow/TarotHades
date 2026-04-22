@@ -25,13 +25,13 @@ public class WorldRenderer {
     private final double xThresholdd = 150; 
     private final double yThresholdd = 150; 
 
-    private boolean debugMode = false;
+    private boolean debugMode = true;
 
     // Constructors
     public WorldRenderer(Player player, PlayableScreen s)
     {
         this.player = player;
-        this.map = new Map(null, player.getPosition(), 1);
+        this.map = new Map(null, player.getPosition(), 1, s);
         this.gamePanel = s;
 
         this.setMap(this.map);
@@ -106,14 +106,12 @@ public class WorldRenderer {
             if(willMoveRight|| willMoveLeft)
             {
                 // Runs if the player is outside the bounding box of left and right 
-                ///System.out.println("I am outside the x threshold");
                 moveObjectsWithWorldX();
             }
 
             if( willMoveDown || willMoveUp)
             {
                 // Runs if the player is outside the bounding box of left and right 
-                //System.out.println("I am outside the y threshold");
                 moveObjectsWithWorldY();
             }
 
@@ -302,19 +300,20 @@ public class WorldRenderer {
         return b;
     }
 
-    public void resetWorld(Map map, Player player)
-{
-    objectList.clear();
+    
+        public void resetWorld(Map map, Player player)
+    {
+        objectList.clear();
 
-    this.map = map;
-
-
-    this.player = player;
+        this.map = map;
 
 
-    this.setMap(map);
-    this.setPlayer(player);
+        this.player = player;
 
-    player.setWorldRenderer(this);
-}
+
+        this.setMap(map);
+        this.setPlayer(player);
+
+        player.setWorldRenderer(this);
+    }
 }

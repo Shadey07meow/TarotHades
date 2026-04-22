@@ -1,15 +1,16 @@
 package object;
 
 import systems.*;
+import scenes.*;
 
 public abstract class Entity extends GameObject {
     
     protected int health = 5;
     protected double speed = 10;
 
-    public Entity(Vector2 position, double s)
+    public Entity(Vector2 position, double s, PlayableScreen p)
     {
-        super(position.x, position.y, s);
+        super(position.x, position.y, s, p);
     }
 
     public void setHealth(int health) {this.health = health;}

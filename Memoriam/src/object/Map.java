@@ -4,6 +4,7 @@ package object;
 
 import java.awt.Image;
 import systems.*;
+import scenes.*;
 
 public class Map extends GameObject {
     
@@ -15,9 +16,9 @@ public class Map extends GameObject {
 
     // Will contain multiple colliders, spawn points and such
 
-    public Map(Image mapImg, Vector2 position, double scale)
+    public Map(Image mapImg, Vector2 position, double scale, PlayableScreen scrn)
     {
-        super(position, scale);
+        super(position, scale, scrn);
         super.setImage(mapImg);
         setBounds();
     }

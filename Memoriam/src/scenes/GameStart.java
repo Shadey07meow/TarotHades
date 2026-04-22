@@ -23,7 +23,7 @@ public class GameStart extends PlayableScreen {
     private Image map;
 
     // level system
-    private int currentLevel = 0;
+    private int currentLevel = 1;
 
     private LevelFactory levelFactory;
     private String levelText = "";
@@ -32,12 +32,15 @@ public class GameStart extends PlayableScreen {
     private int hoveredCardIndex = -1;
     private String selectedCardName = "";
     private int selectedCardTimer = 0;
+    
 
     // powerup
+    private ArrayList<Card> spinCards = new ArrayList<>();
     private int chestState = 0; 
     private int spinTicks = 0;
     private int selectedCardIndex = -1;
     private boolean chestSelectionMode = false;
+
 
     // transition
     private boolean isFading = false;
@@ -48,11 +51,13 @@ public class GameStart extends PlayableScreen {
     private ArrayList<Card> currentCards = new ArrayList<>();
     private CardManager cardManager;
 
+
     private Rectangle chestButton;
     private Rectangle backButton;
 
     private float chestAnim = 0f;
     private float cardFlip = 0f;
+
 
 
     public GameStart(GameFrame gameFrame) {
@@ -65,6 +70,7 @@ public class GameStart extends PlayableScreen {
         setLayout(new BorderLayout());
 
         map = ImageLibrary.get().map;
+
 
   
 
@@ -109,10 +115,10 @@ public class GameStart extends PlayableScreen {
         super.startGamePanel();
         
         Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
-        player = new Player(centerHalf, 3, 10, 10, inputManager, gameFrame); 
-        Map bgObject = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1 );
-        
+        // Add player 
+        player = new Player(centerHalf, 3, 10, 10, this, gameFrame); 
         // Map Creation
+        Map bgObject = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1 , this);
         
         
         this.world = new WorldRenderer(player, bgObject, this);
@@ -124,15 +130,14 @@ public class GameStart extends PlayableScreen {
         
   
         
-        player.setCollider(new RectangleCollider(player, true));
         
-        // Add player 
-        player.setObjects(world.getObjectList());
-        GameObject box1 = new GameObject(300, 300, 50);
-        box1.setCollider(new RectangleCollider(box1, true));
-        GameObject box2 = new GameObject(300, 300, 50);
-        box2.setCollider(new RectangleCollider(box2, true));
-        BlueWisp bluey = new BlueWisp(player.getPosition(), 2);
+        
+        player.setWorld(world);
+        GameObject box1 = new GameObject(300, 300, 50, this);
+        box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
+        GameObject box2 = new GameObject(300, 500, 50, this);
+        box2.setCollider(new RectangleCollider(box2, true, 20, 20, 20, 20));
+        BlueWisp bluey = new BlueWisp(player.getPosition(), 2, this);
         // Background  object,  scuffed, have to optimize this later
 
         TreasureChest tr1 = new TreasureChest(100, 100, player, 2, this);
@@ -148,8 +153,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(tr1);
         world.addObject(bluey);
 
-        box1.setObjects(world.getObjectList());
-        box2.setObjects(world.getObjectList());
+
 
         player.getStats().debugPrint(); // debug
     }
@@ -188,6 +192,13 @@ public class GameStart extends PlayableScreen {
     public void update() {
 
         super.update(); // THIS already updates world + player
+
+                    // when esc is press, show pause panel
+            if (inputManager.isPausePressed()) {
+                gameFrame.showPanel("pause");
+                return;
+            }
+        
 
             if (chestState == 1) {
 
@@ -374,69 +385,6 @@ public class GameStart extends PlayableScreen {
                 }
             }
         }
-
-        // selected card game
-        if (selectedCardTimer > 0) {
-
-            g.setColor(Color.WHITE);
-            g.setFont(g.getFont().deriveFont(40f));
-
-            int width = g.getFontMetrics().stringWidth(selectedCardName);
-
-            g.drawString(
-                selectedCardName,
-                (getWidth() - width) / 2,
-                getHeight() / 2 + 200
-            );
-        }
-
-        if (showLevelText) {
-
-            g.setColor(Color.WHITE);
-            g.setFont(g.getFont().deriveFont(48f));
-
-            int width = g.getFontMetrics().stringWidth(levelText);
-
-            g.drawString(
-                levelText,
-                (getWidth() - width) / 2,
-                getHeight() / 2
-            );
-        }
-
-        if (fade > 0f) {
-
-            Graphics2D g2 = (Graphics2D) g;
-
-            g2.setColor(new Color(0, 0, 0, (int)(fade * 255)));
-            g2.fillRect(0, 0, getWidth(), getHeight());
-        }
-    }
-
-    public void selectCard(int index) {
-
-        Card c = currentCards.get(index);
-        if (c == null) return;
-
-        selectedCardIndex = index;
-
-        selectedCardName = c.name;
-        selectedCardTimer = 60; // show for ~1 second
-
-        System.out.println("Card selected: " + c.name + " | Ability: " + c.ability);
-        player.applyAbility(c.ability); 
-
-        showChestUI = false;
-        chestState = 0;
-        player.setUIOpen(false); 
-
-        javax.swing.Timer t = new javax.swing.Timer(800, e -> {
-            gameFrame.cutsceneScreen.loadCutsceneForLevel(currentLevel);
-            gameFrame.showPanel("cutscene");
-        });
-
-        t.setRepeats(false);
-        t.start();
     }
 
     private void resetUIOnTransition() {
@@ -482,5 +430,5 @@ public class GameStart extends PlayableScreen {
 
         LevelFactory.loadLevel(currentLevel, world, player, this);
     }
-}
 
+}

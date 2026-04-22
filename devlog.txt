@@ -8,10 +8,20 @@ KEEP THIS ON TOP
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
 --> 22/04/2026
+
     (CalRya)
     - Fixed the level system a bit more
     - Added transitions for the level cutscenes
     - CutsceneScreen.java
+
+    (Shadey07)
+    - Successful implementation of Rectangle collisions
+    - Created enemy object
+        - Added enemy gameobject
+        - Implemented enemy sprites
+    - Created a quick way to turn on and off debug mode
+    
+
 
 --> 21/04/2026  
     (Herielle)
