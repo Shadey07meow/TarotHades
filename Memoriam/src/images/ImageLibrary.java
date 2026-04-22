@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 public class ImageLibrary
 {
     // Library of images
-        private static ImageLibrary instance;
+    private static ImageLibrary instance;
 
 
     public static ImageLibrary get() {
@@ -105,7 +105,7 @@ public class ImageLibrary
             
             // Cursor
             quillCursor = ImageIO.read(getClass().getResource(
-                    "assets/MainAssets/cursor.png"
+                    "/assets/MainAssets/cursor.png"
             )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
 
             swordCursor = ImageIO.read(getClass().getResource(
