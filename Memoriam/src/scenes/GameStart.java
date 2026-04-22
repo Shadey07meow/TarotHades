@@ -23,7 +23,7 @@ public class GameStart extends PlayableScreen {
     private Image map;
 
     // level system
-    private int currentLevel = 1;
+    private int currentLevel = 0;
 
     private LevelFactory levelFactory;
     private String levelText = "";
@@ -222,6 +222,12 @@ public class GameStart extends PlayableScreen {
                 fade = 1f;
 
                 currentLevel++;
+
+                if (currentLevel > 5) {
+                currentLevel = 5; // lock at final boss
+                showFinalMessage();
+                return;
+                }
 
                 LevelFactory.loadLevel(currentLevel, world, player, this);
 
@@ -425,7 +431,8 @@ public class GameStart extends PlayableScreen {
         player.setUIOpen(false); 
 
         javax.swing.Timer t = new javax.swing.Timer(800, e -> {
-            triggerLevelChange();
+            gameFrame.cutsceneScreen.loadCutsceneForLevel(currentLevel);
+            gameFrame.showPanel("cutscene");
         });
 
         t.setRepeats(false);
@@ -450,6 +457,30 @@ public class GameStart extends PlayableScreen {
         isFading = true;
 
         resetUIOnTransition();
+    }
+
+    private void showFinalMessage() {
+        setLevelText("YOU HAVE REACHED THE END");
+
+        javax.swing.Timer t = new javax.swing.Timer(3000, e -> {
+            clearLevelText();
+            gameFrame.showPanel("menu"); // or credits screen
+        });
+
+        t.setRepeats(false);
+        t.start();
+    }
+
+    public void nextLevelAfterCutscene() {
+
+        currentLevel++;
+
+        if (currentLevel > 6) {
+            showFinalMessage(); // optional
+            return;
+        }
+
+        LevelFactory.loadLevel(currentLevel, world, player, this);
     }
 }
 
