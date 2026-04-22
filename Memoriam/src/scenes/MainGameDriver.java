@@ -16,7 +16,7 @@ public class MainGameDriver
         /// What does this do?
         ///     Runs the application
         ///         Initiate the frame
-        
+        ImageLibrary.get();
         GameFrame gameFrame = new GameFrame(RESOLUTION);
 
     }

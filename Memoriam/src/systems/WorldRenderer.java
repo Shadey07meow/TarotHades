@@ -301,4 +301,21 @@ public class WorldRenderer {
 
         return b;
     }
+
+    
+        public void resetWorld(Map map, Player player)
+    {
+        objectList.clear();
+
+        this.map = map;
+
+
+        this.player = player;
+
+
+        this.setMap(map);
+        this.setPlayer(player);
+
+        player.setWorldRenderer(this);
+    }
 }

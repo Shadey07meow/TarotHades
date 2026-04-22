@@ -23,12 +23,12 @@ public class LoseScreen extends UIScreen {
 
         add(title, BorderLayout.NORTH);
 
-        retryBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        retryBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
         retryBtn.addActionListener(e -> {
             gameFrame.showPanel("start"); // retry game
         });
 
-        menuBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 250, 100);
+        menuBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
         menuBtn.addActionListener(e -> {
             gameFrame.showPanel("menu"); // back to menu
         });

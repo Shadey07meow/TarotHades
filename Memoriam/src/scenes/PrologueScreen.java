@@ -60,7 +60,7 @@ public class PrologueScreen extends UIScreen {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setOpaque(false);
 
-        skipButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 150, 60);
+        skipButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 150, 60);
 
         skipButton.addActionListener(e -> skipToEnd());
 

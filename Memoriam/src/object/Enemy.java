@@ -7,7 +7,7 @@ import images.*;
 public abstract class Enemy extends Entity {
 
     protected int detectionRange = 100;
-    protected ImageLibrary img = new ImageLibrary();
+    protected ImageLibrary img = ImageLibrary.get();
 
     public Enemy(Vector2 p, double s, PlayableScreen scrn)
     {

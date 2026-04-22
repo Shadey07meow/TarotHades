@@ -21,12 +21,12 @@ public class MenuScreen extends UIScreen {
     public MenuScreen(GameFrame gameFrame) {
 
         super("menu");
-        this.backgroundImage = new ImageLibrary().background;
+        this.backgroundImage = ImageLibrary.get().background;
 
         // Buttons
-        startBtn = gameFrame.createImageButton(new ImageLibrary().startBtn, 353, 100);
-        creditBtn = gameFrame.createImageButton(new ImageLibrary().optionBtn, 353, 100);
-        exitBtn = gameFrame.createImageButton(new ImageLibrary().exitBtn, 353, 100);
+        startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
+        creditBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 353, 100);
+        exitBtn = gameFrame.createImageButton(ImageLibrary.get().exitBtn, 353, 100);
 
         styleButton(startBtn);
         styleButton(creditBtn);

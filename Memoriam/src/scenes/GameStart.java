@@ -63,12 +63,12 @@ public class GameStart extends PlayableScreen {
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
 
-        map = new ImageLibrary().map;
+        map = ImageLibrary.get().map;
 
 
   
 
-        killButton = gameFrame.createImageButton(new ImageLibrary().placeholderBtn, 200, 100);
+        killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 200, 100);
 
         killButton.addActionListener(e -> {
         if (player != null) {
@@ -76,7 +76,7 @@ public class GameStart extends PlayableScreen {
         }
          });
 
-        JButton menuButton = gameFrame.createImageButton(new ImageLibrary().optionBtn, 200, 100);
+        JButton menuButton = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 200, 100);
         menuButton.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
@@ -89,7 +89,7 @@ public class GameStart extends PlayableScreen {
         add(bottomPanel, BorderLayout.SOUTH);
 
         // chest init
-        cardManager = new CardManager(new ImageLibrary());
+        cardManager = new CardManager(ImageLibrary.get());
 
     }
 

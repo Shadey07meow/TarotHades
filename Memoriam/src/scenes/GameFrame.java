@@ -33,7 +33,7 @@ public class GameFrame extends JFrame {
     private final PrologueScreen prologueScreen;
 
     
-    Image cursor = new ImageLibrary().quillCursor;
+    Image cursor = ImageLibrary.get().quillCursor;
     
     private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
 

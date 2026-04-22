@@ -13,7 +13,7 @@ public class Player extends Entity {
     /// Stores position and parameters for the player
     /// Handles movement, health, attacks and stuff like that
     private final GameFrame gameFrame;
-    private final ImageLibrary imgLib = new ImageLibrary();
+    private final ImageLibrary imgLib = ImageLibrary.get();
     
     private InputManager inputs = null;
     

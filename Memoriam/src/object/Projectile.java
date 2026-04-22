@@ -17,7 +17,7 @@ public class Projectile extends GameObject{
     public Projectile(int x, int y, Vector2 velocity, int scale, PlayableScreen scrn){
         super(x, y, scale, scrn);
         this.velocity = velocity;
-        this.setImage(new ImageLibrary().projectile);
+        this.setImage(ImageLibrary.get().projectile);
         setColor(Color.RED);
     }
 
