@@ -23,7 +23,7 @@ import java.awt.Toolkit;
 
 public class GameFrame extends JFrame {
 
-    private final GameStart gameStart;
+    protected final GameStart gameStart;
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
     private final LoseScreen loseScreen;
@@ -31,6 +31,7 @@ public class GameFrame extends JFrame {
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
     private final PrologueScreen prologueScreen;
+    protected final CutsceneScreen cutsceneScreen;
 
     private volatile boolean assetsLoaded = false;
 
@@ -68,6 +69,7 @@ public class GameFrame extends JFrame {
         loseScreen = new LoseScreen(this);
         pauseScreen = new PauseScreen(this);
         prologueScreen = new PrologueScreen(this);
+        cutsceneScreen = new CutsceneScreen(this);
 
         this.allPanels.add(gameStart);
         this.allPanels.add(creditScreen);
@@ -75,6 +77,7 @@ public class GameFrame extends JFrame {
         this.allPanels.add(loseScreen);
         this.allPanels.add(pauseScreen);
         this.allPanels.add(prologueScreen);
+        this.allPanels.add(cutsceneScreen);
        
         // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)
@@ -165,6 +168,42 @@ public class GameFrame extends JFrame {
             javax.swing.SwingUtilities.invokeLater(onFinished);
 
         }).start();
+    }
+
+        private void playCutscene(int level) {
+
+        String[] lines = switch (level) {
+
+            case 1 -> new String[]{
+                "You feel something shift.",
+                "The world responds to your presence."
+            };
+
+            case 2 -> new String[]{
+                "The halls stretch further.",
+                "Something is watching."
+            };
+
+            case 3 -> new String[]{
+                "The ruins whisper.",
+                "You are not alone."
+            };
+
+            case 4 -> new String[]{
+                "You’ve come far.",
+                "But something awaits."
+            };
+
+            case 5 -> new String[]{
+                "This is it.",
+                "The final act."
+            };
+
+            default -> new String[]{"..."};
+        };
+
+        cutsceneScreen.setCutscene(lines);
+        showPanel("cutscene");
     }
 
 }

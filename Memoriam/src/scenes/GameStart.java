@@ -23,7 +23,7 @@ public class GameStart extends PlayableScreen {
     private Image map;
 
     // level system
-    private int currentLevel = 1;
+    private int currentLevel = 0;
 
     private LevelFactory levelFactory;
     private String levelText = "";
@@ -431,7 +431,8 @@ public class GameStart extends PlayableScreen {
         player.setUIOpen(false); 
 
         javax.swing.Timer t = new javax.swing.Timer(800, e -> {
-            triggerLevelChange();
+            gameFrame.cutsceneScreen.loadCutsceneForLevel(currentLevel);
+            gameFrame.showPanel("cutscene");
         });
 
         t.setRepeats(false);
@@ -468,6 +469,18 @@ public class GameStart extends PlayableScreen {
 
         t.setRepeats(false);
         t.start();
+    }
+
+    public void nextLevelAfterCutscene() {
+
+        currentLevel++;
+
+        if (currentLevel > 6) {
+            showFinalMessage(); // optional
+            return;
+        }
+
+        LevelFactory.loadLevel(currentLevel, world, player, this);
     }
 }
 

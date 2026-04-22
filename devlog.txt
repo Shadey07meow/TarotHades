@@ -10,6 +10,8 @@ KEEP THIS ON TOP
 --> 22/04/2026
     (CalRya)
     - Fixed the level system a bit more
+    - Added transitions for the level cutscenes
+    - CutsceneScreen.java
 
 --> 21/04/2026  
     (Herielle)
