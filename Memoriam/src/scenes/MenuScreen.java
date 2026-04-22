@@ -11,6 +11,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import systems.SoundManager;
+
 public class MenuScreen extends UIScreen {
 
     private final Image backgroundImage;
@@ -109,4 +111,17 @@ public class MenuScreen extends UIScreen {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
+
+    @Override
+    public void onInitiate() {
+        System.out.println("menu working");
+        SoundManager.playMusic("assets/music/TempMainMenu.wav");
+    }
+
+    @Override
+    public void onExit() {
+        SoundManager.stopMusic();
+    }
+
+
 }
