@@ -6,7 +6,28 @@ KEEP THIS ON TOP
     
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
-    
+
+--> 22/04/2026
+    (zam2643)
+    - added a SoundManager class
+        - centralizes all audio handling in the game
+        - has looping background music
+        - includes methods:
+            - playMusic(String path)
+            - stopMusic()
+            - playSFX(String path)
+    - implemented background music system
+        - uses .wav files 
+        - added checking for missing files
+    - updated MenuScreen
+        - added onInitiate()
+            - plays looping background music when menu opens
+        - added onExit()
+            - stops music when leaving menu
+    - added project assets
+        - created assets/music/ directory inside src
+        - added TempMainMenu.wav as menu background track
+
 --> 15/04/2026
     (zam2643)
     - Added ArrayList<CollisionObject> collidingWith in CollisionObject 
