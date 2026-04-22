@@ -387,6 +387,32 @@ public class GameStart extends PlayableScreen {
         }
     }
 
+    public void selectCard(int index) {
+
+        Card c = currentCards.get(index);
+        if (c == null) return;
+
+        selectedCardIndex = index;
+
+        selectedCardName = c.name;
+        selectedCardTimer = 60; // show for ~1 second
+
+        System.out.println("Card selected: " + c.name + " | Ability: " + c.ability);
+        player.applyAbility(c.ability); 
+
+        showChestUI = false;
+        chestState = 0;
+        player.setUIOpen(false); 
+
+        javax.swing.Timer t = new javax.swing.Timer(800, e -> {
+            gameFrame.cutsceneScreen.loadCutsceneForLevel(currentLevel);
+            gameFrame.showPanel("cutscene");
+        });
+
+        t.setRepeats(false);
+        t.start();
+    }
+
     private void resetUIOnTransition() {
         showChestUI = false;
         currentCards.clear();
