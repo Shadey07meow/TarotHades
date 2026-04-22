@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import object.GameObject;
 import object.Player;
 import systems.*;
+import collision.*;
 
 
 
@@ -203,33 +204,57 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             }
     
         }
+
+        // Debug mode
         
         if(world != null)
         {
+            // Draws World dddebug stuff first 
             if(world.getDebug() == true)
             {
-                
-                g.setColor(Color.BLUE);
-                graphics2.setStroke(new BasicStroke(20));
-                g.drawOval(
-                    (int)(world.getCenterPosition().x - (world.getDistanceFromCenter())), 
-                    (int)(world.getCenterPosition().y - (world.getDistanceFromCenter())), 
-                    world.getDistanceFromCenter() * 2, 
-                    world.getDistanceFromCenter() * 2);
+                /*
+                    Depraacated Code
+                    g.setColor(Color.BLUE);
+                    graphics2.setStroke(new BasicStroke(20));
+                    g.drawOval(
+                        (int)(world.getCenterPosition().x - (world.getDistanceFromCenter())), 
+                        (int)(world.getCenterPosition().y - (world.getDistanceFromCenter())), 
+                        world.getDistanceFromCenter() * 2, 
+                        world.getDistanceFromCenter() * 2
+                    );
+                */
 
+
+                graphics2.setStroke(new BasicStroke(2));
                 for (GameObject obj : world.getObjectList()) {
-                    if (obj.getImage() != null) {
-                        graphics2.fillRect(
-                            (int) obj.getRenderX() - (int)(obj.getScaledWidth() / 2),
-                            (int) obj.getRenderY() - (int)(obj.getScaledHeight() / 2),
-                            50,
-                            50);
+                    if (obj.getCollider() != null) {
+                        if(obj.getCollider() instanceof RectangleCollider)
+                        {
+                            if(obj.getCollider().getIsColliding() == true)
+                            {
+                                g.setColor(obj.getCollider().activeColor);
+                            } else
+                            {
+                                g.setColor(obj.getCollider().inactiveColor);
+                            }
+
+
+                            RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                            graphics2.drawRect(
+                                (int) obj.getRenderX() - (((int)Math.abs(tempCol.getLocalBounds().LEFT.x) + (int)Math.abs(tempCol.getLocalBounds().RIGHT.x )) / 2),
+                                (int) obj.getRenderY() - (((int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + (int)Math.abs(tempCol.getLocalBounds().TOP.y )) / 2),
+                                (int)Math.abs(tempCol.getLocalBounds().LEFT.x) + Math.abs((int)tempCol.getLocalBounds().RIGHT.x ),
+                                (int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + Math.abs((int)tempCol.getLocalBounds().TOP.y )
+                            );
+                        }
                     }
                 }
+
+                // Draw collision colliders
+                
             }
 
         }
-
     }
 
     public InputManager getInputManager()

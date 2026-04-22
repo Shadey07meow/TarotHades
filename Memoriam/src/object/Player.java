@@ -36,9 +36,9 @@ public class Player extends Entity {
     private boolean isDead = false;
     private double currentCooldown = 0;
     
-
-
-
+    
+    
+    
     public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
     {
         super(position, scale, scrn);
@@ -50,8 +50,12 @@ public class Player extends Entity {
         this.world = this.playScrn.getWorldRenderer();
 
         this.gameFrame = gameFrame;
-        this.setCollider(new RectangleCollider(this, true));
+        //this.setCollider(new RectangleCollider(this, true, this.getScaledHeight()/2, this.getScaledHeight()/2, this.getScaledWidth()/2, this.getScaledWidth()/2));
+        collider = new RectangleCollider(this, true, 40, 40, 40 ,40);
+
         setImage(spriteDown);
+
+
     }
 
 
@@ -62,7 +66,6 @@ public class Player extends Entity {
 
         if(world != null)
         {
-
             if (!isDead)
             {
                 // loser condition

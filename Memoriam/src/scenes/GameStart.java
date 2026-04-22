@@ -120,9 +120,9 @@ public class GameStart extends PlayableScreen {
         
         player.setWorld(world);
         GameObject box1 = new GameObject(300, 300, 50, this);
-        box1.setCollider(new RectangleCollider(box1, true));
+        box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
         GameObject box2 = new GameObject(300, 500, 50, this);
-        box2.setCollider(new RectangleCollider(box2, true));
+        box2.setCollider(new RectangleCollider(box2, true, 20, 20, 20, 20));
         BlueWisp bluey = new BlueWisp(player.getPosition(), 2, this);
         // Background  object,  scuffed, have to optimize this later
 

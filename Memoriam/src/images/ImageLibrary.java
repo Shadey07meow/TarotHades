@@ -105,7 +105,7 @@ public class ImageLibrary
             
             // Cursor
             quillCursor = ImageIO.read(getClass().getResource(
-                    "/assets/MainAssets/cursor.png"
+                    "assets/MainAssets/cursor.png"
             )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
 
             swordCursor = ImageIO.read(getClass().getResource(

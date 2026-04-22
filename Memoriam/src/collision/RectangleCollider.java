@@ -1,6 +1,8 @@
 package collision;
 
 
+import java.util.ArrayList;
+
 import jdk.net.UnixDomainPrincipal;
 import object.*;
 import systems.*;
@@ -43,17 +45,22 @@ public class RectangleCollider extends CollisionObject {
         Vector2 point4 = new Vector2(halfScales.x, -halfScales.y);
 
         this.localBounds = new Bounds(point1, point2, point3, point4);
-        updateBounds();
+
     }
 
-    public RectangleCollider(GameObject object, boolean movable, Vector2 top, Vector2 bottom, Vector2 right, Vector2 left) 
+    public RectangleCollider(GameObject object, boolean movable, int top, int bottom, int right, int left) 
     {
         // Separate GameObject
         super(object, movable);
-        System.out.println("Created a rectangle collider");
         
-        this.localBounds = new Bounds(top, bottom, right, left);
-        updateBounds();
+        System.out.println("Created a rectangle collider");
+        this.localBounds = new Bounds(
+                new Vector2(0, top),
+                new Vector2(0, - bottom),
+                new Vector2(-left, 0),
+                new Vector2(right, 0)
+            );
+
     }
     
     @Override
@@ -63,12 +70,22 @@ public class RectangleCollider extends CollisionObject {
 
         // Clear first before updating
         collidingWith.clear();
+        this.isColliding = false;
+        
+        ArrayList<GameObject> objects = this.connectedGameObject.getWorld().getObjectList();
 
-        for(int x = 0; x < connectedGameObject.getWorld().getObjectList().size(); x++)
+        for(int x = 0; x < objects.size(); x++)
         {
-            if(this.isColliding(connectedGameObject.getWorld().getObjectList().get(x).getCollider()))
+            if(this.connectedGameObject == objects.get(x) ) continue;
+            if(objects.get(x).getCollider() == null) continue;
+
+            GameObject obj = this.connectedGameObject.getWorld().getObjectList().get(x);
+            if(this.isColliding(obj))
             {
-                collidingWith.add(connectedGameObject.getWorld().getObjectList().get(x).getCollider());
+                this.isColliding = true;
+                collidingWith.add(obj.getCollider());
+                //System.out.println("Collison detected at :" + this.connectedGameObject.getPosition().toString());
+
             }
         }
         
@@ -86,7 +103,7 @@ public class RectangleCollider extends CollisionObject {
 
 
     @Override
-    public boolean isColliding(CollisionObject comparedObject) 
+    public boolean isColliding(GameObject comparedObject) 
     {   
         /*
         Is basically the Bounds class, is already created
@@ -105,17 +122,40 @@ public class RectangleCollider extends CollisionObject {
         
         */
 
-        // Method compares this specific globalBounds for collision object to another globalBounds collision object
+        // Method compares this specific globa lBounds for collision object to another globalBounds collision object
         
-        RectangleCollider other = (RectangleCollider) comparedObject;
+        
+        
+        if(comparedObject.getCollider() instanceof  RectangleCollider other)
+        {
 
-        this.updateBounds();
-        other.updateBounds();
+            // Collision Detection if Rectangle Collider
 
-        return this.globalBounds.RIGHT.x > other.globalBounds.LEFT.x &&
-           this.globalBounds.LEFT.x < other.globalBounds.RIGHT.x &&
-           this.globalBounds.BOTTOM.y > other.globalBounds.TOP.y &&
-           this.globalBounds.TOP.y < other.globalBounds.BOTTOM.y;
+            
+            this.updateBounds();
+            other.updateBounds();
+
+            boolean yChecks = (this.globalBounds.TOP.y < other.globalBounds.BOTTOM.y) || (other.globalBounds.TOP.y < this.globalBounds.BOTTOM.y) ;
+            boolean xChecks = (this.globalBounds.RIGHT.x < other.globalBounds.LEFT.x) || (other.globalBounds.RIGHT.x < this.globalBounds.LEFT.x) ;
+
+            boolean finalCheck = xChecks || yChecks;
+            return !finalCheck;
+
+        } else{
+            
+            return false;
+        }
+        
+    }
+
+    public Bounds getLocalBounds()
+    {
+        return this.localBounds;
     }
     
+    public String toString()
+    {
+        return "Rectangle Colllider";
+    }
+
 }

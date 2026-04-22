@@ -25,7 +25,7 @@ public class WorldRenderer {
     private final double xThresholdd = 150; 
     private final double yThresholdd = 150; 
 
-    private boolean debugMode = false;
+    private boolean debugMode = true;
 
     // Constructors
     public WorldRenderer(Player player, PlayableScreen s)
@@ -106,14 +106,12 @@ public class WorldRenderer {
             if(willMoveRight|| willMoveLeft)
             {
                 // Runs if the player is outside the bounding box of left and right 
-                System.out.println("I am outside the x threshold");
                 moveObjectsWithWorldX();
             }
 
             if( willMoveDown || willMoveUp)
             {
                 // Runs if the player is outside the bounding box of left and right 
-                System.out.println("I am outside the y threshold");
                 moveObjectsWithWorldY();
             }
 

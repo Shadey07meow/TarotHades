@@ -41,6 +41,7 @@ public class GameObject {
         this.renderY = 0;
 
         this.playScrn = scrn;
+        this.world = scrn.getWorldRenderer();
     }
 
     public GameObject(double x, double y, PlayableScreen scrn)
@@ -55,6 +56,7 @@ public class GameObject {
         this.renderY = y;
 
         this.playScrn = scrn;
+        this.world = scrn.getWorldRenderer();
     }
 
     public GameObject(Vector2  v, double s, PlayableScreen scrn)
@@ -69,6 +71,7 @@ public class GameObject {
         this.renderY = v.y;
 
         this.playScrn = scrn;
+        this.world = scrn.getWorldRenderer();
     }
 
     public GameObject(Vector2  v, PlayableScreen scrn)
@@ -83,6 +86,7 @@ public class GameObject {
         this.renderY = v.y;
 
         this.playScrn = scrn;
+        this.world = scrn.getWorldRenderer();
     }
 
     public GameObject(double x, double y, double s, PlayableScreen scrn)
@@ -97,6 +101,7 @@ public class GameObject {
         this.renderY = y;
 
         this.playScrn = scrn;
+        this.world = scrn.getWorldRenderer();
     }
 
     public GameObject(GameObject spawnPoint, PlayableScreen scrn)
@@ -111,6 +116,7 @@ public class GameObject {
         this.renderY = 0;
 
         this.playScrn = scrn;
+        this.world = scrn.getWorldRenderer();
     }
 
     // Setters
@@ -150,16 +156,16 @@ public class GameObject {
         this.position.y -= a.y;
     }
 
-    public double getScaledWidth()
+    public int  getScaledWidth()
     {
-        if (image == null) return scale;
-        return image.getWidth(null) * scale;
+        if (image == null) return (int)scale;
+        return (int)(image.getWidth(null) * scale);
     }
 
-    public double getScaledHeight()
+    public int  getScaledHeight()
     {
-        if (image == null) return scale;
-        return image.getHeight(null) * scale;
+        if (image == null) return (int)scale;
+        return (int)(image.getHeight(null) * scale);
     }
 
     /// INTERPOLATION (smooth rendering)
@@ -184,7 +190,7 @@ public class GameObject {
     public void update()
     {
         // Check colliders if present
-        if(this.collider != null && this.world != null)
+        if(this.collider != null)
         {
             this.collider.checkCollisions();
         }
@@ -200,7 +206,7 @@ public class GameObject {
     }
 
     public CollisionObject getCollider()
-    {   if(this.collider != null)return this.collider; else return null;}
+    {   return this.collider;}
 
     // Render getters
     public double getRenderX() { return renderX; }
