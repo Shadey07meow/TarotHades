@@ -1,7 +1,7 @@
 package object;
 
-import systems.*;
 import images.*;
+import systems.*;
 
 public abstract class Enemy extends Entity {
 

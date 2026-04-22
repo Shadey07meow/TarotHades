@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import object.*;
 import systems.*;
@@ -35,7 +34,6 @@ public class GameStart extends PlayableScreen {
     private int selectedCardTimer = 0;
 
     // powerup
-    private ArrayList<Card> spinCards = new ArrayList<>();
     private int chestState = 0; 
     private int spinTicks = 0;
     private int selectedCardIndex = -1;
@@ -152,6 +150,8 @@ public class GameStart extends PlayableScreen {
 
         box1.setObjects(world.getObjectList());
         box2.setObjects(world.getObjectList());
+
+        player.getStats().debugPrint(); // debug
     }
 
     @Override
@@ -167,13 +167,20 @@ public class GameStart extends PlayableScreen {
 
         showChestUI = true;
         chestState = 1;
+        player.setUIOpen(true);
 
-        spinCards.clear();
+        currentCards.clear();
+
+        // EXACTLY 2 cards
+        currentCards.add(cardManager.drawCard(currentLevel));
+        currentCards.add(cardManager.drawCard(currentLevel));
+
         spinTicks = 0;
     }
 
     public void closeChestUI() {
         showChestUI = false;
+         player.setUIOpen(false);
         currentCards.clear();
     }
 
@@ -184,17 +191,17 @@ public class GameStart extends PlayableScreen {
 
             if (chestState == 1) {
 
-        spinTicks++;
+            spinTicks++;
 
-        int speed = Math.max(2, 10 - spinTicks / 10);
+            int speed = Math.max(2, 10 - spinTicks / 10);
 
             if (spinTicks % speed == 0) {
 
                 currentCards.clear();
 
-                currentCards.add(cardManager.drawCard());
-                currentCards.add(cardManager.drawCard());
-                currentCards.add(cardManager.drawCard());
+                currentCards.add(cardManager.drawCard(currentLevel));
+                currentCards.add(cardManager.drawCard(currentLevel));
+               
             }
 
             if (spinTicks > 60) {
@@ -223,7 +230,7 @@ public class GameStart extends PlayableScreen {
             }
         }
 
-        if (showChestUI && chestState == 2 && inputManager.getClickingStatus()) {
+       if (showChestUI && chestState == 2 && inputManager.consumeClick()) {
 
             int cardW = 300;
             int cardH = 450;
@@ -233,7 +240,7 @@ public class GameStart extends PlayableScreen {
             int startX = (getWidth() - totalWidth) / 2;
             int y = (getHeight() - cardH) / 2;
 
-            Vector2 click = inputManager.getClickPosition();
+            Vector2 mouse = inputManager.getClickPosition();
 
         for (int i = 0; i < currentCards.size(); i++) {
 
@@ -241,7 +248,7 @@ public class GameStart extends PlayableScreen {
 
             Rectangle rect = new Rectangle(x, y, cardW, cardH);
 
-            if (rect.contains(click.x, click.y)) {
+            if (rect.contains(mouse.x, mouse.y)) {
 
                 selectedCardIndex = i;
                 selectCard(i);
@@ -257,7 +264,7 @@ public class GameStart extends PlayableScreen {
             int cardH = 450;
             int spacing = 40;
 
-            int totalWidth = (cardW * 3) + (spacing * 2);
+            int totalWidth = (cardW * currentCards.size()) + (spacing * (currentCards.size() - 1));
             int startX = (getWidth() - totalWidth) / 2;
             int y = (getHeight() - cardH) / 2;
 
@@ -296,10 +303,10 @@ public class GameStart extends PlayableScreen {
     public void showCards()
     {
         currentCards.clear();
-        currentCards.add(cardManager.drawCard());
-        currentCards.add(cardManager.drawCard());
-        currentCards.add(cardManager.drawCard());
 
+        currentCards.add(cardManager.drawCard(currentLevel));
+        currentCards.add(cardManager.drawCard(currentLevel));
+        
         showChestUI = true;
         chestSelectionMode = true;
 
@@ -325,7 +332,7 @@ public class GameStart extends PlayableScreen {
             int cardH = 450;
 
             int spacing = 40;
-            int totalWidth = (cardW * 3) + (spacing * 2);
+            int totalWidth = (cardW * currentCards.size()) + (spacing * (currentCards.size() - 1));
 
             int startX = (getWidth() - totalWidth) / 2;
             int y = (getHeight() - cardH) / 2;
@@ -410,10 +417,12 @@ public class GameStart extends PlayableScreen {
         selectedCardName = c.name;
         selectedCardTimer = 60; // show for ~1 second
 
-        System.out.println("Selected: " + c.name);
+        System.out.println("Card selected: " + c.name + " | Ability: " + c.ability);
+        player.applyAbility(c.ability); 
 
         showChestUI = false;
         chestState = 0;
+        player.setUIOpen(false); 
 
         javax.swing.Timer t = new javax.swing.Timer(800, e -> {
             triggerLevelChange();

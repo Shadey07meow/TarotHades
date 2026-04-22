@@ -7,6 +7,28 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
+--> 21/04/2026  
+    (Herielle)
+    - Card System
+        - Added Card.java
+        - Added CardAbility.java
+        - Added PlayerAbility.java
+        - Added CardManager.java
+        - Added Rarity.java
+
+    -Player stats system
+        - Added PlayerStats.java
+        - Added StatType.java
+        - Added StatModifier.java
+            - represents one stackable effect (flat or percent)
+
+    - PowerUp System
+        - Added PowerUp.java
+            - applies a bundle of stat modifer and has a name/desc
+        - Added PowerUpManager.java
+            - maps player ability to powerup, basically wiritng cards to stat effects
+    - DIRI PA INI TAPOS
+
 --> 20/04/2026
     (CalRya)
     - Made hovers

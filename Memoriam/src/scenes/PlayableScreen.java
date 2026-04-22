@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
 import object.GameObject;
 import object.Player;
 import systems.*;
@@ -40,7 +39,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // Adds input manager
         addKeyListener(inputManager); 
         addMouseListener(inputManager);
+        addMouseMotionListener(inputManager);  // fixes mouse tracking
         setFocusable(true);
+        requestFocusInWindow();
     }
     
     @Override
@@ -245,7 +246,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         if (player !=null){
             int heartSize = 40;
             int spacing = 5;
-            int maxHealth = 10;
+            int maxHealth = player.getMaxHP(); 
 
             ImageLibrary img = ImageLibrary.get();
 

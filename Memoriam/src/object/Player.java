@@ -2,6 +2,7 @@ package object;
 
 import images.*;
 import java.awt.Image;
+import java.util.HashSet;
 import scenes.*;
 import systems.*;
 
@@ -12,7 +13,9 @@ public class Player extends Entity {
     /// Handles movement, health, attacks and stuff like that
     private final GameFrame gameFrame;
     private ImageLibrary imgLib = ImageLibrary.get();
+    private final PlayerStats stats;
     
+    private HashSet<PlayerAbility> abilities = new HashSet<>();
     private InputManager inputs = null;
     
     // Combat variables
@@ -33,16 +36,18 @@ public class Player extends Entity {
     private boolean isInteracting = false;
     private boolean isDead = false;
     private double currentCooldown = 0;
-    
-
-
-
+    private boolean uiOpen = false;
 
     public Player(Vector2 position, int scale, int speed, int health, InputManager inps, GameFrame gameFrame)
     {
         super(position, scale);
-        this.speed = speed;
-        this.health = health;
+
+        this.stats = new PlayerStats(health, 10, 0, speed);
+
+        // Keep entity.health in sync for any legacy reads
+        this.health = stats.getCurrentHP();
+        this.speed  = stats.getSpeed();
+
         this.inputs = inps;
         this.gameFrame = gameFrame;
         this.world = null;
@@ -54,6 +59,9 @@ public class Player extends Entity {
     public void update()
     {
         super.update();
+
+        this.health = stats.getCurrentHP();
+        this.speed  = stats.getSpeed();
 
         if(world != null)
         {
@@ -77,12 +85,40 @@ public class Player extends Entity {
         // makes it smoother
     }
 
+    // ability / power-up application
+    public void applyAbility(PlayerAbility ability) {
+        if (ability == null) return;
+
+        if (abilities.contains(ability)) return;
+        abilities.add(ability);
+
+        // look up and apply the PowerUp from the manager
+        PowerUp powerUp = PowerUpManager.get(ability);
+        if (powerUp != null) {
+            stats.applyPowerUp(powerUp);
+            // Clamp current HP to new max
+            if (stats.getCurrentHP() > stats.getMaxHP()) {
+                stats.setCurrentHP(stats.getMaxHP());
+            }
+        }
+
+        // gameplay-side effects (behaviours, projectile types, etc.)
+        switch (ability) {
+            case HP_REGEN         -> enableRegen();
+            case FLAME_SHOT       -> enableFlameShot();
+            case HEAVY_STRIKE     -> enableHeavyStrike();
+            case FORTIFIED_REGEN  -> enableFortifiedRegen();
+            case SHIELD           -> enableShield();
+            case BOUNCING_SHOT    -> enableBouncingShots();
+        }
+    }
+
 
     public void inputOperations()
     {
 
-        movePlayer();        
-        combatMethod();
+         movePlayer();
+        if (!uiOpen) combatMethod();
         checkInteracting();
     }
 
@@ -117,7 +153,7 @@ public class Player extends Entity {
         // shoot once per click
         if(!hasShotProjectile)
         {
-            if(inputs.getClickingStatus())
+            if(inputs.consumeClick())
             {
                 shootProjectile();
                 hasShotProjectile = true;
@@ -126,7 +162,7 @@ public class Player extends Entity {
         else
         {
             // reset when mouse released
-            if(!inputs.getClickingStatus())
+            if(!inputs.consumeClick())
             {
                 hasShotProjectile = false;
             }
@@ -212,6 +248,15 @@ public class Player extends Entity {
         System.out.println("Shot fired");
     }
 
+
+    //holder lang muna so it compiles
+    private void enableRegen()          { System.out.println("Regen enabled"); }
+    private void enableFlameShot()      { System.out.println("Flame Shot enabled"); }
+    private void enableHeavyStrike()    { System.out.println("Heavy Strike enabled"); }
+    private void enableFortifiedRegen() { System.out.println("Fortified Regen enabled"); }
+    private void enableShield()         { System.out.println("Shield enabled"); }
+    private void enableBouncingShots()  { System.out.println("Bouncing Shots enabled"); }
+
     // Setters getters
 
     public void setWorldRenderer(WorldRenderer w)
@@ -220,12 +265,34 @@ public class Player extends Entity {
         System.out.println("Added a world renderer");
     }
 
-    public Vector2 getVelocity(){return Vector2.multiply(inputs.getInputVector(), speed);}
-    public double  getHealth() {return this.health;}
-    public boolean isInteracting(){ return this.isInteracting;}
-
-    public void checkInteracting()
-    {
-        isInteracting = inputs.getIsInteracting();
+    // HP helpers 
+    @Override
+    public void minusHP(double a) {
+        stats.takeDamage((int) a);
+        this.health = stats.getCurrentHP();
     }
+
+    @Override
+    public void addHP(double a) {
+        stats.heal((int) a);
+        this.health = stats.getCurrentHP();
+    }
+
+    @Override
+    public void setHealth(int hp) {
+        stats.setCurrentHP(hp);
+        this.health = stats.getCurrentHP();
+    }
+
+    // Getters
+    public double     getHealth()    { return stats.getCurrentHP(); }
+    public int        getMaxHP()     { return stats.getMaxHP(); }
+    public int        getAttack()    { return stats.getAttack(); }
+    public int        getDefense()   { return stats.getDefense(); }
+    public PlayerStats getStats()    { return stats; }
+
+    public void setUIOpen(boolean open) {this.uiOpen = open;}
+    public Vector2 getVelocity(){return Vector2.multiply(inputs.getInputVector(), speed);}
+    public boolean isInteracting(){ return this.isInteracting;}
+    public void checkInteracting(){isInteracting = inputs.getIsInteracting();}
 }
