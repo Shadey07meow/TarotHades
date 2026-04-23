@@ -12,5 +12,22 @@ public abstract class Enemy extends Entity {
     {
         super(p, s, scrn);
     }
+
+    public void damage(int i)
+    {
+        minusHP(i);
+
+        if(getHP() <= 0)
+        {
+            die();
+        }
+    }
+
+    @Override
+    public void die()
+    {
+        world.removeObject(this);
+    }
+
     
 }

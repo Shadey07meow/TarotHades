@@ -76,15 +76,18 @@ public class ImageLibrary
     // Objects
     public final BufferedImage treasureChest;
     public final BufferedImage treasureChestH;
-    public final BufferedImage projectile;
+    public final Image projectile;
 
     // Player UI
-    public final Image heart;
-    public final Image deadHeart;
+    public final BufferedImage heart;
+    public final BufferedImage deadHeart;
 
     private ImageLibrary()
     {
         try {
+                        projectile = new ImageIcon(getClass().getResource(
+                    "assets/objects/projectile.gif"
+            )).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
 
             // Player Sprites (GIF animation preserved)
             playerSpritesDOWN = new ImageIcon(getClass().getResource(
@@ -155,10 +158,7 @@ public class ImageLibrary
             treasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChest.png"));
             treasureChestH = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png"));
             rawProjectile = ImageIO.read(getClass().getResource("assets/objects/projectile.png"));
-            projectile = new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
-            g2 = projectile.createGraphics();
-            g2.drawImage(rawProjectile, 0, 0, 32, 32, null);
-            g2.dispose();
+            
 
 
             // Enemy GIFs animation preserved
@@ -166,8 +166,8 @@ public class ImageLibrary
             blueRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueRight.gif")).getImage();
         
             // Player UI
-            heart = new ImageIcon(getClass().getResource("assets/MainAssets/heart.png")).getImage();
-            deadHeart = new ImageIcon(getClass().getResource("assets/MainAssets/heartDead.png")).getImage();
+            heart = ImageIO.read(getClass().getResource("assets/MainAssets/heart.png"));
+            deadHeart = ImageIO.read(getClass().getResource("assets/MainAssets/heartDead.png"));
  
             
         } catch (IOException | IllegalArgumentException e) {

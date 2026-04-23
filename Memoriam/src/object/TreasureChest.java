@@ -1,5 +1,6 @@
 package object;
 
+import collision.RectangleCollider;
 import images.ImageLibrary;
 import scenes.*;
 import systems.*;
@@ -18,6 +19,9 @@ public class TreasureChest extends GameObject {
         this.targetPlayer =  p;
         this.world = world;
         setImage(ImageLibrary.get().treasureChest);
+
+        this.setCollider(new RectangleCollider(this, true, 32, 32, 32, 32));
+        this.getCollider().setIsMovable(false);
     }     
     
     public TreasureChest(int a, int b, Player  p,  int s, GameStart world)
@@ -27,6 +31,9 @@ public class TreasureChest extends GameObject {
         this.world = world;
         setImage(ImageLibrary.get().treasureChest);
         
+        this.setCollider(new RectangleCollider(this, true, 32, 32, 32, 32));
+        this.getCollider().setIsMovable(false);
+
     } 
 
 
@@ -36,7 +43,7 @@ public class TreasureChest extends GameObject {
         //System.out.println(Vector2.distance(this.position, this.targetPlayer.position));
         if(checkPlayerDistance())
         {
-            System.out.println("Hello there,  I am now in interaction distance");
+            //System.out.println("Hello there,  I am now in interaction distance");
             setImage(ImageLibrary.get().treasureChestH);
             doInteractionLogic();
         } else

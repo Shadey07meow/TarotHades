@@ -7,14 +7,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class InputManager implements KeyListener, MouseListener, MouseMotionListener{
+    
+    
     // Detect inputs
     // If input is detected, make a variable here change
 
-
     // Variables
-    private Vector2 moveVector = new Vector2();
-    private Vector2 clickPosition = new Vector2();
-    private Vector2 mousePosition = new Vector2();
+    private final  Vector2 moveVector = new Vector2();
+    private final Vector2 clickPosition = new Vector2();
+    private final Vector2 mousePosition = new Vector2();
     
     
     private boolean mousePressed = false;
@@ -32,7 +33,6 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
     public InputManager()
     {
         System.out.println("Hello");
-
     }
     
     /// Keylistener methods
@@ -64,7 +64,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
             this.isInteracting = true;
         }
 
-// for esc button
+        // for esc button
         if(k.getKeyCode() == KeyEvent.VK_ESCAPE){
             pausePressed = true;
         }

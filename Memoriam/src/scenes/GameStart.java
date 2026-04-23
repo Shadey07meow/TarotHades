@@ -120,40 +120,26 @@ public class GameStart extends PlayableScreen {
         // Map Creation
         Map bgObject = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1 , this);
         
-        
         this.world = new WorldRenderer(player, bgObject, this);
         
-
         System.out.println("I ran here");
         this.world.setCenterPosition(centerHalf);
-
-        
-  
-        
-        
         
         player.setWorld(world);
         GameObject box1 = new GameObject(300, 300, 50, this);
         box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
         GameObject box2 = new GameObject(300, 500, 50, this);
-        box2.setCollider(new RectangleCollider(box2, true, 20, 20, 20, 20));
+        //box2.setCollider(new RectangleCollider(box2, true, 20, 20, 20, 20));
         BlueWisp bluey = new BlueWisp(player.getPosition(), 2, this);
-        // Background  object,  scuffed, have to optimize this later
-
         TreasureChest tr1 = new TreasureChest(100, 100, player, 2, this);
 
-        // Add walls (unmovable) 
-        //objects.add(new CollisionObject(300, 300, 50, false)); 
-        
-        // Add box (movable) 
-        //objects.add(new CollisionObject(500, 300, 50, true));
+        box1.getCollider().setIsMovable(false);
+        //box2.getCollider().setIsMovable(false);
 
         world.addObject(box1);
         world.addObject(box2);
         world.addObject(tr1);
         world.addObject(bluey);
-
-
 
         player.getStats().debugPrint(); // debug
     }

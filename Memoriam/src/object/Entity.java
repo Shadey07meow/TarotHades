@@ -16,4 +16,8 @@ public abstract class Entity extends GameObject {
     public void setHealth(int health) {this.health = health;}
     public void minusHP(double a) {this.health -= a;}
     public void addHP(double a) {this.health += a;}
+    public int getHP(){return this.health;}
+
+    // Overridable method
+    public void die(){}
 }

@@ -224,6 +224,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                                 g.setColor(obj.getCollider().inactiveColor);
                             }
 
+                            if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
+
 
                             RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
                             graphics2.drawRect(

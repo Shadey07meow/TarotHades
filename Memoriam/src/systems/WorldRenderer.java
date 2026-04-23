@@ -301,7 +301,7 @@ public class WorldRenderer {
     }
 
     
-        public void resetWorld(Map map, Player player)
+    public void resetWorld(Map map, Player player)
     {
         objectList.clear();
 
@@ -315,5 +315,21 @@ public class WorldRenderer {
         this.setPlayer(player);
 
         player.setWorldRenderer(this);
+    }
+
+    public void removeObject(GameObject obj)
+    {
+
+        // Do not remove player or the map
+        if(obj == this.player || obj == this.map) return;
+
+        for(int x = 0; x < this.getObjectList().size(); x++)
+        {
+            if(obj == this.getObjectList().get(x))
+            {
+                this.getObjectList().remove((x));
+            }
+        }
+
     }
 }

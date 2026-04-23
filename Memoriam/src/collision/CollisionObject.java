@@ -8,7 +8,7 @@ import java.awt.Color;
 
 public abstract class CollisionObject {
   
-    protected boolean isMovable;
+    protected boolean isMovable = true;
     protected Vector2 position;
     protected GameObject connectedGameObject;
     
@@ -28,13 +28,17 @@ public abstract class CollisionObject {
 
     // Getters
     public boolean getIsMovable() 
-    {return isMovable;}   
+    {return this.isMovable;}   
     
     public GameObject getGameObject() 
     {return this.connectedGameObject;}    
     
     public boolean getIsColliding() 
     {return this.isColliding;}
+
+    // Setters
+    public void setIsMovable(boolean b) 
+    {this.isMovable = b;}   
 
     // Connected to the update function in gameObjects
     public abstract  void checkCollisions();

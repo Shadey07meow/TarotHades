@@ -3,9 +3,11 @@ package object;
 import images.*;
 import java.awt.Image;
 import java.util.HashSet;
-import collision.RectangleCollider;
+import java.util.ArrayList;
+
 import scenes.*;
 import systems.*;
+import collision.*;
 
 public class Player extends Entity {
 
@@ -58,10 +60,8 @@ public class Player extends Entity {
         this.gameFrame = gameFrame;
 
         collider = new RectangleCollider(this, true, 40, 40, 40 ,40);
-
+        this.collider.setIsMovable(true);
         setImage(spriteDown);
-
-
     }
 
 
@@ -70,6 +70,14 @@ public class Player extends Entity {
     {
         super.update();
 
+        // Makes the rendering smooth
+        // alpha = 0.25, you move towards the target by 25% every time
+        // makes it smoother
+    }
+
+    @Override
+    public void logicMethods()
+    {
         this.health = stats.getCurrentHP();
         this.speed  = stats.getSpeed();
 
@@ -89,9 +97,6 @@ public class Player extends Entity {
 
         }
 
-        // Makes the rendering smooth
-        // alpha = 0.25, you move towards the target by 25% every time
-        // makes it smoother
     }
 
     // ability / power-up application
@@ -178,47 +183,28 @@ public class Player extends Entity {
         }
     }
 
-    /*
-    private void handleCollision(int dx, int dy)
+    // Collision
+    @Override
+    public void onCollision()
     {
-        for (GameObject obj : objects) {
-            if (obj == this) continue;
-
-            if (obj instanceof CollisionObject) {
-                CollisionObject col = (CollisionObject) obj;
-
-                if (col.isColliding(this)) {
-
-                    int overlapX = (getScaledWidth()/2 + col.getScaledWidth()/2)
-                                - Math.abs(getX() - col.getX());
-
-                    int overlapY = (getScaledHeight()/2 + col.getScaledHeight()/2)
-                                - Math.abs(getY() - col.getY());
-
-                    // Resolve the smaller overlap (prevents teleporting)
-                    if (overlapX < overlapY) {
-                        if (getX() < col.getX()) {
-                            setX(getX() - overlapX);
-                        } else {
-                            setX(getX() + overlapX);
-                        }
-                    } else {
-                        if (getY() < col.getY()) {
-                            setY(getY() - overlapY);
-                        } else {
-                            setY(getY() + overlapY);
-                        }
-                    }
-
-                    // PUSHING LOGIC
-                    if (col.getIsMovable()) {
-                        col.move(dx / 2, dy / 2);
-                    }
+        // Double check if there is nothing being collided with
+        if(!this.collider.getCollidingWith().isEmpty())
+        {
+            ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
+            boolean hashitUnmovable = false;
+            
+            for(int x = 0; x < colList.size(); x++)
+            {
+                // Unmovable object check
+                if(colList.get(x).getIsMovable() == false && hashitUnmovable == false)
+                {
+                    this.move(Vector2.multiply(this.getVelocity(), -1));
+                    hashitUnmovable = true;
                 }
             }
         }
     }
-    */
+
 
     private void shootProjectile(){
         // Checks if we can shoot after shooting the last shot

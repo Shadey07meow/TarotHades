@@ -190,14 +190,29 @@ public class GameObject {
     // Overridable update method, on default it interpolates the object
     public void update()
     {
+        // Separate logic methods and collision methods for logic stuff
+        logicMethods();
+
+
         // Check colliders if present
         if(this.collider != null)
         {
             this.collider.checkCollisions();
+
+            //System.out.println(this.collider.getIsColliding());
+            if (this.collider.getIsColliding())
+            {
+                // Do collision logic
+                onCollision();
+
+            }
         }
         
         interpolate(1);
     }
+
+    public void logicMethods(){}
+
 
     // Collider
     public void setCollider(CollisionObject col)
@@ -212,4 +227,7 @@ public class GameObject {
     // Render getters
     public double getRenderX() { return renderX; }
     public double getRenderY() { return renderY; }
+
+    // Collision object, can be empty
+    public void onCollision(){}
 }

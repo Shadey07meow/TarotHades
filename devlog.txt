@@ -7,6 +7,16 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
     
+--> 24/04/2026
+    (Shadey07)
+    - Improved collision logic
+    - Enemy objects can now take damage
+    - Implementation of immovable gameObjects
+    - Added projectile.gif
+    - Made heart.png and deadHeart.png into BufferedImages
+    - Added collision to chest objects
+    - 
+
 --> 22/04/2026
     (zam2643)
     - added a SoundManager class
