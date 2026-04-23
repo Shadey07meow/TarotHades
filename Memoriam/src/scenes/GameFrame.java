@@ -44,11 +44,13 @@ public class GameFrame extends JFrame {
 
     public GameFrame(Dimension resolution) {   
              
+        // Sets up the initialization of the window
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(resolution);
         setUndecorated(true);   
-        
+
+        // Sets the cursor
         Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(
             cursor,
             new Point(0, 0),
@@ -68,9 +70,12 @@ public class GameFrame extends JFrame {
         menuScreen = new MenuScreen(this);
         loseScreen = new LoseScreen(this);
         pauseScreen = new PauseScreen(this);
+        
+        // Note: Check out what these do later
         prologueScreen = new PrologueScreen(this);
         cutsceneScreen = new CutsceneScreen(this);
 
+        // Adds all panels into the arrayList which contains all the panels
         this.allPanels.add(gameStart);
         this.allPanels.add(creditScreen);
         this.allPanels.add(menuScreen);
@@ -87,12 +92,19 @@ public class GameFrame extends JFrame {
 
         
         add(parentPanel);
-        showPanel(menuScreen.getShowablePanelName());
-
         pack();
         setLocationRelativeTo(null);
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setVisible(true);
+        
+        // Initiates a panel
+        initPanel();
+
+    }
+
+    private void initPanel()
+    {
+        showPanel(menuScreen.getShowablePanelName());
     }
     
     
@@ -133,7 +145,7 @@ public class GameFrame extends JFrame {
         return button;
     }
 
-    // quick hover button
+    // Quick hover button
     public void addHoverEffect(JButton button, Image normal, Image hover, int width, int height) {
 
         Image normalScaled = normal.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -154,57 +166,59 @@ public class GameFrame extends JFrame {
         });
     }
 
-    // asset loader trigger??
-    public void loadAssetsAsync(Runnable onFinished){
-        assetsLoaded = false;
+    // Note: I have no idea what this does, double check later
+        // // asset loader trigger??
+        // public void loadAssetsAsync(Runnable onFinished){
+        //     assetsLoaded = false;
 
-        new Thread(() -> {
+        //     new Thread(() -> {
 
-            // Force ImageLibrary initialization (this is your "loading work")
-            ImageLibrary.get();
+        //         // Force ImageLibrary initialization (this is your "loading work")
+        //         ImageLibrary.get();
 
-            assetsLoaded = true;
+        //         assetsLoaded = true;
 
-            javax.swing.SwingUtilities.invokeLater(onFinished);
+        //         javax.swing.SwingUtilities.invokeLater(onFinished);
 
-        }).start();
-    }
+        //     }).start();
+        // }
 
-        private void playCutscene(int level) {
 
-        String[] lines = switch (level) {
+    // private void playCutscene(int level) {
 
-            case 1 -> new String[]{
-                "You feel something shift.",
-                "The world responds to your presence."
-            };
+    //     String[] lines = switch (level) {
 
-            case 2 -> new String[]{
-                "The halls stretch further.",
-                "Something is watching."
-            };
+    //         case 1 -> new String[]{
+    //             "You feel something shift.",
+    //             "The world responds to your presence."
+    //         };
 
-            case 3 -> new String[]{
-                "The ruins whisper.",
-                "You are not alone."
-            };
+    //         case 2 -> new String[]{
+    //             "The halls stretch further.",
+    //             "Something is watching."
+    //         };
 
-            case 4 -> new String[]{
-                "You’ve come far.",
-                "But something awaits."
-            };
+    //         case 3 -> new String[]{
+    //             "The ruins whisper.",
+    //             "You are not alone."
+    //         };
 
-            case 5 -> new String[]{
-                "This is it.",
-                "The final act."
-            };
+    //         case 4 -> new String[]{
+    //             "You’ve come far.",
+    //             "But something awaits."
+    //         };
 
-            default -> new String[]{"..."};
-        };
+    //         case 5 -> new String[]{
+    //             "This is it.",
+    //             "The final act."
+    //         };
 
-        cutsceneScreen.setCutscene(lines);
-        showPanel("cutscene");
-    }
+    //         default -> new String[]{"..."};
+    //     };
+
+    //     cutsceneScreen.setCutscene(lines);
+    //     showPanel("cutscene");
+    // }
 
 }
     

@@ -43,11 +43,9 @@ public class MenuScreen extends UIScreen {
 
             gameFrame.showPanel("loading");
 
-            gameFrame.loadAssetsAsync(() -> {
+            // Note: Check if redundant since ImageLibrary is now a singleton
 
-                gameFrame.showPanel("prologue"); 
-
-            });
+            gameFrame.showPanel("prologue"); 
         });
         creditBtn.addActionListener(e -> gameFrame.showPanel("credits"));
         exitBtn.addActionListener(e -> System.exit(0));
@@ -114,7 +112,6 @@ public class MenuScreen extends UIScreen {
 
     @Override
     public void onInitiate() {
-        System.out.println("menu working");
         SoundManager.playMusic("assets/music/TempMainMenu.wav");
     }
 
