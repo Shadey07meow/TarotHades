@@ -21,10 +21,10 @@ public class Vector2 {
         this.y = 0;
     }
 
-    final static Vector2 UP = new Vector2(0, 1);
-    final static Vector2 DOWN = new Vector2(0, -1);
-    final static Vector2 RIGHT = new Vector2(1, 0);
-    final static Vector2 LEFT = new Vector2(-1, 0);
+    public final static Vector2 UP = new Vector2(0, 1);
+    public final static Vector2 DOWN = new Vector2(0, -1);
+    public final static Vector2 RIGHT = new Vector2(1, 0);
+    public final static Vector2 LEFT = new Vector2(-1, 0);
 
     public static Vector2 add(Vector2 a, Vector2 b)
     {
@@ -83,6 +83,22 @@ public class Vector2 {
         if(a.y == 0) y1 = 0;
         
         return new Vector2(x1, y1);
+    }
+
+    static public Vector2 getUnitVector(Vector2 a, Vector2 b)
+    {
+        
+        double dx = b.x - a.x ;
+        double dy = b.y - a.y;
+
+        double length = Math.sqrt(dx * dx + dy * dy);
+        if (length == 0) return new Vector2(0, 0);
+
+        double vx = (dx / length);
+        double vy = -(dy / length);
+
+        return  new Vector2(vx, vy);
+
     }
 
     @Override

@@ -19,7 +19,6 @@ public class WorldRenderer {
 
     // Object list MUST include player
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
-    private Player worldPlayer = null;
     private Vector2 centerPosition = new Vector2(950, 420);
     private int distanceFromCenter = 20 * 4 ;
     private final double xThresholdd = 150; 
@@ -34,8 +33,8 @@ public class WorldRenderer {
         this.map = new Map(null, player.getPosition(), 1, s);
         this.gamePanel = s;
 
-        this.setMap(this.map);
-        this.setPlayer(this.player);
+        initWorld();
+
     }
 
     public WorldRenderer(Player player, Map  m,  PlayableScreen s)
@@ -44,8 +43,7 @@ public class WorldRenderer {
         this.map = m;
         this.gamePanel = s;
 
-        this.setMap(this.map);
-        this.setPlayer(this.player);
+        initWorld();
     }
 
     public WorldRenderer(PlayableScreen s)
@@ -53,6 +51,12 @@ public class WorldRenderer {
         this.gamePanel = s;
         this.player = null;
         this.map = null;
+    }
+
+    private void initWorld()
+    {
+        this.setMap(this.map);
+        this.setPlayer(this.player);
     }
 
     // Add game object to the game world
@@ -243,7 +247,7 @@ public class WorldRenderer {
 
     public Player getPlayer()
     {
-        return this.worldPlayer;
+        return this.player;
     }
 
     public int getDistanceFromCenter()

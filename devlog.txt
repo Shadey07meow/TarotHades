@@ -15,7 +15,8 @@ KEEP THIS ON TOP
     - Added projectile.gif
     - Made heart.png and deadHeart.png into BufferedImages
     - Added collision to chest objects
-    - 
+    - Enemies can now follow you
+    - Added Vector2.getUnitVector for quick math
 
 --> 22/04/2026
     (zam2643)

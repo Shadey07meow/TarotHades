@@ -160,7 +160,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
         if (world.getPlayer() != null)
         {
-            world.getPlayer().update();
             updateCollisions();
         }
 

@@ -217,21 +217,9 @@ public class Player extends Entity {
         double spawnX = getX();
         double spawnY = getY(); 
 
-        Vector2 click = inputs.getClickPosition();
+        Vector2 click = inputs.getClickPosition();        
 
-        double dx = click.x - spawnX;
-        double dy = click.y - spawnY;
-
-        double length = Math.sqrt(dx * dx + dy * dy);
-        if (length == 0) return;
-
-        double vx = (dx / length) * projectileSpeed;
-        double vy = -(dy / length) * projectileSpeed;
-
-        Vector2 velocity = new Vector2(
-        (int)Math.round(vx),
-        (int)Math.round(vy)
-        );
+        Vector2 velocity = Vector2.multiply(Vector2.getUnitVector(this.position, click ), projectileSpeed);
 
         world.addObject(new Projectile(
             (int)spawnX,
