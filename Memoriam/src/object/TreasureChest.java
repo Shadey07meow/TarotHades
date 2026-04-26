@@ -9,26 +9,25 @@ public class TreasureChest extends GameObject {
     // When player presses letter E, the treasure chest panel pops up
     private int interactionDistance = 150;
     private Player targetPlayer =  null;
-    private GameStart world;
+
     
 
     // Check when the player is close enough to this particular
-    public TreasureChest(Vector2  v, Player  p, int s, GameStart world)
+    public TreasureChest(Vector2  v, Player  p, int s, PlayableScreen scrn)
     {
-        super(v, s, world);
+        super(v, s, scrn);
         this.targetPlayer =  p;
-        this.world = world;
+
         setImage(ImageLibrary.get().treasureChest);
 
         this.setCollider(new RectangleCollider(this, true, 32, 32, 32, 32));
         this.getCollider().setIsMovable(false);
     }     
     
-    public TreasureChest(int a, int b, Player  p,  int s, GameStart world)
+    public TreasureChest(int a, int b, Player  p,  int s, PlayableScreen scrn)
     {
-        super(a, b, s, world);
+        super(a, b, s, scrn);
         this.targetPlayer =  p;
-        this.world = world;
         setImage(ImageLibrary.get().treasureChest);
         
         this.setCollider(new RectangleCollider(this, true, 32, 32, 32, 32));
@@ -49,7 +48,7 @@ public class TreasureChest extends GameObject {
         } else
         {
             setImage(ImageLibrary.get().treasureChest);
-            world.showChestUI = false;
+            playScrn.showChestUI = false;
 
         }
     }
@@ -68,7 +67,7 @@ public class TreasureChest extends GameObject {
 
         if (targetPlayer.isInteracting()) {
 
-            world.openChest();
+            playScrn.openChest();
         }
     }
 }

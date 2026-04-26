@@ -15,7 +15,7 @@ public class LoseScreen extends UIScreen {
 
     public LoseScreen(GameFrame gameFrame) {
 
-        super("lose");
+        super("lose", gameFrame);
 
         this.loseScreen = ImageLibrary.get().loseScreen;
 

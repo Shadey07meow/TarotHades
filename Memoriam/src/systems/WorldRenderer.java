@@ -119,16 +119,6 @@ public class WorldRenderer {
                 moveObjectsWithWorldY();
             }
 
-            /*
-            
-            if(checkPlayerDistanceFromCenter())
-            {
-                // moving world logic
-                // player.setMovable(false);
-                moveObjectsWithWorld();
-            }
-            */
-
                 
         }
     }

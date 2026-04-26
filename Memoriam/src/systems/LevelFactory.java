@@ -8,7 +8,9 @@ import scenes.*;
 
 public class LevelFactory {
 
-    public static void loadLevel(int id, WorldRenderer world, Player player, GameStart scene) {
+    public static int maxLevels;
+
+    public static void loadLevel(int id, WorldRenderer world, Player player, PlayableScreen scene) {
 
         Map map = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1, scene);
 
@@ -19,12 +21,12 @@ public class LevelFactory {
 
         buildLevel(id, world, player, scene);
 
-        spawnChest(world, player, scene);
+        //spawnChest(world, player, scene);
 
         showLevelMessage(scene, "LEVEL " + id);
     }
 
-    private static void buildLevel(int id, WorldRenderer world, Player player, GameStart scene) {
+    private static void buildLevel(int id, WorldRenderer world, Player player, PlayableScreen scene) {
 
         switch (id) {
 
@@ -82,11 +84,8 @@ public class LevelFactory {
     }
 
 
-    private static void spawnChest(WorldRenderer world, Player player, GameStart scene) {
-        world.addObject(new TreasureChest(200, 200, player, 2, scene));
-    }
 
-    private static void showLevelMessage(GameStart scene, String text) {
+    private static void showLevelMessage(PlayableScreen scene, String text) {
 
         scene.setLevelText(text);
 

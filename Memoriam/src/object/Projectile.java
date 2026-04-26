@@ -53,7 +53,7 @@ public class Projectile extends GameObject{
                 // Unmovable object check
                 if(colList.get(x).getGameObject() instanceof Enemy)
                 {
-                    System.out.println("I literally hit something");    
+                    ///System.out.println("I literally hit something");    
                     world.removeObject(this);
                     Enemy enmy = (Enemy)colList.get(x).getGameObject();
                     enmy.damage(this.damage);

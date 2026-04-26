@@ -22,7 +22,7 @@ public class MenuScreen extends UIScreen {
 
     public MenuScreen(GameFrame gameFrame) {
 
-        super("menu");
+        super("menu", gameFrame);
         this.backgroundImage = ImageLibrary.get().background;
 
         // Buttons

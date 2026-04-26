@@ -42,7 +42,7 @@ public class PrologueScreen extends UIScreen {
     private final JButton skipButton;
 
     public PrologueScreen(GameFrame gameFrame) {
-        super("prologue");
+        super("prologue", gameFrame);
         this.gameFrame = gameFrame;
 
         setLayout(new BorderLayout());

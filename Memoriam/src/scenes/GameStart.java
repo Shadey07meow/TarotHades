@@ -17,62 +17,20 @@ import systems.*;
 public class GameStart extends PlayableScreen {
 
     // main game screen
-    private GameFrame gameFrame;
     private JButton killButton;
     private JButton menuButton;
-    private Image map;
 
-    // level system
-    private int currentLevel = 1;
-
-    private LevelFactory levelFactory;
-    private String levelText = "";
-    private boolean showLevelText = false;
-    private JButton nextLevelButton;
-    private int hoveredCardIndex = -1;
-    private String selectedCardName = "";
-    private int selectedCardTimer = 0;
-    
-
-    // powerup
-    private ArrayList<Card> spinCards = new ArrayList<>();
-    private int chestState = 0; 
-    private int spinTicks = 0;
-    private int selectedCardIndex = -1;
-    private boolean chestSelectionMode = false;
-
-
-    // transition
-    private boolean isFading = false;
-    private float fade = 0f;
-
-    // chest system
-    public boolean showChestUI = false;
-    private ArrayList<Card> currentCards = new ArrayList<>();
-    private CardManager cardManager;
-
-
-    private Rectangle chestButton;
-    private Rectangle backButton;
-
-    private float chestAnim = 0f;
-    private float cardFlip = 0f;
 
 
 
     public GameStart(GameFrame gameFrame) {
-        super("start");
+        super("start", gameFrame);
 
 
         this.gameFrame = gameFrame;
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
-
-        map = ImageLibrary.get().map;
-
-
-  
 
         killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 200, 100);
 
@@ -92,19 +50,19 @@ public class GameStart extends PlayableScreen {
         gameFrame.addHoverEffect(killButton, ImageLibrary.get().placeholderBtn, ImageLibrary.get().placeholderBtnHover, 353, 100);
 
         // temporary next level (replace with the opening thing)
-        nextLevelButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
-        nextLevelButton.addActionListener(e -> {requestLevelChange();});
+        //nextLevelButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
+        //nextLevelButton.addActionListener(e -> {requestLevelChange();});
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
         bottomPanel.add(killButton);
         bottomPanel.add(menuButton);
-        bottomPanel.add(nextLevelButton);
+        //bottomPanel.add(nextLevelButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
 
         // chest init
-        cardManager = new CardManager(ImageLibrary.get());
+        
 
     }
 
@@ -153,174 +111,11 @@ public class GameStart extends PlayableScreen {
         // Does nothing on exit i think
     }
 
-    // chest methods
-    public void openChest() {
-
-        if (showChestUI) return;
-
-        showChestUI = true;
-        chestState = 1;
-        player.setUIOpen(true);
-
-        currentCards.clear();
-
-        // EXACTLY 2 cards
-        currentCards.add(cardManager.drawCard(currentLevel));
-        currentCards.add(cardManager.drawCard(currentLevel));
-
-        spinTicks = 0;
-    }
-
-    public void closeChestUI() {
-        showChestUI = false;
-         player.setUIOpen(false);
-        currentCards.clear();
-    }
-
     @Override
     public void update() {
 
         super.update(); // THIS already updates world + player
-
-                    // when esc is press, show pause panel
-            if (inputManager.isPausePressed()) {
-                gameFrame.showPanel("pause");
-                return;
-            }
-        
-
-            if (chestState == 1) {
-
-            spinTicks++;
-
-            int speed = Math.max(2, 10 - spinTicks / 10);
-
-            if (spinTicks % speed == 0) {
-
-                currentCards.clear();
-
-                currentCards.add(cardManager.drawCard(currentLevel));
-                currentCards.add(cardManager.drawCard(currentLevel));
-               
-            }
-
-            if (spinTicks > 60) {
-                chestState = 2; // stop spinning, allow selection
-            }
-        }
-
-        // fade logic only
-        if (isFading) {
-
-            // force UI cleanup during fade
-            showChestUI = false;
-            currentCards.clear();
-
-            fade += 0.05f;
-
-            if (fade >= 1f) {
-                fade = 1f;
-
-                currentLevel++;
-
-                if (currentLevel > 5) {
-                currentLevel = 5; // lock at final boss
-                showFinalMessage();
-                return;
-                }
-
-                LevelFactory.loadLevel(currentLevel, world, player, this);
-
-                isFading = false;
-                fade = 0f;
-            }
-        }
-
-       if (showChestUI && chestState == 2 && inputManager.consumeClick()) {
-
-            int cardW = 300;
-            int cardH = 450;
-            int spacing = 40;
-
-            int totalWidth = (cardW * 3) + (spacing * 2);
-            int startX = (getWidth() - totalWidth) / 2;
-            int y = (getHeight() - cardH) / 2;
-
-            Vector2 mouse = inputManager.getClickPosition();
-
-        for (int i = 0; i < currentCards.size(); i++) {
-
-            int x = startX + i * (cardW + spacing);
-
-            Rectangle rect = new Rectangle(x, y, cardW, cardH);
-
-            if (rect.contains(mouse.x, mouse.y)) {
-
-                selectedCardIndex = i;
-                selectCard(i);
-
-                break;
-            }
-        }
-        }
-                // HOVER DETECTION
-        if (showChestUI && chestState == 2) {
-
-            int cardW = 300;
-            int cardH = 450;
-            int spacing = 40;
-
-            int totalWidth = (cardW * currentCards.size()) + (spacing * (currentCards.size() - 1));
-            int startX = (getWidth() - totalWidth) / 2;
-            int y = (getHeight() - cardH) / 2;
-
-            Vector2 mouse = inputManager.getClickPosition(); // last mouse pos
-
-            hoveredCardIndex = -1;
-
-            for (int i = 0; i < currentCards.size(); i++) {
-
-                int x = startX + i * (cardW + spacing);
-
-                Rectangle rect = new Rectangle(x, y, cardW, cardH);
-
-                if (rect.contains(mouse.x, mouse.y)) {
-                    hoveredCardIndex = i;
-                    break;
-                }
-            }
-        }
-        if (selectedCardTimer > 0) {selectedCardTimer--;}
-        
-        }
-
-    // level methods
-
-    public void setLevelText(String text) {
-        levelText = text;
-        showLevelText = true;
-    }
-
-    public void clearLevelText() {
-        showLevelText = false;
-    }
-
-    // card stuff
-    public void showCards()
-    {
-        currentCards.clear();
-
-        currentCards.add(cardManager.drawCard(currentLevel));
-        currentCards.add(cardManager.drawCard(currentLevel));
-        
-        showChestUI = true;
-        chestSelectionMode = true;
-
-        selectedCardIndex = -1;
-
-        chestAnim = 0f;
-        cardFlip = 0f;
-    }
+    }   
 
     @Override
     public void paintComponent(Graphics g)
@@ -329,121 +124,6 @@ public class GameStart extends PlayableScreen {
 
         Graphics2D graphics2 = (Graphics2D) g;
 
-        if (showChestUI) {
-
-            graphics2.setColor(new Color(0, 0, 0, 200));
-            graphics2.fillRect(0, 0, getWidth(), getHeight());
-
-            int cardW = 300;
-            int cardH = 450;
-
-            int spacing = 40;
-            int totalWidth = (cardW * currentCards.size()) + (spacing * (currentCards.size() - 1));
-
-            int startX = (getWidth() - totalWidth) / 2;
-            int y = (getHeight() - cardH) / 2;
-
-            for (int i = 0; i < currentCards.size(); i++) {
-
-                int x = startX + i * (cardW + spacing);
-
-                Card c = currentCards.get(i);
-
-                // hover grey
-                if (i == hoveredCardIndex) {
-                    graphics2.setColor(new Color(0, 0, 0, 120));
-                    graphics2.fillRect(x, y, cardW, cardH);
-                }
-
-                // select highlight
-                if (i == selectedCardIndex) {
-                    graphics2.setColor(new Color(255, 255, 0, 100));
-                    graphics2.fillRect(x, y, cardW, cardH);
-                }
-
-                if (c != null && c.image != null) {
-
-                    graphics2.drawImage(
-                        c.image,
-                        x,
-                        y,
-                        cardW,
-                        cardH,
-                        null
-                    );
-                }
-            }
-        }
-    }
-
-    public void selectCard(int index) {
-
-        Card c = currentCards.get(index);
-        if (c == null) return;
-
-        selectedCardIndex = index;
-
-        selectedCardName = c.name;
-        selectedCardTimer = 60; // show for ~1 second
-
-        System.out.println("Card selected: " + c.name + " | Ability: " + c.ability);
-        player.applyAbility(c.ability); 
-
-        showChestUI = false;
-        chestState = 0;
-        player.setUIOpen(false); 
-
-        javax.swing.Timer t = new javax.swing.Timer(800, e -> {
-            gameFrame.cutsceneScreen.loadCutsceneForLevel(currentLevel);
-            gameFrame.showPanel("cutscene");
-        });
-
-        t.setRepeats(false);
-        t.start();
-    }
-
-    private void resetUIOnTransition() {
-        showChestUI = false;
-        currentCards.clear();
-        showLevelText = false;
-    }
-
-
-    public void requestLevelChange() {
-        isFading = true;
-
-        showChestUI = false;
-        showLevelText = false;
-    }
-
-    public void triggerLevelChange() {
-        isFading = true;
-
-        resetUIOnTransition();
-    }
-
-    private void showFinalMessage() {
-        setLevelText("YOU HAVE REACHED THE END");
-
-        javax.swing.Timer t = new javax.swing.Timer(3000, e -> {
-            clearLevelText();
-            gameFrame.showPanel("menu"); // or credits screen
-        });
-
-        t.setRepeats(false);
-        t.start();
-    }
-
-    public void nextLevelAfterCutscene() {
-
-        currentLevel++;
-
-        if (currentLevel > 6) {
-            showFinalMessage(); // optional
-            return;
-        }
-
-        LevelFactory.loadLevel(currentLevel, world, player, this);
     }
 
 }

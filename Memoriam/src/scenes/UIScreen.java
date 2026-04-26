@@ -8,9 +8,9 @@ public class UIScreen extends ShowablePanel {
     /// This is so that we can Identify what are the names of the panels we create
     /// Use the super("panelName") format so that it is easier and more identifiable which panel we swtich to
 
-    public UIScreen(String name)
+    public UIScreen(String name, GameFrame g)
     {
-        super(name);
+        super(name, g);
     }
 
     @Override

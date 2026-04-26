@@ -14,7 +14,7 @@ public class PauseScreen extends UIScreen {
     private JButton menuBtn;
 
     public PauseScreen(GameFrame gameFrame) {
-        super("pause");
+        super("pause", gameFrame);
 
         setLayout(new BorderLayout());
 

@@ -8,6 +8,7 @@ import java.awt.Image;
 public abstract class Enemy extends Entity {
 
     protected int detectionRange = 500;
+    protected int attackingRange = 250;
 
     protected ImageLibrary img = ImageLibrary.get();
     protected Player pl;
@@ -17,12 +18,30 @@ public abstract class Enemy extends Entity {
     protected Image moveRightImg = null;
 
 
-    protected boolean hasDetectedPlayer;
+    protected boolean hasDetectedPlayer = false;
+    protected boolean withinShootingDistance = false;
+
+    private boolean goesLeft;
+    private double trackSpeed;
+    private double followSpeed;
+
 
     public Enemy(Vector2 p, double s, PlayableScreen scrn)
     {
         super(p, s, scrn);
-        
+        randomizeDir();
+    }
+
+    private void randomizeDir()
+    {
+        int r = (int)(Math.random() * 10);
+        this.goesLeft = r % 2 == 0; 
+
+        double r2 = Math.random();
+        this.trackSpeed = r2 + 0.7;
+
+        double r3 = Math.random();
+        this.followSpeed = r3 + 1;
     }
     
 
@@ -61,19 +80,33 @@ public abstract class Enemy extends Entity {
         // Run when undetected
         if(!this.hasDetectedPlayer)
         {
+            // Using this structure so that if you are detected once, you will be detected forever
             detectForPlayer();
         } else
         {
             // Move
             updateSpeed();
-            moveTowardsPlayer();
+
+            if(!canShootPlayer())
+            {
+                moveTowardsPlayer();
+            } else{
+                if(this.goesLeft)
+                {
+                    moveLeftOfPlayer();
+                } else
+                {
+                    moveRightOfPlayer();
+                }
+            }
             updSprites();
         }
         
         
     }
 
-    private void detectForPlayer()
+    // Checks if the player should be noticed by the enemy
+    protected void  detectForPlayer()
     {
         if(Math.abs(Vector2.distance(this.getPosition(), pl.getPosition())) < detectionRange)
         {
@@ -81,11 +114,38 @@ public abstract class Enemy extends Entity {
         }
     }
 
-    private void moveTowardsPlayer()
+
+    // Detects if the player is within the range to be shot
+    protected boolean canShootPlayer()
     {
-        this.move(currentSpeed);
+        if(Math.abs(Vector2.distance(this.getPosition(), pl.getPosition())) < attackingRange)
+        {
+            return true;
+        }
+        else return false;
+        
     }
 
+    private void moveTowardsPlayer()
+    {
+        this.move(Vector2.multiply(currentSpeed, this.followSpeed));
+    }
+
+
+    private void moveLeftOfPlayer()
+    {
+        Vector2 leftV = new Vector2(currentSpeed.y, -currentSpeed.x);
+        this.move(Vector2.multiply(leftV, trackSpeed));
+    }
+
+
+    private void moveRightOfPlayer()
+    {
+        Vector2 rightV = new Vector2(-currentSpeed.y, currentSpeed.x);  
+        this.move(Vector2.multiply(rightV, trackSpeed));
+    }
+
+    
     private void updateSpeed()
     {
         Vector2 unitVector = Vector2.getUnitVector(this.position, this.pl.getPosition());

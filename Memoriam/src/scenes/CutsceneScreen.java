@@ -28,7 +28,7 @@ public class CutsceneScreen extends UIScreen {
     private final GameFrame gameFrame;
 
     public CutsceneScreen(GameFrame gameFrame) {
-        super("cutscene");
+        super("cutscene", gameFrame);
         this.gameFrame = gameFrame;
 
         setLayout(new BorderLayout());

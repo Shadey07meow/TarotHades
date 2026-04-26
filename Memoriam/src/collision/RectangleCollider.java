@@ -53,7 +53,7 @@ public class RectangleCollider extends CollisionObject {
         // Separate GameObject
         super(object, movable);
         
-        System.out.println("Created a rectangle collider");
+        ///System.out.println("Created a rectangle collider");
         this.localBounds = new Bounds(
                 new Vector2(0, top),
                 new Vector2(0, - bottom),

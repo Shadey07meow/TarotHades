@@ -131,7 +131,9 @@ public class Player extends Entity {
     public void inputOperations()
     {
 
-         movePlayer();
+        movePlayer();
+
+        // Does not fight when UI is open
         if (!uiOpen) combatMethod();
         checkInteracting();
     }

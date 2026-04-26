@@ -13,7 +13,7 @@ public class LoadingScreen extends ShowablePanel {
 
 
     public LoadingScreen(GameFrame gameFrame) {
-        super("loading");
+        super("loading", gameFrame);
         loadingImage = ImageLibrary.get().loadingScreen;
     }
 
