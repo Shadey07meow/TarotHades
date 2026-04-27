@@ -43,12 +43,10 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     InputManager inputManager = new InputManager();
     static int framesPerSecond = 60;
     protected Vector2 center = new Vector2();
-
-
+    protected Map currentMap;
 
 
     // level system
-    private int currentLevel = 1;
 
 
     private int hoveredCardIndex = -1;
@@ -73,7 +71,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private CardManager cardManager;
 
     private int id;
-   
+
     
 
     public PlayableScreen(String panelName, int ID, GameFrame g)
@@ -86,7 +84,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.gameLoop = new Thread(this);
         this.isRunning = true;
 
-  
         // Adds input manager
         addKeyListener(inputManager); 
         addMouseListener(inputManager);
@@ -109,16 +106,19 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.name = name;
     }
     
+    public abstract Map setMap();
+    public abstract Player setPlayer();
+
     @Override
     public void onInitiate()
     {
         this.isRunning = true;
-        System.out.println("1 - isRunning : " + String.valueOf(this.isRunning));
+        //System.out.println("1 - isRunning : " + String.valueOf(this.isRunning));
         this.gameLoop = new Thread(this);
         requestFocusInWindow();
         initWindow();
         startGamePanel();
-        System.out.println("2 - isRunning : " + String.valueOf(this.isRunning));
+        //System.out.println("2 - isRunning : " + String.valueOf(this.isRunning));
         
     }
     
@@ -131,11 +131,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
 
     // Unique shit
-    public void initWindow()
+    private  void initWindow()
     {
         requestFocusInWindow();
         this.world = new WorldRenderer(this);
+        
         System.out.println("Initialized : " + this.getName());
+        this.player = setPlayer();
+        this.currentMap = setMap();
 
         // Initialized first before running game loop
         try
@@ -162,14 +165,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         {System.out.println("Game Loop already stopped : " + e.getMessage());}   
     }
     
-    public void startGamePanel()
-    {
-        
-    }
-    public void stopGamePanel()
-    {
-
-    }
+    public abstract void startGamePanel();
+    public abstract void stopGamePanel();
   
     @Override
     public void run()
@@ -209,6 +206,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
         if (world == null) return;
 
+
+
         if (world.getPlayer() != null)
         {
             updateCollisions();
@@ -239,8 +238,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             if (spinTicks % speed == 0) {
 
                 currentCards.clear();
-                currentCards.add(cardManager.drawCard(currentLevel));
-                currentCards.add(cardManager.drawCard(currentLevel));   
+                currentCards.add(cardManager.drawCard(this.id));
+                currentCards.add(cardManager.drawCard(this.id));   
             }
             if (spinTicks > 60) {
                 chestState = 2; // stop spinning, allow selection
@@ -253,8 +252,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     // Update function methods
     public void checkPausing()
     {
+        // Pause Logic
         if (inputManager.isPausePressed()) {
-            gameFrame.showPanel("pause");
+            this.getGameFrame().showPanel("pause");
         }
     }
 
@@ -304,14 +304,12 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             if (fade >= 1f) {
                 fade = 1f;
 
-                currentLevel++;
 
-                if (currentLevel > 5) {
-                currentLevel = 5; // lock at final boss
-                showFinalMessage();
-                return;}
-
-                changeLevel(currentLevel);
+                // Should be handled by level manager
+                // if (currentLevel > 5) {
+                // currentLevel = 5; // lock at final boss
+                // showFinalMessage();
+                // return;}
 
                 isFading = false;
                 fade = 0f;
@@ -320,10 +318,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
-    public void changeLevel(int x)
-    {
-        LevelFactory.loadLevel(x, world, player, this);
-    }
 
     public void checkHoveringButtons()
     {
@@ -527,7 +521,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         }
     }
 
-    
     // chest methods
     public void openChest() {
 
@@ -542,8 +535,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         currentCards.clear();
 
         // EXACTLY 2 cards
-        currentCards.add(cardManager.drawCard(currentLevel));
-        currentCards.add(cardManager.drawCard(currentLevel));
+        currentCards.add(cardManager.drawCard(this.id));
+        currentCards.add(cardManager.drawCard(this.id));
 
         spinTicks = 0;
     }
@@ -553,7 +546,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
          player.setUIOpen(false);
         currentCards.clear();
     }
-
     
     public void clearLevelText() {
 
@@ -564,16 +556,15 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
         currentCards.clear();
 
-        currentCards.add(cardManager.drawCard(currentLevel));
-        currentCards.add(cardManager.drawCard(currentLevel));
+        currentCards.add(cardManager.drawCard(this.id));
+        currentCards.add(cardManager.drawCard(this.id));
         
         showChestUI = true;
 
         selectedCardIndex = -1;
 
     }
-
-    
+ 
     public void selectCard(int index) {
 
         Card c = currentCards.get(index);
@@ -593,13 +584,15 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // Enables inputs
         player.setUIOpen(false); 
 
-        javax.swing.Timer t = new javax.swing.Timer(800, e -> {
-            gameFrame.cutsceneScreen.loadCutsceneForLevel(currentLevel);
-            gameFrame.showPanel("cutscene");
-        });
 
-        t.setRepeats(false);
-        t.start();
+        // Wtf is this
+        // Just call LevelManager
+        // this.getGameFrame().cutsceneScreen.loadCutsceneForLevel(this.id + 1);
+        // this.getGameFrame().showPanel("cutscene");
+
+        
+        LevelManager.loadLevel(this.id + 1, this);
+        // Do the two things stated here for transition
     }
 
     private void resetUIOnTransition() {
@@ -622,32 +615,23 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         resetUIOnTransition();
     }
 
+    // Should be handled by the level factory
     private void showFinalMessage() {
         setLevelText("YOU HAVE REACHED THE END");
 
         javax.swing.Timer t = new javax.swing.Timer(3000, e -> {
             clearLevelText();
-            gameFrame.showPanel("menu"); // or credits screen
+            this.getGameFrame().showPanel("menu"); // or credits screen
         });
 
         t.setRepeats(false);
         t.start();
     }
 
-    public void nextLevelAfterCutscene() {
 
-        currentLevel++;
-
-        if (currentLevel > 6) {
-            showFinalMessage(); // optional
-            return;
-        }
-
-        LevelFactory.loadLevel(this.id + 1, world, player, this);
-    }
+  
 
 
-    public void setLevelText(String text) {
-
-    }
+    // Does nothing right now
+    public void setLevelText(String text) {}
 }

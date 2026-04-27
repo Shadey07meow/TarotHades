@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public abstract class ShowablePanel extends JPanel{
     protected  String name;
-    protected GameFrame gameFrame;
+    private final GameFrame gameFrame;
 
     /// Showable Panel class
     /// Whenever we can switch to a new panel, please make it extend showable panel instead of JPanel
@@ -30,5 +30,10 @@ public abstract class ShowablePanel extends JPanel{
     public String getScreenName()
     {
         return this.name;
+    }
+
+    public GameFrame getGameFrame()
+    {
+        return gameFrame;
     }
 }

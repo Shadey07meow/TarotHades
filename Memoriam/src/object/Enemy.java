@@ -73,7 +73,7 @@ public abstract class Enemy extends Entity {
         if(this.pl == null) 
         {
             this.pl = this.world.getPlayer();
-            System.out.println("I am bein called");
+            //System.out.println("I am bein called");
             return;
         }
 

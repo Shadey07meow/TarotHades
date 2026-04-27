@@ -20,7 +20,7 @@ public class MainGameDriver
         ///         Initiate the frame
         ImageLibrary.get();
         GameFrame gameFrame = new GameFrame(RESOLUTION);
-        LevelFactory.setFrame(gameFrame);
+        LevelManager.setFrame(gameFrame);
 
     }
 }

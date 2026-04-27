@@ -39,6 +39,8 @@ public class Projectile extends GameObject{
         }
     }
 
+
+    @Override
     public void onCollision()
     {
         // Double check if there is nothing being collided with
@@ -47,7 +49,7 @@ public class Projectile extends GameObject{
             ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
             boolean hashitUnmovable = false;
             
-            for(int x = 0; x < colList.size(); x++)
+            for(int x = 0; x < colList.size() &&   !colList.isEmpty(); x++)
             {
                 if(colList.get(x).getGameObject() instanceof Player) continue;
                 // Unmovable object check

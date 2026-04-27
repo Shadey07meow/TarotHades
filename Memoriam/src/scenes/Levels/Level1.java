@@ -1,4 +1,4 @@
-package scenes;
+package scenes.Levels;
 
 
 import collision.*;
@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import object.*;
 import systems.*;
+import scenes.*;
 
 
 public class Level1 extends PlayableScreen {
@@ -22,4 +23,30 @@ public class Level1 extends PlayableScreen {
     {
         super("Level 1", 1, g);
     }
+
+    @Override
+    public void startGamePanel()
+    {
+
+    }
+
+    @Override
+    public void stopGamePanel()
+    {
+        
+    }
+
+
+    @Override
+    public Map setMap()
+    {
+        return null;
+    }
+
+    public Player setPlayer()
+    {
+        return null;
+    }
+
+
 }

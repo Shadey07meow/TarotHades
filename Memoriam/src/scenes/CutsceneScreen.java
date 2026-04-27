@@ -10,6 +10,7 @@ public class CutsceneScreen extends UIScreen {
 
     private String[] lines = {};
     private int index = 0;
+    private volatile boolean finishedTransition = false;
 
     private final JLabel textLabel = new JLabel("", SwingConstants.CENTER);
 
@@ -25,12 +26,12 @@ public class CutsceneScreen extends UIScreen {
 
     private Timer timer;
 
-    private final GameFrame gameFrame;
+
 
     public CutsceneScreen(GameFrame gameFrame) {
         super("cutscene", gameFrame);
-        this.gameFrame = gameFrame;
 
+        finishedTransition = true;
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
 
@@ -58,6 +59,7 @@ public class CutsceneScreen extends UIScreen {
     public void onInitiate() {
         if (lines == null || lines.length == 0) return;
 
+        finishedTransition = false;
         index = 0;
         alpha = 0f;
         state = State.FADE_IN;
@@ -127,13 +129,17 @@ public class CutsceneScreen extends UIScreen {
     private void endCutscene() {
 
         if (timer != null) timer.stop();
+        // Should not rely on game start
+        this.finishedTransition = true;
 
-        gameFrame.gameStart.nextLevelAfterCutscene();
-        gameFrame.showPanel("start");
+       
+       
+        ///gameFrame.showPanel("start");
     }
 
     public void loadCutsceneForLevel(int level) {
 
+        finishedTransition = false;
         switch (level) {
 
             case 1 -> lines = new String[]{
@@ -168,5 +174,10 @@ public class CutsceneScreen extends UIScreen {
 
             default -> lines = new String[]{"..."};
         }
+    }
+
+    public boolean isFinishedLoading()
+    {
+        return this.finishedTransition;
     }
 }

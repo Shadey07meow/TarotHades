@@ -1,9 +1,10 @@
 package scenes;
 
-import scenes.*;
+import scenes.Levels.*;
 import systems.*;
 import collision.*;
 import object.*;
+
 import images.*;
 
 import java.awt.CardLayout;
@@ -33,7 +34,7 @@ public class GameFrame extends JFrame {
     final private CardLayout cardLayout = new CardLayout();
     private final JPanel parentPanel;
     private final PrologueScreen prologueScreen;
-    protected final CutsceneScreen cutsceneScreen;
+    public final CutsceneScreen cutsceneScreen;
 
     private volatile boolean assetsLoaded = false;
 
@@ -112,8 +113,8 @@ public class GameFrame extends JFrame {
         this.allPanels.add(cutsceneScreen);
         this.allPanels.add(level1);
 
-        LevelFactory.addLevel(gameStart);
-        LevelFactory.addLevel(level1);
+        LevelManager.addLevel(gameStart);
+        LevelManager.addLevel(level1);
     }
 
     private void initPanel()
@@ -126,6 +127,8 @@ public class GameFrame extends JFrame {
     // Method to easily switch between panels, use ShowablePanel.getShowableName() as input
     public void showPanel(String panelName)
     {
+        System.out.println("I am to switching to " + panelName);
+
         try {
             for(ShowablePanel curPanel : allPanels)
             {

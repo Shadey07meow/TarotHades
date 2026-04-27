@@ -119,7 +119,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
             this.clickPosition.x = m.getX();
             this.clickPosition.y = m.getY();
 
-            System.out.println("CLICK DETECTED: " + m.getX() + "," + m.getY());
+            ///System.out.println("CLICK DETECTED: " + m.getX() + "," + m.getY());
             
         }
     }

@@ -17,8 +17,8 @@ import systems.*;
 public class GameStart extends PlayableScreen {
 
     // main game screen
-    private JButton killButton;
-    private JButton menuButton;
+    //private JButton killButton;
+    //private JButton menuButton;
 
 
 
@@ -26,39 +26,37 @@ public class GameStart extends PlayableScreen {
     public GameStart(GameFrame gameFrame) {
         super("start", 0, gameFrame);
 
-        this.gameFrame = gameFrame;
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
 
-        killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 200, 100);
+        // killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 200, 100);
+        // killButton.addActionListener(e -> {
+        // if (player != null) {
+        //    player.minusHP(1); // minus 1 heart
+        // }});
+        
+        // // button
+        // killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 353, 100);
+        // killButton.addActionListener(e -> { if (player != null) {player.setHealth(0);}});
 
-        killButton.addActionListener(e -> {
-        if (player != null) {
-           player.minusHP(1); // minus 1 heart
-        }
-         });
-        // button
-        killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 353, 100);
-        killButton.addActionListener(e -> { if (player != null) {player.setHealth(0);}});
+        // menuButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
+        // menuButton.addActionListener(e -> {gameFrame.showPanel("menu");});
 
-        menuButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
-        menuButton.addActionListener(e -> {gameFrame.showPanel("menu");});
-
-        gameFrame.addHoverEffect(menuButton, ImageLibrary.get().optionBtn, ImageLibrary.get().optionBtnHover, 353, 100);
-        gameFrame.addHoverEffect(killButton, ImageLibrary.get().placeholderBtn, ImageLibrary.get().placeholderBtnHover, 353, 100);
+        // gameFrame.addHoverEffect(menuButton, ImageLibrary.get().optionBtn, ImageLibrary.get().optionBtnHover, 353, 100);
+        // gameFrame.addHoverEffect(killButton, ImageLibrary.get().placeholderBtn, ImageLibrary.get().placeholderBtnHover, 353, 100);
 
         // temporary next level (replace with the opening thing)
         //nextLevelButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
         //nextLevelButton.addActionListener(e -> {requestLevelChange();});
 
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setOpaque(false);
-        bottomPanel.add(killButton);
-        bottomPanel.add(menuButton);
-        //bottomPanel.add(nextLevelButton);
+        // JPanel bottomPanel = new JPanel();
+        // bottomPanel.setOpaque(false);
+        // bottomPanel.add(killButton);
+        //  bottomPanel.add(menuButton);
+        // bottomPanel.add(nextLevelButton);
 
-        add(bottomPanel, BorderLayout.SOUTH);
+        // add(bottomPanel, BorderLayout.SOUTH);
 
         // chest init
         
@@ -69,18 +67,17 @@ public class GameStart extends PlayableScreen {
     public void startGamePanel()
     { 
         // Make World renderer
-        super.startGamePanel();
         
-        Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
+
         // Add player 
-        player = new Player(centerHalf, 3, 10, 10, this, gameFrame); 
+
         // Map Creation
-        Map bgObject = new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 15 * 120)), 1 , this);
+
         
-        this.world = new WorldRenderer(player, bgObject, this);
+        this.world = new WorldRenderer(player, this.currentMap, this);
         
         System.out.println("I ran here");
-        this.world.setCenterPosition(centerHalf);
+        //this.world.setCenterPosition(centerHalf);
         
         player.setWorld(world);
         GameObject box1 = new GameObject(300, 300, 50, this);
@@ -120,9 +117,18 @@ public class GameStart extends PlayableScreen {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+    }
 
-        Graphics2D graphics2 = (Graphics2D) g;
+    @Override
+    public Map setMap()
+    {
+        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 15 * 120)), 1 , this);
+    }
 
+    @Override
+    public Player setPlayer()
+    {
+        return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     }
 
 }

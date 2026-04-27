@@ -192,7 +192,7 @@ public class Player extends Entity {
             ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
             boolean hashitUnmovable = false;
             
-            for(int x = 0; x < colList.size(); x++)
+            for(int x = 0; x < colList.size() && !colList.isEmpty() ; x++)
             {
                 // Unmovable object check
                 if(colList.get(x).getIsMovable() == false && hashitUnmovable == false)
@@ -228,7 +228,7 @@ public class Player extends Entity {
             this.playScrn));
 
         currentCooldown = fireCooldown;
-        System.out.println("Shot fired");
+        //System.out.println("Shot fired");
     }
 
 
