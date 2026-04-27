@@ -26,4 +26,9 @@ public abstract class ShowablePanel extends JPanel{
     abstract public void setShowablePanelName(String name);
     abstract public void onInitiate();
     abstract public void onExit();
+
+    public String getScreenName()
+    {
+        return this.name;
+    }
 }

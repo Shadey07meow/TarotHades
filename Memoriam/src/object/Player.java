@@ -70,9 +70,6 @@ public class Player extends Entity {
     {
         super.update();
 
-        // Makes the rendering smooth
-        // alpha = 0.25, you move towards the target by 25% every time
-        // makes it smoother
     }
 
     @Override

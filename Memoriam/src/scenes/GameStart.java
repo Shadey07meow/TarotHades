@@ -24,8 +24,7 @@ public class GameStart extends PlayableScreen {
 
 
     public GameStart(GameFrame gameFrame) {
-        super("start", gameFrame);
-
+        super("start", 0, gameFrame);
 
         this.gameFrame = gameFrame;
 
@@ -76,7 +75,7 @@ public class GameStart extends PlayableScreen {
         // Add player 
         player = new Player(centerHalf, 3, 10, 10, this, gameFrame); 
         // Map Creation
-        Map bgObject = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1 , this);
+        Map bgObject = new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 15 * 120)), 1 , this);
         
         this.world = new WorldRenderer(player, bgObject, this);
         

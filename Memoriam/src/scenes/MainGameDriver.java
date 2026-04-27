@@ -2,6 +2,7 @@ package scenes;
 
 import java.awt.Dimension;
 import images.*;
+import systems.*;
 
 
 public class MainGameDriver
@@ -19,6 +20,7 @@ public class MainGameDriver
         ///         Initiate the frame
         ImageLibrary.get();
         GameFrame gameFrame = new GameFrame(RESOLUTION);
+        LevelFactory.setFrame(gameFrame);
 
     }
 }

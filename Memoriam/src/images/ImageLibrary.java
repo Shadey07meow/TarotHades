@@ -137,18 +137,18 @@ public class ImageLibrary
             placeholderBtnHover = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtnHover.png"));
             
             // Maps
-            rawMap = ImageIO.read(getClass().getResource("assets/MainAssets/mapTest.png"));
+        rawMap = ImageIO.read(getClass().getResource("assets/MainAssets/mapTest.png"));
             map = new BufferedImage(32 * 80, 16 * 80, BufferedImage.TYPE_INT_ARGB);
             g2 = map.createGraphics();
             g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(rawMap, 0, 0, 32 * 80, 16 * 80, null);
+            g2.drawImage(rawMap, 0, 0, 32 * 150, 16 * 150, null);
             g2.dispose();
 
         BufferedImage rawMap1 = ImageIO.read(getClass().getResource("assets/maps/map1.png"));
-            map1 = new BufferedImage(15 * 80, 60 * 80, BufferedImage.TYPE_INT_ARGB);
+            map1 = new BufferedImage(15 * 110, 60 * 110, BufferedImage.TYPE_INT_ARGB);
             g2 = map1.createGraphics();
             g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(rawMap1, 0, 0, 15 * 80, 60 * 80, null);
+            g2.drawImage(rawMap1, 0, 0, 15 * 110, 60 * 110, null);
             g2.dispose();
             
             // cards

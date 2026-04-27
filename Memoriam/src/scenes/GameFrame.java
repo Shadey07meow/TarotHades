@@ -23,7 +23,9 @@ import java.awt.Toolkit;
 
 public class GameFrame extends JFrame {
 
-    protected final GameStart gameStart;
+    protected final PlayableScreen gameStart;
+    protected final PlayableScreen level1;
+
     private final CreditScreen creditScreen;
     private final MenuScreen menuScreen;
     private final LoseScreen loseScreen;
@@ -66,6 +68,8 @@ public class GameFrame extends JFrame {
 
         // Initiates all screens 
         gameStart = new GameStart(this);
+        level1 = new Level1(this);
+
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
         loseScreen = new LoseScreen(this);
@@ -76,13 +80,8 @@ public class GameFrame extends JFrame {
         cutsceneScreen = new CutsceneScreen(this);
 
         // Adds all panels into the arrayList which contains all the panels
-        this.allPanels.add(gameStart);
-        this.allPanels.add(creditScreen);
-        this.allPanels.add(menuScreen);
-        this.allPanels.add(loseScreen);
-        this.allPanels.add(pauseScreen);
-        this.allPanels.add(prologueScreen);
-        this.allPanels.add(cutsceneScreen);
+        addLevels();
+
        
         // Adds all panels to panelManager
         for(ShowablePanel curPanel : allPanels)
@@ -100,6 +99,21 @@ public class GameFrame extends JFrame {
         // Initiates a panel
         initPanel();
 
+    }
+
+    private  void addLevels()
+    {        
+        this.allPanels.add(gameStart);
+        this.allPanels.add(creditScreen);
+        this.allPanels.add(menuScreen);
+        this.allPanels.add(loseScreen);
+        this.allPanels.add(pauseScreen);
+        this.allPanels.add(prologueScreen);
+        this.allPanels.add(cutsceneScreen);
+        this.allPanels.add(level1);
+
+        LevelFactory.addLevel(gameStart);
+        LevelFactory.addLevel(level1);
     }
 
     private void initPanel()

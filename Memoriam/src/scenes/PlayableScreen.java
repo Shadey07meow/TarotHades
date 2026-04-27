@@ -72,13 +72,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private ArrayList<Card> currentCards = new ArrayList<>();
     private CardManager cardManager;
 
-
+    private int id;
    
     
 
-    public PlayableScreen(String panelName, GameFrame g)
+    public PlayableScreen(String panelName, int ID, GameFrame g)
     {
         super(panelName, g);
+        this.id = ID;
         // Lets work on making shit appear first
 
         // Initiates game loop
@@ -216,6 +217,19 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // when esc is press, show pause panel
         checkPausing();
         
+        spinCard();
+
+        sizeCard();
+        
+        doFading();
+
+        checkHoveringButtons();
+
+        world.updateWorld();
+    }
+
+    public void spinCard()
+    {
         if (chestState == 1) 
         {
             spinTicks++;
@@ -233,9 +247,22 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             }
         }
 
-        if (showChestUI && chestState == 2 && inputManager.consumeClick()) 
-        {
+    }
 
+
+    // Update function methods
+    public void checkPausing()
+    {
+        if (inputManager.isPausePressed()) {
+            gameFrame.showPanel("pause");
+        }
+    }
+
+    public void sizeCard()
+    {
+                if (showChestUI && chestState == 2 && inputManager.consumeClick()) 
+        {
+            // Make this constant later
             int cardW = 300;
             int cardH = 450;
             int spacing = 40;
@@ -260,20 +287,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                     break;
                 }
             }
-        }
-        
-        doFading();
-
-        checkHoveringButtons();
-
-        world.updateWorld();
-    }
-
-    // Update function methods
-    public void checkPausing()
-    {
-        if (inputManager.isPausePressed()) {
-            gameFrame.showPanel("pause");
         }
     }
 
@@ -630,7 +643,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             return;
         }
 
-        LevelFactory.loadLevel(currentLevel, world, player, this);
+        LevelFactory.loadLevel(this.id + 1, world, player, this);
     }
 
 

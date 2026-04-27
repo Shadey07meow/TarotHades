@@ -43,7 +43,6 @@ public abstract class CollisionObject {
     // Connected to the update function in gameObjects
     public abstract  void checkCollisions();
 
-
     public ArrayList<CollisionObject> getCollidingWith() 
     {return collidingWith;}
 

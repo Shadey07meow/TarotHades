@@ -5,13 +5,29 @@ import java.awt.Color;
 import javax.swing.Timer;
 import object.*;
 import scenes.*;
+import  java.util.ArrayList;
 
 public class LevelFactory {
 
     public static int maxLevels;
+    public static GameFrame gFrame;
+    public static ArrayList<PlayableScreen> levels = new ArrayList<>();
+
+
+    public static GameFrame getFrame()
+    {
+        return gFrame;
+    }
+
 
     public static void loadLevel(int id, WorldRenderer world, Player player, PlayableScreen scene) {
 
+
+        if(id > maxLevels) 
+        {
+         id = maxLevels;
+         System.out.println("You are above levells");   
+        }
         Map map = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1, scene);
 
         world.resetWorld(map, player);
@@ -19,55 +35,20 @@ public class LevelFactory {
 
         player.setUIOpen(false);
 
-        buildLevel(id, world, player, scene);
+        searchLevel(id);
+
 
         //spawnChest(world, player, scene);
 
         showLevelMessage(scene, "LEVEL " + id);
     }
 
-    private static void buildLevel(int id, WorldRenderer world, Player player, PlayableScreen scene) {
+    private static void searchLevel(int id) 
+    {
+        
 
-        switch (id) {
-
-            case 1 -> {
-                setSpawn(player, 300, 300);
-
-                addEnemy(world, new BlueWisp(player.getPosition(), 2, scene));
-            }
-
-            case 2 -> {
-                setSpawn(player, 400, 300);
-
-                addObject(world, new GameObject(500, 400, 50, scene) );
-            }
-
-            case 3 -> {
-                setSpawn(player, 500, 500);
-
-                addObject(world, new GameObject(350, 350, 80, scene));
-            }
-
-            case 4 -> {
-                setSpawn(player, 600, 300);
-
-                addObject(world, new GameObject(700, 200, 60, scene));
-            }
-
-            case 5 -> {
-                setSpawn(player, 500, 500);
-
-                GameObject boss = new GameObject(700, 500, 120, scene);
-                boss.setColor(Color.RED);
-
-                addEnemy(world, boss);
-            }
-
-            default -> {
-                System.out.println("Invalid level: " + id);
-                setSpawn(player, 300, 300);
-            }
-        }
+        gFrame.showPanel(levels.get(id).getScreenName());
+        
     }
 
 
@@ -93,4 +74,16 @@ public class LevelFactory {
         t.setRepeats(false);
         t.start();
     }
+
+    // NEVER CALL AGAIN
+    public static void setFrame(GameFrame thing)
+    {
+        gFrame = thing;
+    }
+
+    public static void addLevel(PlayableScreen a)
+    {
+        levels.add(a);
+    }
+
 }

@@ -20,6 +20,6 @@ public class Level1 extends PlayableScreen {
     
     public Level1(GameFrame g)
     {
-        super("Level 1", g);
+        super("Level 1", 1, g);
     }
 }
