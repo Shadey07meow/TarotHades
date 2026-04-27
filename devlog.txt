@@ -5,7 +5,7 @@ KEEP THIS ON TOP
     java -cp bin  scenes.MainGameDriver
     
     Command to run the game in one line
-    cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGame.java & java -cp bin  scenes.MainGame
+    cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
     
 --> 24/04/2026
     (Shadey07)
