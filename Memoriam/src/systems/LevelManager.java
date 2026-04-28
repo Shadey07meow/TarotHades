@@ -24,6 +24,11 @@ public class LevelManager {
     public static void loadLevel(int id, PlayableScreen currentLevel) {
 
         System.out.println("You are loading a level, ID: " + String.valueOf(id) );
+        if(id >= levels.size())
+        {
+            gFrame.showPanel("menu");
+            return;
+        }
 
         // When loading a level, transition logic should also be handled here
 

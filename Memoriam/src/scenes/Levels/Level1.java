@@ -32,7 +32,7 @@ public class Level1 extends PlayableScreen {
                 this.player.getPosition(), 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -300)), 
+                    -60 * 120)), 
             player, 2, this);
 
         world.addObject(tr1);

@@ -4,6 +4,9 @@ import images.*;
 import systems.*;
 import scenes.*;
 import java.awt.Image;
+import java.util.ArrayList;
+
+import collision.CollisionObject;
 
 public abstract class Enemy extends Entity {
 
@@ -18,6 +21,7 @@ public abstract class Enemy extends Entity {
     protected Image moveRightImg = null;
 
 
+    protected boolean usesProjectiles = true;
     protected boolean hasDetectedPlayer = false;
     protected boolean withinShootingDistance = false;
 
@@ -87,18 +91,25 @@ public abstract class Enemy extends Entity {
             // Move
             updateSpeed();
 
-            if(!canShootPlayer())
+            if(this.usesProjectiles)
+            {
+                if(!canShootPlayer())
+                {
+                    moveTowardsPlayer();
+                } else{
+                    if(this.goesLeft)
+                    {
+                        moveLeftOfPlayer();
+                    } else
+                    {
+                        moveRightOfPlayer();
+                    }
+                }
+            } else
             {
                 moveTowardsPlayer();
-            } else{
-                if(this.goesLeft)
-                {
-                    moveLeftOfPlayer();
-                } else
-                {
-                    moveRightOfPlayer();
-                }
             }
+
             updSprites();
         }
         
@@ -157,6 +168,28 @@ public abstract class Enemy extends Entity {
         if(moveLeftImg == null || moveRightImg == null) return; 
 
         if(currentSpeed.x >= 0) {this.setImage(moveRightImg);} else {this.setImage(moveLeftImg);}
+    }
+
+
+    @Override
+    public void onCollision()
+    {
+        // Double check if there is nothing being collided with
+        if(!this.collider.getCollidingWith().isEmpty())
+        {
+            ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
+            boolean hashitUnmovable = false;
+            
+            for(int x = 0; x < colList.size() && !colList.isEmpty() ; x++)
+            {
+                // Unmovable object check
+                if(colList.get(x).getGameObject() == this.pl)
+                {
+                    // Death on collision Logic
+                    damage(1000);
+                }
+            }
+        }
     }
 
 

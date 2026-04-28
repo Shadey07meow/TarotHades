@@ -17,6 +17,7 @@ public class BlueWisp extends Enemy
         this.setImage(img.blueRIGHT);
         this.moveRightImg = img.blueRIGHT;
         this.moveLeftImg = img.blueLEFT;
+        this.usesProjectiles = false;
 
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
     }
