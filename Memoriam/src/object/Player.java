@@ -1,13 +1,12 @@
 package object;
 
+import collision.*;
 import images.*;
 import java.awt.Image;
-import java.util.HashSet;
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import scenes.*;
 import systems.*;
-import collision.*;
 
 public class Player extends Entity {
 
@@ -24,6 +23,11 @@ public class Player extends Entity {
     // Combat variables
     private final double projectileSpeed = 15;
     private final double fireCooldown = 10;
+    private int regenTickCounter = 0;
+    private int regenInterval   = 120;   // frames between each regen tick (HP_REGEN)
+    private int fortRegenInterval = 60;  // faster regen for FORTIFIED_REGEN
+    private boolean fortifiedActive = false;    
+    private Shield shield = null;   
     
     // World renderer
     private WorldRenderer world;
@@ -87,6 +91,7 @@ public class Player extends Entity {
             {
                 // loser condition
                 inputOperations();
+                tickRegen();
             } else
             {
                     
@@ -94,10 +99,22 @@ public class Player extends Entity {
             }
 
             isDead = (health <= 0);
-
         }
 
     }
+
+    private void tickRegen() {
+        boolean hasRegen = hasAbility(PlayerAbility.HP_REGEN) || hasAbility(PlayerAbility.FORTIFIED_REGEN);
+        if (!hasRegen) return;
+
+        int interval = fortifiedActive ? fortRegenInterval : regenInterval;
+        regenTickCounter++;
+    
+        if (regenTickCounter >= interval) {
+            regenTickCounter = 0;
+            addHP(1);
+        }
+}
 
     // ability / power-up application
     public void applyAbility(PlayerAbility ability) {
@@ -213,32 +230,63 @@ public class Player extends Entity {
     
         if (currentCooldown != 0) return;
 
+        Vector2 click = inputs.getClickPosition(); 
+        Vector2 baseDir  = Vector2.getUnitVector(this.position, click);       
+        int baseDmg  = stats.getAttack();
+        boolean flame= hasAbility(PlayerAbility.FLAME_SHOT);
+        boolean heavy = hasAbility(PlayerAbility.HEAVY_STRIKE);
+        boolean bouncing = hasAbility(PlayerAbility.BOUNCING_SHOT);
+        int dmg = flame ? baseDmg + 4 : baseDmg;
 
-        double spawnX = getX();
-        double spawnY = getY(); 
-
-        Vector2 click = inputs.getClickPosition();        
-
-        Vector2 velocity = Vector2.multiply(Vector2.getUnitVector(this.position, click ), projectileSpeed);
-
-        world.addObject(new Projectile(
-            (int)spawnX,
-            (int)spawnY,
-            velocity,
-        1, 
-            this.playScrn));
-
+        // to differentiate projectiles
+        if (heavy) {
+        // 5-way spread: -30°, -15°, 0°, +15°, +30°
+        double[] angles = {-30, -15, 0, 15, 30};
+        for (double deg : angles) {
+            spawnProjectile(rotate(baseDir, deg), dmg, flame, bouncing ? 1 : 0);
+        }
+        } else {
+            spawnProjectile(Vector2.multiply(baseDir, projectileSpeed), dmg, flame, bouncing ? 1 : 0);
+        }
         currentCooldown = fireCooldown;
-        System.out.println("Shot fired");
+     
+    }
+
+    private void spawnProjectile(Vector2 velocity, int dmg, boolean flame, int bounces) {
+        Projectile p = new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn);
+        p.setDamage(dmg);
+        p.setFlame(flame);
+        p.setBounces(bounces);
+        world.addObject(p);
+    }
+
+    // rotate a direction vector by degrees (used for spread shot)
+    private Vector2 rotate(Vector2 dir, double degrees) {
+        double rad = Math.toRadians(degrees);
+        double cos = Math.cos(rad), sin = Math.sin(rad);
+        double nx  = dir.x * cos - dir.y * sin;
+        double ny  = dir.x * sin + dir.y * cos;
+        return Vector2.multiply(new Vector2(nx, ny), projectileSpeed);
     }
 
 
-    //holder lang muna so it compiles
+
+  
     private void enableRegen()          { System.out.println("Regen enabled"); }
     private void enableFlameShot()      { System.out.println("Flame Shot enabled"); }
     private void enableHeavyStrike()    { System.out.println("Heavy Strike enabled"); }
-    private void enableFortifiedRegen() { System.out.println("Fortified Regen enabled"); }
-    private void enableShield()         { System.out.println("Shield enabled"); }
+    private void enableFortifiedRegen() {
+        fortifiedActive = true;
+        System.out.println("Fortified Regen enabled"); 
+    }
+    private void enableShield(){
+        if (shield == null) {
+            shield = new Shield(this, playScrn);
+            world.addObject(shield);
+        }   
+        System.out.println("Shield enabled"); 
+    }
+    
     private void enableBouncingShots()  { System.out.println("Bouncing Shots enabled"); }
 
     // Setters getters
@@ -268,12 +316,21 @@ public class Player extends Entity {
         this.health = stats.getCurrentHP();
     }
 
+    public void addAbility(PlayerAbility ability) {
+        applyAbility(ability); 
+    }
+
+    public boolean hasAbility(PlayerAbility ability) {
+        return abilities.contains(ability);
+    }   
+
     // Getters
     public double     getHealth()    { return stats.getCurrentHP(); }
     public int        getMaxHP()     { return stats.getMaxHP(); }
     public int        getAttack()    { return stats.getAttack(); }
     public int        getDefense()   { return stats.getDefense(); }
     public PlayerStats getStats()    { return stats; }
+    
 
     public void setUIOpen(boolean open) {this.uiOpen = open;}
     public Vector2 getVelocity(){return Vector2.multiply(inputs.getInputVector(), speed);}

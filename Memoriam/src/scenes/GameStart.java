@@ -116,7 +116,10 @@ public class GameStart extends PlayableScreen {
         
         Vector2 centerHalf = new Vector2(getWidth() / 2, getHeight() /  2);
         // Add player 
-        player = new Player(centerHalf, 3, 10, 10, this, gameFrame); 
+       // Only create player once — preserve abilities between levels
+        if (player == null) {
+            player = new Player(centerHalf, 3, 10, 10, this, gameFrame);
+        }
         // Map Creation
         Map bgObject = new Map(ImageLibrary.get().map, new Vector2(100, 500), 1 , this);
         

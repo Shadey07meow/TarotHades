@@ -3,11 +3,7 @@ package object;
 import collision.*;
 import java.awt.Color;
 import java.awt.Image;
-import systems.*;
 import scenes.*;
-import collision.*;
-import object.*;
-import java.util.ArrayList;
 import systems.*;
 
 public class GameObject {

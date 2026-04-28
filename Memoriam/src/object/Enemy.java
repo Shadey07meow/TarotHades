@@ -1,9 +1,9 @@
 package object;
 
 import images.*;
-import systems.*;
-import scenes.*;
 import java.awt.Image;
+import scenes.*;
+import systems.*;
 
 public abstract class Enemy extends Entity {
 

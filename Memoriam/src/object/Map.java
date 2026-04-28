@@ -3,8 +3,8 @@ package object;
 
 
 import java.awt.Image;
-import systems.*;
 import scenes.*;
+import systems.*;
 
 public class Map extends GameObject {
     
