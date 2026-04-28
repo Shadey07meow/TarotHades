@@ -21,8 +21,8 @@ public class WorldRenderer {
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
     private Vector2 centerPosition = new Vector2(950, 420);
     private int distanceFromCenter = 20 * 4 ;
-    private final double xThresholdd = 150; 
-    private final double yThresholdd = 150; 
+    private final double xThresholdd = 50; 
+    private final double yThresholdd = 50; 
 
     private boolean debugMode = true;
 
@@ -127,17 +127,22 @@ public class WorldRenderer {
     {
         for (GameObject obj : objectList)
         {   
+            Vector2 desVel = new Vector2();
         
             // Move objects
             // Move everything horizontally
             if(!atMapBorderY())
             {
-                obj.move(0, -player.getVelocity().y);    
+                desVel = Vector2.add(desVel, new Vector2(0, -player.getVelocity().y));
+                
             } 
             if(!atMapBorderX())
             {
-                obj.move(-player.getVelocity().x, 0);    
+
+                desVel = Vector2.add(desVel, new Vector2(-player.getVelocity().x, 0));    
             } 
+
+            obj.move(desVel);
             obj.interpolate(1);
         }
     }
@@ -256,8 +261,8 @@ public class WorldRenderer {
             {
                 b = true;
             }
-        } else
-        if(player.getVelocity().y > 0)
+        } 
+        else if(player.getVelocity().y > 0)
         {
             if((int)map.getPosition().y - (int)(map.getScaledHeight() / 2) > 0) 
             {

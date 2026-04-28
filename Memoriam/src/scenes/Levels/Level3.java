@@ -17,25 +17,17 @@ import systems.*;
 import scenes.*;
 
 
-public class Level1 extends PlayableScreen {
+public class Level3 extends PlayableScreen {
     
-    public Level1(GameFrame g)
+    public Level3(GameFrame g)
     {
-        super("Level 1", 1, g);
+        super("Level 3", 3, g);
     }
 
     @Override
     public void startGamePanel()
     {
-        TreasureChest tr1 = new TreasureChest(
-            Vector2.add(
-                this.player.getPosition(), 
-                Vector2.multiply(
-                    Vector2.UP, 
-                    -300)), 
-            player, 2, this);
 
-        world.addObject(tr1);
     }
 
     @Override
@@ -48,7 +40,7 @@ public class Level1 extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 31 * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map3, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 15 * 120)), 1 , this);
     }
 
     @Override   

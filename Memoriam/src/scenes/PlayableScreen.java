@@ -39,7 +39,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     protected WorldRenderer world = null;
     protected Player player;
     private Thread gameLoop = null;
-    private boolean isRunning = true;
+    private volatile  boolean isRunning = true;
     InputManager inputManager = new InputManager();
     static int framesPerSecond = 60;
     protected Vector2 center = new Vector2();
@@ -134,12 +134,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private  void initWindow()
     {
         requestFocusInWindow();
-        this.world = new WorldRenderer(this);
         
         System.out.println("Initialized : " + this.getName());
         this.player = setPlayer();
         this.currentMap = setMap();
+        this.world = new WorldRenderer(this.player, this.currentMap, this);
 
+        this.player.setWorld(world);
+        
         // Initialized first before running game loop
         try
         {
@@ -356,6 +358,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+
+
   
         drawWorld(g);
         drawDebugWorld(g);
@@ -613,25 +617,12 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         isFading = true;
 
         resetUIOnTransition();
-    }
-
-    // Should be handled by the level factory
-    private void showFinalMessage() {
-        setLevelText("YOU HAVE REACHED THE END");
-
-        javax.swing.Timer t = new javax.swing.Timer(3000, e -> {
-            clearLevelText();
-            this.getGameFrame().showPanel("menu"); // or credits screen
-        });
-
-        t.setRepeats(false);
-        t.start();
-    }
-
-
-  
-
+    }  
 
     // Does nothing right now
     public void setLevelText(String text) {}
+
+
+    
+
 }

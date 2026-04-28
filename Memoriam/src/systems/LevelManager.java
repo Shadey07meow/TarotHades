@@ -16,13 +16,14 @@ public class LevelManager {
 
     public static GameFrame getFrame()
     {
+
         return gFrame;
     }
 
 
     public static void loadLevel(int id, PlayableScreen currentLevel) {
 
-        System.out.println("You are loading a level");
+        System.out.println("You are loading a level, ID: " + String.valueOf(id) );
 
         // When loading a level, transition logic should also be handled here
 
@@ -33,6 +34,7 @@ public class LevelManager {
         while(gFrame.cutsceneScreen.isFinishedLoading() == false){
         }
 
+        System.out.println("Finished cutscenes");
     
         
         //  

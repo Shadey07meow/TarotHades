@@ -1,4 +1,5 @@
-package scenes;
+package scenes.Levels;
+
 import collision.*;
 import images.*;
 import java.awt.BorderLayout;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import object.*;
+import scenes.GameFrame;
+import scenes.PlayableScreen;
 import systems.*;
 
 
@@ -26,6 +29,8 @@ public class GameStart extends PlayableScreen {
     public GameStart(GameFrame gameFrame) {
         super("start", 0, gameFrame);
 
+
+                
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
@@ -66,24 +71,17 @@ public class GameStart extends PlayableScreen {
     @Override
     public void startGamePanel()
     { 
-        // Make World renderer
         
-
-        // Add player 
-
-        // Map Creation
-
-        
-        this.world = new WorldRenderer(player, this.currentMap, this);
-        
-        System.out.println("I ran here");
-        //this.world.setCenterPosition(centerHalf);
-        
-        player.setWorld(world);
         GameObject box1 = new GameObject(300, 300, 50, this);
         box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
         GameObject box2 = new GameObject(300, 500, 50, this);
-        TreasureChest tr1 = new TreasureChest(100, 100, player, 2, this);
+        TreasureChest tr1 = new TreasureChest(
+            Vector2.add(
+                this.player.getPosition(), 
+                Vector2.multiply(
+                    Vector2.UP, 
+                    -300)), 
+            player, 2, this);
         
 
         BlueWisp bluey = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -100)) , 2, this);
@@ -122,7 +120,7 @@ public class GameStart extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 15 * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map0, player.getPosition(), 1 , this);
     }
 
     @Override

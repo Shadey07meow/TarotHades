@@ -141,6 +141,7 @@ public class CutsceneScreen extends UIScreen {
 
         finishedTransition = false;
         switch (level) {
+            
 
             case 1 -> lines = new String[]{
                 "You feel something shift.",

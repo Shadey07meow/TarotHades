@@ -61,7 +61,12 @@ public class ImageLibrary
 
     // map
     public final BufferedImage map;
-    public final BufferedImage map1;
+    public final Image map0;
+    public final Image map1;
+    public final Image map2;
+    public final Image map3;
+    public final Image map4;
+    public final Image map5;
 
     // cards
     public final BufferedImage Empress;
@@ -87,7 +92,7 @@ public class ImageLibrary
     {
         try {
                         projectile = new ImageIcon(getClass().getResource(
-                    "assets/objects/projectile.gif"
+                    "assets/objects/projectile.png"
             )).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
 
             // Player Sprites (GIF animation preserved)
@@ -144,13 +149,26 @@ public class ImageLibrary
             g2.drawImage(rawMap, 0, 0, 32 * 150, 16 * 150, null);
             g2.dispose();
 
-        BufferedImage rawMap1 = ImageIO.read(getClass().getResource("assets/maps/map1.png"));
-            map1 = new BufferedImage(15 * 110, 60 * 110, BufferedImage.TYPE_INT_ARGB);
-            g2 = map1.createGraphics();
-            g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(rawMap1, 0, 0, 15 * 110, 60 * 110, null);
-            g2.dispose();
-            
+            map0 =  new ImageIcon(getClass().getResource(
+                    "assets/maps/lobby.png")).getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);            
+        
+            map1 =  new ImageIcon(getClass().getResource(
+                    "assets/maps/map1.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+
+            map2 =  new ImageIcon(getClass().getResource(
+                    "assets/maps/map2.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+
+            map3 =  new ImageIcon(getClass().getResource(
+                    "assets/maps/map3.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+
+            map4 =  new ImageIcon(getClass().getResource(
+                    "assets/maps/map4.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+
+            map5 =  new ImageIcon(getClass().getResource(
+                    "assets/maps/boss map.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+
+
+
             // cards
             Empress = ImageIO.read(getClass().getResource("assets/Cards/Empress.png"));
             KnightOfWands = ImageIO.read(getClass().getResource("assets/Cards/KnightOfWands.png"));
