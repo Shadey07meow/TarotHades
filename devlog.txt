@@ -7,6 +7,10 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
+--> 29/04//2026
+    - Made blu guys die on collision
+    - Made theh maps themselves (Still need to add the collisions and the enemies them selves)
+
 --> 27/ 04/2026
     - Tried fixing Level System
     - Changed map
