@@ -14,10 +14,12 @@ public enum PlayerAbility {
     FLAME_SHOT,
 
     //Rare 
-    /* Ten of Swords: high-damage single-target melee strike */
+    /* Ten of Swords: Multiple projectiles out, 
+    like how projectiles come out of PVZ Threepeater, like 5 projectiles will come out at the s
+    ame time and not sunod sunod like PVZ Cotling-pea */
     HEAVY_STRIKE,
 
-    /* Nine of Pentacles: faster HP regen + resistance to status effects */
+    /* Nine of Pentacles: faster HP regen + resistance to status effects IDK HOW TO IMPLEMENT*/
     FORTIFIED_REGEN,
 
     // Legendary 

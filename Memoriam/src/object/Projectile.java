@@ -1,11 +1,10 @@
 package object;
+import collision.*;
 import images.ImageLibrary;
 import java.awt.Color;
 import java.util.ArrayList;
-
-import systems.*;
 import scenes.*;
-import collision.*;
+import systems.*;
 
 public class Projectile extends GameObject{
     // A projectile class with a constant velocity
@@ -15,6 +14,8 @@ public class Projectile extends GameObject{
     private WorldRenderer world;
     private int lifeTime = 120; // frames
     private int damage = 1;
+     private int bounceCount = 0;
+     private boolean isFlame = false;
 
     public Projectile(int x, int y, Vector2 velocity, int scale, PlayableScreen scrn){
         super(x, y, scale, scrn);
@@ -47,23 +48,56 @@ public class Projectile extends GameObject{
         if(!this.collider.getCollidingWith().isEmpty())
         {
             ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
-            boolean hashitUnmovable = false;
-            
-            for(int x = 0; x < colList.size() &&   !colList.isEmpty(); x++)
-            {
-                if(colList.get(x).getGameObject() instanceof Player) continue;
-                // Unmovable object check
-                if(colList.get(x).getGameObject() instanceof Enemy)
-                {
-                    ///System.out.println("I literally hit something");    
-                    world.removeObject(this);
-                    Enemy enmy = (Enemy)colList.get(x).getGameObject();
-                    enmy.damage(this.damage);
-                } else
-                {
-                    world.removeObject(this);
+            for (int x = 0; x < colList.size(); x++) {
+                CollisionObject col = colList.get(x);
+                GameObject other = col.getGameObject();
+
+                        // Ignore the player and other projectiles (fixes spread-shot self-collision)
+                if (other instanceof Player) continue;
+                if (other instanceof Projectile) continue;
+
+                // Hit an enemy
+                    if (other instanceof Enemy) {
+                        Enemy enmy = (Enemy) other;
+                        enmy.damage(this.damage);
+
+                    // Bouncing shot: bounce off enemy once, then die on next hit
+                    if (bounceCount > 0) {
+                        bounceCount = 0;       // only one more bounce allowed after hitting enemy
+                        velocity = new Vector2(-velocity.x, -velocity.y);
+                        lifeTime = 80;
+                    } 
+                    else 
+                    {
+                        world.removeObject(this);
+                    }
+                    return; // stop processing after first meaningful hit
                 }
-            }
-        }
+
+                // Hit an immovable wall
+                if (!col.getIsMovable()) {
+                    if (bounceCount > 0) {
+                        bounceCount--;
+                        velocity = new Vector2(-velocity.x, -velocity.y);
+                        lifeTime = 80;
+                    } else {
+                        world.removeObject(this);
+                    }
+                    return;
+                }
+            // Hit anything else — remove
+            world.removeObject(this);
+            return;
+        }  
+    }
+}
+
+    //SETTERS
+
+    public void setDamage(int d){this.damage = d;}
+    public void setBounces(int b){this.bounceCount =b;}
+    public void setFlame(boolean f){
+        this.isFlame=f;
+        if (f) setColor(new Color(255,100,0));
     }
 }

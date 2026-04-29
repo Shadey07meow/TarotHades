@@ -1,7 +1,7 @@
 package object;
 
-import systems.*;
 import scenes.*;
+import systems.*;
 
 public abstract class Entity extends GameObject {
     

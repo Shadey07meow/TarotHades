@@ -21,6 +21,23 @@ KEEP THIS ON TOP
     - Made enemies go circle on Bobo
     - Made enemies have rng for chasing personality
 
+--> 28/04/07
+    (Herielle)
+    -Player.java
+        - Added two method in Player.java addAbility() and hasAbility()
+        - Updated enable methods
+        - Added tickRegen()
+        - replaced shootProjectile() by implementing the other skills since there are diff. types of projectile manifestation
+        - added spawnProjectile() 
+        - added rotate for spread shot
+    
+    - Projectile.java
+        - added bounce and flame damage
+    - Edited Gamestart.startGame() panel in where you add the player so the skill doesnt reset
+    - Edited on Projectile.java on collision to ignore the player and other projectiles and to implement bouncing shot
+    - Created Shield.java
+    
+
 --> 24/04/2026
     (Shadey07)
     - Improved collision logic

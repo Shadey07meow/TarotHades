@@ -1,12 +1,12 @@
 package object;
 
 import images.*;
-import systems.*;
-import scenes.*;
 import java.awt.Image;
 import java.util.ArrayList;
 
 import collision.CollisionObject;
+import scenes.*;
+import systems.*;
 
 public abstract class Enemy extends Entity {
 

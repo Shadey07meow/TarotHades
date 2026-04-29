@@ -1,8 +1,8 @@
 package object;
 
-import systems.*;
-import scenes.*;
 import collision.*;
+import scenes.*;
+import systems.*;
 
 public class BlueWisp extends Enemy
 {
