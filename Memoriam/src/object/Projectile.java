@@ -52,7 +52,7 @@ public class Projectile extends GameObject{
                 CollisionObject col = colList.get(x);
                 GameObject other = col.getGameObject();
 
-                        // Ignore the player and other projectiles (fixes spread-shot self-collision)
+                // Ignore the player and other projectiles (fixes spread-shot self-collision)
                 if (other instanceof Player) continue;
                 if (other instanceof Projectile) continue;
 
