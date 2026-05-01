@@ -48,7 +48,7 @@ public class TreasureChest extends GameObject {
         } else
         {
             setImage(ImageLibrary.get().treasureChest);
-            playScrn.showChestUI = false;
+            playScrn.getCardManager().showChestUI = false;
 
         }
     }
@@ -67,7 +67,7 @@ public class TreasureChest extends GameObject {
 
         if (targetPlayer.isInteracting()) {
 
-            playScrn.openChest();
+            playScrn.getCardManager().openChest();
         }
     }
 }

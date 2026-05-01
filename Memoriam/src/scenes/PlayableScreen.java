@@ -44,6 +44,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     static int framesPerSecond = 60;
     protected Vector2 center = new Vector2();
     protected Map currentMap;
+    private CardManager crdManager = new CardManager(this);
 
 
     // level system
@@ -54,23 +55,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private int selectedCardTimer = 0;
     
 
-    // powerup
-
-    private int chestState = 0; 
-    private int spinTicks = 0;
-    private int selectedCardIndex = -1;
 
 
     // transition
     private boolean isFading = false;
     private float fade = 0f;
 
-    // chest system
-    public boolean showChestUI = false;
-    private ArrayList<Card> currentCards = new ArrayList<>();
-    private CardManager cardManager;
 
-    private int id;
+    private final int id;
 
     
 
@@ -91,7 +83,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         setFocusable(true);
         requestFocusInWindow();
 
-        cardManager = new CardManager(ImageLibrary.get());
     }
     
     @Override
@@ -104,6 +95,11 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public void setShowablePanelName(String name)
     {
         this.name = name;
+    }
+
+    public int getID()
+    {
+        return this.id;
     }
     
     public abstract Map setMap();
@@ -218,37 +214,22 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // when esc is press, show pause panel
         checkPausing();
         
-        spinCard();
-
-        sizeCard();
         
         doFading();
+        
+        crdManager.spinCard();
 
-        checkHoveringButtons();
+        crdManager.sizeCard();
+        
+        crdManager.checkHoveringButtons();
+
+
+        crdManager.checkHoveringButtons();
 
         world.updateWorld();
     }
 
-    public void spinCard()
-    {
-        if (chestState == 1) 
-        {
-            spinTicks++;
 
-            int speed = Math.max(2, 10 - spinTicks / 10);
-
-            if (spinTicks % speed == 0) {
-
-                currentCards.clear();
-                currentCards.add(cardManager.drawCard(this.id));
-                currentCards.add(cardManager.drawCard(this.id));   
-            }
-            if (spinTicks > 60) {
-                chestState = 2; // stop spinning, allow selection
-            }
-        }
-
-    }
 
 
     // Update function methods
@@ -260,46 +241,16 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         }
     }
 
-    public void sizeCard()
-    {
-                if (showChestUI && chestState == 2 && inputManager.consumeClick()) 
-        {
-            // Make this constant later
-            int cardW = 300;
-            int cardH = 450;
-            int spacing = 40;
-
-            int totalWidth = (cardW * 3) + (spacing * 2);
-            int startX = (getWidth() - totalWidth) / 2;
-            int y = (getHeight() - cardH) / 2;
-
-            Vector2 mouse = inputManager.getClickPosition();
-
-            for (int i = 0; i < currentCards.size(); i++) {
-
-                int x = startX + i * (cardW + spacing);
-
-                Rectangle rect = new Rectangle(x, y, cardW, cardH);
-
-                if (rect.contains(mouse.x, mouse.y)) {
-
-                    selectedCardIndex = i;
-                    selectCard(i);
-
-                    break;
-                }
-            }
-        }
-    }
-
     public void doFading()
     {
         // fade logic only
         if (isFading) {
 
             // force UI cleanup during fade
-            showChestUI = false;
-            currentCards.clear();
+            crdManager.showChestUI = false;
+
+            
+            // Move this line to cardmanager currentCards.clear();
 
             fade += 0.05f;
 
@@ -320,40 +271,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
-
-    public void checkHoveringButtons()
-    {
-        // HOVER DETECTION
-        if (showChestUI && chestState == 2) {
-
-            int cardW = 300;
-            int cardH = 450;
-            int spacing = 40;
-
-            int totalWidth = (cardW * currentCards.size()) + (spacing * (currentCards.size() - 1));
-            int startX = (getWidth() - totalWidth) / 2;
-            int y = (getHeight() - cardH) / 2;
-
-            Vector2 mouse = inputManager.getClickPosition(); // last mouse pos
-
-            hoveredCardIndex = -1;
-
-            for (int i = 0; i < currentCards.size(); i++) {
-
-                int x = startX + i * (cardW + spacing);
-
-                Rectangle rect = new Rectangle(x, y, cardW, cardH);
-
-                if (rect.contains(mouse.x, mouse.y)) {
-                    hoveredCardIndex = i;
-                    break;
-                }
-            }
-        }
-        if (selectedCardTimer > 0) {selectedCardTimer--;}
-
-
-    }
     @Override
     public void paintComponent(Graphics g)
     {
@@ -364,8 +281,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         drawWorld(g);
         drawDebugWorld(g);
 
-        if (showChestUI) {
-            drawChestUI(g);
+        if (crdManager.showChestUI) {
+            crdManager.drawChestUI(g);
 
         }
 
@@ -453,53 +370,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
-    private void drawChestUI(Graphics g)
-    {
-        Graphics2D graphics2 = (Graphics2D) g;
-    
-        graphics2.setColor(new Color(0, 0, 0, 200));
-        graphics2.fillRect(0, 0, getWidth(), getHeight());
-
-        int cardW = 300;
-        int cardH = 450;
-
-        int spacing = 40;
-        int totalWidth = (cardW * currentCards.size()) + (spacing * (currentCards.size() - 1));
-
-        int startX = (getWidth() - totalWidth) / 2;
-        int y = (getHeight() - cardH) / 2;
-
-        for (int i = 0; i < currentCards.size(); i++) {
-
-            int x = startX + i * (cardW + spacing);
-
-            Card c = currentCards.get(i);
-
-            // hover grey
-            if (i == hoveredCardIndex) {
-                graphics2.setColor(new Color(0, 0, 0, 120));
-                graphics2.fillRect(x, y, cardW, cardH);
-            }
-
-            // select highlight
-            if (i == selectedCardIndex) {
-                graphics2.setColor(new Color(255, 255, 0, 100));
-                graphics2.fillRect(x, y, cardW, cardH);
-            }
-
-            if (c != null && c.image != null) {
-
-                graphics2.drawImage(
-                    c.image,
-                    x,
-                    y,
-                    cardW,
-                    cardH,
-                    null
-                );
-            }
-        }
-    }
 
     public InputManager getInputManager()
     {
@@ -524,105 +394,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             
         }
     }
-
-    // chest methods
-    public void openChest() {
-
-        if (showChestUI) return;
-
-        showChestUI = true;
-        chestState = 1;
-
-        // Makes the player not able to fight when chest is open
-        player.setUIOpen(true);
-
-        currentCards.clear();
-
-        // EXACTLY 2 cards
-        currentCards.add(cardManager.drawCard(this.id));
-        currentCards.add(cardManager.drawCard(this.id));
-
-        spinTicks = 0;
-    }
-
-    public void closeChestUI() {
-        showChestUI = false;
-         player.setUIOpen(false);
-        currentCards.clear();
-    }
     
-    public void clearLevelText() {
-
-    }
-
-    // card stuff
-    public void showCards()
+    public CardManager getCardManager()
     {
-        currentCards.clear();
-
-        currentCards.add(cardManager.drawCard(this.id));
-        currentCards.add(cardManager.drawCard(this.id));
-        
-        showChestUI = true;
-
-        selectedCardIndex = -1;
-
+        return this.crdManager;
     }
- 
-    public void selectCard(int index) {
-
-        Card c = currentCards.get(index);
-        if (c == null) return;
-
-        selectedCardIndex = index;
-
-
-        selectedCardTimer = 60; // show for ~1 second
-
-        System.out.println("Card selected: " + c.name + " | Ability: " + c.ability);
-        player.applyAbility(c.ability); 
-
-        showChestUI = false;
-        chestState = 0;
-
-        // Enables inputs
-        player.setUIOpen(false); 
-
-
-        // Wtf is this
-        // Just call LevelManager
-        // this.getGameFrame().cutsceneScreen.loadCutsceneForLevel(this.id + 1);
-        // this.getGameFrame().showPanel("cutscene");
-
-        
-        LevelManager.loadLevel(this.id + 1, this);
-        // Do the two things stated here for transition
-    }
-
-    private void resetUIOnTransition() {
-        showChestUI = false;
-        currentCards.clear();
-
-    }
-
-
-    public void requestLevelChange() {
-        isFading = true;
-
-        showChestUI = false;
-
-    }
-
-    public void triggerLevelChange() {
-        isFading = true;
-
-        resetUIOnTransition();
-    }  
-
-    // Does nothing right now
-    public void setLevelText(String text) {}
-
-
-    
-
 }
