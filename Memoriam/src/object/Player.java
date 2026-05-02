@@ -4,7 +4,8 @@ import collision.*;
 import images.*;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.EnumMap;
+import java.util.Map;
 import scenes.*;
 import systems.*;
 
@@ -17,8 +18,8 @@ public class Player extends Entity {
     private ImageLibrary imgLib = ImageLibrary.get();
     private final PlayerStats stats;
     
-    private HashSet<PlayerAbility> abilities = new HashSet<>();
-    private InputManager inputs = null;
+   private final Map<PlayerAbility, Integer> abilityStacks = new EnumMap<>(PlayerAbility.class);
+   private InputManager inputs = null;
     
     // Combat variables
     private final double projectileSpeed = 15;
@@ -44,8 +45,10 @@ public class Player extends Entity {
     private boolean isDead = false;
     private double currentCooldown = 0;
     private boolean uiOpen = false;    
+
+    private final int regenBase   = 120;
     
-    
+    // constructor
     public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
     {
         super(position, scale, scrn);
@@ -55,12 +58,9 @@ public class Player extends Entity {
         // Keep entity.health in sync for any legacy reads
         this.health = stats.getCurrentHP();
         this.speed  = stats.getSpeed();
-
-        
         this.playScrn = scrn;
         this.inputs = this.playScrn.getInputManager();
         this.world = this.playScrn.getWorldRenderer();
-
         this.gameFrame = gameFrame;
 
         collider = new RectangleCollider(this, true, 40, 40, 40 ,40);
@@ -68,13 +68,9 @@ public class Player extends Entity {
         setImage(spriteDown);
     }
 
-
+    // update
     @Override
-    public void update()
-    {
-        super.update();
-
-    }
+    public void update(){ super.update();}
 
     @Override
     public void logicMethods()
@@ -82,48 +78,32 @@ public class Player extends Entity {
         this.health = stats.getCurrentHP();
         this.speed  = stats.getSpeed();
 
-        if(world != null)
-        {
-            if (!isDead)
-            {
-                // loser condition
-                inputOperations();
-                tickRegen();
-            } else
-            {
-                    
-                gameFrame.showPanel("lose");
-            }
+        if (world == null) return;
 
-            isDead = (health <= 0);
+        if (!isDead) {
+            inputOperations();
+            tickRegen();
+        } else {
+            gameFrame.showPanel("lose");
         }
-
+        isDead = (health <= 0);
     }
 
-    private void tickRegen() {
-        boolean hasRegen = hasAbility(PlayerAbility.HP_REGEN) || hasAbility(PlayerAbility.FORTIFIED_REGEN);
-        if (!hasRegen) return;
-
-        int interval = fortifiedActive ? fortRegenInterval : regenInterval;
-        regenTickCounter++;
-    
-        if (regenTickCounter >= interval) {
-            regenTickCounter = 0;
-            addHP(1);
-        }
-}
 
     // ability / power-up application
     public void applyAbility(PlayerAbility ability) {
         if (ability == null) return;
 
-        if (abilities.contains(ability)) return;
-        abilities.add(ability);
+        int currentLevel = getAbilityLevel(ability);
+        if (currentLevel >= PlayerAbility.MAX_STACKS) return;   // already maxed
+ 
+        int nextLevel = currentLevel + 1;
+        abilityStacks.put(ability, nextLevel);
 
         // look up and apply the PowerUp from the manager
-        PowerUp powerUp = PowerUpManager.get(ability);
-        if (powerUp != null) {
-            stats.applyPowerUp(powerUp);
+        PowerUp levelPowerUp = PowerUpManager.get(ability, nextLevel);
+        if (levelPowerUp != null) {
+            stats.applyPowerUp(levelPowerUp);
             // Clamp current HP to new max
             if (stats.getCurrentHP() > stats.getMaxHP()) {
                 stats.setCurrentHP(stats.getMaxHP());
@@ -131,23 +111,39 @@ public class Player extends Entity {
         }
 
         // gameplay-side effects (behaviours, projectile types, etc.)
+        onAbilityLevelGained(ability, nextLevel);
+        System.out.println(ability + " → level " + nextLevel);
+        
+    }
+
+     private void onAbilityLevelGained(PlayerAbility ability, int level) {
         switch (ability) {
-            case HP_REGEN         -> enableRegen();
-            case FLAME_SHOT       -> enableFlameShot();
-            case HEAVY_STRIKE     -> enableHeavyStrike();
-            case FORTIFIED_REGEN  -> enableFortifiedRegen();
-            case SHIELD           -> enableShield();
-            case BOUNCING_SHOT    -> enableBouncingShots();
+            case HP_REGEN -> {
+                // Regen interval is recalculated live in tickRegen()
+            }
+            case FLAME_SHOT -> {
+                // Damage increase already handled by atk modifier in PowerUpManager.
+            }
+            case MULTI_SHOT-> {
+                // projectile count already handled by PROJECTILE_COUNT modifier.
+            }
+            case FORTIFIED_REGEN -> {
+                // DEF + MAX_HP modifiers already applied; regen speed covered in tickRegen().
+            }
+            case SHIELD -> updateShieldCooldown(level);
+
+            case SPEED_ENHANCE -> {
+                // Speed modifier applied; stats.getSpeed() now returns the updated value.
+            }
         }
     }
 
-
+    // input
     public void inputOperations()
     {
-
         movePlayer();
-
         // Does not fight when UI is open
+
         if (!uiOpen) combatMethod();
         checkInteracting();
     }
@@ -159,11 +155,9 @@ public class Player extends Entity {
 
         // Clamp movement speed so that it never exceeds speed
         if(Math.abs(speedVector.findMag()) > speed) speedVector = Vector2.magConvert(speedVector, speed);
-
-        
+    
         move(speedVector);
         
-
         // Set images, make looking up and down priority
         if (inpVector.x > 0) setImage(spriteRight);
         else if (inpVector.x < 0) setImage(spriteLeft);
@@ -172,14 +166,12 @@ public class Player extends Entity {
         else if (inpVector.y < 0) setImage(spriteDown);
     }
 
-
+    // combat 
     private void combatMethod()
     {
 
-
         if (currentCooldown > 0) currentCooldown--;
         
-
         // shoot once per click
         if(!hasShotProjectile)
         {
@@ -199,6 +191,87 @@ public class Player extends Entity {
         }
     }
 
+    private void shootProjectile(){
+        // Checks if we can shoot after shooting the last shot
+        // cooldown
+    
+        if (currentCooldown != 0) return;
+
+        Vector2 click = inputs.getClickPosition(); 
+        Vector2 baseDir  = Vector2.getUnitVector(this.position, click);       
+        int baseDmg  = stats.getAttack();
+        boolean flame = hasAbility(PlayerAbility.FLAME_SHOT) && Math.random() < 0.3; // 30% chance
+        boolean heavy = hasAbility(PlayerAbility.MULTI_SHOT);
+        int count   = stats.getProjectileCount();   // 1, 3, 4, or 5
+        
+        double[] angles = buildSpreadAngles(count);
+
+        for (double deg : angles) {
+            Vector2 velocity = rotate(baseDir, deg);
+            spawnProjectile(velocity, baseDmg, flame);
+        }
+
+        currentCooldown = fireCooldown;
+    }
+
+    private double[] buildSpreadAngles(int count) {
+        if (count <= 1) return new double[]{0};
+
+        double spread = 15.0 * (count - 1);   // total arc
+        double step   = spread / (count - 1);
+        double[] angles = new double[count];
+        for (int i = 0; i < count; i++) {
+            angles[i] = -spread / 2.0 + i * step;
+        }
+        return angles;
+    }
+
+    private void spawnProjectile(Vector2 velocity, int dmg, boolean flame) {
+        Projectile p = new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn);
+        p.setDamage(dmg);
+        p.setFlame(flame);
+        world.addObject(p);
+    }
+
+    // rotate a direction vector by degrees (used for spread shot)
+    private Vector2 rotate(Vector2 dir, double degrees) {
+        double rad = Math.toRadians(degrees);
+        double cos = Math.cos(rad), sin = Math.sin(rad);
+        double nx  = dir.x * cos - dir.y * sin;
+        double ny  = dir.x * sin + dir.y * cos;
+        return Vector2.multiply(new Vector2(nx, ny), projectileSpeed);
+    }
+
+    // regen
+     private void tickRegen() {
+        boolean hasRegen = hasAbility(PlayerAbility.HP_REGEN) || hasAbility(PlayerAbility.FORTIFIED_REGEN);
+        if (!hasRegen) return;
+
+        int regenLevel   = Math.max(getAbilityLevel(PlayerAbility.HP_REGEN), getAbilityLevel(PlayerAbility.FORTIFIED_REGEN));
+        int regenInterval = Math.max(regenBase / regenLevel, 1);
+ 
+        regenTickCounter++;
+        if (regenTickCounter >= regenInterval) {
+            regenTickCounter = 0;
+            addHP(1);
+        }
+}
+
+    //  shield
+    private void updateShieldCooldown(int level) {
+        if (shield == null) {
+            shield = new Shield(this, playScrn);
+            world.addObject(shield);
+        }
+        int cooldown = switch (level) {
+            case 2  -> 210;
+            case 3  -> 120;
+            default -> 300;   // level 1
+        };
+        shield.setCooldownMax(cooldown);
+        System.out.println("Shield cooldown set to " + cooldown + " frames");
+    }
+ 
     // Collision
     @Override
     public void onCollision()
@@ -221,78 +294,6 @@ public class Player extends Entity {
         }
     }
 
-
-    private void shootProjectile(){
-        // Checks if we can shoot after shooting the last shot
-        // cooldown
-    
-        if (currentCooldown != 0) return;
-
-        Vector2 click = inputs.getClickPosition(); 
-        Vector2 baseDir  = Vector2.getUnitVector(this.position, click);       
-        int baseDmg  = stats.getAttack();
-        boolean flame = hasAbility(PlayerAbility.FLAME_SHOT) && Math.random() < 0.3; // 30% chance
-        boolean heavy = hasAbility(PlayerAbility.HEAVY_STRIKE);
-        boolean bouncing = hasAbility(PlayerAbility.BOUNCING_SHOT);
-        int dmg = flame ? baseDmg + 4 : baseDmg;
-
-        // to differentiate projectiles
-        if (heavy) {
-        // 5-way spread: -30°, -15°, 0°, +15°, +30°
-        double[] angles = {-30, -15, 0, 15, 30};
-
-        for (double deg : angles) {
-            heavyShooting(rotate(baseDir, deg), dmg, flame, bouncing ? 1 : 0);
-        }
-        } else {
-            heavyShooting(Vector2.multiply(baseDir, projectileSpeed), dmg, flame, bouncing ? 1 : 0);
-        }
-        currentCooldown = fireCooldown;
-     
-    }
-
-    private void heavyShooting(Vector2 velocity, int dmg, boolean flame, int bounces) {
-        Projectile p = new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn);
-        p.setDamage(dmg);
-        p.setFlame(flame);
-        p.setBounces(bounces);
-        world.addObject(p);
-    }
-
-    // rotate a direction vector by degrees (used for spread shot)
-    private Vector2 rotate(Vector2 dir, double degrees) {
-        double rad = Math.toRadians(degrees);
-        double cos = Math.cos(rad), sin = Math.sin(rad);
-        double nx  = dir.x * cos - dir.y * sin;
-        double ny  = dir.x * sin + dir.y * cos;
-        return Vector2.multiply(new Vector2(nx, ny), projectileSpeed);
-    }
-  
-    private void enableRegen()          { System.out.println("Regen enabled"); }
-    private void enableFlameShot()      { System.out.println("Flame Shot enabled"); }
-    private void enableHeavyStrike()    { System.out.println("Heavy Strike enabled"); }
-    private void enableFortifiedRegen() {
-        fortifiedActive = true;
-        System.out.println("Fortified Regen enabled"); 
-    }
-    private void enableShield(){
-        if (shield == null) {
-            shield = new Shield(this, playScrn);
-            world.addObject(shield);
-        }   
-        System.out.println("Shield enabled"); 
-    }
-    
-    private void enableBouncingShots()  { System.out.println("Bouncing Shots enabled"); }
-
-    // Setters getters
-
-    public void setWorldRenderer(WorldRenderer w)
-    {
-        this.world = w;
-        System.out.println("Added a world renderer");
-    }
-
     // HP helpers 
     @Override
     public void minusHP(double a) {
@@ -311,15 +312,30 @@ public class Player extends Entity {
         stats.setCurrentHP(hp);
         this.health = stats.getCurrentHP();
     }
-
+  
+    // abilitiy helper
     public void addAbility(PlayerAbility ability) {
         applyAbility(ability); 
     }
 
     public boolean hasAbility(PlayerAbility ability) {
-        return abilities.contains(ability);
+        return getAbilityLevel(ability) >= 1;
     }   
 
+    public int getAbilityLevel(PlayerAbility ability) {
+        return abilityStacks.getOrDefault(ability, 0);
+    }
+
+    public boolean isAbilityMaxed(PlayerAbility ability) {
+        return getAbilityLevel(ability) >= PlayerAbility.MAX_STACKS;
+    }
+    // Setters getters
+
+    public void setWorldRenderer(WorldRenderer w)
+    {
+        this.world = w;
+        System.out.println("Added a world renderer");
+    }
     // Getters
     public double     getHealth()    { return stats.getCurrentHP(); }
     public int        getMaxHP()     { return stats.getMaxHP(); }

@@ -12,6 +12,7 @@ public class PlayerStats{
     private int baseAtk;
     private int baseDef;
     private double baseSpeed;
+    private int baseProjectileCount = 1;   // default: 1 projectile per shot
 
     private int currentHP;
 
@@ -41,7 +42,13 @@ public class PlayerStats{
     public int getAttack(){ return (int) Math.round(computeStat(StatType.ATTACK,  baseAtk)); }
     public int getDefense(){ return (int) Math.round(computeStat(StatType.DEFENSE, baseDef));}
     public double getSpeed(){ return computeStat(StatType.SPEED, baseSpeed); }
-    
+
+    public int getProjectileCount() { 
+        return (int) Math.round(computeStat(StatType.PROJECTILE_COUNT, baseProjectileCount)); 
+    }
+
+    // hp helpers
+
     public int getCurrentHP() {return currentHP;}
 
     public void heal(int amount) {

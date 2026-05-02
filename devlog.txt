@@ -11,6 +11,14 @@ KEEP THIS ON TOP
     (Herielle)
     - Added fireProjectile.png
     - Added ocassional triggers of fireProjectile when the powerup is acquired
+    - Changed BOUNCING_SHOT to SPEED_ENHANCE
+    - Added stack level support in PowerUp.java
+    - Rewrote with per-level PowerUps (3 levels each) in PowerUpManager
+    - Aded projectile count stat in Player Stats
+    - Reworked ability system to track stacks, update projectile count, speed in Player
+    - Filtered maxed-out abilities from draw pool in CardManager
+
+    - Created HealthBar.java to draw the HealthBar
 
    LevelManager.java
    - Added savedAbilities, savePlayerAbilities(), restorePlayerAbilities(); fixed imports

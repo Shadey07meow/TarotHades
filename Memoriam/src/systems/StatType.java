@@ -5,5 +5,6 @@ public enum StatType {
     MAX_HP,
     ATTACK,
     DEFENSE,
-    SPEED
+    SPEED,
+    PROJECTILE_COUNT
 }

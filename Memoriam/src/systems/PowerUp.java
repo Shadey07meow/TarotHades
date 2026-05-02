@@ -14,9 +14,9 @@ public class PowerUp {
     private final List<StatModifier> modifiers;
 
     public PowerUp(String name, String description, StatModifier... modifiers) {
-        this.name        = name;
+        this.name = name;
         this.description = description;
-        this.modifiers   = Arrays.asList(modifiers);
+        this.modifiers = Arrays.asList(modifiers);
     }
 
     public String getName(){ return name; }
