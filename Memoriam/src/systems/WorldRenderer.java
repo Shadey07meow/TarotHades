@@ -3,6 +3,9 @@ package systems;
 import object.*;
 import scenes.*;
 import java.util.ArrayList;
+
+import collision.RectangleCollider;
+
 import java.awt.Graphics2D;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -331,4 +334,42 @@ public class WorldRenderer {
         }
 
     }
-}
+
+    public void drawDebugWorld(Graphics g)
+    {
+        Graphics2D graphics2 = (Graphics2D) g;
+
+        
+            // Draws World dddebug stuff first 
+            if(this.debugMode == true)
+            {
+                graphics2.setStroke(new BasicStroke(2));
+                for (GameObject obj : getObjectList()) {
+                    if (obj.getCollider() != null) {
+                        if(obj.getCollider() instanceof RectangleCollider)
+                        {
+                            if(obj.getCollider().getIsColliding() == true)
+                            {
+                                g.setColor(obj.getCollider().activeColor);
+                            } else
+                            {
+                                g.setColor(obj.getCollider().inactiveColor);
+                            }
+
+                            if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
+
+
+                            RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                            graphics2.drawRect(
+                                (int) obj.getRenderX() - (((int)Math.abs(tempCol.getLocalBounds().LEFT.x) + (int)Math.abs(tempCol.getLocalBounds().RIGHT.x )) / 2),
+                                (int) obj.getRenderY() - (((int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + (int)Math.abs(tempCol.getLocalBounds().TOP.y )) / 2),
+                                (int)Math.abs(tempCol.getLocalBounds().LEFT.x) + Math.abs((int)tempCol.getLocalBounds().RIGHT.x ),
+                                (int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + Math.abs((int)tempCol.getLocalBounds().TOP.y )
+                            );
+                        }
+                    }
+                }         
+            }
+        }
+    }
+
