@@ -11,12 +11,18 @@ KEEP THIS ON TOP
     (Herielle)
     - Added fireProjectile.png
     - Added ocassional triggers of fireProjectile when the powerup is acquired
+    - LevelManager.java
+        - Added savedAbilities, savePlayerAbilities(), restorePlayerAbilities(); fixed imports
+    - PlayableScreen.java
+        - Calls restorePlayerAbilities() in initWindow() after player created
+    
+    (Shadey07)
+    - Made world renderer have margins so that the edges of the maps cannot be seen 
+    - Made BarrierObject
+        - Invisible collision object
+    - Made Bounds object 
 
-   LevelManager.java
-   - Added savedAbilities, savePlayerAbilities(), restorePlayerAbilities(); fixed imports
 
-    PlayableScreen.java
-    - Calls restorePlayerAbilities() in initWindow() after player created
 
 --> 05/01/2026
     - Made the big file small

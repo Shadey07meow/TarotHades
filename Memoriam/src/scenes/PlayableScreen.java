@@ -292,12 +292,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
-    
-        
-
-    
-
-
     public InputManager getInputManager()
     {
         return this.inputManager;

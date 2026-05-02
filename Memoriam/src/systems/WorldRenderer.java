@@ -26,6 +26,8 @@ public class WorldRenderer {
     private int distanceFromCenter = 20 * 4 ;
     private final double xThresholdd = 50; 
     private final double yThresholdd = 50; 
+    private final double xMargin = 30;
+    private final double yMargin = 30;
 
     private boolean debugMode = true;
 
@@ -260,14 +262,14 @@ public class WorldRenderer {
         // Checks whether the top of the map is at the edge of the top of the screen
         if(player.getVelocity().y < 0)
         {
-            if((int)map.getPosition().y + (int)(map.getScaledHeight() / 2) < gamePanel.getHeight()) 
+            if((int)map.getPosition().y + (int)(map.getScaledHeight() / 2) < gamePanel.getHeight() + yMargin) 
             {
                 b = true;
             }
         } 
         else if(player.getVelocity().y > 0)
         {
-            if((int)map.getPosition().y - (int)(map.getScaledHeight() / 2) > 0) 
+            if((int)map.getPosition().y - (int)(map.getScaledHeight() / 2)  > -yMargin) 
             {
                 b = true;
             }
@@ -284,14 +286,14 @@ public class WorldRenderer {
         
         if(player.getVelocity().x < 0)
         {
-            if((int)map.getPosition().x - (int)(map.getScaledWidth() / 2) > 0) 
+            if((int)map.getPosition().x - (int)(map.getScaledWidth() / 2) > -xMargin) 
             {
                 b = true;
             }
         }
         else if(player.getVelocity().x > 0)
         {
-            if((int)map.getPosition().x + (int)(map.getScaledWidth() / 2) <  gamePanel.getWidth()) 
+            if((int)map.getPosition().x + (map.getScaledWidth() / 2) <  gamePanel.getWidth() + xMargin) 
             {
                 b = true;
 
@@ -333,6 +335,11 @@ public class WorldRenderer {
             }
         }
 
+    }
+
+    public void initiateCamera()
+    {
+        // When entering a world, reset the world to be able to
     }
 
     public void drawDebugWorld(Graphics g)

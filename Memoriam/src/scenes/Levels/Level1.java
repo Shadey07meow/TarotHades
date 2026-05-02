@@ -35,6 +35,32 @@ public class Level1 extends PlayableScreen {
                     -60 * 120)), 
             player, 2, this);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         world.addObject(tr1);
     }
 
