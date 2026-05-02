@@ -225,14 +225,13 @@ public class Player extends Entity {
     private void shootProjectile(){
         // Checks if we can shoot after shooting the last shot
         // cooldown
-        
     
         if (currentCooldown != 0) return;
 
         Vector2 click = inputs.getClickPosition(); 
         Vector2 baseDir  = Vector2.getUnitVector(this.position, click);       
         int baseDmg  = stats.getAttack();
-        boolean flame= hasAbility(PlayerAbility.FLAME_SHOT);
+        boolean flame = hasAbility(PlayerAbility.FLAME_SHOT) && Math.random() < 0.3; // 30% chance
         boolean heavy = hasAbility(PlayerAbility.HEAVY_STRIKE);
         boolean bouncing = hasAbility(PlayerAbility.BOUNCING_SHOT);
         int dmg = flame ? baseDmg + 4 : baseDmg;
@@ -241,6 +240,7 @@ public class Player extends Entity {
         if (heavy) {
         // 5-way spread: -30°, -15°, 0°, +15°, +30°
         double[] angles = {-30, -15, 0, 15, 30};
+
         for (double deg : angles) {
             heavyShooting(rotate(baseDir, deg), dmg, flame, bouncing ? 1 : 0);
         }
@@ -267,9 +267,6 @@ public class Player extends Entity {
         double ny  = dir.x * sin + dir.y * cos;
         return Vector2.multiply(new Vector2(nx, ny), projectileSpeed);
     }
-
-
-
   
     private void enableRegen()          { System.out.println("Regen enabled"); }
     private void enableFlameShot()      { System.out.println("Flame Shot enabled"); }

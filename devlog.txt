@@ -6,6 +6,18 @@ KEEP THIS ON TOP
     
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
+
+--> 05/02/2026
+    (Herielle)
+    - Added fireProjectile.png
+    - Added ocassional triggers of fireProjectile when the powerup is acquired
+
+   LevelManager.java
+   - Added savedAbilities, savePlayerAbilities(), restorePlayerAbilities(); fixed imports
+
+    PlayableScreen.java
+    - Calls restorePlayerAbilities() in initWindow() after player created
+
 --> 05/01/2026
     - Made the big file small
 
