@@ -21,8 +21,7 @@ public class Projectile extends GameObject{
         super(x, y, scale, scrn);
         this.velocity = velocity;
         this.world = scrn.getWorldRenderer();
-        this.setImage(ImageLibrary.get().projectile);
-
+        
         this.setCollider((new RectangleCollider(this, true, 16, 16, 16, 16)));
         setColor(Color.RED);
     }
@@ -98,6 +97,10 @@ public class Projectile extends GameObject{
     public void setBounces(int b){this.bounceCount =b;}
     public void setFlame(boolean f){
         this.isFlame=f;
-        if (f) setColor(new Color(255,100,0));
-    }
+       if (f) {
+        setImage(ImageLibrary.get().fireProjectile);
+        } else {
+        setImage(ImageLibrary.get().projectile);
+        }
+}
 }

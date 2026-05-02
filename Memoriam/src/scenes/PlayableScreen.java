@@ -1,35 +1,13 @@
 package scenes;
 
-import images.ImageLibrary;
+import collision.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
-
-import systems.*;
-import collision.*;
-
-
-import collision.*;
-import images.*;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import object.*;
 import systems.*;
-
-
-
-
 
 public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
@@ -46,25 +24,18 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     protected Map currentMap;
     private CardManager crdManager = new CardManager(this);
 
-
     // level system
-
 
     private int hoveredCardIndex = -1;
 
     private int selectedCardTimer = 0;
     
-
-
-
     // transition
     private boolean isFading = false;
     private float fade = 0f;
 
 
     private final int id;
-
-    
 
     public PlayableScreen(String panelName, int ID, GameFrame g)
     {
@@ -119,16 +90,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     }
     
     @Override
-    public void onExit()
-    {    
+    public void onExit(){    
         terminateWindow();
         stopGamePanel();
     }
 
 
     // Unique shit
-    private  void initWindow()
-    {
+    private  void initWindow(){
         requestFocusInWindow();
         
         System.out.println("Initialized : " + this.getName());
@@ -137,6 +106,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.world = new WorldRenderer(this.player, this.currentMap, this);
 
         this.player.setWorld(world);
+
+        // restore abilities from previous level
+        LevelManager.restorePlayerAbilities(this.player);
         
         // Initialized first before running game loop
         try
@@ -150,8 +122,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
     public void terminateWindow()
     {
-        try
-        {
+        try{
             closeGameLoop();
             if(world != null)
             {
@@ -167,8 +138,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public abstract void stopGamePanel();
   
     @Override
-    public void run()
-    {
+    public void run(){
         System.out.println("Thread started");
 
 
@@ -199,12 +169,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.isRunning = false;
     }
 
-
     protected void update()
     {
         if (world == null) return;
-
-
 
         if (world.getPlayer() != null)
         {
@@ -214,7 +181,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // when esc is press, show pause panel
         checkPausing();
         
-        
         doFading();
         
         crdManager.spinCard();
@@ -223,14 +189,10 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         
         crdManager.checkHoveringButtons();
 
-
         crdManager.checkHoveringButtons();
 
         world.updateWorld();
     }
-
-
-
 
     // Update function methods
     public void checkPausing()
