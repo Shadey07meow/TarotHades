@@ -7,6 +7,12 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
+
+--> 05/03/2026
+    (Shadey07)
+    - Added collison logics to the maps
+    - Successfuly created all enemies objects to the game
+
 --> 05/02/2026
     (Herielle)
     - Added fireProjectile.png
