@@ -7,6 +7,7 @@ public abstract class Entity extends GameObject {
     
     protected int health = 5;
     protected double speed = 10;
+    protected int damage = 1;
 
     public Entity(Vector2 position, double s, PlayableScreen p)
     {

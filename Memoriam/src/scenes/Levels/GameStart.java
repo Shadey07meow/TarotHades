@@ -72,9 +72,9 @@ public class GameStart extends PlayableScreen {
     public void startGamePanel()
     { 
         
-        GameObject box1 = new GameObject(300, 300, 50, this);
-        box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
-        GameObject box2 = new GameObject(300, 500, 50, this);
+        // GameObject box1 = new GameObject(300, 300, 50, this);
+        // box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
+        // GameObject box2 = new GameObject(300, 500, 50, this);
         TreasureChest tr1 = new TreasureChest(
             Vector2.add(
                 this.player.getPosition(), 
@@ -84,17 +84,22 @@ public class GameStart extends PlayableScreen {
             player, 2, this);
         
 
-        BlueWisp bluey = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -100)) , 2, this);
-        BlueWisp bluey2 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 2, this);
-        BlueWisp bluey3 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500)), 2, this);
+        // BlueWisp bluey = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -100)) , 2, this);
+         BlueWisp bluey2 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 2, this);
+         BlueWisp bluey3 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500)), 2, this);
 
-        box1.getCollider().setIsMovable(false);
-        world.addObject(box1);
-        world.addObject(box2);
-        world.addObject(tr1);
-        world.addObject(bluey);
+         PurpleWisp purply = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 2, this);
+
+        // box1.getCollider().setIsMovable(false);
+        // world.addObject(box1);
+        // world.addObject(box2);
+        // world.addObject(bluey);
         world.addObject(bluey2);
+        world.addObject(purply);
         world.addObject(bluey3);
+        
+        world.addObject(tr1);
+        //world.addObject(new BarrierObject(player.getPosition(), this, new Bounds(50, 50, 50, 50)));
 
         player.getStats().debugPrint(); // debug
     }

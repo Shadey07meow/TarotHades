@@ -10,6 +10,8 @@ public class BarrierObject extends GameObject {
     {
         super(position, scrn);
         setImage(null);
-        setCollider(new RectangleCollider(this, false, b));
+        this.setCollider(new RectangleCollider(this, true, b));
+        this.getCollider().setIsMovable(false);
+
     }
 }

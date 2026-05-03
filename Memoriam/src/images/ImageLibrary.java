@@ -49,6 +49,13 @@ public class ImageLibrary
     public final Image blueRIGHT;
     public final Image blueLEFT;
 
+// Enemy Purple
+    public final Image purpleRIGHT;
+    public final Image purpleLEFT;
+
+    public final Image yellowRIGHT;
+    public final Image yellowLEFT;
+
     // Cursor
     public final Image quillCursor;
     public final Image swordCursor;
@@ -196,6 +203,14 @@ public class ImageLibrary
             blueLEFT =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueLeft.gif")).getImage();
             blueRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueRight.gif")).getImage();
         
+                purpleLEFT =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/purpleLeft.gif")).getImage();
+                purpleRIGHT=     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/purpleRight.gif")).getImage();
+        
+                yellowLEFT  =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/yellowLeft.gif")).getImage();
+                yellowRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/yellowRight.gif")).getImage();
+        
+
+
             // Player UI
             heart = ImageIO.read(getClass().getResource("assets/MainAssets/heart.png"));
             deadHeart = ImageIO.read(getClass().getResource("assets/MainAssets/heartDead.png"));

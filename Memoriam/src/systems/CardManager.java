@@ -253,6 +253,7 @@ public class CardManager {
 
         
         LevelManager.loadLevel(this.scrn.getID() + 1, this.scrn);
+
         // Do the two things stated here for transition
     }
 

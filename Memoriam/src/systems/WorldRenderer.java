@@ -62,6 +62,7 @@ public class WorldRenderer {
     {
         this.setMap(this.map);
         this.setPlayer(this.player);
+        initiateCamera();
     }
 
     // Add game object to the game world
@@ -339,7 +340,28 @@ public class WorldRenderer {
 
     public void initiateCamera()
     {
+
+        for (GameObject obj : objectList)
+        {   
+            Vector2 desVel = new Vector2();
+        
+            // Move objects
+            if((int)map.getPosition().x - (int)(map.getScaledWidth() / 2) > -xMargin) 
+            {
+                
+            }
+
+            obj.move(desVel);
+            obj.interpolate(1);
+        }
+
         // When entering a world, reset the world to be able to
+
+    }
+
+    public Map getMap()
+    {
+        return this.map;
     }
 
     public void drawDebugWorld(Graphics g)
@@ -365,13 +387,14 @@ public class WorldRenderer {
 
                             if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
 
-
+                            
                             RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                            //System.out.println(tempCol.getLocalBounds().getWidth());
                             graphics2.drawRect(
-                                (int) obj.getRenderX() - (((int)Math.abs(tempCol.getLocalBounds().LEFT.x) + (int)Math.abs(tempCol.getLocalBounds().RIGHT.x )) / 2),
-                                (int) obj.getRenderY() - (((int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + (int)Math.abs(tempCol.getLocalBounds().TOP.y )) / 2),
-                                (int)Math.abs(tempCol.getLocalBounds().LEFT.x) + Math.abs((int)tempCol.getLocalBounds().RIGHT.x ),
-                                (int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + Math.abs((int)tempCol.getLocalBounds().TOP.y )
+                                (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
+                                (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
+                                tempCol.getLocalBounds().getWidth(),
+                                tempCol.getLocalBounds().getLength()                            
                             );
                         }
                     }
