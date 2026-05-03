@@ -7,7 +7,7 @@ import systems.*;
 
 public class FinalBoss extends Enemy{
     private final int maxHealth = 100;
-    private final double currentSpeed = 5;    
+    private final double currentSpeed = 2;    
 
     public FinalBoss(Vector2 position, double scale, PlayableScreen scrn)
     {
