@@ -54,15 +54,10 @@ public abstract class Enemy extends Entity {
     public void damage(int i)
     {
         minusHP(i);
-
-        if(getHP() <= 0)
-        {
-            die();
-        }
     }
 
     @Override
-    public void die()
+    public void onDeath()
     {
         world.removeObject(this);
     }

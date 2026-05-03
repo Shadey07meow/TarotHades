@@ -86,7 +86,7 @@ public class GameStart extends PlayableScreen {
 
         // BlueWisp bluey = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -100)) , 2, this);
          BlueWisp bluey2 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 2, this);
-         BlueWisp bluey3 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500)), 2, this);
+         FinalBoss bossy = new FinalBoss(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500)), 2, this);
 
          PurpleWisp purply = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 2, this);
 
@@ -96,7 +96,7 @@ public class GameStart extends PlayableScreen {
         // world.addObject(bluey);
         world.addObject(bluey2);
         world.addObject(purply);
-        world.addObject(bluey3);
+        world.addObject(bossy);
         
         world.addObject(tr1);
         //world.addObject(new BarrierObject(player.getPosition(), this, new Bounds(50, 50, 50, 50)));

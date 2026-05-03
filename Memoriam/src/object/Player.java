@@ -320,6 +320,12 @@ public class Player extends Entity {
         return abilities.contains(ability);
     }   
 
+    @Override
+    public void onDeath()
+    {
+        
+    }
+
     // Getters
     public double     getHealth()    { return stats.getCurrentHP(); }
     public int        getMaxHP()     { return stats.getMaxHP(); }

@@ -162,7 +162,16 @@ public class BossLevel extends PlayableScreen {
                 new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
             ))); 
         
-        
+        FinalBoss bossy = new FinalBoss(
+            Vector2.add(
+                this.center,
+                new Vector2(0, -56 * 120)
+            ),
+            1, 
+            this
+        );
+
+        world.addObject(bossy);
 
     }
 
@@ -184,6 +193,8 @@ public class BossLevel extends PlayableScreen {
     {
         return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     }
+
+
 
 
 }

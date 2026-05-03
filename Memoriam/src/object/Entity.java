@@ -15,10 +15,15 @@ public abstract class Entity extends GameObject {
     }
 
     public void setHealth(int health) {this.health = health;}
-    public void minusHP(double a) {this.health -= a;}
+    public void minusHP(double a) {this.health -= a;
+        if(this.health <= 0)
+        {
+            onDeath();
+        }
+    }
     public void addHP(double a) {this.health += a;}
     public int getHP(){return this.health;}
 
     // Overridable method
-    public void die(){}
+    abstract void onDeath();
 }

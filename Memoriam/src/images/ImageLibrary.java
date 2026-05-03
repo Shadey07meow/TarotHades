@@ -55,6 +55,8 @@ public class ImageLibrary
 
     public final Image yellowRIGHT;
     public final Image yellowLEFT;
+    
+    public final Image finalBoss;
 
     // Cursor
     public final Image quillCursor;
@@ -97,127 +99,127 @@ public class ImageLibrary
     public final BufferedImage deadHeart;
 
 
-    private ImageLibrary()
-    {
+private ImageLibrary()
+{
         try {
-                        projectile = new ImageIcon(getClass().getResource(
-                    "assets/objects/projectile.png"
-            )).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+                projectile = new ImageIcon(getClass().getResource(
+                "assets/objects/projectile.png"
+                )).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
 
-            
+                // Player Sprites (GIF animation preserved)
+                playerSpritesDOWN = new ImageIcon(getClass().getResource(
+                        "assets/PlayerSprites/animated/idle/fool_idle_front.gif"
+                )).getImage();
 
-            // Player Sprites (GIF animation preserved)
-            playerSpritesDOWN = new ImageIcon(getClass().getResource(
-                    "assets/PlayerSprites/animated/idle/fool_idle_front.gif"
-            )).getImage();
+                playerSpritesLEFT = new ImageIcon(getClass().getResource(
+                        "assets/PlayerSprites/animated/idle/fool_idle_left.gif"
+                )).getImage();
 
-            playerSpritesLEFT = new ImageIcon(getClass().getResource(
-                    "assets/PlayerSprites/animated/idle/fool_idle_left.gif"
-            )).getImage();
+                playerSpritesUP = new ImageIcon(getClass().getResource(
+                        "assets/PlayerSprites/animated/idle/fool_idle_back.gif"
+                )).getImage();
 
-            playerSpritesUP = new ImageIcon(getClass().getResource(
-                    "assets/PlayerSprites/animated/idle/fool_idle_back.gif"
-            )).getImage();
+                playerSpritesRIGHT = new ImageIcon(getClass().getResource(
+                        "assets/PlayerSprites/animated/idle/fool_idle_right.gif"
+                )).getImage();
+                
+                // Cursor
+                quillCursor = ImageIO.read(getClass().getResource(
+                        "assets/MainAssets/cursor.png"
+                )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
 
-            playerSpritesRIGHT = new ImageIcon(getClass().getResource(
-                    "assets/PlayerSprites/animated/idle/fool_idle_right.gif"
-            )).getImage();
-            
-            // Cursor
-            quillCursor = ImageIO.read(getClass().getResource(
-                    "assets/MainAssets/cursor.png"
-            )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
-
-            swordCursor = ImageIO.read(getClass().getResource(
-                    "assets/MainAssets/swordCursor.png"
-            )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
-            
-            // Backgrounds
-            background = ImageIO.read(getClass().getResource("assets/Panels/backgroundImage.png"));
-            loadingScreen = ImageIO.read(getClass().getResource("assets/Panels/loadingScreen.png"));
-            loseScreen = ImageIO.read(getClass().getResource("assets/Panels/loseScreen.png"));
+                swordCursor = ImageIO.read(getClass().getResource(
+                        "assets/MainAssets/swordCursor.png"
+                )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                
+                // Backgrounds
+                background = ImageIO.read(getClass().getResource("assets/Panels/backgroundImage.png"));
+                loadingScreen = ImageIO.read(getClass().getResource("assets/Panels/loadingScreen.png"));
+                loseScreen = ImageIO.read(getClass().getResource("assets/Panels/loseScreen.png"));
 
 
-            // buttons
-            exitBtn = ImageIO.read(getClass().getResource("assets/Panels/exitBtn.png"));
-            optionBtn = ImageIO.read(getClass().getResource("assets/Panels/creditsBtn.png"));
-            startBtn = ImageIO.read(getClass().getResource("assets/Panels/startBtn.png"));
-            backBtn = ImageIO.read(getClass().getResource("assets/Panels/backBtn.png"));
-            placeholderBtn = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtn.png"));
-            
-            // hover buttons
-            exitBtnHover = ImageIO.read(getClass().getResource("assets/Panels/exitBtnHover.png"));
-            optionBtnHover = ImageIO.read(getClass().getResource("assets/Panels/creditsBtnHover.png"));
-            startBtnHover = ImageIO.read(getClass().getResource("assets/Panels/startBtnHover.png"));
-            backBtnHover = ImageIO.read(getClass().getResource("assets/Panels/backBtnHover.png"));
-            placeholderBtnHover = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtnHover.png"));
-            
-            // Maps
-        rawMap = ImageIO.read(getClass().getResource("assets/MainAssets/mapTest.png"));
-            map = new BufferedImage(32 * 80, 16 * 80, BufferedImage.TYPE_INT_ARGB);
-            g2 = map.createGraphics();
-            g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g2.drawImage(rawMap, 0, 0, 32 * 150, 16 * 150, null);
-            g2.dispose();
+                // buttons
+                exitBtn = ImageIO.read(getClass().getResource("assets/Panels/exitBtn.png"));
+                optionBtn = ImageIO.read(getClass().getResource("assets/Panels/creditsBtn.png"));
+                startBtn = ImageIO.read(getClass().getResource("assets/Panels/startBtn.png"));
+                backBtn = ImageIO.read(getClass().getResource("assets/Panels/backBtn.png"));
+                placeholderBtn = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtn.png"));
+                
+                // hover buttons
+                exitBtnHover = ImageIO.read(getClass().getResource("assets/Panels/exitBtnHover.png"));
+                optionBtnHover = ImageIO.read(getClass().getResource("assets/Panels/creditsBtnHover.png"));
+                startBtnHover = ImageIO.read(getClass().getResource("assets/Panels/startBtnHover.png"));
+                backBtnHover = ImageIO.read(getClass().getResource("assets/Panels/backBtnHover.png"));
+                placeholderBtnHover = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtnHover.png"));
+                
+                // Maps
+                rawMap = ImageIO.read(getClass().getResource("assets/MainAssets/mapTest.png"));
+                map = new BufferedImage(32 * 80, 16 * 80, BufferedImage.TYPE_INT_ARGB);
+                g2 = map.createGraphics();
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                g2.drawImage(rawMap, 0, 0, 32 * 150, 16 * 150, null);
+                g2.dispose();
 
-            map0 =  new ImageIcon(getClass().getResource(
-                    "assets/maps/lobby.png")).getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);            
-        
-            map1 =  new ImageIcon(getClass().getResource(
-                    "assets/maps/map1.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                map0 =  new ImageIcon(getClass().getResource(
+                        "assets/maps/lobby.png")).getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);            
+                
+                map1 =  new ImageIcon(getClass().getResource(
+                        "assets/maps/map1.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
 
-            map2 =  new ImageIcon(getClass().getResource(
-                    "assets/maps/map2.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                map2 =  new ImageIcon(getClass().getResource(
+                        "assets/maps/map2.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
 
-            map3 =  new ImageIcon(getClass().getResource(
-                    "assets/maps/map3.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                map3 =  new ImageIcon(getClass().getResource(
+                        "assets/maps/map3.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
 
-            map4 =  new ImageIcon(getClass().getResource(
-                    "assets/maps/map4.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                map4 =  new ImageIcon(getClass().getResource(
+                        "assets/maps/map4.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
 
-            map5 =  new ImageIcon(getClass().getResource(
-                    "assets/maps/boss map.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                map5 =  new ImageIcon(getClass().getResource(
+                        "assets/maps/boss map.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
 
 
 
-            // cards
-            Empress = ImageIO.read(getClass().getResource("assets/Cards/Empress.png"));
-            KnightOfWands = ImageIO.read(getClass().getResource("assets/Cards/KnightOfWands.png"));
-            Magician = ImageIO.read(getClass().getResource("assets/Cards/Magician.png"));
-            NineOfPentacles = ImageIO.read(getClass().getResource("assets/Cards/NineOfPentacles.png"));
-            QueenOfCups = ImageIO.read(getClass().getResource("assets/Cards/QueenOfCups.png"));
-            TenOfSwords = ImageIO.read(getClass().getResource("assets/Cards/TenOfSwords.png"));
-            TwoOfCups = ImageIO.read(getClass().getResource("assets/Cards/TwoOfCups.png"));
-            AceOfWands = ImageIO.read(getClass().getResource("assets/Cards/AceOfWands.png"));
-            Death = ImageIO.read(getClass().getResource("assets/Cards/Death.png"));
-            
-            // Objects
-            treasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChest.png"));
-            treasureChestH = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png"));
-            rawProjectile = ImageIO.read(getClass().getResource("assets/objects/projectile.png"));
-            fireProjectile = ImageIO.read(getClass().getResource("assets/objects/fireProjectile.png"));
-            
+                // cards
+                Empress = ImageIO.read(getClass().getResource("assets/Cards/Empress.png"));
+                KnightOfWands = ImageIO.read(getClass().getResource("assets/Cards/KnightOfWands.png"));
+                Magician = ImageIO.read(getClass().getResource("assets/Cards/Magician.png"));
+                NineOfPentacles = ImageIO.read(getClass().getResource("assets/Cards/NineOfPentacles.png"));
+                QueenOfCups = ImageIO.read(getClass().getResource("assets/Cards/QueenOfCups.png"));
+                TenOfSwords = ImageIO.read(getClass().getResource("assets/Cards/TenOfSwords.png"));
+                TwoOfCups = ImageIO.read(getClass().getResource("assets/Cards/TwoOfCups.png"));
+                AceOfWands = ImageIO.read(getClass().getResource("assets/Cards/AceOfWands.png"));
+                Death = ImageIO.read(getClass().getResource("assets/Cards/Death.png"));
+                
+                // Objects
+                treasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChest.png"));
+                treasureChestH = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png"));
+                rawProjectile = ImageIO.read(getClass().getResource("assets/objects/projectile.png"));
+                fireProjectile = ImageIO.read(getClass().getResource("assets/objects/fireProjectile.png"));
+                
 
-
-            // Enemy GIFs animation preserved
-            blueLEFT =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueLeft.gif")).getImage();
-            blueRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueRight.gif")).getImage();
-        
+                // Enemy GIFs animation preserved
+                blueLEFT =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueLeft.gif")).getImage();
+                blueRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/blueRight.gif")).getImage();
+                
                 purpleLEFT =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/purpleLeft.gif")).getImage();
                 purpleRIGHT=     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/purpleRight.gif")).getImage();
         
                 yellowLEFT  =      new ImageIcon(getClass().getResource("assets/objects/enemyAnim/yellowLeft.gif")).getImage();
                 yellowRIGHT =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/yellowRight.gif")).getImage();
         
+                finalBoss =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/finalBoss.png"
+                        )).getImage().getScaledInstance(32 * 4, 40 * 4, Image.SCALE_SMOOTH);
+                
 
 
-            // Player UI
-            heart = ImageIO.read(getClass().getResource("assets/MainAssets/heart.png"));
-            deadHeart = ImageIO.read(getClass().getResource("assets/MainAssets/heartDead.png"));
+                // Player UI
+                heart = ImageIO.read(getClass().getResource("assets/MainAssets/heart.png"));
+                deadHeart = ImageIO.read(getClass().getResource("assets/MainAssets/heartDead.png"));
 
-            // Maps
- 
-            
+                // Maps
+        
+                        
         } catch (IOException | IllegalArgumentException e) {
             throw new RuntimeException("Failed to load images: " + e.getMessage(), e);
         }
