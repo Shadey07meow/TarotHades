@@ -336,8 +336,6 @@ public class Player extends Entity {
         this.world = w;
         System.out.println("Added a world renderer");
     }
-        return abilities.contains(ability);
-    }   
 
     @Override
     public void onDeath()
