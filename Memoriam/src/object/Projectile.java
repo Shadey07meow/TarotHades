@@ -14,8 +14,7 @@ public class Projectile extends GameObject{
     private WorldRenderer world;
     private int lifeTime = 120; // frames
     private int damage = 1;
-     private int bounceCount = 0;
-     private boolean isFlame = false;
+    private boolean isFlame = false;
 
     public Projectile(int x, int y, Vector2 velocity, int scale, PlayableScreen scrn){
         super(x, y, scale, scrn);
@@ -32,69 +31,49 @@ public class Projectile extends GameObject{
         move((int)velocity.x, (int)velocity.y);
 
         lifeTime--;
-
         if(lifeTime <= 0){
             // mark for removal later
             world.removeObject(this);
         }
     }
 
-
     @Override
     public void onCollision()
     {
-        // Double check if there is nothing being collided with
-        if(!this.collider.getCollidingWith().isEmpty())
-        {
-            ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
-            for (int x = 0; x < colList.size(); x++) {
-                CollisionObject col = colList.get(x);
-                GameObject other = col.getGameObject();
+         if (this.collider.getCollidingWith().isEmpty()) return;
 
-                // Ignore the player and other projectiles (fixes spread-shot self-collision)
-                if (other instanceof Player) continue;
-                if (other instanceof Projectile) continue;
+        ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
 
-                // Hit an enemy
-                    if (other instanceof Enemy) {
-                        Enemy enmy = (Enemy) other;
-                        enmy.damage(this.damage);
+        for (int x = 0; x < colList.size(); x++) {
+            CollisionObject col   = colList.get(x);
+            GameObject      other = col.getGameObject();
 
-                    // Bouncing shot: bounce off enemy once, then die on next hit
-                    if (bounceCount > 0) {
-                        bounceCount = 0;       // only one more bounce allowed after hitting enemy
-                        velocity = new Vector2(-velocity.x, -velocity.y);
-                        lifeTime = 80;
-                    } 
-                    else 
-                    {
-                        world.removeObject(this);
-                    }
-                    return; // stop processing after first meaningful hit
-                }
+            // Never hit the player or other projectiles
+            if (other instanceof Player)     continue;
+            if (other instanceof Projectile) continue;
 
-                // Hit an immovable wall
-                if (!col.getIsMovable()) {
-                    if (bounceCount > 0) {
-                        bounceCount--;
-                        velocity = new Vector2(-velocity.x, -velocity.y);
-                        lifeTime = 80;
-                    } else {
-                        world.removeObject(this);
-                    }
-                    return;
-                }
-            // Hit anything else — remove
+            // Hit an enemy
+            if (other instanceof Enemy) {
+                ((Enemy) other).damage(this.damage);
+                world.removeObject(this);
+                return;
+            }
+
+            // Hit an immovable wall
+            if (!col.getIsMovable()) {
+                world.removeObject(this);
+                return;
+            }
+
+            // Hit anything else
             world.removeObject(this);
             return;
-        }  
-    }
+        }
 }
 
     //SETTERS
 
     public void setDamage(int d){this.damage = d;}
-    public void setBounces(int b){this.bounceCount =b;}
     public void setFlame(boolean f){
         this.isFlame=f;
        if (f) {

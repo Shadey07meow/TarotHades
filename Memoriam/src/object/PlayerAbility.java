@@ -17,7 +17,7 @@ public enum PlayerAbility {
     /* Ten of Swords: Multiple projectiles out, 
     like how projectiles come out of PVZ Threepeater, like 5 projectiles will come out at the s
     ame time and not sunod sunod like PVZ Cotling-pea */
-    HEAVY_STRIKE,
+    MULTI_SHOT,
 
     /* Nine of Pentacles: faster HP regen + resistance to status effects IDK HOW TO IMPLEMENT*/
     FORTIFIED_REGEN,
@@ -26,6 +26,10 @@ public enum PlayerAbility {
     /* Queen of Cups: deployable shield with duration + long cooldown */
     SHIELD,
 
-    /* Knight of Wands: projectiles bounce to nearby enemies */
-    BOUNCING_SHOT
+    /* Knight of Wands: speed up*/
+    SPEED_ENHANCE;
+
+    public static final int MAX_STACKS = 3;
+
+    
 }

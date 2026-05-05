@@ -1,8 +1,5 @@
 package scenes;
 
-import collision.*;
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -19,30 +16,29 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
     private Thread gameLoop = null;
     private volatile  boolean isRunning = true;
+
     InputManager inputManager = new InputManager();
+
     static int framesPerSecond = 60;
     protected Vector2 center = new Vector2();
-    protected Map currentMap;
-    private CardManager crdManager = new CardManager(this);
+    protected Map     currentMap;
 
-    // level system
+    private CardManager crdManager  = new CardManager(this);
+    private HealthBar healthBar = new HealthBar();  
 
     private int hoveredCardIndex = -1;
-
     private int selectedCardTimer = 0;
-    
-    // transition
-    private boolean isFading = false;
-    private float fade = 0f;
 
+    private boolean isFading = false;
+    private float fade     = 0f;
 
     private final int id;
 
+    // constructor
     public PlayableScreen(String panelName, int ID, GameFrame g)
     {
         super(panelName, g);
         this.id = ID;
-        // Lets work on making shit appear first
 
         // Initiates game loop
         this.gameLoop = new Thread(this);
@@ -60,36 +56,26 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     }
     
     @Override
-    public String getShowablePanelName()
-    {
-        return this.name;
-    }
+    public String getShowablePanelName(){ return this.name;}
 
     @Override
-    public void setShowablePanelName(String name)
-    {
-        this.name = name;
-    }
+    public void setShowablePanelName(String name){ this.name = name; }
 
-    public int getID()
-    {
-        return this.id;
-    }
+    public int getID(){return this.id;}
     
     public abstract Map setMap();
     public abstract Player setPlayer();
+    public abstract void startGamePanel();
+    public abstract void stopGamePanel();
 
     @Override
     public void onInitiate()
     {
         this.isRunning = true;
-        //System.out.println("1 - isRunning : " + String.valueOf(this.isRunning));
         this.gameLoop = new Thread(this);
         requestFocusInWindow();
         initWindow();
         startGamePanel();
-        //System.out.println("2 - isRunning : " + String.valueOf(this.isRunning));
-        
     }
     
     @Override
@@ -97,7 +83,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         terminateWindow();
         stopGamePanel();
     }
-
 
     // Unique shit
     private  void initWindow(){
@@ -115,13 +100,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         LevelManager.restorePlayerAbilities(this.player);
         
         // Initialized first before running game loop
-        try
-        {
+        try{
+
             this.gameLoop.start();
         }
-        catch(Exception e)
-        {
-            System.out.println("Game Loop already running");        }
+        catch(Exception e) {
+
+            System.out.println("Game Loop already running");       
+         }
     }
     
     public void terminateWindow()
@@ -130,7 +116,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             closeGameLoop();
             if(world != null)
             {
-
                 this.world.closeWorld();
             }
         }
@@ -138,9 +123,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         {System.out.println("Game Loop already stopped : " + e.getMessage());}   
     }
     
-    public abstract void startGamePanel();
-    public abstract void stopGamePanel();
-  
+   
     @Override
     public void run(){
         System.out.println("Thread started");
@@ -164,7 +147,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
             repaint();
         } 
-
         System.out.println("Thread stopped");
     }
 
@@ -188,11 +170,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         doFading();
         
         crdManager.spinCard();
-
         crdManager.sizeCard();
-        
         crdManager.checkHoveringButtons();
-
         crdManager.checkHoveringButtons();
 
         world.updateWorld();
@@ -215,7 +194,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             // force UI cleanup during fade
             crdManager.showChestUI = false;
 
-            
             // Move this line to cardmanager currentCards.clear();
 
             fade += 0.05f;
@@ -241,10 +219,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-
-
   
         drawWorld(g);
+
         if(world != null)
         {
             world.drawDebugWorld(g);
@@ -252,6 +229,10 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         
         if (crdManager.showChestUI) {
             crdManager.drawChestUI(g);
+        }
+
+        if (world != null && world.getPlayer() != null) {
+            healthBar.draw(g, world.getPlayer());
         }
 
     }
@@ -264,8 +245,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             //System.out.println("I am rendering shit rn");
             ArrayList<GameObject> list = world.getObjectList();
 
-            
-
+        
             // In world renderer, the map must always be drawn first
             for (int x = 0; x < world.getObjectList().size(); x++) 
             {
@@ -296,6 +276,12 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
+    
+        
+
+    
+
+
     public InputManager getInputManager()
     {
         return this.inputManager;
@@ -319,9 +305,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             
         }
     }
+
+     public InputManager getInputManager(){return this.inputManager;}
+    public WorldRenderer getWorldRenderer(){return this.world;}
+    public CardManager getCardManager(){ return this.crdManager;}
     
-    public CardManager getCardManager()
-    {
-        return this.crdManager;
-    }
 }

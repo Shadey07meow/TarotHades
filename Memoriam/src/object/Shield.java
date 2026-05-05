@@ -1,9 +1,8 @@
 package object;
 
+import collision.*;
 import java.awt.Color;
 import scenes.*;
-import systems.*;
-import collision.*;
 
 /** A deployable shield that orbits the player and blocks one hit per activation. */
 public class Shield extends GameObject {
@@ -20,8 +19,10 @@ public class Shield extends GameObject {
     public Shield(Player owner, PlayableScreen scrn) {
         super(owner.getX(), owner.getY(), 2, scrn);
         this.owner = owner;
+
         setColor(new Color(80, 160, 255, 180));
         setCollider(new RectangleCollider(this, true, 24, 24, 24, 24));
+        
         this.collider.setIsMovable(true);
         deactivate();
     }
@@ -48,12 +49,14 @@ public class Shield extends GameObject {
     public void onCollision() {
         if (!active) return;
         if (this.collider.getCollidingWith().isEmpty()) return;
+        
         for (CollisionObject col : this.collider.getCollidingWith()) {
-            if (col.getGameObject() instanceof Projectile ||
-                col.getGameObject() instanceof Enemy) {
-                // Shield absorbs the hit
-                world.removeObject(col.getGameObject());
+            GameObject other = col.getGameObject();
+
+            if (other instanceof Projectile || other instanceof Enemy) {
+                world.removeObject(other);
                 deactivate();
+
                 cooldown = cooldownMax;
                 return;
             }
@@ -73,4 +76,6 @@ public class Shield extends GameObject {
     }
 
     public boolean isActive() { return active; }
+
+    public void setCooldownMax(int frames) { this.cooldownMax = frames;}
 }
