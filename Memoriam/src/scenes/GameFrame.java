@@ -1,6 +1,6 @@
 package scenes;
 
-import scenes.Levels.*;
+import scenes.levels.*;
 import systems.*;
 import collision.*;
 import object.*;
