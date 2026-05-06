@@ -319,6 +319,15 @@ public class Player extends Entity {
     }
 
     public boolean hasAbility(PlayerAbility ability) {
+        return abilities.contains(ability);
+    }   
+
+    @Override
+    public void onDeath()
+    {
+        
+    }
+
         return getAbilityLevel(ability) >= 1;
     }   
 

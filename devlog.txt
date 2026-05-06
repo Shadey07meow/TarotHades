@@ -7,6 +7,12 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
+
+--> 05/03/2026
+    (Shadey07)
+    - Added collison logics to the maps
+    - Successfuly created all enemies objects to the game
+
 --> 05/02/2026
     (Herielle)
     - Added fireProjectile.png
@@ -19,12 +25,18 @@ KEEP THIS ON TOP
     - Filtered maxed-out abilities from draw pool in CardManager
 
     - Created HealthBar.java to draw the HealthBar
+    - LevelManager.java
+        - Added savedAbilities, savePlayerAbilities(), restorePlayerAbilities(); fixed imports
+    - PlayableScreen.java
+        - Calls restorePlayerAbilities() in initWindow() after player created
+    
+    (Shadey07)
+    - Made world renderer have margins so that the edges of the maps cannot be seen 
+    - Made BarrierObject
+        - Invisible collision object
+    - Made Bounds object 
 
-   LevelManager.java
-   - Added savedAbilities, savePlayerAbilities(), restorePlayerAbilities(); fixed imports
 
-    PlayableScreen.java
-    - Calls restorePlayerAbilities() in initWindow() after player created
 
 --> 05/01/2026
     - Made the big file small

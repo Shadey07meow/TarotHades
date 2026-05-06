@@ -11,17 +11,7 @@ public class RectangleCollider extends CollisionObject {
     // A collision object with 4 points representing it's size
     
     // Bounds class here in Rectangle collider
-    public class Bounds
-    {
-        // Made bounds class for easy access of 4 points
-        public Vector2 TOP, BOTTOM, LEFT, RIGHT;
-        public Bounds (Vector2 point1, Vector2 point2, Vector2 point3, Vector2 point4){
-            this.TOP = point1;
-            this.BOTTOM = point2;
-            this.LEFT = point3;
-            this.RIGHT = point4;
-        }
-    }
+
 
     
     // Bounds set for the collision object
@@ -38,13 +28,7 @@ public class RectangleCollider extends CollisionObject {
 
         Vector2 halfScales = new Vector2(object.getScaledHeight() / 2, object.getScaledWidth() / 2);
         
-        // Points for each one  
-        Vector2 point1 = new Vector2(-halfScales.x, halfScales.y);
-        Vector2 point2 = new Vector2(halfScales.x, halfScales.y);
-        Vector2 point3 = new Vector2(-halfScales.x, -halfScales.y);
-        Vector2 point4 = new Vector2(halfScales.x, -halfScales.y);
-
-        this.localBounds = new Bounds(point1, point2, point3, point4);
+        this.localBounds = new Bounds((int)halfScales.y, (int)-halfScales.y, (int)-halfScales.x, (int)halfScales.x);
 
     }
 
@@ -54,12 +38,16 @@ public class RectangleCollider extends CollisionObject {
         super(object, movable);
         
         ///System.out.println("Created a rectangle collider");
-        this.localBounds = new Bounds(
-                new Vector2(0, top),
-                new Vector2(0, - bottom),
-                new Vector2(-left, 0),
-                new Vector2(right, 0)
-            );
+        this.localBounds = new Bounds(top, bottom, left, right);
+    }
+
+    public RectangleCollider(GameObject object, boolean movable, Bounds b) 
+    {
+        // Separate GameObject
+        super(object, movable);
+        
+        ///System.out.println("Created a rectangle collider");
+        this.localBounds = b;
 
     }
     
@@ -93,10 +81,10 @@ public class RectangleCollider extends CollisionObject {
 
     public void updateBounds()
     {
-        Vector2 newT = Vector2.add(this.localBounds.TOP, this.connectedGameObject.getPosition());
-        Vector2 newB = Vector2.add(this.localBounds.BOTTOM, this.connectedGameObject.getPosition());
-        Vector2 newL = Vector2.add(this.localBounds.LEFT, this.connectedGameObject.getPosition());
-        Vector2 newR = Vector2.add(this.localBounds.RIGHT, this.connectedGameObject.getPosition());
+        int newT = this.localBounds.TOP + (int)this.connectedGameObject.getPosition().y;
+        int newB = -this.localBounds.BOTTOM + (int)this.connectedGameObject.getPosition().y;
+        int newL = -this.localBounds.LEFT + (int)this.connectedGameObject.getPosition().x;
+        int newR = this.localBounds.RIGHT + (int)this.connectedGameObject.getPosition().x;
 
         this.globalBounds = new Bounds(newT, newB, newL, newR);
     }
@@ -135,8 +123,8 @@ public class RectangleCollider extends CollisionObject {
             this.updateBounds();
             other.updateBounds();
 
-            boolean yChecks = (this.globalBounds.TOP.y < other.globalBounds.BOTTOM.y) || (other.globalBounds.TOP.y < this.globalBounds.BOTTOM.y) ;
-            boolean xChecks = (this.globalBounds.RIGHT.x < other.globalBounds.LEFT.x) || (other.globalBounds.RIGHT.x < this.globalBounds.LEFT.x) ;
+            boolean yChecks = (this.globalBounds.TOP < other.globalBounds.BOTTOM) || (other.globalBounds.TOP < this.globalBounds.BOTTOM) ;
+            boolean xChecks = (this.globalBounds.RIGHT < other.globalBounds.LEFT) || (other.globalBounds.RIGHT < this.globalBounds.LEFT) ;
 
             boolean finalCheck = xChecks || yChecks;
             return !finalCheck;
@@ -151,6 +139,11 @@ public class RectangleCollider extends CollisionObject {
     public Bounds getLocalBounds()
     {
         return this.localBounds;
+    }
+
+    public Bounds getGlobalBounds()
+    {
+        return this.globalBounds;
     }
     
     public String toString()

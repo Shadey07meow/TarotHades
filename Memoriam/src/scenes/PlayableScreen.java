@@ -13,6 +13,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     protected WorldRenderer world = null;
     protected Player player;
+    
     private Thread gameLoop = null;
     private volatile  boolean isRunning = true;
 
@@ -49,6 +50,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         addMouseMotionListener(inputManager);  // fixes mouse tracking
         setFocusable(true);
         requestFocusInWindow();
+
+        
 
     }
     
@@ -88,6 +91,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         System.out.println("Initialized : " + this.getName());
         this.player = setPlayer();
         this.currentMap = setMap();
+        this.center = this.player.getPosition();
         this.world = new WorldRenderer(this.player, this.currentMap, this);
 
         this.player.setWorld(world);
@@ -272,6 +276,16 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
+    public InputManager getInputManager()
+    {
+        return this.inputManager;
+    }
+
+    public WorldRenderer getWorldRenderer()
+    {
+        return this.world;
+    }
+    
     public void updateCollisions()
     {
         for(int x = 0; x < world.getObjectList().size(); x++)

@@ -1,6 +1,7 @@
 package object;
 
 import images.*;
+
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public abstract class Enemy extends Entity {
 
     protected int detectionRange = 500;
     protected int attackingRange = 250;
+
 
     protected ImageLibrary img = ImageLibrary.get();
     protected Player pl;
@@ -52,15 +54,10 @@ public abstract class Enemy extends Entity {
     public void damage(int i)
     {
         minusHP(i);
-
-        if(getHP() <= 0)
-        {
-            die();
-        }
     }
 
     @Override
-    public void die()
+    public void onDeath()
     {
         world.removeObject(this);
     }
@@ -186,6 +183,7 @@ public abstract class Enemy extends Entity {
                 if(colList.get(x).getGameObject() == this.pl)
                 {
                     // Death on collision Logic
+                    this.pl.minusHP(this.damage);
                     damage(1000);
                 }
             }

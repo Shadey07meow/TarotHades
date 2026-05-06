@@ -71,7 +71,7 @@ public class CutsceneScreen extends UIScreen {
 
     private void handleClick() {
 
-        if (state != State.SHOWING) return;
+        //if (state != State.SHOWING) return;
 
         if (index < lines.length - 1) {
             state = State.FADE_OUT;
@@ -84,7 +84,7 @@ public class CutsceneScreen extends UIScreen {
 
         if (timer != null) timer.stop();
 
-        timer = new Timer(20, e -> {
+        timer = new Timer(1, e -> {
 
             switch (state) {
 

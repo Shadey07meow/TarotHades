@@ -26,6 +26,8 @@ public class WorldRenderer {
     private int distanceFromCenter = 20 * 4 ;
     private final double xThresholdd = 50; 
     private final double yThresholdd = 50; 
+    private final double xMargin = 30;
+    private final double yMargin = 30;
 
     private boolean debugMode = true;
 
@@ -60,6 +62,7 @@ public class WorldRenderer {
     {
         this.setMap(this.map);
         this.setPlayer(this.player);
+        initiateCamera();
     }
 
     // Add game object to the game world
@@ -260,14 +263,14 @@ public class WorldRenderer {
         // Checks whether the top of the map is at the edge of the top of the screen
         if(player.getVelocity().y < 0)
         {
-            if((int)map.getPosition().y + (int)(map.getScaledHeight() / 2) < gamePanel.getHeight()) 
+            if((int)map.getPosition().y + (int)(map.getScaledHeight() / 2) < gamePanel.getHeight() + yMargin) 
             {
                 b = true;
             }
         } 
         else if(player.getVelocity().y > 0)
         {
-            if((int)map.getPosition().y - (int)(map.getScaledHeight() / 2) > 0) 
+            if((int)map.getPosition().y - (int)(map.getScaledHeight() / 2)  > -yMargin) 
             {
                 b = true;
             }
@@ -284,14 +287,14 @@ public class WorldRenderer {
         
         if(player.getVelocity().x < 0)
         {
-            if((int)map.getPosition().x - (int)(map.getScaledWidth() / 2) > 0) 
+            if((int)map.getPosition().x - (int)(map.getScaledWidth() / 2) > -xMargin) 
             {
                 b = true;
             }
         }
         else if(player.getVelocity().x > 0)
         {
-            if((int)map.getPosition().x + (int)(map.getScaledWidth() / 2) <  gamePanel.getWidth()) 
+            if((int)map.getPosition().x + (map.getScaledWidth() / 2) <  gamePanel.getWidth() + xMargin) 
             {
                 b = true;
 
@@ -335,6 +338,32 @@ public class WorldRenderer {
 
     }
 
+    public void initiateCamera()
+    {
+
+        for (GameObject obj : objectList)
+        {   
+            Vector2 desVel = new Vector2();
+        
+            // Move objects
+            if((int)map.getPosition().x - (int)(map.getScaledWidth() / 2) > -xMargin) 
+            {
+                
+            }
+
+            obj.move(desVel);
+            obj.interpolate(1);
+        }
+
+        // When entering a world, reset the world to be able to
+
+    }
+
+    public Map getMap()
+    {
+        return this.map;
+    }
+
     public void drawDebugWorld(Graphics g)
     {
         Graphics2D graphics2 = (Graphics2D) g;
@@ -358,13 +387,14 @@ public class WorldRenderer {
 
                             if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
 
-
+                            
                             RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                            //System.out.println(tempCol.getLocalBounds().getWidth());
                             graphics2.drawRect(
-                                (int) obj.getRenderX() - (((int)Math.abs(tempCol.getLocalBounds().LEFT.x) + (int)Math.abs(tempCol.getLocalBounds().RIGHT.x )) / 2),
-                                (int) obj.getRenderY() - (((int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + (int)Math.abs(tempCol.getLocalBounds().TOP.y )) / 2),
-                                (int)Math.abs(tempCol.getLocalBounds().LEFT.x) + Math.abs((int)tempCol.getLocalBounds().RIGHT.x ),
-                                (int)Math.abs(tempCol.getLocalBounds().BOTTOM.y) + Math.abs((int)tempCol.getLocalBounds().TOP.y )
+                                (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
+                                (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
+                                tempCol.getLocalBounds().getWidth(),
+                                tempCol.getLocalBounds().getLength()                            
                             );
                         }
                     }
