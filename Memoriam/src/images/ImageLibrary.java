@@ -164,7 +164,7 @@ private ImageLibrary()
                         "assets/maps/lobby.png")).getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);            
                 
                 map1 =  new ImageIcon(getClass().getResource(
-                        "assets/maps/map1.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                        "assets/maps/map_n_01.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
                 map2 =  new ImageIcon(getClass().getResource(
                         "assets/maps/map2.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);

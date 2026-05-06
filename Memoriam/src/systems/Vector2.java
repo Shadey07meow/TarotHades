@@ -32,6 +32,19 @@ public class Vector2 {
         return new Vector2(a.x + b.x, a.y + b.y);
     }
 
+    public Vector2 abs()
+    {
+        Vector2 absVector =new Vector2(Math.abs(this.x), Math.abs(this.y));
+        return absVector;
+    }
+
+    public static Vector2 abs(Vector2 v)
+    {
+        Vector2 absVector =new Vector2(Math.abs(v.x), Math.abs(v.y));
+        return absVector;
+    }
+
+
     public static Vector2 subtract(Vector2 a, Vector2 b)
     {
         // Add 2 vectors

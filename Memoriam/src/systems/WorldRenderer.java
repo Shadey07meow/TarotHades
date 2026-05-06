@@ -125,31 +125,8 @@ public class WorldRenderer {
                 moveObjectsWithWorldY();
             }
 
+
                 
-        }
-    }
-
-    public void moveObjectsWithWorld()
-    {
-        for (GameObject obj : objectList)
-        {   
-            Vector2 desVel = new Vector2();
-        
-            // Move objects
-            // Move everything horizontally
-            if(!atMapBorderY())
-            {
-                desVel = Vector2.add(desVel, new Vector2(0, -player.getVelocity().y));
-                
-            } 
-            if(!atMapBorderX())
-            {
-
-                desVel = Vector2.add(desVel, new Vector2(-player.getVelocity().x, 0));    
-            } 
-
-            obj.move(desVel);
-            obj.interpolate(1);
         }
     }
 
