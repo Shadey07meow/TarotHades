@@ -276,16 +276,13 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
-    public InputManager getInputManager()
-    {
-        return this.inputManager;
-    }
-
-    public WorldRenderer getWorldRenderer()
-    {
-        return this.world;
-    }
     
+        
+
+    
+
+
+
     public void updateCollisions()
     {
         for(int x = 0; x < world.getObjectList().size(); x++)

@@ -230,32 +230,6 @@ public class CardManager {
 
         LevelManager.loadLevel(scrn.getID() + 1, scrn);
     }
-        chestState = 0;
-
-        // Enables inputs
-        this.scrn.getWorldRenderer().getPlayer().setUIOpen(false); 
-
-
-        // Wtf is this
-        // Just call LevelManager
-        // this.getGameFrame().cutsceneScreen.loadCutsceneForLevel(this.id + 1);
-        // this.getGameFrame().showPanel("cutscene");
-
-        
-        LevelManager.loadLevel(this.scrn.getID() + 1, this.scrn);
-
-        // Do the two things stated here for transition
-    }
-
-    
-    public void closeChestUI() {
-        showChestUI = false;
-        this.scrn.getWorldRenderer().getPlayer().setUIOpen(false);
-        currentCards.clear();
-    }
-    
-   
-
     
     public void triggerLevelChange() {
         isFading = true;

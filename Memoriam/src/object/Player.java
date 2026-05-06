@@ -45,7 +45,7 @@ public class Player extends Entity {
     private boolean isDead = false;
     private double currentCooldown = 0;
     private boolean uiOpen = false;    
-
+    private Vector2 curSpeed = new Vector2(); 
     private final int regenBase   = 120;
     
     // constructor
@@ -151,12 +151,12 @@ public class Player extends Entity {
     private void movePlayer() 
     {
         Vector2 inpVector = inputs.getInputVector();
-        Vector2 speedVector = Vector2.multiply(inputs.getInputVector(), this.speed);
+        curSpeed = Vector2.multiply(inputs.getInputVector(), this.speed);
 
         // Clamp movement speed so that it never exceeds speed
-        if(Math.abs(speedVector.findMag()) > speed) speedVector = Vector2.magConvert(speedVector, speed);
+        if(Math.abs(curSpeed.findMag()) > speed) curSpeed = Vector2.magConvert(curSpeed, speed);
     
-        move(speedVector);
+        move(curSpeed);
         
         // Set images, make looking up and down priority
         if (inpVector.x > 0) setImage(spriteRight);
@@ -248,7 +248,7 @@ public class Player extends Entity {
         if (!hasRegen) return;
 
         int regenLevel   = Math.max(getAbilityLevel(PlayerAbility.HP_REGEN), getAbilityLevel(PlayerAbility.FORTIFIED_REGEN));
-        int regenInterval = Math.max(regenBase / regenLevel, 1);
+        regenInterval = Math.max(regenBase / regenLevel, 1);
  
         regenTickCounter++;
         if (regenTickCounter >= regenInterval) {
@@ -345,6 +345,13 @@ public class Player extends Entity {
         this.world = w;
         System.out.println("Added a world renderer");
     }
+
+    @Override
+    public void onDeath()
+    {
+        
+    }
+
     // Getters
     public double     getHealth()    { return stats.getCurrentHP(); }
     public int        getMaxHP()     { return stats.getMaxHP(); }
@@ -354,7 +361,7 @@ public class Player extends Entity {
     
 
     public void setUIOpen(boolean open) {this.uiOpen = open;}
-    public Vector2 getVelocity(){return Vector2.multiply(inputs.getInputVector(), speed);}
+    public Vector2 getVelocity(){return curSpeed;}
     public boolean isInteracting(){ return this.isInteracting;}
     public void checkInteracting(){isInteracting = inputs.getIsInteracting();}
 }
