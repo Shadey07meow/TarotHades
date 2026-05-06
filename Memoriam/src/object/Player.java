@@ -319,17 +319,12 @@ public class Player extends Entity {
     }
 
     public boolean hasAbility(PlayerAbility ability) {
-        return abilities.contains(ability);
+       return getAbilityLevel(ability) >= 1;
     }   
 
     @Override
-    public void onDeath()
-    {
-        
-    }
+    public void onDeath(){}
 
-        return getAbilityLevel(ability) >= 1;
-    }   
 
     public int getAbilityLevel(PlayerAbility ability) {
         return abilityStacks.getOrDefault(ability, 0);
@@ -346,12 +341,7 @@ public class Player extends Entity {
         System.out.println("Added a world renderer");
     }
 
-    @Override
-    public void onDeath()
-    {
-        
-    }
-
+  
     // Getters
     public double     getHealth()    { return stats.getCurrentHP(); }
     public int        getMaxHP()     { return stats.getMaxHP(); }
