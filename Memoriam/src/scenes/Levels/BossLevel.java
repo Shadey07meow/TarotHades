@@ -22,7 +22,7 @@ public class BossLevel extends PlayableScreen {
                 this.player.getPosition(), 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -60 * 120)), 
+                    -24 * 120)),  
             player, 2, this);
 
         world.addObject(tr1);
@@ -175,7 +175,7 @@ public class BossLevel extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map5, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 26  * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
     }
 
     @Override   

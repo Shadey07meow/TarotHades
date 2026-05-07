@@ -22,7 +22,7 @@ public class Level4 extends PlayableScreen {
                 this.player.getPosition(), 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -57 * 120)), 
+                    -24 * 120)), 
             player, 2, this);
         
         // Add Barrier objects
@@ -92,7 +92,7 @@ public class Level4 extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map4, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 26 * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
     }
 
     @Override   

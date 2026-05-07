@@ -22,7 +22,7 @@ public class Level3 extends PlayableScreen {
                 this.player.getPosition(), 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -57 * 120)), 
+                    -24 * 120)), 
             player, 2, this);
 
         world.addObject(new BarrierObject(
@@ -87,7 +87,7 @@ public class Level3 extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map3, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 26 * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
     }
 
     @Override   

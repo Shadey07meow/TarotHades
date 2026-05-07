@@ -319,6 +319,25 @@ public class Player extends Entity {
         }
     }
 
+    // map boundary/collider
+    public void keepInsideScreen() {
+        int halfW = getScaledWidth() / 2;
+        int halfH = getScaledHeight() / 2;
+
+        int maxX = 1920;
+        int maxY = 1080;
+        int screenWidth = this.playScrn.getWidth();
+        int screenHeight = this.playScrn.getHeight();
+
+        if (getX() - halfW < 0) setX(halfW);
+        if (getY() - halfH < 0) setY(halfH);
+
+        if (getX() + halfW > maxX) setX(maxX - halfW);
+        if (getY() + halfH > maxY) setY(maxY - halfH);
+        if (getX() + halfW > screenWidth) setX(screenWidth - halfW);
+        if (getY() + halfH > screenHeight) setY(screenHeight - halfH);
+    }
+
     @Override
     public void addHP(double a) {
         stats.heal((int) a);

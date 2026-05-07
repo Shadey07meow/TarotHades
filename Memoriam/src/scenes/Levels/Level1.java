@@ -23,7 +23,7 @@ public class Level1 extends PlayableScreen {
                 this.center, 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -57 * 120)), 
+                    -24 * 120)), 
             player, 2, this);
 
         // Add Barrier objects
@@ -150,6 +150,12 @@ public class Level1 extends PlayableScreen {
 
 
         // Add Enemy Objects
+
+        world.addObject(new PurpleWisp(
+            Vector2.add(new Vector2(120 +10, 120 +1), player.getPosition()), 
+            6, 
+            this
+            ));
         
         
 
@@ -166,7 +172,7 @@ public class Level1 extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 26 * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
     }
 
     @Override   

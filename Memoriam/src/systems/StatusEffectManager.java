@@ -1,25 +1,33 @@
 package systems;
 
-import images.ImageLibrary;
+import java.util.*;
 import object.Player;
 import object.PlayerAbility;
+import object.Relic;
+import object.RelicStatusEffect;
 import object.StatusEffect;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.*;
-import java.util.List;
 
 public class StatusEffectManager {
 
 
     private static StatusEffectManager instance;
+    // for relic status
+    private final ArrayList<RelicStatusEffect> activeRelics = new ArrayList<>();
 
     public static StatusEffectManager get() {
         if (instance == null) instance = new StatusEffectManager();
         return instance;
     }
 
+    // add relics
+    public void addRelic(Relic relic) {
+        activeRelics.add(new RelicStatusEffect(relic));
+    }
+    //get active relics
+    public List<RelicStatusEffect> getActiveRelics() {
+        return activeRelics;
+    }
+    
     public void addOrStack(PlayerAbility ability, int durationLevels) {
         StatusEffect existing = activeEffects.get(ability);
         if (existing != null) {
@@ -31,6 +39,7 @@ public class StatusEffectManager {
                 " → levelsLeft=" + activeEffects.get(ability).getLevelsRemaining() +
                 " power=" + activeEffects.get(ability).getPowerLevel());
     }
+
 
     /** Call between runs to wipe all effects. */
     public static void reset() { instance = new StatusEffectManager(); }
