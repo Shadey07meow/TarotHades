@@ -1,13 +1,10 @@
 package scenes;
 
-import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.awt.Color;
 import object.*;
 import systems.*;
-import java.awt.Rectangle;
 
 public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
@@ -102,6 +99,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         // restore abilities from previous level
         LevelManager.restorePlayerAbilities(this.player);
         
+        
         // Initialized first before running game loop
         try{
 
@@ -186,6 +184,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         crdManager.sizeCard();
         crdManager.checkHoveringButtons();
         crdManager.checkHoveringButtons();
+        player.keepInsideScreen();
 
         world.updateWorld();
     }

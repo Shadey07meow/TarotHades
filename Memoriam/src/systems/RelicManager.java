@@ -1,7 +1,6 @@
 package systems;
 
 import object.Player;
-import object.PlayerAbility;
 import object.Relic;
 
 /** We call the skills in the lobby as relics, and this stores the chosen relic
@@ -28,6 +27,9 @@ public class RelicManager{
     public void applyRelic(Relic relic, Player player) {
         this.chosenRelic = relic;
         this.deathUsed   = false;
+
+        //adds relics to status manager
+        StatusEffectManager.get().addRelic(relic);
 
         switch (relic) {
 

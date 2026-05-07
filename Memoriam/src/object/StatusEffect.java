@@ -5,7 +5,7 @@ public class StatusEffect {
     public final PlayerAbility ability;
     private int remainingLevels;
     private int powerLevel; 
-     private final int durationPerStack;
+    private final int durationPerStack;
 
     public StatusEffect(PlayerAbility ability, int durationLevels){
         this.ability = ability;
@@ -13,6 +13,7 @@ public class StatusEffect {
         this.powerLevel = 1;
         this.durationPerStack = durationLevels;
     }
+
 
     public void stack() {
         remainingLevels += durationPerStack;  

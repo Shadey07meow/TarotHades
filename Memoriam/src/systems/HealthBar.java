@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import object.Player;
 import object.PlayerAbility;
+import object.RelicStatusEffect;
 import object.StatusEffect;
 
 /* Draws the player's heart-based health bar in the upper-left corner.
@@ -20,7 +21,7 @@ import object.StatusEffect;
 public class HealthBar {
 
     // Pixel size each heart is drawn at. 
-    private static final int HEART_SIZE     = 36;
+    private static final int HEART_SIZE     = 50;
 
     // Horizontal gap between hearts. 
     private static final int HEART_SPACING  = 4;
@@ -37,7 +38,7 @@ public class HealthBar {
     // How many hearts fit in one row before wrapping. 
     private static final int HEARTS_PER_ROW = 10;
 
-    private static final int ICON_SIZE      = 40;
+    private static final int ICON_SIZE      = 50;
     private static final int ICON_SPACING   = 8;
     private static final int ICON_MARGIN    = 16;    // from left edge (same as heart bar)
     // Gap between the bottom of the last heart row and the top of the icon strip
@@ -49,6 +50,7 @@ public class HealthBar {
 
     private final BufferedImage heartAlive;
     private final BufferedImage heartDead;
+
 
 
     public HealthBar() {
@@ -87,48 +89,72 @@ public class HealthBar {
     }
 
 
-     private void drawStatusIcons(Graphics2D g2, Rectangle clip, Player player) {
-        List<StatusEffect> effects = StatusEffectManager.get().getActiveEffects();
-        if (effects.isEmpty()) return;
+        private void drawStatusIcons(Graphics2D g2, Rectangle clip, Player player) {
+            List<StatusEffect> effects = StatusEffectManager.get().getActiveEffects();
+            List<RelicStatusEffect> relics = StatusEffectManager.get().getActiveRelics();
+            if (effects.isEmpty() && relics.isEmpty()) return;
 
-        ImageLibrary img = ImageLibrary.get();
+            ImageLibrary img = ImageLibrary.get();
 
-        // sit below the heart bar
-        int heartRows = (int) Math.ceil((double) player.getStats().getMaxHP() / HEARTS_PER_ROW);
-        int iconsY    = MARGIN_TOP + heartRows * ROW_HEIGHT + 10;
-        int x         = MARGIN_LEFT; // left-aligned, same as hearts
+            // sit below the heart bar
+            int heartRows = (int) Math.ceil((double) player.getStats().getMaxHP() / HEARTS_PER_ROW);
+            int iconsY    = MARGIN_TOP + heartRows * ROW_HEIGHT + 10;
+            int x         = MARGIN_LEFT; // left-aligned, same as hearts
+            
+            // paint relics first
+            for (RelicStatusEffect r : relics) {
 
-        for (StatusEffect effect : effects) {
+                BufferedImage icon = switch (r.getRelic()) {
+                    case DEATH -> img.iconDeath;
+                    case MAGICIAN -> img.iconTheMagician;
+                    case THE_EMPRESS -> img.iconTheEmpress;
+                };
 
-            // pick the right icon image from ImageLibrary
-            BufferedImage icon = switch (effect.getAbility()) {
-                case HP_REGEN        -> img.iconTwoOfCups;
-                case FLAME_SHOT      -> img.iconAceOfWands;
-                case MULTI_SHOT      -> img.iconTenOfSwords;
-                case FORTIFIED_REGEN -> img.iconNineOfPentacles;
-                case SHIELD          -> img.iconQueenOfCups;
-                case SPEED_ENHANCE   -> img.iconKnightOfWands;
-            };
+                g2.setColor(new Color(0, 0, 0, 160));
+                g2.fillRoundRect(x - 3, iconsY - 3, ICON_SIZE + 6, ICON_SIZE + 22, 10, 10);
 
-            // dark background pill
-            g2.setColor(new Color(0, 0, 0, 160));
-            g2.fillRoundRect(x - 3, iconsY - 3, ICON_SIZE + 6, ICON_SIZE + 22, 10, 10);
+                if (icon != null) {
+                    g2.drawImage(icon, x, iconsY, ICON_SIZE, ICON_SIZE, null);
+                }
 
-            // draw the actual icon image
-            if (icon != null) {
-                g2.drawImage(icon, x, iconsY, ICON_SIZE, ICON_SIZE, null);
+                g2.setFont(new Font("Monospaced", Font.BOLD, 11));
+                g2.setColor(new Color(255, 220, 120));
+                g2.drawString("REL", x + 10, iconsY + ICON_SIZE + 13);
+
+                x += ICON_SIZE + ICON_SPACING;
             }
 
-            // "2L" levels-remaining label underneath
-            g2.setFont(new Font("Monospaced", Font.BOLD, 11));
-            String lvlText = effect.getLevelsRemaining() + "L";
-            int lw = g2.getFontMetrics().stringWidth(lvlText);
-            g2.setColor(new Color(220, 220, 100));
-            g2.drawString(lvlText, x + (ICON_SIZE - lw) / 2, iconsY + ICON_SIZE + 13);
+            for (StatusEffect effect : effects) {
 
-            x += ICON_SIZE + ICON_SPACING; // next icon goes to the right
+                // pick the right icon image from ImageLibrary
+                BufferedImage icon = switch (effect.getAbility()) {
+                    case HP_REGEN        -> img.iconTwoOfCups;
+                    case FLAME_SHOT      -> img.iconAceOfWands;
+                    case MULTI_SHOT      -> img.iconTenOfSwords;
+                    case FORTIFIED_REGEN -> img.iconNineOfPentacles;
+                    case SHIELD          -> img.iconQueenOfCups;
+                    case SPEED_ENHANCE   -> img.iconKnightOfWands;
+                };
+
+                // dark background pill
+                g2.setColor(new Color(0, 0, 0, 160));
+                g2.fillRoundRect(x - 3, iconsY - 3, ICON_SIZE + 6, ICON_SIZE + 22, 10, 10);
+
+                // draw the actual icon image
+                if (icon != null) {
+                    g2.drawImage(icon, x, iconsY, ICON_SIZE, ICON_SIZE, null);
+                }
+
+                // "2L" levels-remaining label underneath
+                g2.setFont(new Font("Monospaced", Font.BOLD, 11));
+                String lvlText = effect.getLevelsRemaining() + "L";
+                int lw = g2.getFontMetrics().stringWidth(lvlText);
+                g2.setColor(new Color(220, 220, 100));
+                g2.drawString(lvlText, x + (ICON_SIZE - lw) / 2, iconsY + ICON_SIZE + 13);
+
+                x += ICON_SIZE + ICON_SPACING; // next icon goes to the right
+        }
     }
-}
 
     /** Small dots below the icon indicating power/stack level. */
     private void drawPowerDots(Graphics2D g2, int iconX, int iconY, int power) {

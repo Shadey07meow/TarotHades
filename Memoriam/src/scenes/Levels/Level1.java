@@ -150,6 +150,12 @@ public class Level1 extends PlayableScreen {
 
 
         // Add Enemy Objects
+
+        world.addObject(new PurpleWisp(
+            Vector2.add(new Vector2(120 +10, 120 +1), player.getPosition()), 
+            6, 
+            this
+            ));
         
         
 

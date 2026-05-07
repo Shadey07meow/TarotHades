@@ -22,7 +22,7 @@ public class BossLevel extends PlayableScreen {
                 this.player.getPosition(), 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -60 * 120)), 
+                    -24 * 120)),  
             player, 2, this);
 
         world.addObject(tr1);

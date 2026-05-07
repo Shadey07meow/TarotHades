@@ -4,6 +4,7 @@ import images.ImageLibrary;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
@@ -54,14 +55,16 @@ public class CardManager {
             "Two of Cups",
             images.TwoOfCups,
             Rarity.COMMON,
-            PlayerAbility.HP_REGEN
+            PlayerAbility.HP_REGEN,
+            images.TwoOfCupsHover
         ));
 
         common.add(new Card(
             "Ace of Wands",
             images.AceOfWands,
             Rarity.COMMON,
-            PlayerAbility.FLAME_SHOT
+            PlayerAbility.FLAME_SHOT,
+            images.AceOfWandsHover
         ));
 
         // RARE MINOR ARCANA
@@ -69,14 +72,16 @@ public class CardManager {
             "Ten of Swords",
             images.TenOfSwords,
             Rarity.RARE,
-            PlayerAbility.MULTI_SHOT
+            PlayerAbility.MULTI_SHOT,
+            images.TenOfSwordsHover
         ));
 
         rare.add(new Card(
             "Nine of Pentacles",
             images.NineOfPentacles,
             Rarity.RARE,
-            PlayerAbility.FORTIFIED_REGEN
+            PlayerAbility.FORTIFIED_REGEN,
+            images.NineOfPentaclesHover
         ));
 
         // LEGENDARY MINOR ARCANA
@@ -84,32 +89,37 @@ public class CardManager {
             "Queen of Cups",
             images.QueenOfCups,
             Rarity.LEGENDARY,
-            PlayerAbility.SHIELD
+            PlayerAbility.SHIELD,
+            images.QueenOfCupsHover
         ));
 
         legendary.add(new Card(
             "Knight of Wands",
             images.KnightOfWands,
             Rarity.LEGENDARY,
-            PlayerAbility.SPEED_ENHANCE
+            PlayerAbility.SPEED_ENHANCE,
+            images.KnightOfWandsHover
         ));
 
         bigThree.add(new RelicCard(
             "Death",       
             images.Death,      
-            Relic.DEATH
+            Relic.DEATH,
+            images.DeathHover
         ));
         
         bigThree.add(new RelicCard(
             "The Magician",
             images.Magician,   
-            Relic.MAGICIAN
+            Relic.MAGICIAN,
+            images.MagicianHover
         ));
 
         bigThree.add(new RelicCard(
             "The Empress", 
             images.Empress,    
-            Relic.THE_EMPRESS
+            Relic.THE_EMPRESS,
+            images.EmpressHover
         ));
     }
 
@@ -303,7 +313,7 @@ public class CardManager {
             int startX = (this.scrn.getWidth() - totalWidth) / 2;
             int y = (this.scrn.getHeight() - cardH) / 2;
 
-            Vector2 mouse = this.scrn.getInputManager().getClickPosition(); // last mouse pos
+            Vector2 mouse = this.scrn.getInputManager().getMousePosition(); // last mouse pos
 
             hoveredCardIndex = -1;
 
@@ -342,10 +352,13 @@ public class CardManager {
             int x = startX + i * (cardW + spacing);
             Card c = currentCards.get(i);
 
+            if (c != null && c.image != null) {
+                graphics2.drawImage(c.image, x, y, cardW, cardH, null);
+            }
+
             // hover grey
             if (i == hoveredCardIndex) {
-                graphics2.setColor(new Color(0, 0, 0, 120));
-                graphics2.fillRect(x, y, cardW, cardH);
+                graphics2.drawImage(c.imageHover, x, y, cardW, cardH, null);
             }
 
             // select highlight
@@ -354,9 +367,6 @@ public class CardManager {
                 graphics2.fillRect(x, y, cardW, cardH);
             }
 
-            if (c != null && c.image != null) {
-                graphics2.drawImage(c.image, x, y, cardW, cardH, null);
-            }
         }
     }
 
@@ -372,8 +382,8 @@ public class CardManager {
     public static class RelicCard extends Card {
         public final Relic relic;
 
-        public RelicCard(String name, java.awt.Image image, Relic relic) {
-            super(name, image, Rarity.LEGENDARY, null);   // no PlayerAbility
+        public RelicCard(String name, Image image, Relic relic, Image imageHover) {
+            super(name, image, Rarity.LEGENDARY, null, imageHover);   // no PlayerAbility
             this.relic = relic;
         }
     }

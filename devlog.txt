@@ -17,6 +17,14 @@ KEEP THIS ON TOP
     - Pause screen logic working
     - Added new ui elements
 
+--> 05/07/2026
+    (CalRya)
+    - Added new Assets
+    - Added card hover on treasure chest
+    - Fixed map boundary colliders
+    - Updated Maps + Treasure chest position + player position
+    - fixed small error: icons only appearing after level 1/not including relics (still need optimization)
+    - made ui bits bigger
 
 --> 05/03/2026
     (Shadey07)

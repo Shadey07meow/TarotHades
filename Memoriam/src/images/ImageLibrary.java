@@ -92,6 +92,17 @@ public class ImageLibrary
     public final BufferedImage AceOfWands;
     public final BufferedImage Death;
 
+    // card hover
+    public final BufferedImage EmpressHover;
+    public final BufferedImage KnightOfWandsHover;
+    public final BufferedImage MagicianHover;
+    public final BufferedImage NineOfPentaclesHover;
+    public final BufferedImage QueenOfCupsHover;
+    public final BufferedImage TenOfSwordsHover;
+    public final BufferedImage TwoOfCupsHover;
+    public final BufferedImage AceOfWandsHover;
+    public final BufferedImage DeathHover;
+
     // Objects
     public final BufferedImage treasureChest;
     public final BufferedImage treasureChestH;
@@ -186,7 +197,7 @@ private ImageLibrary()
                         "assets/maps/lobby.png")).getImage().getScaledInstance(1920, 1080, Image.SCALE_SMOOTH);            
                 
                 map1 =  new ImageIcon(getClass().getResource(
-                        "assets/maps/map_n_01.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
+                        "assets/maps/map1.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
                 map2 =  new ImageIcon(getClass().getResource(
                         "assets/maps/map2.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
@@ -212,6 +223,17 @@ private ImageLibrary()
                 TwoOfCups = ImageIO.read(getClass().getResource("assets/Cards/TwoOfCups.png"));
                 AceOfWands = ImageIO.read(getClass().getResource("assets/Cards/AceOfWands.png"));
                 Death = ImageIO.read(getClass().getResource("assets/Cards/Death.png"));
+
+                // card hovers
+                EmpressHover = ImageIO.read(getClass().getResource("assets/Cards/EmpressHover.png"));
+                KnightOfWandsHover = ImageIO.read(getClass().getResource("assets/Cards/KnightOfWandsHover.png"));
+                MagicianHover = ImageIO.read(getClass().getResource("assets/Cards/MagicianHover.png"));
+                NineOfPentaclesHover = ImageIO.read(getClass().getResource("assets/Cards/NineOfPentaclesHover.png"));
+                QueenOfCupsHover = ImageIO.read(getClass().getResource("assets/Cards/QueenOfCupsHover.png"));
+                TenOfSwordsHover = ImageIO.read(getClass().getResource("assets/Cards/TenOfSwordsHover.png"));
+                TwoOfCupsHover = ImageIO.read(getClass().getResource("assets/Cards/TwoOfCupsHover.png"));
+                AceOfWandsHover = ImageIO.read(getClass().getResource("assets/Cards/AceOfWandsHover.png"));
+                DeathHover = ImageIO.read(getClass().getResource("assets/Cards/DeathHover.png"));
 
                 //card icons
 
