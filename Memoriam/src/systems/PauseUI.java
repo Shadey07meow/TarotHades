@@ -2,6 +2,9 @@ package systems;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import images.ImageLibrary;
+
 import java.awt.Color;
 import scenes.*;
 import systems.*;
@@ -73,23 +76,43 @@ public class PauseUI {
             backDrop.height
         );
 
-        g.setColor(Color.BLUE);
 
 
-        g.fillRect(
+        
+        // g.setColor(Color.BLUE);
+        // g.fillRect(
+        //     resumeButton.x,
+        //     resumeButton.y,
+        //     resumeButton.width,
+        //     resumeButton.height
+        // );
+
+        
+        // g.setColor(Color.RED);
+        // g.fillRect(
+        //     quitButton.x,
+        //     quitButton.y,
+        //     quitButton.width,
+        //     quitButton.height
+        // );
+
+        g.drawImage(
+            ImageLibrary.get().resumeBtn,
             resumeButton.x,
             resumeButton.y,
             resumeButton.width,
-            resumeButton.height
+            resumeButton.height,
+            null
         );
-
-        
-        g.setColor(Color.RED);
-        g.fillRect(
+        g.drawImage(
+            ImageLibrary.get().quitBtn,
             quitButton.x,
             quitButton.y,
             quitButton.width,
-            quitButton.height
+            quitButton.height,
+            null
         );
+        
+
     }
 }

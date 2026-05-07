@@ -13,6 +13,7 @@ KEEP THIS ON TOP
     - Made the enemies shoot stuff
     - Made the Boss actually win
     - Pause screen logic working
+    - Added new ui elements
 
 
 --> 05/03/2026

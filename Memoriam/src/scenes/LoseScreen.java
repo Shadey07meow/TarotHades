@@ -21,20 +21,20 @@ public class LoseScreen extends UIScreen {
 
         setLayout(new BorderLayout());
 
-        retryBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
+        retryBtn = gameFrame.createImageButton(ImageLibrary.get().restartBtn, 250, 100);
         retryBtn.addActionListener(e -> {
             gameFrame.showPanel("start");
         });
 
-        menuBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 250, 100);
+        menuBtn = gameFrame.createImageButton(ImageLibrary.get().quitBtn, 250, 100);
         menuBtn.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
 
         gameFrame.addHoverEffect(
             menuBtn,
-            ImageLibrary.get().optionBtn,
-            ImageLibrary.get().optionBtnHover,
+            ImageLibrary.get().quitBtn,
+            ImageLibrary.get().quitBtn,
             353, 100
         );
 
