@@ -94,9 +94,23 @@ public class ImageLibrary
     public final Image projectile;
     public final BufferedImage fireProjectile;
 
+    //Skill Icons
+    public final BufferedImage iconAceOfWands;
+    public final BufferedImage iconDeath;
+    public final BufferedImage iconKnightOfWands;
+    public final BufferedImage iconNineOfPentacles;
+    public final BufferedImage iconQueenOfCups;
+    public final BufferedImage iconTheEmpress;
+    public final BufferedImage iconTheMagician;
+    public final BufferedImage iconTwoOfCups;
+    public final BufferedImage iconTenOfSwords;
+    
+
     // Player UI
     public final BufferedImage heart;
     public final BufferedImage deadHeart;
+
+
 
 
 private ImageLibrary()
@@ -190,12 +204,26 @@ private ImageLibrary()
                 TwoOfCups = ImageIO.read(getClass().getResource("assets/Cards/TwoOfCups.png"));
                 AceOfWands = ImageIO.read(getClass().getResource("assets/Cards/AceOfWands.png"));
                 Death = ImageIO.read(getClass().getResource("assets/Cards/Death.png"));
+
+                //card icons
+
+                iconTheEmpress = ImageIO.read(getClass().getResource("assets/Powerups/The_Empress.png"));
+                iconKnightOfWands = ImageIO.read(getClass().getResource("assets/Powerups/Knight_Of_Wands.png"));
+                iconTheMagician =  ImageIO.read(getClass().getResource("assets/Powerups/The_Magician.png"));
+                iconNineOfPentacles = ImageIO.read(getClass().getResource("assets/Powerups/Nine_of_Pentacles.png"));
+                iconQueenOfCups = ImageIO.read(getClass().getResource("assets/Powerups/Queen_of_Cups.png"));
+                iconTenOfSwords =  ImageIO.read(getClass().getResource("assets/Powerups/Ten_Of_Swords.png"));
+                iconTwoOfCups= ImageIO.read(getClass().getResource("assets/Powerups/Two_Of_Cups.png"));
+                iconAceOfWands = ImageIO.read(getClass().getResource("assets/Powerups/Ace_of_Wands.png"));
+                iconDeath = ImageIO.read(getClass().getResource("assets/Powerups/Death.png"));
+                
                 
                 // Objects
                 treasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChest.png"));
                 treasureChestH = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png"));
                 rawProjectile = ImageIO.read(getClass().getResource("assets/objects/projectile.png"));
                 fireProjectile = ImageIO.read(getClass().getResource("assets/objects/fireProjectile.png"));
+
                 
 
                 // Enemy GIFs animation preserved
