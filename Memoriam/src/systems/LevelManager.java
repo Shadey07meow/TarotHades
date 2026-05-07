@@ -62,7 +62,6 @@ public class LevelManager {
         System.out.println("Finished cutscenes"); 
         currentLevel.closeGameLoop();
         searchLevel(id);
-
     }
 
     private static void searchLevel(int id) {

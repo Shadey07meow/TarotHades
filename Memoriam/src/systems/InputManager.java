@@ -129,8 +129,8 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
     {
         if(m.getButton() == MouseEvent.BUTTON1)
         {
-              mousePressed = false;
-            
+            mousePressed = false;
+            mouseClicked = false;
         }
     }
 
@@ -194,6 +194,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
    public Vector2 getInputVector() {return  this.moveVector;}
     
     public Vector2 getClickPosition() {return clickPosition;}
+    public boolean getMouseClicked() {return mouseClicked;}
     public Vector2 getMousePosition() {return mousePosition;}
     public boolean getIsInteracting(){return this.isInteracting;}
 

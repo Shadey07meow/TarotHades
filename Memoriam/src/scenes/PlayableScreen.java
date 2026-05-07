@@ -1,10 +1,13 @@
 package scenes;
 
+import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.awt.Color;
 import object.*;
 import systems.*;
+import java.awt.Rectangle;
 
 public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
@@ -13,25 +16,23 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     protected WorldRenderer world = null;
     protected Player player;
-    
     private Thread gameLoop = null;
     private volatile  boolean isRunning = true;
-
     InputManager inputManager = new InputManager();
-
     static int framesPerSecond = 60;
     protected Vector2 center = new Vector2();
     protected Map     currentMap;
-
     private CardManager crdManager  = new CardManager(this);
     private HealthBar healthBar = new HealthBar();  
-
     private int hoveredCardIndex = -1;
     private int selectedCardTimer = 0;
-
+    
+    private PauseUI pauseUI;
     private boolean isFading = false;
-    private float fade     = 0f;
-
+    private boolean isPaused = false;
+    private float fade = 0f;
+    
+    //private JPanel gameWorldPanel = new JPanel();
     private final int id;
 
     // constructor
@@ -73,6 +74,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
         this.isRunning = true;
         this.gameLoop = new Thread(this);
+        this.pauseUI = new PauseUI(this, this.getGameFrame());
         requestFocusInWindow();
         initWindow();
         startGamePanel();
@@ -134,7 +136,17 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             //System.out.println("Update function is being called");
 
             // Call update function
-            update();
+            checkPausing();
+            if(!isPaused)
+            {
+                update();
+            } else
+            {
+                if(inputManager.getMouseClicked())
+                {
+                    pauseUI.onClicked(inputManager.getClickPosition());
+                }
+            }
     
             // Paint the panel every frame
             try {
@@ -165,7 +177,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         }
 
         // when esc is press, show pause panel
-        checkPausing();
+  
         
         doFading();
         
@@ -182,7 +194,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
         // Pause Logic
         if (inputManager.isPausePressed()) {
-            this.getGameFrame().showPanel("pause");
+            // this.getGameFrame().showPanel("pause");
+            this.isPaused = !this.isPaused;
         }
     }
 
@@ -219,7 +232,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-  
+ 
+
         drawWorld(g);
 
         if(world != null)
@@ -235,7 +249,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             healthBar.draw(g, world.getPlayer());
         }
 
+               
+        if(isPaused)
+        {
+            // System.out.println("Hello there i am aabout to destroyyy this");
+            pauseUI.drawPause(g);
+        }
     }
+
 
     private void drawWorld(Graphics g)
     {
@@ -297,8 +318,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         }
     }
 
-     public InputManager getInputManager(){return this.inputManager;}
+    public InputManager getInputManager(){return this.inputManager;}
     public WorldRenderer getWorldRenderer(){return this.world;}
     public CardManager getCardManager(){ return this.crdManager;}
-    
+    public boolean getIsPaused(){return this.isPaused;}
+    public void setIsPaused(boolean r){this.isPaused = r;}
 }
