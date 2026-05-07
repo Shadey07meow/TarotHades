@@ -1,6 +1,5 @@
 package scenes.levels;
 
-import collision.*;
 import images.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -65,16 +64,16 @@ public class GameStart extends PlayableScreen {
     @Override
     public void startGamePanel()
     { 
+
+         LevelManager.startNewRun();
         
         // GameObject box1 = new GameObject(300, 300, 50, this);
         // box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
         // GameObject box2 = new GameObject(300, 500, 50, this);
-        TreasureChest tr1 = new TreasureChest(
+        TreasureChest lobbyChest = new LobbyTreasureChest(
             Vector2.add(
-                this.player.getPosition(), 
-                Vector2.multiply(
-                    Vector2.UP, 
-                    -300)), 
+                this.player.getPosition(),
+                Vector2.multiply(Vector2.UP, -300)),
             player, 2, this);
         
 
@@ -92,7 +91,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(purply);
         world.addObject(bossy);
         
-        world.addObject(tr1);
+        world.addObject(lobbyChest);
         //world.addObject(new BarrierObject(player.getPosition(), this, new Bounds(50, 50, 50, 50)));
 
         player.getStats().debugPrint(); // debug

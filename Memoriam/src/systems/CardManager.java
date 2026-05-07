@@ -10,6 +10,7 @@ import java.util.Random;
 import object.Card;
 import object.PlayerAbility;
 import object.Rarity;
+import object.Relic;
 import scenes.*;
 
 public class CardManager {
@@ -17,6 +18,9 @@ public class CardManager {
     private final ArrayList<Card> common = new ArrayList<>();
     private final ArrayList<Card> rare = new ArrayList<>();
     private final ArrayList<Card> legendary = new ArrayList<>();
+
+    // the lobby relics
+    private final ArrayList<Card> bigThree  = new ArrayList<>();
 
     private final ImageLibrary images = ImageLibrary.get();
     private final PlayableScreen scrn;
@@ -38,6 +42,8 @@ public class CardManager {
     // chest system
     public boolean showChestUI = false;
     private ArrayList<Card> currentCards = new ArrayList<>();
+
+    private boolean isLobbyChest = false; // true when the current chest is the lobby selection
 
     public CardManager(PlayableScreen scrn) {
         this.scrn = scrn;
@@ -87,6 +93,24 @@ public class CardManager {
             Rarity.LEGENDARY,
             PlayerAbility.SPEED_ENHANCE
         ));
+
+        bigThree.add(new RelicCard(
+            "Death",       
+            images.Death,      
+            Relic.DEATH
+        ));
+        
+        bigThree.add(new RelicCard(
+            "The Magician",
+            images.Magician,   
+            Relic.MAGICIAN
+        ));
+
+        bigThree.add(new RelicCard(
+            "The Empress", 
+            images.Empress,    
+            Relic.THE_EMPRESS
+        ));
     }
 
     public Card drawCard(int level) {
@@ -135,6 +159,7 @@ public class CardManager {
     public void openChest() {
 
         if (showChestUI) return;
+        isLobbyChest = false;
         showChestUI = true;
         chestState = 1;
 
@@ -147,6 +172,20 @@ public class CardManager {
         currentCards.clear();
         refillCurrentCards();
         spinTicks = 0;
+    }
+
+    public void openLobbyChest() {
+        if (showChestUI) return;
+
+        // only offer the Big Three if no relic has been chosen yet.
+        if (RelicManager.get().isRelicChosen()) return;
+
+        isLobbyChest = true;
+        showChestUI  = true;
+        chestState   = 2;   // skip the spin, go straight to selection
+        scrn.getWorldRenderer().getPlayer().setUIOpen(true);
+        currentCards.clear();
+        currentCards.addAll(bigThree);   // show all three
     }
 
 
@@ -228,7 +267,21 @@ public class CardManager {
         chestState  = 0;
         scrn.getWorldRenderer().getPlayer().setUIOpen(false);
 
-        LevelManager.loadLevel(scrn.getID() + 1, scrn);
+        if (c instanceof RelicCard relic) {
+             //  Lobby Big Three path 
+            System.out.println("Relic selected: " + relic.name);
+            object.Player player = scrn.getWorldRenderer().getPlayer();
+            RelicManager.get().applyRelic(relic.relic, player);
+            LevelManager.loadLevel(scrn.getID() + 1, scrn);
+
+        } 
+        else 
+        {
+            // Regular mid-run card path 
+            System.out.println("Card selected: " + c.name + " | Ability: " + c.ability);
+            scrn.getWorldRenderer().getPlayer().applyAbility(c.ability);
+            LevelManager.loadLevel(scrn.getID() + 1, scrn);
+        }
     }
     
     public void triggerLevelChange() {
@@ -314,5 +367,14 @@ public class CardManager {
 
         if (a != null) currentCards.add(a);
         if (b != null) currentCards.add(b);
+    }
+
+    public static class RelicCard extends Card {
+        public final Relic relic;
+
+        public RelicCard(String name, java.awt.Image image, Relic relic) {
+            super(name, image, Rarity.LEGENDARY, null);   // no PlayerAbility
+            this.relic = relic;
+        }
     }
 }

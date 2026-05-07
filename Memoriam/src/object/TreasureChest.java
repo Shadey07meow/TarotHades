@@ -8,9 +8,8 @@ public class TreasureChest extends GameObject {
     
     // When player presses letter E, the treasure chest panel pops up
     private int interactionDistance = 150;
-    private Player targetPlayer =  null;
+    protected Player targetPlayer = null;   // changed from priv to protected
 
-    
 
     // Check when the player is close enough to this particular
     public TreasureChest(Vector2  v, Player  p, int s, PlayableScreen scrn)
@@ -66,7 +65,6 @@ public class TreasureChest extends GameObject {
     public void doInteractionLogic() {
 
         if (targetPlayer.isInteracting()) {
-
             playScrn.getCardManager().openChest();
         }
     }

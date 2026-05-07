@@ -47,6 +47,7 @@ public class Player extends Entity {
     private boolean uiOpen = false;    
     private Vector2 curSpeed = new Vector2(); 
     private final int regenBase   = 120;
+     private boolean halfHpWarning = false; // for the empress
     
     // constructor
     public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
@@ -77,12 +78,13 @@ public class Player extends Entity {
     {
         this.health = stats.getCurrentHP();
         this.speed  = stats.getSpeed();
-
+        checkRelicHealthSync();
         if (world == null) return;
 
         if (!isDead) {
             inputOperations();
             tickRegen();
+            checkHalfHpWarning();
         } else {
             gameFrame.showPanel("lose");
         }
@@ -110,6 +112,15 @@ public class Player extends Entity {
             }
         }
 
+        switch (ability) {
+            case HP_REGEN, FORTIFIED_REGEN, SHIELD, SPEED_ENHANCE -> {
+                // addOrStack handles both "new effect" and "re-picked" cases.
+                StatusEffectManager.get().addOrStack(ability, 2);
+            }
+            // FLAME_SHOT and MULTI_SHOT are permanent (no timed expiry).
+            default -> { /* permanent — no timer */ }
+        }
+
         // gameplay-side effects (behaviours, projectile types, etc.)
         onAbilityLevelGained(ability, nextLevel);
         System.out.println(ability + " → level " + nextLevel);
@@ -118,31 +129,18 @@ public class Player extends Entity {
 
      private void onAbilityLevelGained(PlayerAbility ability, int level) {
         switch (ability) {
-            case HP_REGEN -> {
-                // Regen interval is recalculated live in tickRegen()
-            }
-            case FLAME_SHOT -> {
-                // Damage increase already handled by atk modifier in PowerUpManager.
-            }
-            case MULTI_SHOT-> {
-                // projectile count already handled by PROJECTILE_COUNT modifier.
-            }
-            case FORTIFIED_REGEN -> {
-                // DEF + MAX_HP modifiers already applied; regen speed covered in tickRegen().
-            }
-            case SHIELD -> updateShieldCooldown(level);
-
-            case SPEED_ENHANCE -> {
-                // Speed modifier applied; stats.getSpeed() now returns the updated value.
-            }
+            case HP_REGEN       -> { /* regen interval recalculated live */ }
+            case FLAME_SHOT     -> { /* damage handled by atk modifier */ }
+            case MULTI_SHOT     -> { /* projectile count handled by modifier */ }
+            case FORTIFIED_REGEN -> { /* DEF + MAX_HP modifiers applied */ }
+            case SHIELD         -> updateShieldCooldown(level);
+            case SPEED_ENHANCE  -> { /* speed modifier applied by PowerUpManager */ }
         }
     }
 
     // input
-    public void inputOperations()
-    {
-        movePlayer();
-        // Does not fight when UI is open
+    public void inputOperations(){
+        movePlayer(); // Does not fight when UI is open
 
         if (!uiOpen) combatMethod();
         checkInteracting();
@@ -155,7 +153,6 @@ public class Player extends Entity {
 
         // Clamp movement speed so that it never exceeds speed
         if(Math.abs(curSpeed.findMag()) > speed) curSpeed = Vector2.magConvert(curSpeed, speed);
-    
         move(curSpeed);
         
         // Set images, make looking up and down priority
@@ -169,25 +166,20 @@ public class Player extends Entity {
     // combat 
     private void combatMethod()
     {
-
         if (currentCooldown > 0) currentCooldown--;
         
-        // shoot once per click
-        if(!hasShotProjectile)
+        if(!hasShotProjectile) // shoot once per click
         {
             if(inputs.consumeClick())
             {
                 shootProjectile();
                 hasShotProjectile = true;
             }
-        }
-        else
+        } else
         {
             // reset when mouse released
-            if(!inputs.consumeClick())
-            {
-                hasShotProjectile = false;
-            }
+            if(!inputs.consumeClick()) hasShotProjectile = false;
+            
         }
     }
 
@@ -257,6 +249,15 @@ public class Player extends Entity {
         }
 }
 
+    // for empress
+    private void checkHalfHpWarning() {
+        if (RelicManager.get().hasRelic(Relic.THE_EMPRESS)) {
+            halfHpWarning = (stats.getCurrentHP() <= stats.getMaxHP() / 2);
+        } else {
+            halfHpWarning = false;
+        }
+    }
+
     //  shield
     private void updateShieldCooldown(int level) {
         if (shield == null) {
@@ -294,11 +295,28 @@ public class Player extends Entity {
         }
     }
 
+    private void checkRelicHealthSync() {
+    // Sync entity health with stats after relic changes
+        if (health != stats.getCurrentHP()) {
+            health = stats.getCurrentHP();
+    }
+}
+
     // HP helpers 
     @Override
     public void minusHP(double a) {
         stats.takeDamage((int) a);
         this.health = stats.getCurrentHP();
+
+        // check if we just hit 0 and DEATH relic can save us
+        if (this.health <= 0) {
+            boolean saved = RelicManager.get().tryResurrect(this);
+            if (saved) {
+                this.health = stats.getCurrentHP();   // refreshed by tryResurrect
+                isDead = false;
+                return;
+            }
+        }
     }
 
     @Override
@@ -340,16 +358,15 @@ public class Player extends Entity {
         this.world = w;
         System.out.println("Added a world renderer");
     }
-
   
     // Getters
-    public double     getHealth()    { return stats.getCurrentHP(); }
-    public int        getMaxHP()     { return stats.getMaxHP(); }
-    public int        getAttack()    { return stats.getAttack(); }
-    public int        getDefense()   { return stats.getDefense(); }
+    public double getHealth()    { return stats.getCurrentHP(); }
+    public int getMaxHP()     { return stats.getMaxHP(); }
+    public int getAttack()    { return stats.getAttack(); }
+    public int getDefense()   { return stats.getDefense(); }
     public PlayerStats getStats()    { return stats; }
+    public boolean     isHalfHpWarning() { return halfHpWarning; }
     
-
     public void setUIOpen(boolean open) {this.uiOpen = open;}
     public Vector2 getVelocity(){return curSpeed;}
     public boolean isInteracting(){ return this.isInteracting;}

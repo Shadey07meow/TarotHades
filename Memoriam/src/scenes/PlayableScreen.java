@@ -276,12 +276,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     }
 
-    
-        
-
-    
-
-
 
     public void updateCollisions()
     {
