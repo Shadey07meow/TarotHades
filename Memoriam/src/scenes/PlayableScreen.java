@@ -19,7 +19,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private Thread gameLoop = null;
     private volatile  boolean isRunning = true;
     InputManager inputManager = new InputManager();
-    static int framesPerSecond = 60;
+    public static final int FRAMESPERSECOND = 60;
+    public static final int SINGLEFRAME = 1000/ FRAMESPERSECOND;
     protected Vector2 center = new Vector2();
     protected Map     currentMap;
     private CardManager crdManager  = new CardManager(this);
@@ -150,7 +151,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
             // Paint the panel every frame
             try {
-                Thread.sleep(1000 / framesPerSecond);
+                Thread.sleep(1000 / FRAMESPERSECOND);
             } 
             catch (Exception e)
             {
@@ -167,7 +168,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.isRunning = false;
     }
 
-    protected void update()
+    protected synchronized  void update()
     {
         if (world == null) return;
 

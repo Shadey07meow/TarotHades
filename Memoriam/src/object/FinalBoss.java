@@ -12,6 +12,7 @@ public class FinalBoss extends Enemy{
     public FinalBoss(Vector2 position, double scale, PlayableScreen scrn)
     {
         super(position, scale, scrn);
+        this.fireCooldown = 0.2 * 1000;
         this.health = maxHealth;
         this.speed = currentSpeed;
         this.setImage(img.finalBoss);
@@ -32,7 +33,7 @@ public class FinalBoss extends Enemy{
     // Passing level logic
     private void passLevel()
     {
-
+        this.playScrn.getGameFrame().showPanel("menu");
     }
 
 }

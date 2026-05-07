@@ -371,4 +371,5 @@ public class Player extends Entity {
     public Vector2 getVelocity(){return curSpeed;}
     public boolean isInteracting(){ return this.isInteracting;}
     public void checkInteracting(){isInteracting = inputs.getIsInteracting();}
+    // public void damage(int i){minusHP(i);}
 }

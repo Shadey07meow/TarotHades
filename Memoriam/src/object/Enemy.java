@@ -13,7 +13,7 @@ public abstract class Enemy extends Entity {
 
     protected int detectionRange = 500;
     protected int attackingRange = 250;
-
+    protected double fireCooldown = 0.5 * 1000;
 
     protected ImageLibrary img = ImageLibrary.get();
     protected Player pl;
@@ -26,10 +26,12 @@ public abstract class Enemy extends Entity {
     protected boolean usesProjectiles = true;
     protected boolean hasDetectedPlayer = false;
     protected boolean withinShootingDistance = false;
+    protected int projectileSpeed = 10;
 
     private boolean goesLeft;
     private double trackSpeed;
     private double followSpeed;
+    private double currentCooldown = 0;
 
 
     public Enemy(Vector2 p, double s, PlayableScreen scrn)
@@ -83,6 +85,7 @@ public abstract class Enemy extends Entity {
         {
             // Using this structure so that if you are detected once, you will be detected forever
             detectForPlayer();
+            this.currentCooldown = 0;
         } else
         {
             // Move
@@ -90,6 +93,7 @@ public abstract class Enemy extends Entity {
 
             if(this.usesProjectiles)
             {
+
                 if(!canShootPlayer())
                 {
                     moveTowardsPlayer();
@@ -101,6 +105,13 @@ public abstract class Enemy extends Entity {
                     {
                         moveRightOfPlayer();
                     }
+                }
+                if(currentCooldown <= 0)
+                {
+                    shootAtPlayer();
+                } else
+                {
+                    currentCooldown -= PlayableScreen.SINGLEFRAME;
                 }
             } else
             {
@@ -183,11 +194,22 @@ public abstract class Enemy extends Entity {
                 if(colList.get(x).getGameObject() == this.pl)
                 {
                     // Death on collision Logic
+                    if(this.usesProjectiles) return;
                     this.pl.minusHP(this.damage);
                     damage(1000);
                 }
             }
         }
+    }
+
+    private void shootAtPlayer(){
+        // Find unit vectore from player this e nemy object
+        Vector2 baseDir = Vector2.getUnitVector(this.position, this.pl.getPosition());
+        Vector2 projectileVelocity = Vector2.multiply(baseDir, projectileSpeed);
+
+        // Make the projectile
+        this.world.addObject(new EnemyProjectile((int)this.position.x, (int)this.position.y, projectileVelocity, 1, this.playScrn));
+        this.currentCooldown = this.fireCooldown;
     }
 
 
