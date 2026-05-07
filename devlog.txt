@@ -37,6 +37,11 @@ KEEP THIS ON TOP
     - Made Bounds object 
 
 
+--> 05/07/2026
+    (Shadey)
+    - Made the enemies shoot stuff
+    - Made the Boss actually win
+    - Pause screen logic working
 
 --> 05/01/2026
     (Shadey 07)
