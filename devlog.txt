@@ -8,6 +8,13 @@ KEEP THIS ON TOP
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
 
+--> 05/07/2026
+    (Shadey)
+    - Made the enemies shoot stuff
+    - Made the Boss actually win
+    - Pause screen logic working
+
+
 --> 05/03/2026
     (Shadey07)
     - Added collison logics to the maps
@@ -36,12 +43,6 @@ KEEP THIS ON TOP
         - Invisible collision object
     - Made Bounds object 
 
-
---> 05/07/2026
-    (Shadey)
-    - Made the enemies shoot stuff
-    - Made the Boss actually win
-    - Pause screen logic working
 
 --> 05/01/2026
     (Shadey 07)
