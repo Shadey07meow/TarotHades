@@ -49,15 +49,14 @@ public class Projectile extends GameObject{
             GameObject      other = col.getGameObject();
 
             // Never hit the player or other projectiles
-            if (other instanceof Player)     continue;
-            if (other instanceof Projectile) continue;
+
 
             // Hit an enemy
             if (other instanceof Enemy) {
                 ((Enemy) other).damage(this.damage);
                 world.removeObject(this);
                 return;
-            }
+            } else
 
             // Hit an immovable wall
             if (!col.getIsMovable()) {
@@ -66,8 +65,8 @@ public class Projectile extends GameObject{
             }
 
             // Hit anything else
-            world.removeObject(this);
-            return;
+        
+
         }
 }
 

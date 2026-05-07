@@ -147,7 +147,7 @@ public abstract class Enemy extends Entity {
 
     private void moveTowardsPlayer()
     {
-        this.move(Vector2.multiply(currentSpeed, this.followSpeed));
+        this.move(Vector2.multiply(this.currentSpeed, this.followSpeed));
     }
 
 
@@ -202,9 +202,20 @@ public abstract class Enemy extends Entity {
         }
     }
 
-    private void shootAtPlayer(){
+
+    
+    public void setDetectionDistance(int distance)
+    {
+        this.detectionRange = distance;
+    }    
+    public void setAttackingRange(int distance)
+    {
+        this.attackingRange = distance;
+    }
+
+    protected void shootAtPlayer(){
         // Find unit vectore from player this e nemy object
-        Vector2 baseDir = Vector2.getUnitVector(this.position, this.pl.getPosition());
+        Vector2 baseDir = Vector2.getUnitVector(this.position, Vector2.add(this.pl.getPosition(), this.pl.getVelocity()));
         Vector2 projectileVelocity = Vector2.multiply(baseDir, projectileSpeed);
 
         // Make the projectile

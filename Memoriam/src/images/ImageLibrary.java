@@ -189,16 +189,16 @@ private ImageLibrary()
                         "assets/maps/map_n_01.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
                 map2 =  new ImageIcon(getClass().getResource(
-                        "assets/maps/map2.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                        "assets/maps/map2.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
                 map3 =  new ImageIcon(getClass().getResource(
-                        "assets/maps/map3.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                        "assets/maps/map3.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
                 map4 =  new ImageIcon(getClass().getResource(
-                        "assets/maps/map4.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                        "assets/maps/map4.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
                 map5 =  new ImageIcon(getClass().getResource(
-                        "assets/maps/boss map.png")).getImage().getScaledInstance(14 * 120, 64 * 120, Image.SCALE_SMOOTH);
+                        "assets/maps/boss map.png")).getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
 
 

@@ -155,9 +155,9 @@ public class BossLevel extends PlayableScreen {
         FinalBoss bossy = new FinalBoss(
             Vector2.add(
                 this.center,
-                new Vector2(0, -56 * 120)
+                new Vector2(0, -50 * 64)
             ),
-            1, 
+            2, 
             this
         );
 
@@ -175,7 +175,7 @@ public class BossLevel extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map5, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 26  * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map5, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 29 * 64)), 1 , this);
     }
 
     @Override   

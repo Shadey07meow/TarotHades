@@ -17,12 +17,13 @@ public class Level3 extends PlayableScreen {
     @Override
     public void startGamePanel()
     {
+        // Add Treasure box
         TreasureChest tr1 = new TreasureChest(
             Vector2.add(
-                this.player.getPosition(), 
+                this.center, 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -57 * 120)), 
+                    -50 * 64)), 
             player, 2, this);
 
         world.addObject(new BarrierObject(
@@ -87,7 +88,7 @@ public class Level3 extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map3, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 26 * 120)), 1 , this);
+        return new Map(ImageLibrary.get().map3, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 29 * 64)), 1 , this);
     }
 
     @Override   

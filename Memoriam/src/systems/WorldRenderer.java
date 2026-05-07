@@ -341,7 +341,7 @@ public class WorldRenderer {
         return this.map;
     }
 
-    public void drawDebugWorld(Graphics g)
+    public synchronized void drawDebugWorld(Graphics g)
     {
         Graphics2D graphics2 = (Graphics2D) g;
 
