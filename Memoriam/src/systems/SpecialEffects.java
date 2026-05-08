@@ -18,22 +18,36 @@ public class SpecialEffects {
 
     public abstract class Effects
     {
+
+        private ArrayList<Effects> effectList = null;
+
+
+        private boolean markForRemoval = false;
         protected int lifeTime;
         protected int currentLifetime;
 
         public abstract void drawEffect(Graphics g);
         public abstract void onTimeHit();
 
+        public Effects(ArrayList<Effects> list)
+        {
+            this.effectList = list;
+        }
+
         public void timeEffect(int miliseccond)
         {
             this.currentLifetime -= miliseccond; 
             onTimeHit();
+
+            if (this.currentLifetime <= 0) this.markForRemoval = true;
         }
+
+        public boolean getForRemoval(){return  this.markForRemoval;}
     }
 
     public void spawnNumberPopup(Vector2 position, int number)
     {
-        effectList.add(new PopUpNumber(position, number));
+        effectList.add(new PopUpNumber(position, number, this.effectList));
     }
 
 
@@ -44,8 +58,9 @@ public class SpecialEffects {
         private int alpha = 255;
 
 
-        public PopUpNumber(Vector2 position, int number)
+        public PopUpNumber(Vector2 position, int number, ArrayList<Effects> list)
         {
+            super(list);
             this.position = position;
             this.numberText = number;
             this.lifeTime = 750;
@@ -100,12 +115,13 @@ public class SpecialEffects {
 
 
     // Draw loop, call in playableScreen paintComponent
-    public void drawEffects(Graphics g)
+    public synchronized void drawEffects(Graphics g)
     {
         for(Effects fx : effectList)
         {
             fx.drawEffect(g);
         }
+        effectList.removeIf(fx -> fx.getForRemoval() == true);
     }
 
 
