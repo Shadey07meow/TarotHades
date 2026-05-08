@@ -31,137 +31,191 @@ public class BossLevel extends PlayableScreen {
         // Add Barriers
         
         // Add Barrier objects
+
+        // left most pillar
+
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-9 * 120, 0)),
+                new Vector2(-12 * 64, 9 * 64)),
                 this,
-                new Bounds(4 * 120, 4 * 120, 4 * 120, 4 * 120
-            )));
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(9 * 120, 0)),
-                this,
-                new Bounds(4 * 120, 4 * 120, 4 * 120, 4 * 120
-            )));
-
-
-        // Pillars
-
-        // Right pillars
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(7 * 120, -35 * 120)),
-                this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, -31 * 120)),
+                new Vector2(-11 * 64, 13 * 64)),
                 this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
-            )));
-        
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(7 * 120, -27 * 120)),
-                this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
-            )));
-
-        // Left Pillars
-
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-7 * 120, -35 * 120)),
-                this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-7 * 120, -31 * 120)),
+                new Vector2(-13 * 64, 4 * 64)),
                 this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
-            )));
-        
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-7 * 120, -27 * 120)),
-                this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
 
-
-        // Top Colliders
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-7 * 120, -51 * 120)),
+                new Vector2(-13 * 64, 15 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
 
+        // right most pillar
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-7 * 120, -56 * 120)),
+                new Vector2(12 * 64, 9 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            ))); 
-
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-7 * 120, -45 * 120)),
-                this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            ))); 
-
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(7 * 120, -51 * 120)),
-                this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(11 * 64, 13 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, -56 * 120)),
+                new Vector2(13 * 64, 4 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            ))); 
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, -45 * 120)),
+                new Vector2(13 * 64, 15 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            ))); 
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
         
         FinalBoss bossy = new FinalBoss(
             Vector2.add(
                 this.center,
-                new Vector2(0, -50 * 64)
+                new Vector2(0, -56 * 120)
             ),
-            2, 
+            1, 
             this
         );
 
-        world.addObject(bossy);
+        // other
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-15 * 64, -4 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13 * 64, -8 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        // stair pillar
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64, -20 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64, -25 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64, -28 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, -20 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, -25 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, -28 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(15 * 64, -40 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(15 * 64, -45 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-15 * 64, -40 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-15 * 64, -45 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+
+
+        world.addObject(new FinalBoss(
+            Vector2.add(new Vector2(120 +10, 120 +1), player.getPosition()), 
+            2, 
+            this
+            ));
 
     }
 
@@ -183,8 +237,6 @@ public class BossLevel extends PlayableScreen {
     {
         return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     }
-
-
 
 
 }

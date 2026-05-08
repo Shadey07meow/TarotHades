@@ -30,123 +30,138 @@ public class Level1 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-6 * 120, 0)),
+                new Vector2(-13 * 64, 10 * 64)),
                 this,
-                new Bounds(4 * 120, 4 * 120, 4 * 120, 4 * 120
-            )));
-
-        
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-6 * 120, 4 * 120)),
-                this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
-            )));
-            
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-5 * 120, -20 * 120)),
-                this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));
-
-                    
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(5 * 120, -35 * 120)),
-                this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
-            )));
-        
-            world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(5 * 120, -33 * 120)),
-                this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
-            )));
-
-        
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(6 * 120, -30 * 120)),
-                this,
-                new Bounds(1 * 120, 1 * 120, 1 * 120, 1 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(2 * 120, -34 * 120)),
+                new Vector2(-11 * 64, 15 * 64)), //left/right first, up down second
                 this,
-                new Bounds(1 * 120, 1 * 120, 1 * 120, 1 * 120
-            )));
-
-        
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(2 * 120, -32 * 120)),
-                this,
-                new Bounds(100, 100, 100, 100
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(5 * 120 + 80, -50 * 120)),
+                new Vector2(14 * 64, 17 * 64)),
                 this,
-                new Bounds(1 * 120, 1 * 120, 1 * 120, 1 * 120
+                new Bounds(4 * 64, 4 * 64, 3 * 64, 4 * 64
             )));
         
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(4 * 120 + 80, -52 * 120)),
+                new Vector2(14 * 64, 6 * 64)),
                 this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(6 * 120 + 80, -56 * 120)),
+                new Vector2(9 * 64, -1 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
-
-        //
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-7 * 120 + 80, -50 * 120)),
+                new Vector2(-14 * 64, -1 * 64)),
                 this,
-                new Bounds(1 * 120, 1 * 120, 1 * 120, 1 * 120
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13 * 64, -17 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13 * 64, -11 * 64)),
+                this,
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
             )));
         
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-6 * 120 + 80, -52 * 120)),
+                new Vector2(-10 * 64, -14 * 64)),
                 this,
-                new Bounds(2 * 120, 2 * 120, 2 * 120, 2 * 120
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+        
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(13 * 64, -13 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-6 * 120 + 80, -56 * 120)),
+                new Vector2(14 * 64, -8 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
 
-            
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(16 * 64, -30 * 64)),
+                this,
+                new Bounds(2 * 64, 2* 64, 2 * 64, 2 * 64
+            )));
+        
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(15 * 64, -31 * 64)),
+                this,
+                new Bounds(2 * 64, 2* 64, 2 * 64, 2 * 64
+            )));
 
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, -44 * 64)),
+                this,
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64, -46 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4     * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13 * 64, -42 * 64)),
+                this,
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64, -38 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            )));
 
 
         // Add Enemy Objects
