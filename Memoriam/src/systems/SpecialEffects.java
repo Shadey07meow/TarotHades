@@ -1,11 +1,9 @@
 package systems;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import java.awt.FontMetrics;
-import java.awt.Font;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class SpecialEffects {
@@ -88,9 +86,8 @@ public class SpecialEffects {
         {
             Font monoFontLil = new Font("Monospaced", Font.BOLD, 20);
 
-
-
             g.setColor(new Color(255, 255, 255, this.alpha));
+            
 
             int width = 50;
             int height = 30;
@@ -103,13 +100,23 @@ public class SpecialEffects {
 
             int cW = (int)position.x - width/2;
             int cH = (int)position.y - (height/2) - 100;
-            g.fillRect(cW, cH, width, height);
-
-
-
+            //g.fillRect(cW, cH, width, height);
+        
             g.setFont(monoFontLil);
-            g.setColor(new Color(0, 0, 0, this.alpha));
-            g.drawString(String.valueOf(number), cW + (width/2) - (fWidth/2), cH + 22);
+
+            String text = String.valueOf(number);
+
+            // white outline (draw behind)
+            g.setColor(new Color(0, 0, 0, alpha));
+
+            g.drawString(text, cW + (width/2) - (fWidth/2) - 1, cH + 22 - 1);
+            g.drawString(text, cW + (width/2) - (fWidth/2) + 1, cH + 22 - 1);
+            g.drawString(text, cW + (width/2) - (fWidth/2) - 1, cH + 22 + 1);
+            g.drawString(text, cW + (width/2) - (fWidth/2) + 1, cH + 22 + 1);
+
+            // main text (white)
+            g.setColor(new Color(255, 0, 0, alpha));
+            g.drawString(text, cW + (width/2) - (fWidth/2), cH + 22);
         }
     }
 
