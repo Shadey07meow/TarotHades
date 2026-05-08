@@ -22,6 +22,7 @@ public class FinalBoss extends Enemy{
         this.setImage(img.finalBoss);
         this.moveRightImg = img.finalBoss;
         this.moveLeftImg = img.finalBoss;
+        this.hurtImg = img.finalBossHurt;
         this.damage = 1;
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
     }

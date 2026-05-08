@@ -1,11 +1,9 @@
 package object;
 
+import collision.CollisionObject;
 import images.*;
-
 import java.awt.Image;
 import java.util.ArrayList;
-
-import collision.CollisionObject;
 import scenes.*;
 import systems.*;
 
@@ -22,6 +20,7 @@ public abstract class Enemy extends Entity {
     protected Image moveLeftImg = null;
     protected Image moveRightImg = null;
 
+    protected Image hurtImg = null;
 
     protected boolean usesProjectiles = true;
     protected boolean hasDetectedPlayer = false;
@@ -32,12 +31,17 @@ public abstract class Enemy extends Entity {
     private double trackSpeed;
     private double followSpeed;
     private double currentCooldown = 0;
+    
+    private boolean isHurt = false;
+    private double hurtTimer = 0;
+    private double hurtDuration = 200; 
 
 
     public Enemy(Vector2 p, double s, PlayableScreen scrn)
     {
         super(p, s, scrn);
         randomizeDir();
+        this.hurtImg = ImageLibrary.get().enemyHurt;
     }
 
     private void randomizeDir()
@@ -56,12 +60,15 @@ public abstract class Enemy extends Entity {
     public void damage(int i)
     {
         minusHP(i);
+        isHurt = true;
+        hurtTimer = hurtDuration;
     }
 
     @Override
     public void onDeath()
     {
         world.removeObject(this);
+        GameStats.get().addKill();
     }
     
     @Override
@@ -73,6 +80,17 @@ public abstract class Enemy extends Entity {
     @Override
     public void logicMethods()
     {
+
+        if (isHurt)
+        {
+            hurtTimer -= PlayableScreen.SINGLEFRAME;
+
+            if (hurtTimer <= 0)
+            {
+                isHurt = false;
+            }
+        }
+
         if(this.pl == null) 
         {
             this.pl = this.world.getPlayer();
@@ -173,6 +191,9 @@ public abstract class Enemy extends Entity {
 
     private void updSprites()
     {
+        if (isHurt){this.setImage(hurtImg); return;}
+        if (moveLeftImg == null || moveRightImg == null) return;
+        
         if(moveLeftImg == null || moveRightImg == null) return; 
 
         if(currentSpeed.x >= 0) {this.setImage(moveRightImg);} else {this.setImage(moveLeftImg);}

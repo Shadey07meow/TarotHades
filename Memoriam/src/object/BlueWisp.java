@@ -17,6 +17,7 @@ public class BlueWisp extends Enemy
         this.setImage(img.blueRIGHT);
         this.moveRightImg = img.blueRIGHT;
         this.moveLeftImg = img.blueLEFT;
+        this.hurtImg = img.enemyHurt;
         this.usesProjectiles = false;
         this.damage = 1;
 

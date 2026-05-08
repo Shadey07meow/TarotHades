@@ -1,0 +1,30 @@
+package systems;
+
+public class GameStats {
+
+    private static GameStats instance;
+
+    public static GameStats get() {
+        if (instance == null) instance = new GameStats();
+        return instance;
+    }
+
+    private int level = 0;
+    private int enemiesKilled = 0;
+
+    public void nextLevel() {
+        level++;
+    }
+
+    public void addKill() {
+        enemiesKilled++;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getEnemiesKilled() {
+        return enemiesKilled;
+    }
+}
