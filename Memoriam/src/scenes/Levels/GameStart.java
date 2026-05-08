@@ -89,7 +89,7 @@ public class GameStart extends PlayableScreen {
         // world.addObject(bluey);
         world.addObject(bluey2);
         world.addObject(purply);
-        world.addObject(bossy);
+        //world.addObject(bossy);
         
         world.addObject(lobbyChest);
         //world.addObject(new BarrierObject(player.getPosition(), this, new Bounds(50, 50, 50, 50)));

@@ -115,6 +115,7 @@ public class ImageLibrary
 
     // Objects
     public final BufferedImage treasureChest;
+    public final BufferedImage lockedTreasureChest;
     public final BufferedImage treasureChestH;
     public final Image projectile;
     public final BufferedImage fireProjectile;
@@ -266,6 +267,7 @@ private ImageLibrary()
                 
                 // Objects
                 treasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChest.png"));
+                lockedTreasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/lockedChest.png"));
                 treasureChestH = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png"));
                 rawProjectile = ImageIO.read(getClass().getResource("assets/objects/projectile.png"));
                 fireProjectile = ImageIO.read(getClass().getResource("assets/objects/fireProjectile.png"));
