@@ -28,50 +28,106 @@ public class Level3 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, 0)),
+                new Vector2(-12 * 64, -2 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(5 * 64, 5 * 64, 5 * 64, 5 * 64
             )));  
 
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-10 * 64, 20 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            ))); 
 
-        // Top part of the map
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, -51 * 120)),
+                new Vector2(-13 * 64, 17 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));        
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            ))); 
+
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-7 * 120, -51 * 120)),
+                new Vector2(-15 * 64, 14 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            ))); 
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(15 * 64, 18 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            ))); 
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(11 * 64, 14 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            ))); 
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64, -20 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            ))); 
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-8 * 64, -23 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            ))); 
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64, -25 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            ))); 
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(12 * 64, -45 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
+
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-7 * 120, -46 * 120)),
+                new Vector2(15 * 64, -41 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            ))); 
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64, -50 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, -56 * 120)),
+                new Vector2(-13 * 64, -45 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));                
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-6 * 120, -56 * 120)),
-                this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));        
-
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
 
 
         world.addObject(tr1);
@@ -87,7 +143,7 @@ public class Level3 extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
+        return new Map(ImageLibrary.get().map3, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
     }
 
     @Override   

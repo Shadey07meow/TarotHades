@@ -27,69 +27,142 @@ public class Level2 extends PlayableScreen {
 
         world.addObject(tr1);
 
-        // Add Barrier objects
+            // Add Barrier objects
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-8 * 120, 0)),
+                new Vector2(13 * 64, 15 * 64)),
                 this,
-                new Bounds(4 * 120, 4 * 120, 4 * 120, 4 * 120
-            )));
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(8 * 120, 0)),
-                this,
-                new Bounds(4 * 120, 4 * 120, 4 * 120, 4 * 120
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(5 * 120, -35 * 120)),
+                new Vector2(10 * 64, 17 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));
-
-        // Tree            
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-7 * 120, -45 * 120)),
-                this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, -51 * 120)),
+                new Vector2(12 * 64, 2 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));        
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-7 * 120, -51 * 120)),
-                this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
+                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
 
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(7 * 120, -56 * 120)),
+                new Vector2(12 * 64, -1 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));                
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
+
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-6 * 120, -56 * 120)),
+                new Vector2(9 * 64, 0 * 64)),
                 this,
-                new Bounds(3 * 120, 3 * 120, 3 * 120, 3 * 120
-            )));        
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
 
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(9 * 64, 2 * 64)),
+                this,
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, -1 * 64)),
+                this,
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13 * 64, 3 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64, -3 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64, -15 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13  * 64, -11 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(8 * 64, -25 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(12 * 64, -20 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, -40 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(15 * 64, -45 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64, -43 * 64)),
+                this,
+                new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-10 * 64, -45 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
 
     }
 
@@ -103,7 +176,7 @@ public class Level2 extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map1, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
+        return new Map(ImageLibrary.get().map2, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
     }
 
     @Override   
