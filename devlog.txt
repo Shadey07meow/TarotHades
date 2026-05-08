@@ -15,6 +15,10 @@ KEEP THIS ON TOP
     - Enemy + player hit assets added and implemented
     - Added GameStat
 
+    (Shadey07)
+    - Added special effects system
+    - Added on daamage counter on hit effect
+
 
 --? 05/08/2026
     - Made boss summon people

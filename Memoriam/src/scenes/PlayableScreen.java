@@ -26,6 +26,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private HealthBar healthBar = new HealthBar();  
     private int hoveredCardIndex = -1;
     private int selectedCardTimer = 0;
+    private SpecialEffects fx = new SpecialEffects();
     
     private PauseUI pauseUI;
     private boolean isFading = false;
@@ -157,6 +158,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             {
                 System.out.println("Cannot be paused");
             }
+
+            fx.update(SINGLEFRAME);
     
             repaint();
         } 
@@ -280,17 +283,23 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         g.setColor(new Color(120, 220, 255));
         g.drawString(String.valueOf(stats.getEnemiesKilled()), x + 95, y + 60);
 
+        fx.drawEffects(g);
                
         if(isPaused)
         {
             // System.out.println("Hello there i am aabout to destroyyy this");
             pauseUI.drawPause(g);
         }
+
+
     }
 
 
     private void drawWorld(Graphics g)
     {
+        // Draw effects
+
+
         Graphics2D graphics2 = (Graphics2D) g;
         if (world != null)
         {
@@ -348,4 +357,5 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public CardManager getCardManager(){ return this.crdManager;}
     public boolean getIsPaused(){return this.isPaused;}
     public void setIsPaused(boolean r){this.isPaused = r;}
+    public SpecialEffects getSpecialEffects(){return this.fx;}
 }
