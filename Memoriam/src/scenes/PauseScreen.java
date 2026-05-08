@@ -3,11 +3,11 @@ package scenes;
 import images.ImageLibrary;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 
 public class PauseScreen extends UIScreen {
 
@@ -19,7 +19,6 @@ public class PauseScreen extends UIScreen {
         super("pause", gameFrame);
 
         setLayout(new BorderLayout());
-        setOpaque(false);
 
         JLabel title = new JLabel("Paused");
         title.setFont(new Font("Arial", Font.BOLD, 64));
@@ -51,13 +50,5 @@ public class PauseScreen extends UIScreen {
         add(panel, BorderLayout.CENTER);
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
-        if (background != null) {
-            g.drawImage(background, 0, 0, getWidth(), getHeight(), null);
-        }
-    }
 
 }

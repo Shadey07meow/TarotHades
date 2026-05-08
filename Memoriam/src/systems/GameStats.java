@@ -11,7 +11,10 @@ public class GameStats {
 
     private int level = 0;
     private int enemiesKilled = 0;
-
+    
+    public void resetStat() {
+        enemiesKilled = 0;
+    }
     public void nextLevel() {
         level++;
     }

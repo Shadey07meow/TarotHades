@@ -23,10 +23,9 @@ public class Level2 extends PlayableScreen {
                 this.center, 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -50 * 64)), 
+                    -45 * 64)), 
             player, 2, this);
 
-        world.addObject(tr1);
 
             // Add Barrier objects
         world.addObject(new BarrierObject(
@@ -164,6 +163,8 @@ public class Level2 extends PlayableScreen {
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
+
+        world.addObject(tr1);
 
     }
 

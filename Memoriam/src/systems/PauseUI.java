@@ -19,7 +19,7 @@ public class PauseUI {
     public PauseUI(PlayableScreen scrn, GameFrame frame)
     {
         this.scrn = scrn;
-        int width = 300;
+        int width = 500;
         int height = 300;
         this.backDrop = new Rectangle(scrn.getWidth() / 2 - (width / 2) , scrn.getHeight() / 2 - (height/ 2), width, height);
 
@@ -66,13 +66,14 @@ public class PauseUI {
 
         g.setColor(new Color(255, 255, 255, 255));
 
-        g.fillRect(
+        g.drawImage(
+            ImageLibrary.get().pauseBg,
             backDrop.x,
             backDrop.y,
             backDrop.width,
-            backDrop.height
+            backDrop.height,
+            null
         );
-
 
 
         

@@ -22,7 +22,7 @@ public class Level4 extends PlayableScreen {
                 this.player.getPosition(), 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -50 * 64)), 
+                    -45 * 64)), 
             player, 2, this);
         
         // Add Barrier objects
