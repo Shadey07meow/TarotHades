@@ -1,6 +1,7 @@
 package scenes.levels;
 
 
+
 import images.*;
 import object.*;
 import scenes.*;
@@ -204,18 +205,11 @@ public class BossLevel extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-15 * 64, -45 * 64)),
-                this,
-                new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
-            )));
-
-
-
-        world.addObject(new FinalBoss(
-            Vector2.add(new Vector2(120 +10, 120 +1), player.getPosition()), 
-            2, 
-            this
-            ));
+                new Vector2(0, -56 * 120)
+            ), 
+            this, 
+            new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
+        )));
 
     }
 
@@ -229,7 +223,7 @@ public class BossLevel extends PlayableScreen {
     @Override
     public Map setMap()
     {
-        return new Map(ImageLibrary.get().map5, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 29 * 64)), 1 , this);
+        return new Map(ImageLibrary.get().map5, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8 * 120)), 1 , this);
     }
 
     @Override   
