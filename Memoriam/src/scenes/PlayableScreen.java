@@ -1,5 +1,7 @@
 package scenes;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -248,6 +250,35 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         if (world != null && world.getPlayer() != null) {
             healthBar.draw(g, world.getPlayer());
         }
+
+        // extra UI
+        GameStats stats = GameStats.get();
+
+        // bottom-left anchor
+        int x = 15;
+        int y = getHeight() - 110;
+
+        // panel
+        g.setColor(new Color(10, 10, 10, 180));
+        g.fillRoundRect(x, y, 220, 85, 14, 14);
+
+        // line on left
+        g.setColor(new Color(255, 200, 60));
+        g.fillRect(x, y, 4, 85);
+
+        g.setFont(new Font("Monospaced", Font.BOLD, 22));
+
+        // LEVEL
+        g.setColor(Color.WHITE);
+        g.drawString("LEVEL", x + 12, y + 30);
+        g.setColor(new Color(255, 200, 60));
+        g.drawString(String.valueOf(stats.getLevel()), x + 95, y + 30);
+
+        // KILLS
+        g.setColor(Color.WHITE);
+        g.drawString("KILLS", x + 12, y + 60);
+        g.setColor(new Color(120, 220, 255));
+        g.drawString(String.valueOf(stats.getEnemiesKilled()), x + 95, y + 60);
 
                
         if(isPaused)

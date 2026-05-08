@@ -17,6 +17,7 @@ public class PurpleWisp extends Enemy
         this.setImage(img.purpleRIGHT);
         this.moveRightImg = img.purpleRIGHT;
         this.moveLeftImg = img.purpleLEFT;
+        this.hurtImg = img.enemyHurt;
         this.damage = 1;
 
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));

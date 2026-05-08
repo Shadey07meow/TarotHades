@@ -27,6 +27,7 @@ public class ImageLibrary
     public final BufferedImage startBtn;
     public final BufferedImage backBtn;
     public final BufferedImage placeholderBtn;
+    public final BufferedImage quitBtnExit;
 
     public final BufferedImage loadingScreen;
     public final BufferedImage loseScreen;
@@ -44,6 +45,11 @@ public class ImageLibrary
     public final BufferedImage placeholderBtnHover;
 
     // Player (GIFs must stay Image for animation)
+    public final Image playerHurtUP;
+    public final Image playerHurtDOWN;
+    public final Image playerHurtLEFT;
+    public final Image playerHurtRIGHT;
+
     public final Image playerSpritesUP;
     public final Image playerSpritesDOWN;
     public final Image playerSpritesLEFT;
@@ -61,6 +67,10 @@ public class ImageLibrary
     public final Image yellowLEFT;
     
     public final Image finalBoss;
+
+    //enemy hurt
+    public final Image enemyHurt;
+    public final Image finalBossHurt;
 
     // Cursor
     public final Image quillCursor;
@@ -165,7 +175,12 @@ private ImageLibrary()
                 background = ImageIO.read(getClass().getResource("assets/Panels/backgroundImage.png"));
                 loadingScreen = ImageIO.read(getClass().getResource("assets/Panels/loadingScreen.png"));
                 loseScreen = ImageIO.read(getClass().getResource("assets/Panels/loseScreen.png"));
-
+                
+                // player hurt
+                playerHurtUP = ImageIO.read(getClass().getResource("assets/PlayerSprites/hurt/foolUpHurt.png"));
+                playerHurtDOWN = ImageIO.read(getClass().getResource("assets/PlayerSprites/hurt/foolDownHurt.png"));
+                playerHurtLEFT = ImageIO.read(getClass().getResource("assets/PlayerSprites/hurt/foolLeftHurt.png"));
+                playerHurtRIGHT = ImageIO.read(getClass().getResource("assets/PlayerSprites/hurt/foolRightHurt.png"));
 
                 // buttons
                 exitBtn = ImageIO.read(getClass().getResource("assets/Panels/exitBtn.png"));
@@ -177,6 +192,7 @@ private ImageLibrary()
                 resumeBtn = ImageIO.read(getClass().getResource("assets/Panels/resumeBtn.png"));
                 restartBtn = ImageIO.read(getClass().getResource("assets/Panels/restart.png"));
                 placeholderBtn = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtn.png"));
+                quitBtnExit = ImageIO.read(getClass().getResource("assets/Panels/quitBtnExit.png"));
                 
                 // hover buttons
                 exitBtnHover = ImageIO.read(getClass().getResource("assets/Panels/exitBtnHover.png"));
@@ -268,7 +284,9 @@ private ImageLibrary()
         
                 finalBoss =     new ImageIcon(getClass().getResource("assets/objects/enemyAnim/finalBoss.png"
                         )).getImage().getScaledInstance(32 * 4, 40 * 4, Image.SCALE_SMOOTH);
-                
+                enemyHurt = ImageIO.read(getClass().getResource("assets/objects/enemyHurt.png"));
+                finalBossHurt = ImageIO.read(getClass().getResource("assets/objects/finalBossHurt.png")).getScaledInstance(32 * 4, 40 * 4, Image.SCALE_SMOOTH);;
+
 
 
                 // Player UI

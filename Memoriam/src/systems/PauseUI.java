@@ -1,13 +1,10 @@
 package systems;
 
+import images.ImageLibrary;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import images.ImageLibrary;
-
-import java.awt.Color;
 import scenes.*;
-import systems.*;
 
 public class PauseUI {
     // The last thing a dying dog can do

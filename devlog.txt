@@ -7,6 +7,15 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
+--> 05/08/2026
+    (CalRya)
+    - Added pause assets
+    - Added colliders to all maps
+    - Added additional ui (level and kill tracker)
+    - Enemy + player hit assets added and implemented
+    - Added GameStat
+
+
 --? 05/08/2026
     - Made boss summon people
 

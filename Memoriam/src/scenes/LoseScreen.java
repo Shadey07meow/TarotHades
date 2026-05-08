@@ -26,7 +26,7 @@ public class LoseScreen extends UIScreen {
             gameFrame.showPanel("start");
         });
 
-        menuBtn = gameFrame.createImageButton(ImageLibrary.get().quitBtn, 250, 100);
+        menuBtn = gameFrame.createImageButton(ImageLibrary.get().quitBtnExit, 250, 100);
         menuBtn.addActionListener(e -> {
             gameFrame.showPanel("menu");
         });
