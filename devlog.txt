@@ -18,6 +18,8 @@ KEEP THIS ON TOP
     - Added additional ui (level and kill tracker)
     - Enemy + player hit assets added and implemented
     - Added GameStat
+    - Minor color fixes
+    - Added extra minor assets
 
     (Shadey07)
     - Added special effects system

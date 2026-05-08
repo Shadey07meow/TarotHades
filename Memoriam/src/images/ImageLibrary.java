@@ -34,8 +34,11 @@ public class ImageLibrary
     public final BufferedImage background;
     public final BufferedImage mainMenuBtn;
     public final BufferedImage quitBtn;
+    public final BufferedImage quitBtnGO;
     public final BufferedImage resumeBtn ;
     public final BufferedImage restartBtn;
+
+    public final BufferedImage pauseBg;
 
     // ui - hover
     public final BufferedImage backBtnHover;
@@ -190,10 +193,13 @@ private ImageLibrary()
                 backBtn = ImageIO.read(getClass().getResource("assets/Panels/backBtn.png"));
                 mainMenuBtn = ImageIO.read(getClass().getResource("assets/Panels/mainMenu.png"));
                 quitBtn = ImageIO.read(getClass().getResource("assets/Panels/quitBtn.png"));
+                quitBtnGO = ImageIO.read(getClass().getResource("assets/Panels/quitBtnGO.png"));
                 resumeBtn = ImageIO.read(getClass().getResource("assets/Panels/resumeBtn.png"));
                 restartBtn = ImageIO.read(getClass().getResource("assets/Panels/restart.png"));
                 placeholderBtn = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtn.png"));
                 quitBtnExit = ImageIO.read(getClass().getResource("assets/Panels/quitBtnExit.png"));
+
+                pauseBg = ImageIO.read(getClass().getResource("assets/Panels/pauseBg.png"));
                 
                 // hover buttons
                 exitBtnHover = ImageIO.read(getClass().getResource("assets/Panels/exitBtnHover.png"));
