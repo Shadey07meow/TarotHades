@@ -193,8 +193,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         crdManager.sizeCard();
         crdManager.checkHoveringButtons();
         crdManager.checkHoveringButtons();
-
         world.updateWorld();
+        
     }
 
     // Update function methods
