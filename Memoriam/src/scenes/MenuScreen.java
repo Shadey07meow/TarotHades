@@ -13,19 +13,25 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
-import systems.SoundManager;
-
-public class MenuScreen extends UIScreen {
+public class MenuScreen extends UIScreen implements Runnable {
 
     private final Image backgroundImage;
     private final JButton startBtn;
     private final JButton creditBtn;
     private final JButton exitBtn;
 
+    private boolean inMenu = true;
+
+    private Vector2 boboPosition = new Vector2(0, 0);
+    private int currentTime = 0;
+
     public MenuScreen(GameFrame gameFrame) {
 
         super("menu", gameFrame);
         this.backgroundImage = ImageLibrary.get().background;
+        Thread menuThread = new Thread(this);
+        this.currentTime = 0;
+        menuThread.start();
 
         // Buttons
         startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
@@ -44,6 +50,7 @@ public class MenuScreen extends UIScreen {
         startBtn.addActionListener(e -> {
             int select = JOptionPane.showConfirmDialog(null, "Load last run", "Play game", JOptionPane.YES_NO_OPTION);
             
+            this.inMenu = false;
             if(select == JOptionPane.YES_OPTION)
             {
                 loadRun();
@@ -111,8 +118,15 @@ public class MenuScreen extends UIScreen {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (this.backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            //g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
+
+        g.drawImage(ImageLibrary.get().boboLogo,
+            0,
+            0,
+            getWidth(),
+            getHeight(),
+        null);
     }
 
     @Override
@@ -129,6 +143,33 @@ public class MenuScreen extends UIScreen {
     {
         SaveSystem.loadLastSave();
     }
+
+
+    // Animate screen
+    @Override
+    public void run()
+    {
+        while(this.inMenu)
+        {
+            update();
+            repaint();
+            try{
+                Thread.sleep(1000/60);
+            } catch (Exception e)
+            {
+
+            }  
+        }
+    }
+
+
+    public void update()
+    {
+        // One second is 1000
+        this.currentTime += 1000/60;
+        this.boboPosition = new Vector2(this.boboPosition.x + Math.sin(this.currentTime), this.boboPosition.x);
+    }
+
 
 
 }

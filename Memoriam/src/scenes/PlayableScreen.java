@@ -79,6 +79,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         requestFocusInWindow();
         initWindow();
         startGamePanel();
+        inputManager.resetInputs();
         SaveSystem.saveProgress(this.getID(), this.player.getHP(), this.player.getStats().getModifiers());
     }
     

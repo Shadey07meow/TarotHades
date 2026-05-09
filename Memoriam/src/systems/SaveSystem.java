@@ -70,7 +70,6 @@ public class SaveSystem {
                     // Load level things here
                     int level = Character.getNumericValue(currentLine.charAt(2));
                     System.out.println("Loading level :" + level);
-
                     LevelManager.loadLevel(level);
                 }
 

@@ -10,6 +10,9 @@ KEEP THIS ON TOP
 --> 05/09/2026
     (Shadey07)
     - Treasure box lockup
+    - Separated main mmenu objects
+    - Save systemm
+    - fixed inputs loading bugs
 
     (CalRya)
     - Minor bugs

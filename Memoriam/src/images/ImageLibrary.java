@@ -37,6 +37,7 @@ public class ImageLibrary
     public final BufferedImage quitBtnGO;
     public final BufferedImage resumeBtn ;
     public final BufferedImage restartBtn;
+    public final BufferedImage boboLogo;
 
     public final BufferedImage pauseBg;
 
@@ -176,9 +177,10 @@ private ImageLibrary()
                 )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 
                 // Backgrounds
-                background = ImageIO.read(getClass().getResource("assets/Panels/backgroundImage.png"));
+                background = ImageIO.read(getClass().getResource("assets/Panels/menuScreenBG.png"));
                 loadingScreen = ImageIO.read(getClass().getResource("assets/Panels/loadingScreen.png"));
                 loseScreen = ImageIO.read(getClass().getResource("assets/Panels/loseScreen.png"));
+                boboLogo = ImageIO.read(getClass().getResource("assets/Panels/boboFront.png"));
                 
                 // player hurt
                 playerHurtUP = ImageIO.read(getClass().getResource("assets/PlayerSprites/hurt/foolUpHurt.png"));
