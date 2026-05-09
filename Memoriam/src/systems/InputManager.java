@@ -33,6 +33,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
     public InputManager()
     {
         System.out.println("Hello");
+        
     }
     
     /// Keylistener methods
@@ -210,6 +211,17 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
         return temp;
     }
 
+    public void resetInputs()
+    {
+        mouseClicked = false;
+        this.moveVector.x = 0;
+        this.moveVector.y = 0;
+        this.movingDown = false;
+        this.movingRight = false;
+        this.movingLeft = false;
+        this.movingUp = false;
+    
+    }
     
 
 

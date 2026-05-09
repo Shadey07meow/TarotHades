@@ -34,8 +34,13 @@ public class ImageLibrary
     public final BufferedImage background;
     public final BufferedImage mainMenuBtn;
     public final BufferedImage quitBtn;
+    public final BufferedImage quitBtnGO;
     public final BufferedImage resumeBtn ;
     public final BufferedImage restartBtn;
+    public final BufferedImage boboLogo;
+    public final BufferedImage logo;
+
+    public final BufferedImage pauseBg;
 
     // ui - hover
     public final BufferedImage backBtnHover;
@@ -115,6 +120,7 @@ public class ImageLibrary
 
     // Objects
     public final BufferedImage treasureChest;
+    public final BufferedImage lockedTreasureChest;
     public final BufferedImage treasureChestH;
     public final Image projectile;
     public final BufferedImage fireProjectile;
@@ -172,9 +178,11 @@ private ImageLibrary()
                 )).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 
                 // Backgrounds
-                background = ImageIO.read(getClass().getResource("assets/Panels/backgroundImage.png"));
+                background = ImageIO.read(getClass().getResource("assets/Panels/menuScreenBG.png"));
                 loadingScreen = ImageIO.read(getClass().getResource("assets/Panels/loadingScreen.png"));
                 loseScreen = ImageIO.read(getClass().getResource("assets/Panels/loseScreen.png"));
+                boboLogo = ImageIO.read(getClass().getResource("assets/Panels/boboFront.png"));
+                logo = ImageIO.read(getClass().getResource("assets/Panels/logo.png"));
                 
                 // player hurt
                 playerHurtUP = ImageIO.read(getClass().getResource("assets/PlayerSprites/hurt/foolUpHurt.png"));
@@ -189,10 +197,13 @@ private ImageLibrary()
                 backBtn = ImageIO.read(getClass().getResource("assets/Panels/backBtn.png"));
                 mainMenuBtn = ImageIO.read(getClass().getResource("assets/Panels/mainMenu.png"));
                 quitBtn = ImageIO.read(getClass().getResource("assets/Panels/quitBtn.png"));
+                quitBtnGO = ImageIO.read(getClass().getResource("assets/Panels/quitBtnGO.png"));
                 resumeBtn = ImageIO.read(getClass().getResource("assets/Panels/resumeBtn.png"));
                 restartBtn = ImageIO.read(getClass().getResource("assets/Panels/restart.png"));
                 placeholderBtn = ImageIO.read(getClass().getResource("assets/Panels/placeholderBtn.png"));
                 quitBtnExit = ImageIO.read(getClass().getResource("assets/Panels/quitBtnExit.png"));
+
+                pauseBg = ImageIO.read(getClass().getResource("assets/Panels/pauseBg.png"));
                 
                 // hover buttons
                 exitBtnHover = ImageIO.read(getClass().getResource("assets/Panels/exitBtnHover.png"));
@@ -266,6 +277,7 @@ private ImageLibrary()
                 
                 // Objects
                 treasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChest.png"));
+                lockedTreasureChest = ImageIO.read(getClass().getResource("assets/MainAssets/lockedChest.png"));
                 treasureChestH = ImageIO.read(getClass().getResource("assets/MainAssets/treasureChestHighlighted.png"));
                 rawProjectile = ImageIO.read(getClass().getResource("assets/objects/projectile.png"));
                 fireProjectile = ImageIO.read(getClass().getResource("assets/objects/fireProjectile.png"));

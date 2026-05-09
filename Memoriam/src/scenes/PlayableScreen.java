@@ -26,6 +26,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private HealthBar healthBar = new HealthBar();  
     private int hoveredCardIndex = -1;
     private int selectedCardTimer = 0;
+    private SpecialEffects fx = new SpecialEffects();
     
     private PauseUI pauseUI;
     private boolean isFading = false;
@@ -79,6 +80,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         if (this.id == 0) LevelManager.startNewRun();
         initWindow();
         startGamePanel();
+        inputManager.resetInputs();
+        SaveSystem.saveProgress(this.getID(), this.player.getHP(), this.player.getStats().getModifiers(), GameStats.get().getEnemiesKilled());
     }
     
     @Override
@@ -96,6 +99,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.currentMap = setMap();
         this.center = this.player.getPosition();
         this.world = new WorldRenderer(this.player, this.currentMap, this);
+        
 
         this.player.setWorld(world);
 
@@ -158,6 +162,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             {
                 System.out.println("Cannot be paused");
             }
+
+            fx.update(SINGLEFRAME);
     
             repaint();
         } 
@@ -272,7 +278,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         g.setColor(Color.WHITE);
         g.drawString("LEVEL", x + 12, y + 30);
         g.setColor(new Color(255, 200, 60));
-        g.drawString(String.valueOf(stats.getLevel()), x + 95, y + 30);
+        g.drawString(String.valueOf(this.id), x + 95, y + 30);
 
         // KILLS
         g.setColor(Color.WHITE);
@@ -280,17 +286,23 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         g.setColor(new Color(120, 220, 255));
         g.drawString(String.valueOf(stats.getEnemiesKilled()), x + 95, y + 60);
 
+        fx.drawEffects(g);
                
         if(isPaused)
         {
             // System.out.println("Hello there i am aabout to destroyyy this");
             pauseUI.drawPause(g);
         }
+
+
     }
 
 
     private void drawWorld(Graphics g)
     {
+        // Draw effects
+
+
         Graphics2D graphics2 = (Graphics2D) g;
         if (world != null)
         {
@@ -348,4 +360,5 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public CardManager getCardManager(){ return this.crdManager;}
     public boolean getIsPaused(){return this.isPaused;}
     public void setIsPaused(boolean r){this.isPaused = r;}
+    public SpecialEffects getSpecialEffects(){return this.fx;}
 }

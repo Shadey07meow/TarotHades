@@ -8,6 +8,7 @@ public class TreasureChest extends GameObject {
     
     // When player presses letter E, the treasure chest panel pops up
     private int interactionDistance = 150;
+    private boolean  stageCleared = false;
     protected Player targetPlayer = null;   // changed from priv to protected
 
 
@@ -38,18 +39,37 @@ public class TreasureChest extends GameObject {
     @Override
     public void update()
     {
-        //System.out.println(Vector2.distance(this.position, this.targetPlayer.position));
-        if(checkPlayerDistance())
+        if(stageCleared)
         {
-            //System.out.println("Hello there,  I am now in interaction distance");
-            setImage(ImageLibrary.get().treasureChestH);
-            doInteractionLogic();
+            //System.out.println(Vector2.distance(this.position, this.targetPlayer.position));
+            if(checkPlayerDistance())
+            {
+                //System.out.println("Hello there,  I am now in interaction distance");
+                setImage(ImageLibrary.get().treasureChestH);
+                doInteractionLogic();
+            } else
+            {
+                setImage(ImageLibrary.get().treasureChest);
+                playScrn.getCardManager().showChestUI = false;
+
+            }
         } else
         {
-            setImage(ImageLibrary.get().treasureChest);
-            playScrn.getCardManager().showChestUI = false;
-
+            setImage(ImageLibrary.get().lockedTreasureChest);
+            stageCleared = checkStageClear();
         }
+        
+    }
+
+
+    public boolean checkStageClear()
+    {
+        for(GameObject obj : this.playScrn.getWorldRenderer().getObjectList())
+        {
+            if(obj instanceof Enemy) return false;
+        }   
+
+        return true;
     }
 
     public boolean checkPlayerDistance()

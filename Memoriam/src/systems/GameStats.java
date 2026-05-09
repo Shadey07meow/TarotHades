@@ -11,13 +11,20 @@ public class GameStats {
 
     private int level = 0;
     private int enemiesKilled = 0;
-
+    
+    public void resetStat() {
+        enemiesKilled = 0;
+    }
     public void nextLevel() {
         level++;
     }
 
     public void addKill() {
         enemiesKilled++;
+    }
+
+    public void setKills(int i) {
+        enemiesKilled = i;
     }
 
     public int getLevel() {

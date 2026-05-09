@@ -17,7 +17,7 @@ public class PlayerStats{
     private int currentHP;
 
     // modifiers
-    private final List<StatModifier> modifiers = new ArrayList<>();
+    private final ArrayList<StatModifier> modifiers = new ArrayList<>();
 
     // constructor
     public PlayerStats(int baseMaxHP, int baseAtk, int baseDef, double baseSpeed) {
@@ -42,6 +42,7 @@ public class PlayerStats{
     public int getAttack(){ return (int) Math.round(computeStat(StatType.ATTACK,  baseAtk)); }
     public int getDefense(){ return (int) Math.round(computeStat(StatType.DEFENSE, baseDef));}
     public double getSpeed(){ return computeStat(StatType.SPEED, baseSpeed); }
+    public ArrayList<StatModifier> getModifiers(){ return modifiers;}
 
     public int getProjectileCount() { 
         return (int) Math.round(computeStat(StatType.PROJECTILE_COUNT, baseProjectileCount)); 
@@ -74,11 +75,11 @@ public class PlayerStats{
     
     
 
-     public boolean isDead() { return currentHP <= 0; }
+    public boolean isDead() { return currentHP <= 0; }
 
-     //reset (new run)
+    //reset (new run)
 
-      public void reset(int baseMaxHP, int baseAtk, int baseDef, double baseSpeed) {
+    public void reset(int baseMaxHP, int baseAtk, int baseDef, double baseSpeed) {
         this.baseMaxHP   = baseMaxHP;
         this.baseAtk  = baseAtk;
         this.baseDef = baseDef;

@@ -3,6 +3,7 @@ package scenes;
 import images.ImageLibrary;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Image;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ public class PauseScreen extends UIScreen {
 
     private JButton resumeBtn;
     private JButton menuBtn;
+    private Image background = ImageLibrary.get().pauseBg;
 
     public PauseScreen(GameFrame gameFrame) {
         super("pause", gameFrame);
@@ -47,4 +49,6 @@ public class PauseScreen extends UIScreen {
 
         add(panel, BorderLayout.CENTER);
     }
+
+
 }

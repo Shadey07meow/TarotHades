@@ -9,21 +9,40 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import systems.*;
 
-import systems.SoundManager;
-
-public class MenuScreen extends UIScreen {
+public class MenuScreen extends UIScreen implements Runnable {
 
     private final Image backgroundImage;
     private final JButton startBtn;
     private final JButton creditBtn;
     private final JButton exitBtn;
 
+    private boolean inMenu = true;
+
+    private Vector2 boboPosition = new Vector2(-20, 0);
+    private Vector2 logoPosition = new Vector2(520, 225);
+    private int lWidth = (int)(406 * 2.4) ;
+    private int lHeight = (int)(156 * 2.4); 
+
+    private int OlWidth = (int)(406 * 2.6) ;
+    private int OlHeight = (int)(156 * 2.6); 
+
+    
+        
+
+
+    private int currentTime = 0;
+
     public MenuScreen(GameFrame gameFrame) {
 
         super("menu", gameFrame);
         this.backgroundImage = ImageLibrary.get().background;
+        Thread menuThread = new Thread(this);
+        this.currentTime = 0;
+        menuThread.start();
 
         // Buttons
         startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
@@ -40,12 +59,16 @@ public class MenuScreen extends UIScreen {
 
         // Actions
         startBtn.addActionListener(e -> {
-
-            gameFrame.showPanel("loading");
-
-            // Note: Check if redundant since ImageLibrary is now a singleton
-
-            gameFrame.showPanel("prologue"); 
+            int select = JOptionPane.showConfirmDialog(null, "Load last run", "Play game", JOptionPane.YES_NO_OPTION);
+            
+            this.inMenu = false;
+            if(select == JOptionPane.YES_OPTION)
+            {
+                loadRun();
+            } else{
+                gameFrame.showPanel("loading");
+                gameFrame.showPanel("prologue"); 
+            }
         });
         creditBtn.addActionListener(e -> gameFrame.showPanel("credits"));
         exitBtn.addActionListener(e -> System.exit(0));
@@ -108,17 +131,68 @@ public class MenuScreen extends UIScreen {
         if (this.backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
+
+        g.drawImage(ImageLibrary.get().boboLogo,
+            (int)this.boboPosition.x,
+            (int)this.boboPosition.y,
+            getWidth(),
+            getHeight(),
+        null);
+
+
+        g.drawImage(ImageLibrary.get().logo,
+            (int)this.logoPosition.x - (int)(lWidth/2),
+            (int)this.logoPosition.y - (int)(lHeight/2),
+            lWidth,
+            lHeight,
+        null);
     }
 
     @Override
     public void onInitiate() {
         SoundManager.playMusic("assets/music/TempMainMenu.wav");
+        this.inMenu = true;
     }
 
     @Override
     public void onExit() {
         SoundManager.stopMusic();
+        this.inMenu = false;
     }
+
+    private void loadRun()
+    {
+        SaveSystem.loadLastSave();
+    }
+
+
+    // Animate screen
+    @Override
+    public void run()
+    {
+        while(this.inMenu)
+        {
+            update();
+            repaint();
+            try{
+                Thread.sleep(1000/60);
+            } catch (Exception e)
+            {
+
+            }  
+        }
+    }
+
+
+    public void update()
+    {
+        // One second is 1000
+        this.currentTime += 1000/60;
+        this.boboPosition = new Vector2(this.boboPosition.x + (0.3 * ( Math.sin((double)this.currentTime/500))), this.boboPosition.y);
+        this.logoPosition = new Vector2(this.logoPosition.x + (0.3 * ( Math.sin((double)this.currentTime/500))), this.logoPosition.y);
+        
+    }
+
 
 
 }

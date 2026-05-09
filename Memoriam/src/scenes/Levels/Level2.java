@@ -23,10 +23,9 @@ public class Level2 extends PlayableScreen {
                 this.center, 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -50 * 64)), 
+                    -45 * 64)), 
             player, 2, this);
 
-        world.addObject(tr1);
 
             // Add Barrier objects
         world.addObject(new BarrierObject(
@@ -164,6 +163,71 @@ public class Level2 extends PlayableScreen {
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
+
+        // Add Enemy Objects
+
+        //mid right
+        for (int i = 0; i <= 3; i++)
+        {
+            world.addObject(new PurpleWisp(
+                Vector2.add(
+                    player.getPosition(),
+                    new Vector2(i * 64, -40 * 64)
+                ),
+                2,
+                this
+            ));
+        }
+
+        //mid left
+        for (int i = 0; i <= 5; i++)
+        {
+            world.addObject(new PurpleWisp(
+                Vector2.add(
+                    player.getPosition(),
+                    new Vector2(i * -64, -35 * 64)
+                ),
+                2,
+                this
+            ));
+        }
+
+        //bottom left
+        for (int i = 0; i <= 5; i++)
+        {
+            world.addObject(new PurpleWisp(
+                Vector2.add(
+                    player.getPosition(),
+                    new Vector2(i * 80, -20 * 64)
+                ),
+                2,
+                this
+            ));
+        }
+
+        //bottom right
+        for (int i = 0; i <= 3; i++)
+        {
+            world.addObject(new PurpleWisp(
+                Vector2.add(
+                    player.getPosition(),
+                    new Vector2(i * -80, -20 * 64)
+                ),
+                2,
+                this
+            ));
+        }
+
+        PurpleWisp miniBoss = new PurpleWisp(
+            Vector2.add(
+                this.center,
+                new Vector2(0, -45 * 64)),
+            4,
+            this
+        );
+        
+        miniBoss.spawnBossPurple();
+        world.addObject(tr1);
 
     }
 
