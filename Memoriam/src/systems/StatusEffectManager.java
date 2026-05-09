@@ -21,6 +21,9 @@ public class StatusEffectManager {
 
     // add relics
     public void addRelic(Relic relic) {
+        for (RelicStatusEffect existing : activeRelics) {
+            if (existing.getRelic() == relic) return; // already present, skip
+        }
         activeRelics.add(new RelicStatusEffect(relic));
     }
     //get active relics
