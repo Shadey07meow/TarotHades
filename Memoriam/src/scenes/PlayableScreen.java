@@ -277,7 +277,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         g.setColor(Color.WHITE);
         g.drawString("LEVEL", x + 12, y + 30);
         g.setColor(new Color(255, 200, 60));
-        g.drawString(String.valueOf(stats.getLevel()), x + 95, y + 30);
+        g.drawString(String.valueOf(this.id), x + 95, y + 30);
 
         // KILLS
         g.setColor(Color.WHITE);

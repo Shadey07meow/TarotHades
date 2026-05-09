@@ -29,7 +29,7 @@ public class WorldRenderer {
     private final double xMargin = 30;
     private final double yMargin = 30;
 
-    private boolean debugMode = true;
+    private boolean debugMode = false;
 
     // Constructors
     public WorldRenderer(Player player, PlayableScreen s)

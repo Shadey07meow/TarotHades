@@ -47,4 +47,39 @@ public class SaveSystem {
         }
     }   
 
+    public static void loadLastSave()
+    {
+
+        File saveFile = new File("autosave/saveFile.4t");
+        // System.out.println("Hello therse");
+
+        if(!saveFile.exists()) return;
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(saveFile)))
+        {
+            String currentLine = "";
+
+            while((currentLine = reader.readLine()) != null)
+            {
+                System.out.println("Reading file");
+                // Decoding .4t file here
+                
+                // Level Loading here
+                if(currentLine.charAt(0) == 'L')
+                {
+                    // Load level things here
+                    int level = Character.getNumericValue(currentLine.charAt(2));
+                    System.out.println("Loading level :" + level);
+
+                    LevelManager.loadLevel(level);
+                }
+
+            }
+
+        } catch (IOException e)
+        {
+
+        }
+    }
+
 }

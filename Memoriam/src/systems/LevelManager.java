@@ -83,6 +83,13 @@ public class LevelManager {
         searchLevel(id);
     }
 
+
+    
+    public static void loadLevel(int id) {
+        System.out.println("You are loading a level, ID: " + String.valueOf(id) );
+        searchLevel(id);
+    }
+
     private static void searchLevel(int id) {
         gFrame.showPanel(levels.get(id).getScreenName());
     }

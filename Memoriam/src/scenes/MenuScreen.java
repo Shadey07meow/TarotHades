@@ -1,6 +1,7 @@
 package scenes;
 
 import images.*;
+import systems.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,6 +11,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import systems.SoundManager;
 
@@ -40,12 +42,15 @@ public class MenuScreen extends UIScreen {
 
         // Actions
         startBtn.addActionListener(e -> {
-
-            gameFrame.showPanel("loading");
-
-            // Note: Check if redundant since ImageLibrary is now a singleton
-
-            gameFrame.showPanel("prologue"); 
+            int select = JOptionPane.showConfirmDialog(null, "Load last run", "Play game", JOptionPane.YES_NO_OPTION);
+            
+            if(select == JOptionPane.YES_OPTION)
+            {
+                loadRun();
+            } else{
+                gameFrame.showPanel("loading");
+                gameFrame.showPanel("prologue"); 
+            }
         });
         creditBtn.addActionListener(e -> gameFrame.showPanel("credits"));
         exitBtn.addActionListener(e -> System.exit(0));
@@ -118,6 +123,11 @@ public class MenuScreen extends UIScreen {
     @Override
     public void onExit() {
         SoundManager.stopMusic();
+    }
+
+    private void loadRun()
+    {
+        SaveSystem.loadLastSave();
     }
 
 

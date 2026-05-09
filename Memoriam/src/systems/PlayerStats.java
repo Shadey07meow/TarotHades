@@ -73,11 +73,11 @@ public class PlayerStats{
         if (currentHP < 0) currentHP = 0;
     }
 
-     public boolean isDead() { return currentHP <= 0; }
+    public boolean isDead() { return currentHP <= 0; }
 
-     //reset (new run)
+    //reset (new run)
 
-      public void reset(int baseMaxHP, int baseAtk, int baseDef, double baseSpeed) {
+    public void reset(int baseMaxHP, int baseAtk, int baseDef, double baseSpeed) {
         this.baseMaxHP   = baseMaxHP;
         this.baseAtk  = baseAtk;
         this.baseDef = baseDef;

@@ -50,12 +50,13 @@ public class PauseUI {
         } else if (quitButton.contains(mousePos.x, mousePos.y)) 
         {
             this.gFrame.showPanel("menu");
+            pauseGame();
         }
     }
     
     // Detect button presses
     public void drawPause(Graphics g)
-    {
+    {   
         g.setColor(new Color(0, 0, 0, 120));
         g.fillRect(
             0,

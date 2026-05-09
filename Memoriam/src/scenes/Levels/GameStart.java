@@ -97,6 +97,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(lobbyChest);
         //world.addObject(new BarrierObject(player.getPosition(), this, new Bounds(50, 50, 50, 50)));
 
+        this.player.getStats().reset();
         player.getStats().debugPrint(); // debug
     }
 
