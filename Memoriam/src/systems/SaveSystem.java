@@ -39,6 +39,7 @@ public class SaveSystem {
             // Relics
             for(RelicStatusEffect relic : StatusEffectManager.get().getActiveRelics())
             {
+                writer.write("R:" + relic.getRelic() + "\n");
 
             }
 
@@ -50,7 +51,7 @@ public class SaveSystem {
             {
                 // Save level
                 PlayerAbility ab = entry.getKey();
-                writer.write("P"+  String.valueOf((count)) + ":" + ab.ordinal() + ";" + entry.getValue() + "\n");
+                writer.write("P"+  String.valueOf((count)) + ":" + ab + ";" + entry.getValue() + "\n");
                 count++;
             }
 
