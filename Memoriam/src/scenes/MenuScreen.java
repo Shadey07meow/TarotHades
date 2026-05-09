@@ -1,7 +1,6 @@
 package scenes;
 
 import images.*;
-import systems.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,8 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import systems.*;
 
 public class MenuScreen extends UIScreen implements Runnable {
 
@@ -188,9 +188,9 @@ public class MenuScreen extends UIScreen implements Runnable {
     {
         // One second is 1000
         this.currentTime += 1000/60;
-        this.boboPosition = new Vector2(this.boboPosition.x + (0.3 * ( Math.sin((double)this.currentTime/1000))), this.boboPosition.y);
-        this.lWidth = (int)(this.OlWidth + (100 * ( Math.sin((double)this.currentTime/1000)) * (double )((double )this.OlHeight / (double )this.OlWidth))) ;
-        this.lHeight = (int)(this.OlHeight + (100 * ( Math.sin((double)this.currentTime/1000)) * (double )((double )this.OlHeight / (double )this.OlWidth)));
+        this.boboPosition = new Vector2(this.boboPosition.x + (0.3 * ( Math.sin((double)this.currentTime/500))), this.boboPosition.y);
+        this.logoPosition = new Vector2(this.logoPosition.x + (0.3 * ( Math.sin((double)this.currentTime/500))), this.logoPosition.y);
+        
     }
 
 
