@@ -27,4 +27,9 @@ public class GameStats {
     public int getEnemiesKilled() {
         return enemiesKilled;
     }
+
+    public void reset() {
+        level = 0;
+        enemiesKilled = 0;
+}
 }

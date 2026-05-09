@@ -65,7 +65,6 @@ public class GameStart extends PlayableScreen {
     public void startGamePanel()
     { 
 
-         LevelManager.startNewRun();
         
         // GameObject box1 = new GameObject(300, 300, 50, this);
         // box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
