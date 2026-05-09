@@ -23,6 +23,10 @@ public class GameStats {
         enemiesKilled++;
     }
 
+    public void setKills(int i) {
+        enemiesKilled = i;
+    }
+
     public int getLevel() {
         return level;
     }

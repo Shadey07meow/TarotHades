@@ -16,7 +16,7 @@ public class SaveSystem {
     // When a thing is thinged, it saves the thing
     // Does not save everthing, when a new level is entered, calls a method that overwrites a text file in the autoSave folder 
     
-    public static void saveProgress(int levelNumber, int playerHealth, ArrayList<StatModifier> list)
+    public static void saveProgress(int levelNumber, int playerHealth, ArrayList<StatModifier> list, int kills)
     {
         File saveFile = new File("autosave/saveFile.4t");
         try
@@ -28,9 +28,12 @@ public class SaveSystem {
         {
             // Save level
             writer.write("L:" + String.valueOf((levelNumber)) + "\n");
-            
+
             // Save health
             writer.write("H:" + String.valueOf((playerHealth)) + "\n");
+            
+            // Save kills
+            writer.write("K:" + String.valueOf((kills)) + "\n");
 
             int count = 0;
             // Save powerups 
@@ -71,6 +74,11 @@ public class SaveSystem {
                     int level = Character.getNumericValue(currentLine.charAt(2));
                     System.out.println("Loading level :" + level);
                     LevelManager.loadLevel(level);
+                } else if(currentLine.charAt(0) == 'K')
+                {
+                    int kills = Character.getNumericValue(currentLine.charAt(2));
+                    System.out.println("Amount of kills :" + kills);
+                    GameStats.get().setKills(kills);
                 }
 
             }

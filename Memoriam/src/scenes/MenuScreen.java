@@ -151,11 +151,13 @@ public class MenuScreen extends UIScreen implements Runnable {
     @Override
     public void onInitiate() {
         SoundManager.playMusic("assets/music/TempMainMenu.wav");
+        this.inMenu = true;
     }
 
     @Override
     public void onExit() {
         SoundManager.stopMusic();
+        this.inMenu = false;
     }
 
     private void loadRun()
