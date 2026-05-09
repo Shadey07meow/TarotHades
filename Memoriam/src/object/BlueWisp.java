@@ -41,7 +41,7 @@ public class BlueWisp extends Enemy
     private void makeBossBlue(){
         this.health = maxHealthBoss;
         this.speed = 10;
-        this.detectionRange = 6000;
+        this.detectionRange = 800;
         this.fireCooldown = 0.2 * 1000;
         this.setImage(img.blueRIGHT);
         this.moveRightImg = img.blueRIGHT;

@@ -39,7 +39,7 @@ public class PurpleWisp extends Enemy
     private void makeBossPurple(){
         this.health = maxHealthBoss;
         this.speed = 10;
-        this.detectionRange = 6000;
+        this.detectionRange = 800;
         this.fireCooldown = 0.2 * 1000;
         this.setImage(img.purpleRIGHT);
         this.moveRightImg = img.purpleRIGHT;
