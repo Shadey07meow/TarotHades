@@ -166,6 +166,23 @@ public class GameFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }
+
+    public ShowablePanel getPanel(String panelName)
+    {
+        try {
+            for(ShowablePanel curPanel : allPanels)
+            {
+                if(curPanel.getShowablePanelName().trim().equals(panelName.trim()))
+                {
+                    return curPanel;
+                } 
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+
+        return null;
+    }
     
     // Quick way to create an Image button
     public JButton createImageButton(Image img, int width, int height) {

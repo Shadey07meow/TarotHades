@@ -61,6 +61,7 @@ public class SaveSystem {
         try(BufferedReader reader = new BufferedReader(new FileReader(saveFile)))
         {
             String currentLine = "";
+            int level = 0;
 
             while((currentLine = reader.readLine()) != null)
             {
@@ -71,12 +72,23 @@ public class SaveSystem {
                 if(currentLine.charAt(0) == 'L')
                 {
                     // Load level things here
-                    int level = Character.getNumericValue(currentLine.charAt(2));
+                    level = Character.getNumericValue(currentLine.charAt(2));
                     System.out.println("Loading level :" + level);
                     LevelManager.loadLevel(level);
-                } else if(currentLine.charAt(0) == 'K')
+                }
+                
+                if(currentLine.charAt(0) == 'H')
                 {
-                    int kills = Character.getNumericValue(currentLine.charAt(2));
+                    String healthPoints = currentLine.substring(2);
+                    int hp = Integer.parseInt(healthPoints);
+                    System.out.println("Amount of Health : " + hp);
+                    LevelManager.getPlayableScreen(level).getWorldRenderer().getPlayer().getStats().setCurrentHP(hp);
+                }
+
+                    if(currentLine.charAt(0) == 'K')
+                {
+                    String killCount = currentLine.substring(2);
+                    int kills = Integer.parseInt(killCount);
                     System.out.println("Amount of kills :" + kills);
                     GameStats.get().setKills(kills);
                 }

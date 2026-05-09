@@ -94,6 +94,11 @@ public class LevelManager {
         gFrame.showPanel(levels.get(id).getScreenName());
     }
 
+    public  static PlayableScreen getPlayableScreen(int id)
+    {
+        return (PlayableScreen)gFrame.getPanel(levels.get(id).getScreenName());
+    }
+
      public static void startNewRun() {
         savedAbilities.clear();
         savedAbilityLevels.clear();
