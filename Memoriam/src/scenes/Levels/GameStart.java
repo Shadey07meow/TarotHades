@@ -79,19 +79,104 @@ public class GameStart extends PlayableScreen {
                 Vector2.multiply(Vector2.UP, -300)),
             player, 2, this);
         
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64, 0 * 64)),
+                this,
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13 * 64, 4 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64, 9 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64, -2 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(12 * 64, 0 * 64)),
+                this,
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, 0 * 64)),
+                this,
+                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(13 * 64, 4 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(12 * 64, 9 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(14 * 64, -5 * 64)),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-8 * 64, -6 * 64)),
+                this,
+                new Bounds(1 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+        
+        
 
         // BlueWisp bluey = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -100)) , 2, this);
          BlueWisp bluey2 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 2, this);
          FinalBoss bossy = new FinalBoss(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500)), 2, this);
-
+        
+         PurpleWisp bosspurp = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 6, this);
          PurpleWisp purply = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 2, this);
+         BlueWisp bluboss = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 6, this);
 
         // box1.getCollider().setIsMovable(false);
         // world.addObject(box1);
         // world.addObject(box2);
         // world.addObject(bluey);
-        world.addObject(bluey2);
-        world.addObject(purply);
+        //bluboss.spawnBossBlue();
+        //bosspurp.spawnBossPurple();
+        //world.addObject(bluey2);
+        //world.addObject(purply);
         //world.addObject(bossy);
         
         world.addObject(lobbyChest);
