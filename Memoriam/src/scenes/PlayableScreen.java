@@ -79,6 +79,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         requestFocusInWindow();
         initWindow();
         startGamePanel();
+        SaveSystem.saveProgress(this.getID(), this.player.getHP(), this.player.getStats().getModifiers());
     }
     
     @Override
@@ -96,6 +97,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.currentMap = setMap();
         this.center = this.player.getPosition();
         this.world = new WorldRenderer(this.player, this.currentMap, this);
+        
 
         this.player.setWorld(world);
 
