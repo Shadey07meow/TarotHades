@@ -39,7 +39,7 @@ public class SaveSystem {
             // Relics
             for(RelicStatusEffect relic : StatusEffectManager.get().getActiveRelics())
             {
-                writer.write("R:" + relic.getRelic() + "\n");
+                writer.write("R:" + relic.getRelic().ordinal() + "\n");
 
             }
 
