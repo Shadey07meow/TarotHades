@@ -83,13 +83,15 @@ public class GameStart extends PlayableScreen {
         // BlueWisp bluey = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -100)) , 2, this);
          BlueWisp bluey2 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 2, this);
          FinalBoss bossy = new FinalBoss(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500)), 2, this);
-
+        
+         PurpleWisp bosspurp = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 6, this);
          PurpleWisp purply = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 2, this);
 
         // box1.getCollider().setIsMovable(false);
         // world.addObject(box1);
         // world.addObject(box2);
         // world.addObject(bluey);
+        bosspurp.spawnBossPurple();
         world.addObject(bluey2);
         world.addObject(purply);
         //world.addObject(bossy);

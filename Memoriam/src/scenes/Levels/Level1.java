@@ -166,14 +166,27 @@ public class Level1 extends PlayableScreen {
 
         // Add Enemy Objects
 
-        world.addObject(new PurpleWisp(
-            Vector2.add(new Vector2(120 +10, 120 +1), player.getPosition()), 
-            6, 
-            this
+        for (int i = 0; i <= 5; i++)
+        {
+            world.addObject(new PurpleWisp(
+                Vector2.add(
+                    player.getPosition(),
+                    new Vector2(i * 250, -300)
+                ),
+                2,
+                this
             ));
-        
-        
+        }
 
+        PurpleWisp miniBoss = new PurpleWisp(
+            Vector2.add(
+                this.center,
+                new Vector2(0, -45 * 64)),
+            4,
+            this
+        );
+        
+        miniBoss.spawnBossPurple();
         world.addObject(tr1);
     }
 
