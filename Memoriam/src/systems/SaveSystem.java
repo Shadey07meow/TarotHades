@@ -3,6 +3,7 @@ package systems;
 
 import object.*;
 
+import java.util.Map;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileReader;
@@ -16,7 +17,7 @@ public class SaveSystem {
     // When a thing is thinged, it saves the thing
     // Does not save everthing, when a new level is entered, calls a method that overwrites a text file in the autoSave folder 
     
-    public static void saveProgress(int levelNumber, int playerHealth, ArrayList<StatModifier> list, int kills)
+    public static void saveProgress(int levelNumber, int playerHealth, Map<PlayerAbility, Integer> list, int kills)
     {
         File saveFile = new File("autosave/saveFile.4t");
         try
@@ -35,12 +36,21 @@ public class SaveSystem {
             // Save kills
             writer.write("K:" + String.valueOf((kills)) + "\n");
 
+            // Relics
+            for(RelicStatusEffect relic : StatusEffectManager.get().getActiveRelics())
+            {
+
+            }
+
             int count = 0;
+    
+            
             // Save powerups 
-            for(StatModifier stat : list)
+            for(Map.Entry<PlayerAbility, Integer> entry : list.entrySet())
             {
                 // Save level
-                writer.write("P"+  String.valueOf((count)) + ":" + String.valueOf((stat.getType())) + "\n");
+                PlayerAbility ab = entry.getKey();
+                writer.write("P"+  String.valueOf((count)) + ":" + ab.ordinal() + ";" + entry.getValue() + "\n");
                 count++;
             }
 

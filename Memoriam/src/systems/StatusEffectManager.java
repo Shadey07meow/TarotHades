@@ -21,11 +21,22 @@ public class StatusEffectManager {
 
     // add relics
     public void addRelic(Relic relic) {
+
+        for (RelicStatusEffect existing : activeRelics) {
+            if (existing.getRelic() == relic) return; // already present, skip
+        }
+
         activeRelics.add(new RelicStatusEffect(relic));
     }
     //get active relics
-    public List<RelicStatusEffect> getActiveRelics() {
+    public ArrayList<RelicStatusEffect> getActiveRelics() {
         return activeRelics;
+    }
+
+        //get active relics
+    public  void setActiveRelics(ArrayList<RelicStatusEffect> relics) {
+        activeRelics.clear();
+        activeRelics.addAll(relics);
     }
     
     public void addOrStack(PlayerAbility ability, int durationLevels) {

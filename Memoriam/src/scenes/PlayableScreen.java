@@ -81,7 +81,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         initWindow();
         startGamePanel();
         inputManager.resetInputs();
-        SaveSystem.saveProgress(this.getID(), this.player.getHP(), this.player.getStats().getModifiers(), GameStats.get().getEnemiesKilled());
+        SaveSystem.saveProgress(this.getID(), this.player.getHP(), this.player.getAbilityMap(), GameStats.get().getEnemiesKilled());
     }
     
     @Override

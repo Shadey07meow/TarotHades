@@ -29,6 +29,8 @@ public class MenuScreen extends UIScreen implements Runnable {
 
     private int OlWidth = (int)(406 * 2.6) ;
     private int OlHeight = (int)(156 * 2.6); 
+    Thread menuThread = new Thread(this);
+
 
     
         
@@ -40,9 +42,8 @@ public class MenuScreen extends UIScreen implements Runnable {
 
         super("menu", gameFrame);
         this.backgroundImage = ImageLibrary.get().background;
-        Thread menuThread = new Thread(this);
         this.currentTime = 0;
-        menuThread.start();
+
 
         // Buttons
         startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
@@ -151,13 +152,14 @@ public class MenuScreen extends UIScreen implements Runnable {
     @Override
     public void onInitiate() {
         SoundManager.playMusic("assets/music/TempMainMenu.wav");
+        menuThread.start();
         this.inMenu = true;
     }
 
     @Override
     public void onExit() {
-        SoundManager.stopMusic();
         this.inMenu = false;
+        SoundManager.stopMusic();
     }
 
     private void loadRun()

@@ -253,11 +253,7 @@ public class Player extends Entity {
 
     // for empress
     private void checkHalfHpWarning() {
-        if (RelicManager.get().hasRelic(Relic.THE_EMPRESS)) {
-            halfHpWarning = (stats.getCurrentHP() <= stats.getMaxHP() / 2);
-        } else {
-            halfHpWarning = false;
-        }
+        halfHpWarning = (stats.getCurrentHP() <= stats.getMaxHP() / 2);
     }
 
     //  shield
@@ -348,6 +344,11 @@ public class Player extends Entity {
 
     public int getAbilityLevel(PlayerAbility ability) {
         return abilityStacks.getOrDefault(ability, 0);
+    }
+
+    public Map<PlayerAbility, Integer> getAbilityMap()
+    {
+        return this.abilityStacks;
     }
 
     public boolean isAbilityMaxed(PlayerAbility ability) {
