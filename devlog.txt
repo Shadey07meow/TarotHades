@@ -13,6 +13,7 @@ KEEP THIS ON TOP
     - Separated main mmenu objects
     - Save systemm
     - fixed inputs loading bugs
+    - made moving menu screen
 
     (CalRya)
     - Minor bugs

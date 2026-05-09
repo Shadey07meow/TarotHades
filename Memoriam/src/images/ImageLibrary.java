@@ -38,6 +38,7 @@ public class ImageLibrary
     public final BufferedImage resumeBtn ;
     public final BufferedImage restartBtn;
     public final BufferedImage boboLogo;
+    public final BufferedImage logo;
 
     public final BufferedImage pauseBg;
 
@@ -181,6 +182,7 @@ private ImageLibrary()
                 loadingScreen = ImageIO.read(getClass().getResource("assets/Panels/loadingScreen.png"));
                 loseScreen = ImageIO.read(getClass().getResource("assets/Panels/loseScreen.png"));
                 boboLogo = ImageIO.read(getClass().getResource("assets/Panels/boboFront.png"));
+                logo = ImageIO.read(getClass().getResource("assets/Panels/logo.png"));
                 
                 // player hurt
                 playerHurtUP = ImageIO.read(getClass().getResource("assets/PlayerSprites/hurt/foolUpHurt.png"));

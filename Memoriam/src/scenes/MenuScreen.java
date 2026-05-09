@@ -22,7 +22,18 @@ public class MenuScreen extends UIScreen implements Runnable {
 
     private boolean inMenu = true;
 
-    private Vector2 boboPosition = new Vector2(0, 0);
+    private Vector2 boboPosition = new Vector2(-20, 0);
+    private Vector2 logoPosition = new Vector2(520, 225);
+    private int lWidth = (int)(406 * 2.4) ;
+    private int lHeight = (int)(156 * 2.4); 
+
+    private int OlWidth = (int)(406 * 2.6) ;
+    private int OlHeight = (int)(156 * 2.6); 
+
+    
+        
+
+
     private int currentTime = 0;
 
     public MenuScreen(GameFrame gameFrame) {
@@ -118,14 +129,22 @@ public class MenuScreen extends UIScreen implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (this.backgroundImage != null) {
-            //g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
 
         g.drawImage(ImageLibrary.get().boboLogo,
-            0,
-            0,
+            (int)this.boboPosition.x,
+            (int)this.boboPosition.y,
             getWidth(),
             getHeight(),
+        null);
+
+
+        g.drawImage(ImageLibrary.get().logo,
+            (int)this.logoPosition.x - (int)(lWidth/2),
+            (int)this.logoPosition.y - (int)(lHeight/2),
+            lWidth,
+            lHeight,
         null);
     }
 
@@ -167,7 +186,9 @@ public class MenuScreen extends UIScreen implements Runnable {
     {
         // One second is 1000
         this.currentTime += 1000/60;
-        this.boboPosition = new Vector2(this.boboPosition.x + Math.sin(this.currentTime), this.boboPosition.x);
+        this.boboPosition = new Vector2(this.boboPosition.x + (0.3 * ( Math.sin((double)this.currentTime/1000))), this.boboPosition.y);
+        this.lWidth = (int)(this.OlWidth + (100 * ( Math.sin((double)this.currentTime/1000)) * (double )((double )this.OlHeight / (double )this.OlWidth))) ;
+        this.lHeight = (int)(this.OlHeight + (100 * ( Math.sin((double)this.currentTime/1000)) * (double )((double )this.OlHeight / (double )this.OlWidth)));
     }
 
 
