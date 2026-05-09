@@ -38,7 +38,9 @@ public class YellowWisp extends Enemy
     }
     private void makeBossYellow(){
         this.health = maxHealthBoss;
-        this.speed = 6;
+        this.speed = 10;
+        this.detectionRange = 6000;
+        this.fireCooldown = 0.2 * 1000;
         this.setImage(img.yellowRIGHT);
         this.moveRightImg = img.yellowRIGHT;
         this.moveLeftImg = img.yellowLEFT;

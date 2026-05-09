@@ -16,7 +16,7 @@ public class FinalBoss extends Enemy{
     public FinalBoss(Vector2 position, double scale, PlayableScreen scrn)
     {
         super(position, scale, scrn);
-        this.fireCooldown = 0.2 * 1000;
+        this.fireCooldown = 0.1 * 1000;
         this.health = maxHealth;
         this.speed = currentSpeed;
         this.setImage(img.finalBoss);
@@ -50,8 +50,8 @@ public class FinalBoss extends Enemy{
     {
         BlueWisp bossBlu = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 2, this.playScrn);
         BlueWisp bossBlu2 = new BlueWisp(new Vector2(this.position.x - 100, this.position.y), 2, this.playScrn);
-        bossBlu.setDetectionDistance(5000);
-        bossBlu2.setDetectionDistance(5000);
+        bossBlu.setDetectionDistance(10000);
+        bossBlu2.setDetectionDistance(10000);
         world.addObject(bossBlu);
         world.addObject(bossBlu2);
     }
@@ -60,8 +60,8 @@ public class FinalBoss extends Enemy{
     {
         BlueWisp bossBlu = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 2, this.playScrn);
         PurpleWisp bossPurpur2 = new PurpleWisp(new Vector2(this.position.x - 100, this.position.y), 2, this.playScrn);
-        bossBlu.setDetectionDistance(5000);
-        bossPurpur2.setDetectionDistance(5000);
+        bossBlu.setDetectionDistance(10000);
+        bossPurpur2.setDetectionDistance(10000);
         bossPurpur2.setAttackingRange(400);
         world.addObject(bossBlu);
         world.addObject(bossPurpur2);
