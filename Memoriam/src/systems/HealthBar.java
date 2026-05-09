@@ -147,10 +147,11 @@ public class HealthBar {
 
                 // "2L" levels-remaining label underneath
                 g2.setFont(new Font("Monospaced", Font.BOLD, 11));
-                String lvlText = effect.getLevelsRemaining() + "L";
-                int lw = g2.getFontMetrics().stringWidth(lvlText);
+                int stackLevel = player.getAbilityLevel(effect.getAbility());
+                String stackLabel = stackLevel + "*";    
+                int lw = g2.getFontMetrics().stringWidth(stackLabel);             
                 g2.setColor(new Color(220, 220, 100));
-                g2.drawString(lvlText, x + (ICON_SIZE - lw) / 2, iconsY + ICON_SIZE + 13);
+                g2.drawString(stackLevel + "*", + (ICON_SIZE - lw) / 2, iconsY + ICON_SIZE + 13);
 
                 x += ICON_SIZE + ICON_SPACING; // next icon goes to the right
         }

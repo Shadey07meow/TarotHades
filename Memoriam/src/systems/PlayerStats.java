@@ -29,7 +29,7 @@ public class PlayerStats{
     }
 
     //apply a powerup
-    public void applyPowerUp(PowerUp powerUp) {
+    public synchronized void applyPowerUp(PowerUp powerUp) {
         if (powerUp == null) return;
 
         modifiers.addAll(powerUp.getModifiers());
@@ -38,7 +38,7 @@ public class PlayerStats{
     }
 
     //stat getters
-    public int getMaxHP(){ return (int) Math.round(computeStat(StatType.MAX_HP,  baseMaxHP));}
+    public synchronized int getMaxHP(){ return (int) Math.round(computeStat(StatType.MAX_HP,  baseMaxHP));}
     public int getAttack(){ return (int) Math.round(computeStat(StatType.ATTACK,  baseAtk)); }
     public int getDefense(){ return (int) Math.round(computeStat(StatType.DEFENSE, baseDef));}
     public double getSpeed(){ return computeStat(StatType.SPEED, baseSpeed); }
@@ -50,7 +50,7 @@ public class PlayerStats{
 
     // hp helpers
 
-    public int getCurrentHP() {return currentHP;}
+    public synchronized int getCurrentHP() {return currentHP;}
 
     public void heal(int amount) {
         currentHP += amount;
@@ -67,11 +67,13 @@ public class PlayerStats{
         if (currentHP < 0) currentHP = 0;
     }
 
-    public void setCurrentHP(int hp) {
+    public synchronized void setCurrentHP(int hp) {
         currentHP = hp;
         if (currentHP > getMaxHP()) currentHP = getMaxHP();
         if (currentHP < 0) currentHP = 0;
     }
+    
+    
 
     public boolean isDead() { return currentHP <= 0; }
 

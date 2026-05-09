@@ -8,6 +8,7 @@ public class LevelManager {
 
     public static int maxLevels;
     public static GameFrame gFrame;
+    private static Relic savedRelic = null;
     public static ArrayList<PlayableScreen> levels = new ArrayList<>();
     private static java.util.Set<object.PlayerAbility> savedAbilities =
             new java.util.HashSet<>();
@@ -28,8 +29,11 @@ public class LevelManager {
             if (player.hasAbility(ability)) {
                 savedAbilities.add(ability);
                 savedAbilityLevels.put(ability, level);
+                savedRelic = RelicManager.get().getChosenRelic();
             }
         }
+        savedRelic = RelicManager.get().getChosenRelic();
+        System.out.println("Saved relic: " + savedRelic);
         System.out.println("Saved abilities: " + savedAbilities);
     }
 
@@ -39,12 +43,22 @@ public class LevelManager {
         for (PlayerAbility ability : savedAbilities) {
             int targetLevel = savedAbilityLevels.getOrDefault(ability, 1);
             int currentLevel = player.getAbilityLevel(ability);
+            
 
             // Apply missing stacks so the player ends up at the saved level
             for (int i = currentLevel; i < targetLevel; i++) {
                 player.applyAbility(ability);
             }
         }
+
+            if (savedRelic != null) {
+                System.out.println("Calling resetStatApplied");
+                RelicManager.get().resetStatApplied();
+                RelicManager.get().applyRelic(savedRelic, player);
+                System.out.println("After restore — MaxHP: " + player.getStats().getMaxHP());
+                System.out.println("After restore — CurrentHP: " + player.getStats().getCurrentHP());
+            }
+            
         System.out.println("Restored abilities: " + savedAbilities);
     }
 
@@ -104,6 +118,7 @@ public class LevelManager {
         savedAbilityLevels.clear();
         StatusEffectManager.reset();
         RelicManager.reset();
+        GameStats.get().reset();
         System.out.println("[LevelManager] New run started — singletons reset.");
     }
 

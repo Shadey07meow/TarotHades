@@ -39,11 +39,6 @@ public class Player extends Entity {
     private final Image spriteLeft = ImageLibrary.get().playerSpritesLEFT;
     private final Image spriteRight = ImageLibrary.get().playerSpritesRIGHT;
 
-    private final Image hurtUp = ImageLibrary.get().playerHurtUP;
-    private final Image hurtDown = ImageLibrary.get().playerHurtDOWN;
-    private final Image hurtLeft = ImageLibrary.get().playerHurtLEFT;
-    private final Image hurtRight = ImageLibrary.get().playerHurtRIGHT;
-
       // Tracker variables
     private boolean hasShotProjectile = false;
     private boolean isInteracting = false;
@@ -52,11 +47,7 @@ public class Player extends Entity {
     private boolean uiOpen = false;    
     private Vector2 curSpeed = new Vector2(); 
     private final int regenBase   = 120;
-    private boolean halfHpWarning = false; // for the empress
-
-    private boolean isHurt = false;
-    private int hurtTimer = 0;
-    private final int hurtDuration = 20;
+     private boolean halfHpWarning = false; // for the empress
     
     // constructor
     public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
@@ -90,12 +81,6 @@ public class Player extends Entity {
         checkRelicHealthSync();
         if (world == null) return;
 
-        if (isHurt) {
-            hurtTimer--;
-            if (hurtTimer <= 0) {
-                isHurt = false;
-            }
-        }
         if (!isDead) {
             inputOperations();
             tickRegen();
@@ -132,8 +117,10 @@ public class Player extends Entity {
                 // addOrStack handles both "new effect" and "re-picked" cases.
                 StatusEffectManager.get().addOrStack(ability, 2);
             }
-            // FLAME_SHOT and MULTI_SHOT are permanent (no timed expiry).
-            default -> { /* permanent — no timer */ }
+            case FLAME_SHOT, MULTI_SHOT -> {
+                StatusEffectManager.get().addOrStack(ability, Integer.MAX_VALUE);
+            }
+           
         }
 
         // gameplay-side effects (behaviours, projectile types, etc.)
@@ -166,29 +153,16 @@ public class Player extends Entity {
         Vector2 inpVector = inputs.getInputVector();
         curSpeed = Vector2.multiply(inputs.getInputVector(), this.speed);
 
-        if(Math.abs(curSpeed.findMag()) > speed)
-            curSpeed = Vector2.magConvert(curSpeed, speed);
-
+        // Clamp movement speed so that it never exceeds speed
+        if(Math.abs(curSpeed.findMag()) > speed) curSpeed = Vector2.magConvert(curSpeed, speed);
         move(curSpeed);
-
-        // determine direction
-        Image normalSprite;
-
-        if (inpVector.x > 0) normalSprite = spriteRight;
-        else if (inpVector.x < 0) normalSprite = spriteLeft;
-        else if (inpVector.y > 0) normalSprite = spriteUp;
-        else normalSprite = spriteDown;
-
-        // override if hurt
-        if (isHurt) {
-            if (inpVector.x > 0) setImage(hurtRight);
-            else if (inpVector.x < 0) setImage(hurtLeft);
-            else if (inpVector.y > 0) setImage(hurtUp);
-            else setImage(hurtDown);
-            return;
-        }
-
-        setImage(normalSprite);
+        
+        // Set images, make looking up and down priority
+        if (inpVector.x > 0) setImage(spriteRight);
+        else if (inpVector.x < 0) setImage(spriteLeft);
+        
+        if (inpVector.y > 0) setImage(spriteUp);
+        else if (inpVector.y < 0) setImage(spriteDown);
     }
 
     // combat 
@@ -336,9 +310,6 @@ public class Player extends Entity {
         stats.takeDamage((int) a);
         this.health = stats.getCurrentHP();
 
-        isHurt = true;
-        hurtTimer = hurtDuration;
-
         // check if we just hit 0 and DEATH relic can save us
         if (this.health <= 0) {
             boolean saved = RelicManager.get().tryResurrect(this);
@@ -348,25 +319,6 @@ public class Player extends Entity {
                 return;
             }
         }
-    }
-
-    // map boundary/collider
-    public void keepInsideScreen() {
-        int halfW = getScaledWidth() / 2;
-        int halfH = getScaledHeight() / 2;
-
-        int maxX = 1920;
-        int maxY = 1080;
-        int screenWidth = this.playScrn.getWidth();
-        int screenHeight = this.playScrn.getHeight();
-
-        if (getX() - halfW < 0) setX(halfW);
-        if (getY() - halfH < 0) setY(halfH);
-
-        if (getX() + halfW > maxX) setX(maxX - halfW);
-        if (getY() + halfH > maxY) setY(maxY - halfH);
-        if (getX() + halfW > screenWidth) setX(screenWidth - halfW);
-        if (getY() + halfH > screenHeight) setY(screenHeight - halfH);
     }
 
     @Override
@@ -421,5 +373,4 @@ public class Player extends Entity {
     public Vector2 getVelocity(){return curSpeed;}
     public boolean isInteracting(){ return this.isInteracting;}
     public void checkInteracting(){isInteracting = inputs.getIsInteracting();}
-    // public void damage(int i){minusHP(i);}
 }

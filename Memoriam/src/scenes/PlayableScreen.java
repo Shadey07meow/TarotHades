@@ -77,6 +77,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.gameLoop = new Thread(this);
         this.pauseUI = new PauseUI(this, this.getGameFrame());
         requestFocusInWindow();
+        if (this.id == 0) LevelManager.startNewRun();
         initWindow();
         startGamePanel();
         inputManager.resetInputs();
@@ -192,7 +193,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         crdManager.sizeCard();
         crdManager.checkHoveringButtons();
         crdManager.checkHoveringButtons();
-        player.keepInsideScreen();
 
         world.updateWorld();
     }

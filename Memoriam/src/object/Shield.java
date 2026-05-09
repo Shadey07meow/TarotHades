@@ -53,7 +53,7 @@ public class Shield extends GameObject {
         for (CollisionObject col : this.collider.getCollidingWith()) {
             GameObject other = col.getGameObject();
 
-            if (other instanceof Projectile || other instanceof Enemy) {
+            if (other instanceof EnemyProjectile || other instanceof Enemy) {
                 world.removeObject(other);
                 deactivate();
 
