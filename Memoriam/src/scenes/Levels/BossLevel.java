@@ -211,6 +211,13 @@ public class BossLevel extends PlayableScreen {
             new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
         )));
 
+        world.addObject(new FinalBoss(Vector2.add(
+                this.center,
+                new Vector2(0, -30 * 64)),
+            4,
+            this
+        ));
+
     }
 
     @Override

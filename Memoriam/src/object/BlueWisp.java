@@ -6,7 +6,7 @@ import systems.*;
 
 public class BlueWisp extends Enemy
 {
-    private final int maxHealth = 20;
+    private final int maxHealth = 18;
     private final int maxHealthBoss = 100;
     private final double currentSpeed = 5;    
 
@@ -20,10 +20,9 @@ public class BlueWisp extends Enemy
     }
 
     public void spawnBossBlue(){
-        BlueWisp bossBlue = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 2, this.playScrn);
+        BlueWisp bossBlue = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 4, this.playScrn);
         bossBlue.makeBossBlue();
         world.addObject(bossBlue);
-
     }
 
     private void normalBlue()
@@ -41,7 +40,7 @@ public class BlueWisp extends Enemy
 
     private void makeBossBlue(){
         this.health = maxHealthBoss;
-        this.speed = 6;
+        this.speed = 5;
         this.setImage(img.blueRIGHT);
         this.moveRightImg = img.blueRIGHT;
         this.moveLeftImg = img.blueLEFT;

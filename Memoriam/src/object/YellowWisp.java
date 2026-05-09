@@ -6,7 +6,7 @@ import systems.*;
 
 public class YellowWisp extends Enemy
 {
-    private final int maxHealth = 20;
+    private final int maxHealth = 18;
     private final int maxHealthBoss = 100;
     private final double currentSpeed = 7;    
 
@@ -21,7 +21,7 @@ public class YellowWisp extends Enemy
     }
 
     public void spawnBossYellow(){
-        YellowWisp bossYellow  = new YellowWisp(new Vector2(this.position.x + 100, this.position.y), 2, this.playScrn);
+        YellowWisp bossYellow  = new YellowWisp(new Vector2(this.position.x + 100, this.position.y), 4, this.playScrn);
         bossYellow.makeBossYellow();
         world.addObject(bossYellow);
 

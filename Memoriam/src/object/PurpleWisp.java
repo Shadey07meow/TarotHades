@@ -6,7 +6,7 @@ import systems.*;
 
 public class PurpleWisp extends Enemy
 {
-    private final int maxHealth = 20;
+    private final int maxHealth = 18;
     private final int maxHealthBoss = 100;
     private final double currentSpeed = 5;    
 
