@@ -11,6 +11,11 @@ KEEP THIS ON TOP
     (Shadey07)
     - Treasure box lockup
 
+    (CalRya)
+    - Minor bugs
+        - Treasure Chest
+        - Kill Count Reset
+    - Pause Bg implement
 --> 05/08/2026
     (CalRya)
     - Added pause assets

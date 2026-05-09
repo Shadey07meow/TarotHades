@@ -27,6 +27,7 @@ public class GameStart extends PlayableScreen {
 
         setBackground(Color.GRAY);
         setLayout(new BorderLayout());
+        
 
         // killButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 200, 100);
         // killButton.addActionListener(e -> {
@@ -65,7 +66,9 @@ public class GameStart extends PlayableScreen {
     public void startGamePanel()
     { 
 
+         GameStats.get().resetStat();
          LevelManager.startNewRun();
+         
         
         // GameObject box1 = new GameObject(300, 300, 50, this);
         // box1.setCollider(new RectangleCollider(box1, true, 20, 20, 20, 20));
