@@ -7,6 +7,7 @@ import systems.*;
 
 public class FinalBoss extends Enemy{
     private final int maxHealth = 500;
+    //private final int maxHealth = 10;
     private double currentSpeed = 0;    
     private int shotCount;
     private int shotsToSpawn = 5;
@@ -72,7 +73,6 @@ public class FinalBoss extends Enemy{
     @Override
     public void onDeath()
     {
-        // Remove sellf first, then pass the level
         super.onDeath();
         SaveSystem.saveProgress(this.playScrn.getID(), this.playScrn.getWorldRenderer().getPlayer().getHP(), this.playScrn.getWorldRenderer().getPlayer().getAbilityMap(), GameStats.get().getEnemiesKilled());
 
@@ -82,7 +82,12 @@ public class FinalBoss extends Enemy{
     // Passing level logic
     private void passLevel()
     {
-        this.playScrn.getGameFrame().showPanel("menu");
+        CutsceneScreen cutscene =
+            (CutsceneScreen) playScrn.getGameFrame().getPanel("cutscene");
+        
+        cutscene.loadEndingCutscene();
+
+        playScrn.getGameFrame().showPanel("cutscene");
     }
 
     

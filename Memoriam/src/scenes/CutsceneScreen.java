@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
-
 public class CutsceneScreen extends UIScreen {
 
     private String[] lines = {};
@@ -15,6 +14,7 @@ public class CutsceneScreen extends UIScreen {
     private final JLabel textLabel = new JLabel("", SwingConstants.CENTER);
 
     private float alpha = 0f;
+    private boolean endingCutscene = false;
 
     private enum State {
         FADE_IN,
@@ -26,17 +26,16 @@ public class CutsceneScreen extends UIScreen {
 
     private Timer timer;
 
-
-
     public CutsceneScreen(GameFrame gameFrame) {
         super("cutscene", gameFrame);
 
         finishedTransition = true;
+
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
 
         textLabel.setFont(new Font("Serif", Font.PLAIN, 42));
-        textLabel.setForeground(Color.WHITE);
+        textLabel.setForeground(new Color(255, 255, 255, 0));
         add(textLabel, BorderLayout.CENTER);
 
         JLabel hint = new JLabel("Click to continue", SwingConstants.CENTER);
@@ -57,21 +56,27 @@ public class CutsceneScreen extends UIScreen {
 
     @Override
     public void onInitiate() {
+
         if (lines == null || lines.length == 0) return;
 
+        if (timer != null) timer.stop();
+
         finishedTransition = false;
+
         index = 0;
         alpha = 0f;
+
         state = State.FADE_IN;
 
-        textLabel.setText(lines[index]);
+        textLabel.setText(lines[0]);
+        textLabel.setForeground(new Color(255, 255, 255, 0));
 
         startLoop();
     }
 
     private void handleClick() {
 
-        //if (state != State.SHOWING) return;
+        if (state != State.SHOWING) return;
 
         if (index < lines.length - 1) {
             state = State.FADE_OUT;
@@ -84,7 +89,7 @@ public class CutsceneScreen extends UIScreen {
 
         if (timer != null) timer.stop();
 
-        timer = new Timer(1, e -> {
+        timer = new Timer(16, e -> {
 
             switch (state) {
 
@@ -104,7 +109,14 @@ public class CutsceneScreen extends UIScreen {
 
                     if (alpha <= 0f) {
                         alpha = 0f;
+
                         index++;
+
+                        if (index >= lines.length) {
+                            endCutscene();
+                            return;
+                        }
+
                         textLabel.setText(lines[index]);
                         state = State.FADE_IN;
                     }
@@ -112,9 +124,7 @@ public class CutsceneScreen extends UIScreen {
                     updateAlpha();
                 }
 
-                case SHOWING -> {
-                    // idle
-                }
+                case SHOWING -> {}
             }
         });
 
@@ -129,19 +139,32 @@ public class CutsceneScreen extends UIScreen {
     private void endCutscene() {
 
         if (timer != null) timer.stop();
-        // Should not rely on game start
-        this.finishedTransition = true;
 
-       
-       
-        ///gameFrame.showPanel("start");
+        finishedTransition = true;
+
+        if (endingCutscene) {
+            getGameFrame().showPanel("win");
+        }
+    }
+
+    public void loadEndingCutscene() {
+
+        endingCutscene = true;
+
+        lines = new String[] {
+            "The silence settles.",
+            "The dungeon no longer breathes.",
+            "You stand alone.",
+            "But alive.",
+            "Freedom awaits."
+        };
     }
 
     public void loadCutsceneForLevel(int level) {
 
-        finishedTransition = false;
+        endingCutscene = false;
+
         switch (level) {
-            
 
             case 1 -> lines = new String[]{
                 "You feel something shift.",
@@ -177,8 +200,7 @@ public class CutsceneScreen extends UIScreen {
         }
     }
 
-    public boolean isFinishedLoading()
-    {
+    public boolean isFinishedLoading() {
         return this.finishedTransition;
     }
 }
