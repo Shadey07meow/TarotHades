@@ -6,7 +6,7 @@ import java.awt.Image;
 import scenes.*;
 import systems.*;
 
-public class Map extends GameObject {
+public class MapObj extends GameObject {
     
     // A map object is just a game object that is a map, this will be used to differentiate backgrounds and actual gameObjects
     private int TOP;
@@ -16,7 +16,7 @@ public class Map extends GameObject {
 
     // Will contain multiple colliders, spawn points and such
 
-    public Map(Image mapImg, Vector2 position, double scale, PlayableScreen scrn)
+    public MapObj(Image mapImg, Vector2 position, double scale, PlayableScreen scrn)
     {
         super(position, scale, scrn);
         super.setImage(mapImg);

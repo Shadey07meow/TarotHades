@@ -205,9 +205,9 @@ public class GameStart extends PlayableScreen {
     }
 
     @Override
-    public Map setMap()
+    public MapObj setMap()
     {
-        return new Map(ImageLibrary.get().map0, player.getPosition(), 1 , this);
+        return new MapObj(ImageLibrary.get().map0, player.getPosition(), 1 , this);
     }
 
     @Override

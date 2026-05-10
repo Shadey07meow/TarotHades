@@ -10,6 +10,8 @@ KEEP THIS ON TOP
 --> 05/10/2026
     (Shadey07)
     - Trying to add abilities to the save/load system
+    - Save load commpleted
+    - Made getter methods in saveSystem
 
 --> 05/09/2026
     (Shadey07)

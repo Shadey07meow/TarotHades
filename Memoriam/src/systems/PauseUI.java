@@ -50,6 +50,7 @@ public class PauseUI {
         } else if (quitButton.contains(mousePos.x, mousePos.y)) 
         {
             this.gFrame.showPanel("menu");
+            scrn.onExit();
             pauseGame();
         }
     }

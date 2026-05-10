@@ -21,7 +21,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public static final int FRAMESPERSECOND = 60;
     public static final int SINGLEFRAME = 1000/ FRAMESPERSECOND;
     protected Vector2 center = new Vector2();
-    protected Map     currentMap;
+    protected MapObj     currentMap;
     private CardManager crdManager  = new CardManager(this);
     private HealthBar healthBar = new HealthBar();  
     private int hoveredCardIndex = -1;
@@ -65,7 +65,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     public int getID(){return this.id;}
     
-    public abstract Map setMap();
+    public abstract MapObj setMap();
     public abstract Player setPlayer();
     public abstract void startGamePanel();
     public abstract void stopGamePanel();

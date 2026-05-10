@@ -228,9 +228,9 @@ public class BossLevel extends PlayableScreen {
 
 
     @Override
-    public Map setMap()
+    public MapObj setMap()
     {
-        return new Map(ImageLibrary.get().map5, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8 * 120)), 1 , this);
+        return new MapObj(ImageLibrary.get().map5, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8 * 120)), 1 , this);
     }
 
     @Override   

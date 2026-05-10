@@ -17,7 +17,7 @@ public class WorldRenderer {
     // Needs player class in order to determine position changes
     // Also needs a class in order to render the map first always, ensuring it'll always appear last
     private Player player;
-    private Map map;
+    private MapObj map;
     private PlayableScreen gamePanel;
 
     // Object list MUST include player
@@ -35,14 +35,14 @@ public class WorldRenderer {
     public WorldRenderer(Player player, PlayableScreen s)
     {
         this.player = player;
-        this.map = new Map(null, player.getPosition(), 1, s);
+        this.map = new MapObj(null, player.getPosition(), 1, s);
         this.gamePanel = s;
 
         initWorld();
 
     }
 
-    public WorldRenderer(Player player, Map  m,  PlayableScreen s)
+    public WorldRenderer(Player player, MapObj  m,  PlayableScreen s)
     {
         this.player = player;
         this.map = m;
@@ -201,7 +201,7 @@ public class WorldRenderer {
     }
 
     // Sets the first object of the world into a map
-    public void setMap(Map m)
+    public void setMap(MapObj m)
     {
         this.map = m;
         this.objectList.add(0, m);
@@ -283,7 +283,7 @@ public class WorldRenderer {
     }
 
     
-    public void resetWorld(Map map, Player player)
+    public void resetWorld(MapObj map, Player player)
     {
         objectList.clear();
 
@@ -336,7 +336,7 @@ public class WorldRenderer {
 
     }
 
-    public Map getMap()
+    public MapObj getMap()
     {
         return this.map;
     }

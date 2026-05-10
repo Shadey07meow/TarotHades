@@ -351,6 +351,12 @@ public class Player extends Entity {
         return this.abilityStacks;
     }
 
+    public void setAbilityMap(Map<PlayerAbility, Integer> a)
+    {
+        this.abilityStacks.clear();
+        this.abilityStacks.putAll(a);
+    }
+
     public boolean isAbilityMaxed(PlayerAbility ability) {
         return getAbilityLevel(ability) >= PlayerAbility.MAX_STACKS;
     }
