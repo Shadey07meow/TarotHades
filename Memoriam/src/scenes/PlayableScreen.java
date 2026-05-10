@@ -184,6 +184,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             updateCollisions();
         }
 
+        keepInsideScreen();
+
         // when esc is press, show pause panel
   
         
@@ -372,6 +374,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             if (getX() + halfW > screenWidth) this.player.setX(screenWidth - halfW);
             if (getY() + halfH > screenHeight) this.player.setY(screenHeight - halfH);
         }
+
 
     public InputManager getInputManager(){return this.inputManager;}
     public WorldRenderer getWorldRenderer(){return this.world;}

@@ -49,6 +49,7 @@ public class FinalBoss extends Enemy{
     public void spawnBaddies()
     {
         BlueWisp bossBlu = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 2, this.playScrn);
+
         BlueWisp bossBlu2 = new BlueWisp(new Vector2(this.position.x - 100, this.position.y), 2, this.playScrn);
         bossBlu.setDetectionDistance(10000);
         bossBlu2.setDetectionDistance(10000);
@@ -73,6 +74,8 @@ public class FinalBoss extends Enemy{
     {
         // Remove sellf first, then pass the level
         super.onDeath();
+        SaveSystem.saveProgress(this.playScrn.getID(), this.playScrn.getWorldRenderer().getPlayer().getHP(), this.playScrn.getWorldRenderer().getPlayer().getAbilityMap(), GameStats.get().getEnemiesKilled());
+
         passLevel();
     }
 
