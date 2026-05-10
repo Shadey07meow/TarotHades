@@ -51,7 +51,7 @@ public class SaveSystem {
             {
                 // Save level
                 PlayerAbility ab = entry.getKey();
-                writer.write("P"+  String.valueOf((count)) + ":" + ab + ";" + entry.getValue() + "\n");
+                writer.write("P"+  String.valueOf((count)) + ":" + ab.ordinal() + ";" + entry.getValue() + "\n");
                 count++;
             }
 
@@ -125,7 +125,6 @@ public class SaveSystem {
                     int skillNum = Character.getNumericValue(skill);
                     int stackNum = Character.getNumericValue(stack);
                     System.out.println("Skill : " + PlayerAbility.values()[skillNum] + ", At stack :" + stackNum);
-                    
                     abilities.put(PlayerAbility.values()[skillNum], stackNum);
                 }
 
