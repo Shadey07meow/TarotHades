@@ -39,6 +39,7 @@ public class GameFrame extends JFrame {
     private final JPanel parentPanel;
     private final PrologueScreen prologueScreen;
     public final CutsceneScreen cutsceneScreen;
+    private final WinScreen winScreen;
 
     private volatile boolean assetsLoaded = false;
 
@@ -85,7 +86,8 @@ public class GameFrame extends JFrame {
         menuScreen = new MenuScreen(this);
         loseScreen = new LoseScreen(this);
         pauseScreen = new PauseScreen(this);
-        
+        winScreen = new WinScreen(this);
+
         // Note: Check out what these do later
         prologueScreen = new PrologueScreen(this);
         cutsceneScreen = new CutsceneScreen(this);
@@ -121,6 +123,7 @@ public class GameFrame extends JFrame {
         this.allPanels.add(pauseScreen);
         this.allPanels.add(prologueScreen);
         this.allPanels.add(cutsceneScreen);
+        this.allPanels.add(winScreen);
 
         // Levels
         this.allPanels.add(level1);
