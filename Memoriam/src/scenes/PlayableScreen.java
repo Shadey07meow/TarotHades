@@ -186,6 +186,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
         keepInsideScreen();
 
+
         // when esc is press, show pause panel
   
         
@@ -361,18 +362,16 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             int halfW = this.player.getScaledWidth() / 2;
             int halfH = this.player.getScaledHeight() / 2;
 
-            int maxX = 1920;
-            int maxY = 1080;
+      
             int screenWidth = getWidth();
             int screenHeight =  getHeight();
 
-            if (getX() - halfW < 0) this.player.setX(halfW);
-            if (getY() - halfH < 0) this.player.setY(halfH);
+            if (this.player.getX() - halfW < 0) this.player.setX(halfW);
+            if (this.player.getY() - halfH < 0) this.player.setY(halfH);
 
-            if (getX() + halfW > maxX) this.player.setX(maxX - halfW);
-            if (getY() + halfH > maxY) this.player.setY(maxY - halfH);
-            if (getX() + halfW > screenWidth) this.player.setX(screenWidth - halfW);
-            if (getY() + halfH > screenHeight) this.player.setY(screenHeight - halfH);
+
+            if (this.player.getX() + halfW > screenWidth) this.player.setX(screenWidth - halfW);
+            if (this.player.getY() + halfH > screenHeight) this.player.setY(screenHeight - halfH);
         }
 
 

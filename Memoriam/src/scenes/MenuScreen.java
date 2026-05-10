@@ -152,6 +152,7 @@ public class MenuScreen extends UIScreen implements Runnable {
     @Override
     public void onInitiate() {
         SoundManager.playMusic("assets/music/TempMainMenu.wav");
+        menuThread = new Thread(this);
         menuThread.start();
         this.inMenu = true;
     }
@@ -183,6 +184,7 @@ public class MenuScreen extends UIScreen implements Runnable {
 
             }  
         }
+        System.out.println("Fuck");
     }
 
 
