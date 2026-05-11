@@ -7,6 +7,17 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
 
+    jar cfm Memoriam.jar manifest.txt -C bin .
+    java -jar Memoriam.jar
+
+
+--> 05/11/2026
+    (Calrya)
+    - Win screen
+    - Fixed cutscenes
+    - Jar stuff
+    - Fixed power up crashes
+    - Fixed saving
 --> 05/10/2026
     (Shadey07)
     - Trying to add abilities to the save/load system

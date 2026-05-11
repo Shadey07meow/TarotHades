@@ -86,9 +86,15 @@ public class Player extends Entity {
             tickRegen();
             checkHalfHpWarning();
         } else {
+            SaveSystem.resetToNewRun();
             gameFrame.showPanel("lose");
         }
         isDead = (health <= 0);
+        System.out.println(
+    "PLAYER HP=" + health +
+    " | STATS HP=" + stats.getCurrentHP() +
+    " | MAX=" + stats.getMaxHP()
+);
     }
 
 
@@ -375,6 +381,7 @@ public class Player extends Entity {
     public int getDefense()   { return stats.getDefense(); }
     public PlayerStats getStats()    { return stats; }
     public boolean     isHalfHpWarning() { return halfHpWarning; }
+    
     
     public void setUIOpen(boolean open) {this.uiOpen = open;}
     public Vector2 getVelocity(){return curSpeed;}

@@ -108,6 +108,29 @@ public class LevelManager {
         System.out.println("[LevelManager] New run started — singletons reset.");
     }
 
+    public static void resetRun() {
+
+    System.out.println("[RESET] Starting full run reset...");
+
+    // 1. Gameplay systems
+    GameStats.get().setKills(0);
+
+    // 2. Relics
+    RelicManager.reset();
+
+    // 3. Status effects
+    StatusEffectManager.reset();
+
+    // 4. Saved progression data
+    LevelManager.savedAbilities.clear();
+    LevelManager.savedAbilityLevels.clear();
+
+    // 5. If you have pending transitions
+    // clear any queued state here if exists
+
+    System.out.println("[RESET] Run fully cleared.");
+}
+
     // NEVER CALL AGAIN
     public static void setFrame(GameFrame thing){ gFrame = thing; }
 

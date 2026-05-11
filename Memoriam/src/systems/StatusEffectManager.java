@@ -60,19 +60,24 @@ public class StatusEffectManager {
 
 
     public void onLevelCompleted(Player player) {
-        Iterator<Map.Entry<PlayerAbility, StatusEffect>> it =
-                activeEffects.entrySet().iterator();
 
-        while (it.hasNext()) {
-            Map.Entry<PlayerAbility, StatusEffect> entry = it.next();
+        List<PlayerAbility> toRemove = new ArrayList<>();
+
+        for (Map.Entry<PlayerAbility, StatusEffect> entry : activeEffects.entrySet()) {
             StatusEffect effect = entry.getValue();
 
             boolean expired = effect.tickLevel();
+
             if (expired) {
                 onEffectExpired(entry.getKey(), player);
-                it.remove();
+                toRemove.add(entry.getKey());
                 System.out.println("[StatusEffectManager] " + entry.getKey() + " expired.");
             }
+        }
+
+        // remove AFTER iteration
+        for (PlayerAbility ability : toRemove) {
+            activeEffects.remove(ability);
         }
     }
 

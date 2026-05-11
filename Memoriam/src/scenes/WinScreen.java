@@ -51,6 +51,7 @@ public class WinScreen extends UIScreen {
         });
 
         menuButton.addActionListener(e -> {
+            SaveSystem.resetToNewRun();
             gameFrame.showPanel("menu");
         });
 

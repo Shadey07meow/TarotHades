@@ -1,7 +1,6 @@
 package systems;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /*Stats are computed as:
     finalValue = (base + sumOfFlat) * (1 + sumOfPercent) */
@@ -13,6 +12,9 @@ public class PlayerStats{
     private int baseDef;
     private double baseSpeed;
     private int baseProjectileCount = 1;   // default: 1 projectile per shot
+    private boolean empress = false;
+    private boolean magicianActive = false;
+    private int empressHP = 15;
 
     private int currentHP;
 
@@ -38,7 +40,7 @@ public class PlayerStats{
     }
 
     //stat getters
-    public synchronized int getMaxHP(){ return (int) Math.round(computeStat(StatType.MAX_HP,  baseMaxHP));}
+
     public int getAttack(){ return (int) Math.round(computeStat(StatType.ATTACK,  baseAtk)); }
     public int getDefense(){ return (int) Math.round(computeStat(StatType.DEFENSE, baseDef));}
     public double getSpeed(){ return computeStat(StatType.SPEED, baseSpeed); }
@@ -54,8 +56,11 @@ public class PlayerStats{
 
     public void heal(int amount) {
         currentHP += amount;
-        if (currentHP > getMaxHP()) {
-            currentHP = getMaxHP();
+
+        int max = getMaxHP();
+
+        if (currentHP > max) {
+            currentHP = max;
         }
     }
 
@@ -114,5 +119,25 @@ public class PlayerStats{
             " | DEF: " + getDefense() +
             " | SPD: " + getSpeed()
         );
+    }
+
+    public void setEmpress() {
+        this.empress = true;
+
+        // force max HP to 15 behavior
+        this.baseMaxHP = 15;
+
+        // heal immediately
+        this.currentHP = 15;
+    }
+
+    public void setMagicianActive(boolean active) {
+        this.magicianActive = active;
+    
+    }
+
+    public int getMaxHP() {
+
+        return (int) Math.round(computeStat(StatType.MAX_HP, baseMaxHP));
     }
 }

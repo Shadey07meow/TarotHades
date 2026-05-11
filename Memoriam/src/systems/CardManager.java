@@ -188,7 +188,7 @@ public class CardManager {
         if (showChestUI) return;
 
         // only offer the Big Three if no relic has been chosen yet.
-        if (RelicManager.get().isRelicChosen()) return;
+        if (RelicManager.get().hasRelic()) return;
 
         isLobbyChest = true;
         showChestUI  = true;
