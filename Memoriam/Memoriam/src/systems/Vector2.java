@@ -1,0 +1,124 @@
+package systems;
+
+public class Vector2 {
+    /// A class to quickly store 2 points
+    /// Will be able to do quick vector operations
+    
+    // Does not need setters or getters, they can be manipulated at any point in time
+    public double x = 0;
+    public double y = 0;
+
+    public Vector2(double x, double y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Vector2()
+    {
+        // Making this better
+        this.x = 0;
+        this.y = 0;
+    }
+
+    public final static Vector2 UP = new Vector2(0, 1);
+    public final static Vector2 DOWN = new Vector2(0, -1);
+    public final static Vector2 RIGHT = new Vector2(1, 0);
+    public final static Vector2 LEFT = new Vector2(-1, 0);
+
+    public static Vector2 add(Vector2 a, Vector2 b)
+    {
+        // Add 2 vectors
+        return new Vector2(a.x + b.x, a.y + b.y);
+    }
+
+    public Vector2 abs()
+    {
+        Vector2 absVector =new Vector2(Math.abs(this.x), Math.abs(this.y));
+        return absVector;
+    }
+
+    public static Vector2 abs(Vector2 v)
+    {
+        Vector2 absVector =new Vector2(Math.abs(v.x), Math.abs(v.y));
+        return absVector;
+    }
+
+
+    public static Vector2 subtract(Vector2 a, Vector2 b)
+    {
+        // Add 2 vectors
+        return new Vector2(a.x - b.x, a.y - b.y);
+    }
+    public static Vector2 multiply(Vector2 a, double s)
+    {
+        // Multiply a vector and a scalar number
+        return new Vector2(a.x * s, a.y * s);
+    }
+
+    public static Vector2 magConvert(Vector2 a, double m)
+    {
+        // Converts the current vector to have the magnitude of the input
+
+        // Make unit vector
+        double mag = a.findMag();
+        Vector2 unitV = new Vector2(a.x/mag, a.y/mag);
+        Vector2 desV = new Vector2(unitV.x * m, unitV.y * m);
+
+        return desV;
+    }
+
+    public double findMag()
+    {
+        // finds magnitude of a current Vector2
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+
+    public static double findMag(Vector2 a) 
+    {
+        // finds the magnitude of a given Vector2
+        return Math.sqrt(Math.pow(a.x, 2) + Math.pow(a.y, 2));
+    }
+
+    public static double distance(Vector2 a, Vector2 b)
+    {
+        double xDiff  = Math.pow((b.x - a.x), 2);
+        double yDiff  = (int)Math.pow((b.y - a.y), 2);
+        return Math.sqrt(xDiff + yDiff);
+    }
+    
+    static public Vector2 normalized(Vector2 a)
+    {
+        int x1  = (a.x >= 0) ?  1 :  -1;
+        int y1  = (a.y >= 0) ?  1 :  -1;
+        
+        if(a.x == 0) x1 = 0;
+        if(a.y == 0) y1 = 0;
+        
+        return new Vector2(x1, y1);
+    }
+
+    static public Vector2 getUnitVector(Vector2 a, Vector2 b)
+    {
+        
+        double dx = b.x - a.x ;
+        double dy = b.y - a.y;
+
+        double length = Math.sqrt(dx * dx + dy * dy);
+        if (length == 0) return new Vector2(0, 0);
+
+        double vx = (dx / length);
+        double vy = -(dy / length);
+
+        return  new Vector2(vx, vy);
+
+    }
+
+    @Override
+    public String toString()
+    {
+        String output = "(" + String.valueOf(this.x) + " " + String.valueOf(this.y) + ")" ;
+        return output;
+    }
+
+}
