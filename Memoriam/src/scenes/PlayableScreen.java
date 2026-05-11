@@ -136,7 +136,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             }
         }
         catch(Exception e)
-        {System.out.println("Game Loop already stopped : " + e.getMessage());}   
+        {System.out.println("Game Loop already stopped : " + e.getCause());}   
     }
     
    
@@ -196,13 +196,11 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
 
         // when esc is press, show pause panel
-  
         
         doFading();
         
         crdManager.spinCard();
         crdManager.sizeCard();
-        crdManager.checkHoveringButtons();
         crdManager.checkHoveringButtons();
         world.updateWorld();
         
