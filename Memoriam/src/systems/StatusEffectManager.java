@@ -59,7 +59,8 @@ public class StatusEffectManager {
             new EnumMap<>(PlayerAbility.class);
 
 
-    public void onLevelCompleted(Player player) {
+    public void onLevelCompleted(Player player) 
+    {
 
         List<PlayerAbility> toRemove = new ArrayList<>();
 

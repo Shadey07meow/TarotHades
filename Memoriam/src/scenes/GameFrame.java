@@ -158,12 +158,12 @@ public class GameFrame extends JFrame {
             {
                 if(curPanel.getShowablePanelName().trim().equals(panelName.trim()))
                 {
-                    System.out.println("Showing panel: " + curPanel.name);
+                    //System.out.println("Showing panel: " + curPanel.name);
                     cardLayout.show(parentPanel, panelName);
                     curPanel.onInitiate();
                 } else
                 {
-                    System.out.println("Exiting panel: " + curPanel.name);
+                    //System.out.println("Exiting panel: " + curPanel.name);
                     curPanel.onExit();
                 }
             }
