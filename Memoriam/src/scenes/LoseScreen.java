@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import systems.LevelManager;
 
 public class LoseScreen extends UIScreen {
 
@@ -23,11 +24,13 @@ public class LoseScreen extends UIScreen {
 
         retryBtn = gameFrame.createImageButton(ImageLibrary.get().restartBtn, 250, 100);
         retryBtn.addActionListener(e -> {
+            LevelManager.resetRun();
             gameFrame.showPanel("start");
         });
 
         menuBtn = gameFrame.createImageButton(ImageLibrary.get().quitBtnGO, 250, 100);
         menuBtn.addActionListener(e -> {
+            LevelManager.resetRun();
             gameFrame.showPanel("menu");
         });
 

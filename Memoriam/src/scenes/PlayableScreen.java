@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 import object.*;
 import systems.*;
 
@@ -81,7 +82,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         initWindow();
         startGamePanel();
         inputManager.resetInputs();
-        SaveSystem.saveProgress(this.getID(), this.player.getHP(), this.player.getAbilityMap(), GameStats.get().getEnemiesKilled());
+        SwingUtilities.invokeLater(() -> {
+            SaveSystem.saveProgress(
+                this.getID(),
+                this.player.getHP(),
+                this.player.getAbilityMap(),
+                GameStats.get().getEnemiesKilled()
+            );
+        });
     }
     
     @Override

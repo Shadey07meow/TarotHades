@@ -1,6 +1,5 @@
 package systems;
 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,13 +9,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
+import javax.swing.SwingUtilities;
 import object.*;
+import scenes.PlayableScreen;
 
 public class SaveSystem {
 
     // When a thing is thinged, it saves the thing
     // Does not save everthing, when a new level is entered, calls a method that overwrites a text file in the autoSave folder 
-    
+    PlayableScreen playableScreen;
+
     public static void saveProgress(int levelNumber, int playerHealth, Map<PlayerAbility, Integer> list, int kills)
     {
         File saveFile = new File("autosave/saveFile.4t");
@@ -37,10 +39,9 @@ public class SaveSystem {
             writer.write("K:" + String.valueOf((kills)) + "\n");
 
             // Relics
-            for(RelicStatusEffect relic : StatusEffectManager.get().getActiveRelics())
-            {
-                writer.write("R:" + relic.getRelic().ordinal() + "\n");
-
+            Relic chosen = RelicManager.get().getChosenRelic();
+            if (chosen != null) {
+                writer.write("R:" + chosen.ordinal() + "\n");
             }
 
             int count = 0;
@@ -61,82 +62,111 @@ public class SaveSystem {
         }
     }   
 
-    public static void loadLastSave()
-    {
+ public static void loadLastSave() {
 
-        File saveFile = new File("autosave/saveFile.4t");
-        // System.out.println("Hello therse");
+    File saveFile = new File("autosave/saveFile.4t");
+    if (!saveFile.exists()) return;
 
-        //Map<PlayerAbility, Integer> outAbs = new Map<PlayerAbility, Integer>();  
+    int level = 0;
+    int hp = 0;
+    int kills = 0;
+    int relic = -1;
 
-        if(!saveFile.exists()) return;
+    Map<PlayerAbility, Integer> abilities =
+            new EnumMap<>(PlayerAbility.class);
 
-        try(BufferedReader reader = new BufferedReader(new FileReader(saveFile)))
-        {
-            String currentLine = "";
-            int level = 0;
-            Map<PlayerAbility, Integer> abilities = new EnumMap<>(PlayerAbility.class);
+    try (BufferedReader reader = new BufferedReader(new FileReader(saveFile))) {
 
-            while((currentLine = reader.readLine()) != null)
-            {
-                System.out.println("Reading file");
-                // Decoding .4t file here
-                
-                // Level Loading here
-                if(currentLine.charAt(0) == 'L')
-                {
-                    // Load level things here
-                    level = Character.getNumericValue(currentLine.charAt(2));
-                    System.out.println("Loading level :" + level);
-                    LevelManager.loadLevel(level);
-                }
-                
-                if(currentLine.charAt(0) == 'H')
-                {
-                    String healthPoints = currentLine.substring(2);
-                    int hp = Integer.parseInt(healthPoints);
-                    System.out.println("Amount of Health : " + hp);
-                    LevelManager.getPlayableScreen(level).getWorldRenderer().getPlayer().getStats().setCurrentHP(hp);
-                }
+        String line;
 
-                if(currentLine.charAt(0) == 'K')
-                {
-                    String killCount = currentLine.substring(2);
-                    int kills = Integer.parseInt(killCount);
-                    System.out.println("Amount of kills :" + kills);
-                    GameStats.get().setKills(kills);
-                }
+        while ((line = reader.readLine()) != null) {
 
-                if(currentLine.charAt(0) == 'R')
-                {
-                    String relicThing = currentLine.substring(2);
-                    int relicNum = Integer.parseInt(relicThing);
-                    System.out.println("Relic :" + relicNum);
-                    ArrayList<RelicStatusEffect> thingy = new ArrayList<>();
-                    thingy.add(new RelicStatusEffect(Relic.values()[relicNum]));
-                    StatusEffectManager.get().setActiveRelics(thingy);
-                }
+            System.out.println("Reading file");
 
-                
-                if(currentLine.charAt(0) == 'P')
-                {
-                    char skill = currentLine.charAt(3);
-                    char stack = currentLine.charAt(5);
-                    int skillNum = Character.getNumericValue(skill);
-                    int stackNum = Character.getNumericValue(stack);
-                    System.out.println("Skill : " + PlayerAbility.values()[skillNum] + ", At stack :" + stackNum);
-                    abilities.put(PlayerAbility.values()[skillNum], stackNum);
-                }
-
+            if (line.startsWith("L:")) {
+                level = Integer.parseInt(line.substring(2));
+                System.out.println("Loaded level: " + level);
             }
 
-            LevelManager.getPlayableScreen(level).getWorldRenderer().getPlayer().setAbilityMap(abilities);
+            else if (line.startsWith("H:")) {
+                hp = Integer.parseInt(line.substring(2));
+                System.out.println("HP: " + hp);
+            }
 
-        } catch (IOException e)
-        {
+            else if (line.startsWith("K:")) {
+                kills = Integer.parseInt(line.substring(2));
+                System.out.println("Kills: " + kills);
+            }
 
+            else if (line.startsWith("R:")) {
+                relic = Integer.parseInt(line.substring(2));
+                System.out.println("Relic: " + relic);
+            }
+
+            else if (line.startsWith("P")) {
+
+                String[] parts = line.substring(line.indexOf(":") + 1)
+                                     .split(";");
+
+                int skillNum = Integer.parseInt(parts[0]);
+                int stackNum = Integer.parseInt(parts[1]);
+
+                abilities.put(PlayerAbility.values()[skillNum], stackNum);
+
+                System.out.println("Skill: " + skillNum + " Stack: " + stackNum);
+            }
         }
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+
+    final int savedLevel = level;
+    final int savedHP = hp;
+    final int savedKills = kills;
+    final int savedRelic = relic;
+    final Map<PlayerAbility, Integer> savedAbilities = abilities;
+
+    SwingUtilities.invokeLater(() -> {
+
+        // ✔ STEP 1: LOAD LEVEL FIRST
+        LevelManager.loadLevel(savedLevel);
+
+        PlayableScreen screen = LevelManager.getPlayableScreen(savedLevel);
+        if (screen == null) return;
+
+        WorldRenderer world = screen.getWorldRenderer();
+        if (world == null) return;
+
+        Player player = world.getPlayer();
+        if (player == null) return;
+        if (savedRelic != -1) {
+
+        RelicManager.reset();
+
+        Relic relicObj = Relic.values()[savedRelic];
+        RelicManager.get().applyRelic(relicObj, player);
+
+}
+
+        // ✔ STEP 2: APPLY STATE AFTER WORLD EXISTS
+        for (Map.Entry<PlayerAbility, Integer> entry : savedAbilities.entrySet()) {
+    PlayerAbility ability = entry.getKey();
+    int stack = entry.getValue();
+
+    for (int i = 0; i < stack; i++) {
+        player.applyAbility(ability);
+    }
+}
+        player.getStats().setCurrentHP(savedHP);
+        GameStats.get().setKills(savedKills);
+
+        System.out.println("Loaded HP: " + savedHP);
+        System.out.println("Loaded kills: " + savedKills);
+        System.out.println("Loaded relic: " + savedRelic);
+        System.out.println("Loaded abilities: " + savedAbilities);
+    });
+}
 
     public static int getKills()
     {
@@ -286,4 +316,24 @@ public class SaveSystem {
              
     }   
 
+    public static void resetToNewRun() {
+
+        File saveFile = new File("autosave/saveFile.4t");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile))) {
+
+            // basic default state
+            writer.write("L:0\n");   // level
+            writer.write("H:10\n");  // default HP
+            writer.write("K:0\n");   // kills
+
+            // NO relics
+            // NO abilities
+
+            System.out.println("[SaveSystem] Save reset to new run state");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
