@@ -12,7 +12,7 @@ public class SoundManager {
         stopMusic(); // stop previous track
 
         try {
-            AudioInputStream audio = AudioSystem.getAudioInputStream(SoundManager.class.getClassLoader().getResource("music/TempMainMenu.wav"));
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File("music/TempMainMenu.wav"));
             currentMusic = AudioSystem.getClip();
             currentMusic.open(audio);
             currentMusic.loop(Clip.LOOP_CONTINUOUSLY);
