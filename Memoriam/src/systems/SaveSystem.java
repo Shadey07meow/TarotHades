@@ -79,6 +79,7 @@ public class SaveSystem {
 
             while((currentLine = reader.readLine()) != null)
             {
+                if(currentLine.length() == 0) break;
                 System.out.println("Reading file");
                 // Decoding .4t file here
                 
