@@ -62,7 +62,7 @@ public class HealthBar {
     /** Renders the full heart bar for the given player.
      * Call this inside paintComponent after drawing the world.
      */
-    public void draw(Graphics g, Player player) {
+    public synchronized void draw(Graphics g, Player player) {
         if (player == null) return;
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
@@ -89,7 +89,7 @@ public class HealthBar {
     }
 
 
-        private void drawStatusIcons(Graphics2D g2, Rectangle clip, Player player) {
+        private synchronized void drawStatusIcons(Graphics2D g2, Rectangle clip, Player player) {
             List<StatusEffect> effects = StatusEffectManager.get().getActiveEffects();
             List<RelicStatusEffect> relics = StatusEffectManager.get().getActiveRelics();
             if (effects.isEmpty() && relics.isEmpty()) return;

@@ -248,7 +248,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     }
 
     @Override
-    public void paintComponent(Graphics g)
+    public synchronized void paintComponent(Graphics g)
     {
         super.paintComponent(g);
  
