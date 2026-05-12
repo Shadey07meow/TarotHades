@@ -85,16 +85,23 @@ public class Player extends Entity {
             inputOperations();
             tickRegen();
             checkHalfHpWarning();
+
         } else {
             SaveSystem.resetToNewRun();
             gameFrame.showPanel("lose");
         }
-        isDead = (health <= 0);
-        System.out.println(
-    "PLAYER HP=" + health +
-    " | STATS HP=" + stats.getCurrentHP() +
-    " | MAX=" + stats.getMaxHP()
-);
+
+        // Only set isDead from stats, never clobber a resurrection
+        if (!isDead) {
+            isDead = (stats.getCurrentHP() <= 0);
+            System.out.println(
+            "PLAYER HP=" + health +
+            " | STATS HP=" + stats.getCurrentHP() +
+            " | MAX=" + stats.getMaxHP()
+        );
+        }
+
+        
     }
 
 
@@ -320,6 +327,7 @@ public class Player extends Entity {
                 isDead = false;
                 return;
             }
+            isDead = true;
         }
     }
 
