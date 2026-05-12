@@ -64,6 +64,13 @@ public class ImageLibrary
     public final Image playerSpritesLEFT;
     public final Image playerSpritesRIGHT;
 
+    //player shielded
+
+    public final Image foolShieldDown;
+    public final Image foolShieldRight;
+    public final Image foolShieldLeft;
+    public final Image foolShieldUp;
+    
     // Enemy Blue
     public final Image blueRIGHT;
     public final Image blueLEFT;
@@ -172,6 +179,11 @@ private ImageLibrary()
                 ).getImage();
 
                 playerSpritesRIGHT = new ImageIcon("assets/PlayerSprites/animated/idle/fool_idle_right.gif").getImage();
+
+                foolShieldDown = new ImageIcon("assets/PlayerSprites/shield/foolShieldDown.png").getImage();
+                foolShieldRight = new ImageIcon("assets/PlayerSprites/shield/foolShieldRight.png").getImage();
+                foolShieldLeft = new ImageIcon("assets/PlayerSprites/shield/foolShieldLeft.png").getImage();
+                foolShieldUp = new ImageIcon("assets/PlayerSprites/shield/foolShieldUp.png").getImage();
                 
                 
                 // Cursor

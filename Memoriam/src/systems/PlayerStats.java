@@ -15,6 +15,7 @@ public class PlayerStats{
     private boolean empress = false;
     private boolean magicianActive = false;
     private int empressHP = 15;
+    private long shieldEndTime = 0;
 
     private int currentHP;
 
@@ -65,10 +66,17 @@ public class PlayerStats{
     }
 
     public void takeDamage(int amount) {
+
+        if (isShielded()) {
+            return;
+        }
+
         int damage = amount - getDefense();
+
         if (damage < 0) damage = 0;
 
         currentHP -= damage;
+
         if (currentHP < 0) currentHP = 0;
     }
 
@@ -140,4 +148,12 @@ public class PlayerStats{
 
         return (int) Math.round(computeStat(StatType.MAX_HP, baseMaxHP));
     }
+
+    public void activateShield(long durationMillis) {
+    shieldEndTime = System.currentTimeMillis() + durationMillis;
+}
+
+public boolean isShielded() {
+    return System.currentTimeMillis() < shieldEndTime;
+}
 }
