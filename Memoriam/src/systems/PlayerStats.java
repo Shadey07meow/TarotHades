@@ -125,10 +125,10 @@ public class PlayerStats{
         this.empress = true;
 
         // force max HP to 15 behavior
-        this.baseMaxHP = 15;
+        modifiers.add(new StatModifier(StatType.MAX_HP, 5, false));
 
         // heal immediately
-        this.currentHP = 15;
+        this.currentHP = getMaxHP();
     }
 
     public void setMagicianActive(boolean active) {

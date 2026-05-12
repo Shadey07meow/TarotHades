@@ -33,6 +33,10 @@ public class StatusEffectManager {
         return activeRelics;
     }
 
+     public void removeRelic(Relic relic) {
+        activeRelics.removeIf(r -> r.getRelic() == relic);
+    }
+
         //get active relics
     public  void setActiveRelics(ArrayList<RelicStatusEffect> relics) {
         activeRelics.clear();

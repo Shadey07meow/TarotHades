@@ -16,6 +16,10 @@ KEEP THIS ON TOP
     - Fixed main version
     - Added save system frontend
 
+    (Herielle)
+    - Created a savedHP variable to store HP from previous levels
+    - fixed the Heart UI for empress
+
 --> 05/11/2026
     (Calrya)
     - Win screen

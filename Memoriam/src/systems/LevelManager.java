@@ -9,6 +9,7 @@ public class LevelManager {
     public static int maxLevels;
     public static GameFrame gFrame;
     public static int activePanel = 0;
+    private static int savedHP = -1;
     private static Relic savedRelic = null;
     public static ArrayList<PlayableScreen> levels = new ArrayList<>();
     private static java.util.Set<object.PlayerAbility> savedAbilities =
@@ -24,6 +25,7 @@ public class LevelManager {
 
         savedAbilities.clear();
         savedAbilityLevels.clear();
+        savedHP = player.getHP();
 
         for (object.PlayerAbility ability : object.PlayerAbility.values()) {
             int level = player.getAbilityLevel(ability);
@@ -37,18 +39,26 @@ public class LevelManager {
 
 
     public static void restorePlayerAbilities(Player player) {
-        
-        for (PlayerAbility ability : savedAbilities) {
-            int targetLevel = savedAbilityLevels.getOrDefault(ability, 1);
-            int currentLevel = player.getAbilityLevel(ability);
+    RelicManager.get().reapplyRelicStats(player); // sets currentHP to 15
 
-            // Apply missing stacks so the player ends up at the saved level
-            for (int i = currentLevel; i < targetLevel; i++) {
-                player.applyAbility(ability);
-            }
+    for (PlayerAbility ability : savedAbilities) {
+        int targetLevel = savedAbilityLevels.getOrDefault(ability, 1);
+        int currentLevel = player.getAbilityLevel(ability);
+        for (int i = currentLevel; i < targetLevel; i++) {
+            player.applyAbility(ability);
         }
-        System.out.println("Restored abilities: " + savedAbilities);
     }
+
+    // Only restore savedHP if it's valid AND higher than what relic set
+    if (savedHP > 0) {
+        int restoredHP = Math.min(savedHP, player.getStats().getMaxHP());
+        // Don't downgrade HP if relic gave us more
+        if (restoredHP > player.getStats().getCurrentHP()) {
+            player.getStats().setCurrentHP(restoredHP);
+            player.setHealth(restoredHP);
+        }
+    }
+}
 
     public static void loadLevel(int id, PlayableScreen currentLevel) {
         System.out.println("You are loading a level, ID: " + String.valueOf(id) );
@@ -105,6 +115,7 @@ public class LevelManager {
      public static void startNewRun() {
         savedAbilities.clear();
         savedAbilityLevels.clear();
+        savedHP = -1;
         StatusEffectManager.reset();
         RelicManager.reset();
         System.out.println("[LevelManager] New run started — singletons reset.");

@@ -21,16 +21,22 @@ public class RelicManager {
     private boolean relicApplied = false;
 
     public void applyRelic(Relic relic, Player player) {
-
         StatusEffectManager.get().addRelic(relic);
 
-        if (relicApplied && relic != Relic.THE_EMPRESS) return;
-
+        if (relicApplied) return; // block re-picking entirely
         relicApplied = true;
         chosenRelic = relic;
 
-        switch (relic) {
+        applyRelicStats(relic, player);
+    }
 
+    public void reapplyRelicStats(Player player) {
+        if (chosenRelic == null) return;
+        applyRelicStats(chosenRelic, player);
+    }
+
+    private void applyRelicStats(Relic relic, Player player) {
+        switch (relic) {
             case MAGICIAN -> {
                 PowerUp buff = new PowerUp(
                     "The Magician",
@@ -40,7 +46,6 @@ public class RelicManager {
                     new StatModifier(StatType.DEFENSE, 0.30, true),
                     new StatModifier(StatType.SPEED, 0.30, true)
                 );
-
                 player.getStats().applyPowerUp(buff);
                 player.getStats().setMagicianActive(true);
                 player.getStats().setCurrentHP(player.getStats().getMaxHP());
@@ -49,8 +54,7 @@ public class RelicManager {
             case THE_EMPRESS -> {
                 player.getStats().setEmpress();
                 player.getStats().setCurrentHP(player.getStats().getMaxHP());
-
-                System.out.println("[RelicManager] EMPRESS → HP set to 15");
+                System.out.println("[RelicManager] EMPRESS → HP set to " + player.getStats().getMaxHP());
             }
 
             case DEATH -> {
@@ -65,10 +69,11 @@ public class RelicManager {
 
         deathUsed = true;
 
-        int hp = Math.max(1, player.getStats().getMaxHP() / 2);
-
-        player.getStats().setCurrentHP(hp);
-        player.setHealth(hp);
+        int reviveHP = Math.max(1, player.getStats().getMaxHP() / 2);
+        player.getStats().setCurrentHP(reviveHP);
+        player.setHealth(reviveHP);
+        
+        StatusEffectManager.get().removeRelic(Relic.DEATH);
 
         return true;
     }
