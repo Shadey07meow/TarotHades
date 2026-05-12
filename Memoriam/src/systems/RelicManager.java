@@ -69,10 +69,11 @@ public class RelicManager {
 
         deathUsed = true;
 
-        int hp = Math.max(1, player.getStats().getMaxHP() / 2);
-
-        player.getStats().setCurrentHP(hp);
-        player.setHealth(hp);
+        int reviveHP = Math.max(1, player.getStats().getMaxHP() / 2);
+        player.getStats().setCurrentHP(reviveHP);
+        player.setHealth(reviveHP);
+        
+        StatusEffectManager.get().removeRelic(Relic.DEATH);
 
         return true;
     }
