@@ -20,6 +20,7 @@ public class InfiniteLevel extends PlayableScreen {
     @Override
     public void startGamePanel() {
         LevelManager.isInfiniteRun = true;
+        this.player.setHealth(10);
 
         if (world == null) return;
 

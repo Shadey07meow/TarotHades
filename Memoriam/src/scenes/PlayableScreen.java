@@ -175,9 +175,11 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                 {
                     checkPausing();
 
+                    pauseUI.onMouseMove(inputManager.getMousePosition());
                     if(inputManager.getMouseClicked())
                     {
                         pauseUI.onClicked(inputManager.getClickPosition());
+                        
                     }        
                 }
             }

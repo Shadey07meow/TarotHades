@@ -39,7 +39,7 @@ public class PrologueScreen extends UIScreen {
 
     private final GameFrame gameFrame;
 
-    private final JButton skipButton;
+    // private final JButton skipButton;
 
     public PrologueScreen(GameFrame gameFrame) {
         super("prologue", gameFrame);
@@ -60,18 +60,18 @@ public class PrologueScreen extends UIScreen {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setOpaque(false);
 
-        skipButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 150, 60);
-        gameFrame.addHoverEffect(
-            skipButton,
-            ImageLibrary.get().placeholderBtn,
-            ImageLibrary.get().placeholderBtnHover,
-            353,100
-        );
+        // skipButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 150, 60);
+        // gameFrame.addHoverEffect(
+        //     skipButton,
+        //     ImageLibrary.get().placeholderBtn,
+        //     ImageLibrary.get().placeholderBtnHover,
+        //     353,100
+        // );
 
-        skipButton.addActionListener(e -> skipToEnd());
+        // skipButton.addActionListener(e -> skipToEnd());
 
-        bottomPanel.add(skipButton, BorderLayout.SOUTH);
-        add(bottomPanel, BorderLayout.SOUTH);
+        // bottomPanel.add(skipButton, BorderLayout.SOUTH);
+        // add(bottomPanel, BorderLayout.SOUTH);
 
         addMouseListener(new MouseAdapter() {
             @Override

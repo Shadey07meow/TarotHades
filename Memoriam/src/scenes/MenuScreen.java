@@ -8,14 +8,16 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import systems.*;
 
-public class MenuScreen extends UIScreen implements Runnable, MouseListener {
+public class MenuScreen extends UIScreen implements Runnable, MouseListener, MouseMotionListener {
 
     private final Image backgroundImage;
     private final JButton startBtn;
@@ -24,6 +26,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
     private boolean startingGame = false;
 
     private boolean inMenu = true;
+    private Vector2 mousePosition = new Vector2();
 
     private Vector2 boboPosition = new Vector2(-20, 0);
     private Vector2 logoPosition = new Vector2(520, 225);
@@ -35,21 +38,25 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
     Thread menuThread = new Thread(this);
 
     int width = 500;
-    int height = 300;
+    int height = 250;
     // Start thing
     Rectangle backDrop = null;
 
-    int width1 = 150;
-    int height1 = 50;
+    int width1 = 200;
+    int height1 = 70;
     int xOffset1 = 0;
-    int yOffset1 = -80;
+    int yOffset1 = -10;
 
     Rectangle loadGameButton = null;    
-    int width2 = 150;
-    int height2 = 50;
+    int width2 = 200;
+    int height2 = 70;
     int xOffset2 = 0;
-    int yOffset2 = 80;
+    int yOffset2 = 60;
     Rectangle newGameButton= null;
+
+
+    Image loadRunBtnImage = ImageLibrary.get().loadSaveBtn;
+    Image startNewRunBtnImage = ImageLibrary.get().newSaveButton;
 
 
     
@@ -210,16 +217,20 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
     @Override
     public void onInitiate() {
+        requestFocusInWindow();
+        
         SoundManager.playMusic("assets/music/TempMainMenu.wav");
         menuThread = new Thread(this);
         menuThread.start();
         addMouseListener(this);
-
+        addMouseMotionListener(this);
 
         
-        backDrop = new Rectangle((getWidth()/2) - (width / 2) , (getHeight()/ 2 - (height/ 2)), width, height);
-        loadGameButton = new Rectangle(getWidth() / 2 - (width1 / 2) + xOffset1, (getHeight() / 2 - (height1/ 2)) + yOffset1, width1, height1);
-        newGameButton= new Rectangle(getWidth() / 2 - (width2 / 2) + xOffset2, (getHeight() / 2 - (height2/ 2)) + yOffset2, width2, height2);
+        SwingUtilities.invokeLater(() -> {
+            backDrop = new Rectangle((getWidth()/2) - (width / 2) , (getHeight()/ 2 - (height/ 2)), width, height);
+            loadGameButton = new Rectangle(getWidth() / 2 - (width1 / 2) + xOffset1, (getHeight() / 2 - (height1/ 2)) + yOffset1, width1, height1);
+            newGameButton= new Rectangle(getWidth() / 2 - (width2 / 2) + xOffset2, (getHeight() / 2 - (height2/ 2)) + yOffset2, width2, height2);
+        });
 
 
 
@@ -257,7 +268,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         // );
 
         g.drawImage(
-            ImageLibrary.get().loadSaveBtn,
+            loadRunBtnImage,
             loadGameButton.x,
             loadGameButton.y,
             loadGameButton.width,
@@ -265,7 +276,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
             null
         );
         g.drawImage(
-            ImageLibrary.get().newSaveButton,
+            startNewRunBtnImage,
             newGameButton.x,
             newGameButton.y,
             newGameButton.width,
@@ -297,6 +308,12 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         while(this.inMenu)
         {
             update();
+
+            if (startingGame)
+            {
+                updateHovers(mousePosition);
+            }
+            //System.out.println(mousePosition.toString());
             repaint();
             try{
                 Thread.sleep(1000/60);
@@ -305,7 +322,6 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
             }  
         }
-        // System.out.println("Fuck");
     }
 
     public void clickedScreen(int x, int y)
@@ -322,6 +338,21 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
                 startingGame = false;
             }
         }
+    }
+
+    public void updateHovers(Vector2 mousePosition)
+    {
+
+            if(loadGameButton.contains((int)mousePosition.x, (int)mousePosition.y))
+            {
+                loadRunBtnImage = ImageLibrary.get().loadSaveBtnHover;
+                startNewRunBtnImage = ImageLibrary.get().newSaveButton;
+            } else  if(newGameButton.contains((int)mousePosition.x, (int)mousePosition.y))
+            {
+                loadRunBtnImage = ImageLibrary.get().loadSaveBtn;
+                startNewRunBtnImage = ImageLibrary.get().newSaveButtonHover;            
+            }
+
     }
 
 
@@ -348,6 +379,18 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
     
     @Override
     public void mouseExited(MouseEvent m){}
+
+    @Override
+    public void mouseMoved(MouseEvent m) {
+        mousePosition.x = m.getX();
+        mousePosition.y = m.getY();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent m) {
+        mousePosition.x = m.getX();
+        mousePosition.y = m.getY();
+    }
 
 
 }
