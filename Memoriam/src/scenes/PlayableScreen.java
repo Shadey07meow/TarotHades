@@ -90,6 +90,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                 GameStats.get().getEnemiesKilled()
             );
         });
+        // this.player.setHP(SaveSystem);
     }
     
     @Override
@@ -107,13 +108,13 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.currentMap = setMap();
         this.center = this.player.getPosition();
         this.world = new WorldRenderer(this.player, this.currentMap, this);
+        LevelManager.restorePlayerAbilities(this.player);
 
         
 
         this.player.setWorld(world);
 
         // restore abilities from previous level
-        LevelManager.restorePlayerAbilities(this.player);
         
         
         // Initialized first before running game loop
