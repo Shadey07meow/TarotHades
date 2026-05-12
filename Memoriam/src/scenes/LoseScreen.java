@@ -13,6 +13,7 @@ public class LoseScreen extends UIScreen {
     private JButton retryBtn;
     private JButton menuBtn;
     private final Image loseScreen;
+    private PlayableScreen playableScreen;
 
     public LoseScreen(GameFrame gameFrame) {
 
@@ -25,7 +26,11 @@ public class LoseScreen extends UIScreen {
         retryBtn = gameFrame.createImageButton(ImageLibrary.get().restartBtn, 250, 100);
         retryBtn.addActionListener(e -> {
             LevelManager.resetRun();
-            gameFrame.showPanel("start");
+            if (LevelManager.isInfiniteRun) {
+                gameFrame.showPanel("infinite");
+            } else {
+                gameFrame.showPanel("start");
+            }
         });
 
         menuBtn = gameFrame.createImageButton(ImageLibrary.get().quitBtnGO, 250, 100);

@@ -32,6 +32,7 @@ public class GameFrame extends JFrame {
     protected final PlayableScreen level5;
 
     private final CreditScreen creditScreen;
+    private final InfiniteLevel infiniteLevel;
     private final MenuScreen menuScreen;
     private final LoseScreen loseScreen;
     private final PauseScreen pauseScreen;
@@ -81,6 +82,7 @@ public class GameFrame extends JFrame {
         level3 = new Level3(this);
         level4 = new Level4(this);
         level5 = new BossLevel(this);
+        infiniteLevel = new InfiniteLevel(this);
 
         creditScreen = new CreditScreen(this);
         menuScreen = new MenuScreen(this);
@@ -124,6 +126,7 @@ public class GameFrame extends JFrame {
         this.allPanels.add(prologueScreen);
         this.allPanels.add(cutsceneScreen);
         this.allPanels.add(winScreen);
+        
 
         // Levels
         this.allPanels.add(level1);
@@ -131,6 +134,7 @@ public class GameFrame extends JFrame {
         this.allPanels.add(level3);
         this.allPanels.add(level4);
         this.allPanels.add(level5);
+        this.allPanels.add(infiniteLevel);
 
 
         LevelManager.addLevel(gameStart);
@@ -139,6 +143,7 @@ public class GameFrame extends JFrame {
         LevelManager.addLevel(level3);
         LevelManager.addLevel(level4);
         LevelManager.addLevel(level5);
+        LevelManager.addLevel(infiniteLevel);
     }
 
     private void initPanel()

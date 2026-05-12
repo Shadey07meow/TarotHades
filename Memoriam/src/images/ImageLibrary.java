@@ -2,8 +2,8 @@ package images;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.io.File;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -24,7 +24,7 @@ public class ImageLibrary
     // UI
     
     public final BufferedImage exitBtn;
-    public final BufferedImage optionBtn;
+    public final BufferedImage practiceBtn;
     public final BufferedImage startBtn;
     public final BufferedImage backBtn;
     public final BufferedImage placeholderBtn;
@@ -49,7 +49,7 @@ public class ImageLibrary
     // ui - hover
     public final BufferedImage backBtnHover;
     public final BufferedImage startBtnHover;
-    public final BufferedImage optionBtnHover;
+    public final BufferedImage practiceBtnHover;
     public final BufferedImage exitBtnHover;
     public final BufferedImage placeholderBtnHover;
 
@@ -99,6 +99,7 @@ public class ImageLibrary
     public final Image map3;
     public final Image map4;
     public final Image map5;
+    public final Image infiniteMap;
 
     // cards
     public final BufferedImage Empress;
@@ -196,7 +197,7 @@ private ImageLibrary()
 
                 // buttons
                 exitBtn = ImageIO.read(getImageFile("assets/Panels/exitBtn.png"));
-                optionBtn = ImageIO.read(getImageFile("assets/Panels/creditsBtn.png"));
+                practiceBtn = ImageIO.read(getImageFile("assets/Panels/practiceBtn.png"));
                 startBtn = ImageIO.read(getImageFile("assets/Panels/startBtn.png"));
                 backBtn = ImageIO.read(getImageFile("assets/Panels/backBtn.png"));
                 mainMenuBtn = ImageIO.read(getImageFile("assets/Panels/mainMenu.png"));
@@ -215,7 +216,7 @@ private ImageLibrary()
                 
                 // hover buttons
                 exitBtnHover = ImageIO.read(getImageFile("assets/Panels/exitBtnHover.png"));
-                optionBtnHover = ImageIO.read(getImageFile("assets/Panels/creditsBtnHover.png"));
+                practiceBtnHover = ImageIO.read(getImageFile("assets/Panels/practiceBtnHover.png"));
                 startBtnHover = ImageIO.read(getImageFile("assets/Panels/startBtnHover.png"));
                 backBtnHover = ImageIO.read(getImageFile("assets/Panels/backBtnHover.png"));
                 placeholderBtnHover = ImageIO.read(getImageFile("assets/Panels/placeholderBtnHover.png"));
@@ -245,6 +246,9 @@ private ImageLibrary()
 
                 map5 =  new ImageIcon(
                         "assets/maps/boss map.png").getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
+
+                infiniteMap =  new ImageIcon(
+                        "assets/maps/infiniteMap.png").getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
 
 

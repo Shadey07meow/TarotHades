@@ -11,6 +11,7 @@ public class LevelManager {
     public static int activePanel = 0;
     private static int savedHP = -1;
     private static Relic savedRelic = null;
+    public static boolean isInfiniteRun = false;
     public static ArrayList<PlayableScreen> levels = new ArrayList<>();
     private static java.util.Set<object.PlayerAbility> savedAbilities =
             new java.util.HashSet<>();

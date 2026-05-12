@@ -5,22 +5,21 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.event.MouseEvent;
-import java.awt.Rectangle;
-import java.awt.event.MouseListener;
 import systems.*;
 
 public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
     private final Image backgroundImage;
     private final JButton startBtn;
-    private final JButton creditBtn;
+    private final JButton practiceBtn;
     private final JButton exitBtn;
     private boolean startingGame = false;
 
@@ -63,17 +62,17 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
         // Buttons
         startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
-        creditBtn = gameFrame.createImageButton(ImageLibrary.get().optionBtn, 353, 100);
+        practiceBtn = gameFrame.createImageButton(ImageLibrary.get().practiceBtn, 353, 100);
         exitBtn = gameFrame.createImageButton(ImageLibrary.get().exitBtn, 353, 100);
 
      
 
         gameFrame.addHoverEffect(startBtn, ImageLibrary.get().startBtn, ImageLibrary.get().startBtnHover, 353, 100);
-        gameFrame.addHoverEffect(creditBtn, ImageLibrary.get().optionBtn, ImageLibrary.get().optionBtnHover, 353, 100);
+        gameFrame.addHoverEffect(practiceBtn, ImageLibrary.get().practiceBtn, ImageLibrary.get().practiceBtnHover, 353, 100);
         gameFrame.addHoverEffect(exitBtn, ImageLibrary.get().exitBtn, ImageLibrary.get().exitBtnHover, 353, 100);
 
         styleButton(startBtn);
-        styleButton(creditBtn);
+        styleButton(practiceBtn);
         styleButton(exitBtn);
 
         // Actions
@@ -112,7 +111,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
             //     startNewGame();
             // }
         });
-        creditBtn.addActionListener(e -> gameFrame.showPanel("credits"));
+        practiceBtn.addActionListener(e -> gameFrame.showPanel("infinite"));
         exitBtn.addActionListener(e -> System.exit(0));
 
         setLayout(new BorderLayout());
@@ -139,8 +138,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         startBtn.setPreferredSize(btnSize);
         startBtn.setMaximumSize(btnSize);
 
-        creditBtn.setPreferredSize(btnSize);
-        creditBtn.setMaximumSize(btnSize);
+        practiceBtn.setPreferredSize(btnSize);
+        practiceBtn.setMaximumSize(btnSize);
 
         exitBtn.setPreferredSize(btnSize);
         exitBtn.setMaximumSize(btnSize);
@@ -149,7 +148,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         buttonPanel.add(startBtn);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        buttonPanel.add(creditBtn);
+        buttonPanel.add(practiceBtn);
         buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         buttonPanel.add(exitBtn);
