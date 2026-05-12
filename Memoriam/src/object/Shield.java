@@ -3,6 +3,7 @@ package object;
 import collision.*;
 import java.awt.Color;
 import scenes.*;
+import systems.SoundManager;
 
 /** A deployable shield that orbits the player and blocks one hit per activation. */
 public class Shield extends GameObject {
@@ -54,6 +55,7 @@ public class Shield extends GameObject {
             GameObject other = col.getGameObject();
 
             if (other instanceof EnemyProjectile || other instanceof Enemy) {
+                SoundManager.get().playSFX("pickup");
                 world.removeObject(other);
                 deactivate();
 

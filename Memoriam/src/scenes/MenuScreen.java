@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import systems.*;
 
+
 public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
     private final Image backgroundImage;
@@ -77,7 +78,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
         // Actions
         startBtn.addActionListener(e -> {
-
+            SoundManager.get().playSFX("button");
 
             if(SaveSystem.getLevel() == 0)
             {
@@ -111,8 +112,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
             //     startNewGame();
             // }
         });
-        practiceBtn.addActionListener(e -> gameFrame.showPanel("infinite"));
-        exitBtn.addActionListener(e -> System.exit(0));
+        practiceBtn.addActionListener(e -> {SoundManager.get().playSFX("button"); gameFrame.showPanel("infinite");});
+        exitBtn.addActionListener(e -> {SoundManager.get().playSFX("button"); System.exit(0);});
 
         setLayout(new BorderLayout());
 
@@ -202,7 +203,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
     @Override
     public void onInitiate() {
-        SoundManager.playMusic("assets/music/TempMainMenu.wav");
+        SoundManager.get().playMusic("menuMusic");
         menuThread = new Thread(this);
         menuThread.start();
         addMouseListener(this);
@@ -211,6 +212,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         backDrop = new Rectangle(getWidth() / 2 - (width / 2) , (getHeight()/ 2 - (height/ 2)), width, height);
         loadGameButton = new Rectangle(getWidth() / 2 - (width1 / 2) , (getHeight() / 2 - (height1/ 2)) - 30, width1, height1);
         newGameButton= new Rectangle(getWidth() / 2 - (width2 / 2) , (getHeight() / 2 - (height2/ 2)) + 30, width2, height2);
+
+
 
 
         this.inMenu = true;
@@ -268,7 +271,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
     @Override
     public void onExit() {
         this.inMenu = false;
-        SoundManager.stopMusic();
+        //SoundManager.stopMusic();
     }
 
     private void loadRun()

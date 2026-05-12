@@ -5,6 +5,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
 
+import systems.SoundManager;
+
 public class CutsceneScreen extends UIScreen {
 
     private String[] lines = {};
@@ -62,6 +64,8 @@ public class CutsceneScreen extends UIScreen {
         if (timer != null) timer.stop();
 
         finishedTransition = false;
+
+        SoundManager.get().playMusic("storyMusic");
 
         index = 0;
         alpha = 0f;

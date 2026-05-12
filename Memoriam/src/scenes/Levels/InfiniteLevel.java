@@ -106,4 +106,10 @@ public class InfiniteLevel extends PlayableScreen {
             this.getGameFrame()
         );
     }
+
+    @Override
+    public void onInitiate() {
+        SoundManager.get().playMusic("gameMusic");
+
+    }
 }

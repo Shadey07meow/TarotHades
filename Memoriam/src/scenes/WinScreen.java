@@ -46,11 +46,13 @@ public class WinScreen extends UIScreen {
         styleButton(menuButton);
 
         restartButton.addActionListener(e -> {
+            SoundManager.get().playSFX("button");
             GameStats.get().reset();
             gameFrame.showPanel("start");
         });
 
         menuButton.addActionListener(e -> {
+            SoundManager.get().playSFX("button");
             SaveSystem.resetToNewRun();
             gameFrame.showPanel("menu");
         });
