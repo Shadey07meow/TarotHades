@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class SpecialEffects {
     
 
+    private static boolean isLoading;
 
     public ArrayList<Effects> effectList = new ArrayList<>();
     
@@ -47,6 +48,7 @@ public class SpecialEffects {
     public void generateLoadingScreen()
     {
         effectList.add(new LoadingScreen());
+        isLoading = true;
         Player.canMove = false;
     }
 
@@ -148,6 +150,7 @@ public class SpecialEffects {
             if(this.alpha <= 0) 
                 {
                     this.alpha = 0;
+                    isLoading = false;
                     Player.canMove = true;
                 }
                 
@@ -204,5 +207,9 @@ public class SpecialEffects {
         
     }
 
+    public static boolean getIsLoading()
+    {
+        return isLoading;
+    }
 
 }

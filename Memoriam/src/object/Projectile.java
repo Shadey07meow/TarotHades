@@ -54,6 +54,7 @@ public class Projectile extends GameObject{
             // Hit an enemy
             if (other instanceof Enemy) {
                 ((Enemy) other).damage(this.damage);
+                ((Enemy) other).setDetectedPlayer(true);
                 this.playScrn.getSpecialEffects().spawnNumberPopup(other.getPosition(), this.damage);
                 world.removeObject(this);
                 return;

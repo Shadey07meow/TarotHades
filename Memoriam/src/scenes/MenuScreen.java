@@ -41,9 +41,14 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
 
     int width1 = 150;
     int height1 = 50;
+    int xOffset1 = 0;
+    int yOffset1 = -80;
+
     Rectangle loadGameButton = null;    
     int width2 = 150;
     int height2 = 50;
+    int xOffset2 = 0;
+    int yOffset2 = 80;
     Rectangle newGameButton= null;
 
 
@@ -156,6 +161,9 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         // Add to container and screen
         leftPanel.add(buttonPanel, BorderLayout.WEST);
         add(leftPanel, BorderLayout.WEST);
+
+
+
     }
 
     // Clean button styling
@@ -208,9 +216,11 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         addMouseListener(this);
 
 
-        backDrop = new Rectangle(getWidth() / 2 - (width / 2) , (getHeight()/ 2 - (height/ 2)), width, height);
-        loadGameButton = new Rectangle(getWidth() / 2 - (width1 / 2) , (getHeight() / 2 - (height1/ 2)) - 30, width1, height1);
-        newGameButton= new Rectangle(getWidth() / 2 - (width2 / 2) , (getHeight() / 2 - (height2/ 2)) + 30, width2, height2);
+        
+        backDrop = new Rectangle((getWidth()/2) - (width / 2) , (getHeight()/ 2 - (height/ 2)), width, height);
+        loadGameButton = new Rectangle(getWidth() / 2 - (width1 / 2) + xOffset1, (getHeight() / 2 - (height1/ 2)) + yOffset1, width1, height1);
+        newGameButton= new Rectangle(getWidth() / 2 - (width2 / 2) + xOffset2, (getHeight() / 2 - (height2/ 2)) + yOffset2, width2, height2);
+
 
 
         this.inMenu = true;
@@ -281,6 +291,9 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
     @Override
     public void run()
     {
+        
+
+
         while(this.inMenu)
         {
             update();
