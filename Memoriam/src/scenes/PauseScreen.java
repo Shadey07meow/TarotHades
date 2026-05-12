@@ -1,6 +1,8 @@
 package scenes;
 
 import images.ImageLibrary;
+import systems.SoundManager;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -27,11 +29,13 @@ public class PauseScreen extends UIScreen {
 
         resumeBtn = gameFrame.createImageButton(ImageLibrary.get().practiceBtn, 250, 100);
         resumeBtn.addActionListener(e -> {
+            SoundManager.get().playSFX("button");
             gameFrame.showPanel("start"); // resume game
         });
 
         menuBtn = gameFrame.createImageButton(ImageLibrary.get().practiceBtn, 250, 100);
         menuBtn.addActionListener(e -> {
+            SoundManager.get().playSFX("button");
             gameFrame.showPanel("menu"); // menu
         });
         

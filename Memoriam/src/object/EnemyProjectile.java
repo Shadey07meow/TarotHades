@@ -14,8 +14,6 @@ import collision.CollisionObject;
 import collision.RectangleCollider;
 import images.ImageLibrary;
 import scenes.PlayableScreen;
-import systems.Vector2;
-import systems.WorldRenderer;
 
 public class EnemyProjectile extends GameObject{
 
@@ -67,6 +65,7 @@ public class EnemyProjectile extends GameObject{
             
             // Hit an enemy
             if (other instanceof Player) {
+                SoundManager.get().playSFX("playerHit");
                 ((Player) other).minusHP(1);
                 world.removeObject(this);
                 return;

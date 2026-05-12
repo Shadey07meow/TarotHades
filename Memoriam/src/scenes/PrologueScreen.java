@@ -1,6 +1,8 @@
 package scenes;
 
 import images.*;
+import systems.SoundManager;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -68,7 +70,7 @@ public class PrologueScreen extends UIScreen {
         //     353,100
         // );
 
-        // skipButton.addActionListener(e -> skipToEnd());
+        //skipButton.addActionListener(e -> {SoundManager.get().playSFX("button"); skipToEnd();});
 
         // bottomPanel.add(skipButton, BorderLayout.SOUTH);
         // add(bottomPanel, BorderLayout.SOUTH);
@@ -84,6 +86,7 @@ public class PrologueScreen extends UIScreen {
     // RESET
     @Override
     public void onInitiate() {
+        SoundManager.get().playMusic("storyMusic");
         index = 0;
         alpha = 0f;
         redBlend = 0f;

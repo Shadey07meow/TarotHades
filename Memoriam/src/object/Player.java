@@ -112,6 +112,7 @@ public class Player extends Entity {
             tickRegen();
             checkHalfHpWarning();
         } else {
+            SoundManager.get().playSFX("gameOver");
             SaveSystem.resetToNewRun();
             gameFrame.showPanel("lose");
         }
@@ -235,7 +236,7 @@ public class Player extends Entity {
         if(!hasShotProjectile) // shoot once per click
         {
             if(inputs.consumeClick())
-            {
+            {   
                 shootProjectile();
                 hasShotProjectile = true;
             }
@@ -250,7 +251,9 @@ public class Player extends Entity {
     private void shootProjectile(){
         // Checks if we can shoot after shooting the last shot
         // cooldown
-    
+        
+       
+
         if (currentCooldown != 0) return;
 
         Vector2 click = inputs.getClickPosition(); 
@@ -283,6 +286,7 @@ public class Player extends Entity {
     }
 
     private void spawnProjectile(Vector2 velocity, int dmg, boolean flame) {
+        SoundManager.get().playSFX("shoot");
         Projectile p = new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn);
         p.setDamage(dmg);
         p.setFlame(flame);

@@ -60,6 +60,7 @@ public abstract class Enemy extends Entity {
 
     public void damage(int i)
     {
+        SoundManager.get().playSFX("enemyHit");
         minusHP(i);
         isHurt = true;
         hurtTimer = hurtDuration;
@@ -68,6 +69,7 @@ public abstract class Enemy extends Entity {
     @Override
     public void onDeath()
     {
+        SoundManager.get().playSFX("enemyDeath");
         world.removeObject(this);
 
         if (playScrn instanceof InfiniteLevel inf)
@@ -222,6 +224,7 @@ public abstract class Enemy extends Entity {
                 {
                     // Death on collision Logic
                     if(this.usesProjectiles) return;
+                    SoundManager.get().playSFX("playerHit");
                     this.pl.minusHP(this.damage);
                     damage(1000);
                 }
@@ -244,6 +247,8 @@ public abstract class Enemy extends Entity {
         // Find unit vectore from player this e nemy object
         Vector2 baseDir = Vector2.getUnitVector(this.position, Vector2.add(this.pl.getPosition(), this.pl.getVelocity()));
         Vector2 projectileVelocity = Vector2.multiply(baseDir, projectileSpeed);
+
+        SoundManager.get().playSFX("shoot");
 
         // Make the projectile
         this.world.addObject(new EnemyProjectile((int)this.position.x, (int)this.position.y, projectileVelocity, 1, this.playScrn));

@@ -159,6 +159,8 @@ public class GameFrame extends JFrame {
         //System.out.println("I am to switching to " + panelName);
 
         try {
+            SoundManager.get().stopMusic();
+            
             for(ShowablePanel curPanel : allPanels)
             {
                 if(curPanel.getShowablePanelName().trim().equals(panelName.trim()))

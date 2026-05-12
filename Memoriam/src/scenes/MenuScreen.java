@@ -17,7 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import systems.*;
 
+
 public class MenuScreen extends UIScreen implements Runnable, MouseListener, MouseMotionListener {
+
 
     private final Image backgroundImage;
     private final JButton startBtn;
@@ -89,7 +91,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
         // Actions
         startBtn.addActionListener(e -> {
-
+            SoundManager.get().playSFX("button");
 
             if(SaveSystem.getLevel() == 0)
             {
@@ -123,8 +125,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
             //     startNewGame();
             // }
         });
-        practiceBtn.addActionListener(e -> gameFrame.showPanel("infinite"));
-        exitBtn.addActionListener(e -> System.exit(0));
+        practiceBtn.addActionListener(e -> {SoundManager.get().playSFX("button"); gameFrame.showPanel("infinite");});
+        exitBtn.addActionListener(e -> {SoundManager.get().playSFX("button"); System.exit(0);});
 
         setLayout(new BorderLayout());
 
@@ -289,7 +291,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     @Override
     public void onExit() {
         this.inMenu = false;
-        SoundManager.stopMusic();
+        //SoundManager.stopMusic();
     }
 
     private void loadRun()
