@@ -29,6 +29,8 @@ public class ImageLibrary
     public final BufferedImage backBtn;
     public final BufferedImage placeholderBtn;
     public final BufferedImage quitBtnExit;
+    public final BufferedImage loadSaveBtn;
+    public final BufferedImage newSaveButton;
 
     public final BufferedImage loadingScreen;
     public final BufferedImage loseScreen;
@@ -42,6 +44,7 @@ public class ImageLibrary
     public final BufferedImage logo;
 
     public final BufferedImage pauseBg;
+    public final BufferedImage loadBg;
 
     // ui - hover
     public final BufferedImage backBtnHover;
@@ -205,6 +208,10 @@ private ImageLibrary()
                 quitBtnExit = ImageIO.read(getImageFile("assets/Panels/quitBtnExit.png"));
 
                 pauseBg = ImageIO.read(getImageFile("assets/Panels/pauseBg.png"));
+                loadSaveBtn = ImageIO.read(getImageFile("assets/Panels/loadSave.png"));
+                newSaveButton = ImageIO.read(getImageFile("assets/Panels/newSaveButton.png"));
+                loadBg = ImageIO.read(getImageFile("assets/Panels/backDrop2.png"));
+                
                 
                 // hover buttons
                 exitBtnHover = ImageIO.read(getImageFile("assets/Panels/exitBtnHover.png"));

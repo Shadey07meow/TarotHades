@@ -10,6 +10,11 @@ KEEP THIS ON TOP
     jar cfm Memoriam.jar manifest.txt -C bin .
     java -jar Memoriam.jar
 
+--> 05/12/2026
+    (Shadey07)
+    - Loading screen
+    - Fixed main version
+    - Added save system frontend
 
 --> 05/11/2026
     (Calrya)

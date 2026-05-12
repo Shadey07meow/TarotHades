@@ -17,6 +17,10 @@ public class Level3 extends PlayableScreen {
     @Override
     public void startGamePanel()
     {
+
+        // this.fx.generateLoadingScreen();
+
+
         // Add Treasure box
         TreasureChest tr1 = new TreasureChest(
             Vector2.add(

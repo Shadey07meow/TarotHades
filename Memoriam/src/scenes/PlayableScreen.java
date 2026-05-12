@@ -27,7 +27,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private HealthBar healthBar = new HealthBar();  
     private int hoveredCardIndex = -1;
     private int selectedCardTimer = 0;
-    private SpecialEffects fx = new SpecialEffects();
+    protected SpecialEffects fx = new SpecialEffects();
     
     private PauseUI pauseUI;
     private boolean isFading = false;
@@ -107,6 +107,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.currentMap = setMap();
         this.center = this.player.getPosition();
         this.world = new WorldRenderer(this.player, this.currentMap, this);
+
         
 
         this.player.setWorld(world);
@@ -145,6 +146,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         System.out.println("Thread started");
 
 
+        fx.generateLoadingScreen();
+
         while(this.isRunning)
         {
             //System.out.println("Update function is being called");
@@ -159,7 +162,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                 if(inputManager.getMouseClicked())
                 {
                     pauseUI.onClicked(inputManager.getClickPosition());
-                }
+                }        
             }
     
             // Paint the panel every frame

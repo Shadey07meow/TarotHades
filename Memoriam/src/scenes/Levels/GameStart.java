@@ -65,9 +65,11 @@ public class GameStart extends PlayableScreen {
     @Override
     public void startGamePanel()
     { 
-
-         GameStats.get().resetStat();
-         LevelManager.startNewRun();
+        
+        
+        GameStats.get().resetStat();
+        LevelManager.startNewRun();
+   
          
         
         // GameObject box1 = new GameObject(300, 300, 50, this);

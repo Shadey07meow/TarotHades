@@ -18,6 +18,8 @@ public class BossLevel extends PlayableScreen {
     @Override
     public void startGamePanel()
     {
+        // this.fx.generateLoadingScreen();
+
         TreasureChest tr1 = new TreasureChest(
             Vector2.add(
                 this.player.getPosition(), 

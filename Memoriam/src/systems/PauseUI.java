@@ -58,13 +58,6 @@ public class PauseUI {
     // Detect button presses
     public void drawPause(Graphics g)
     {   
-        g.setColor(new Color(0, 0, 0, 120));
-        g.fillRect(
-            0,
-            0,
-            1920,
-            1080
-        );
 
         g.setColor(new Color(255, 255, 255, 255));
 

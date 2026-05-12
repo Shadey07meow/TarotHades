@@ -8,6 +8,7 @@ public class LevelManager {
 
     public static int maxLevels;
     public static GameFrame gFrame;
+    public static int activePanel = 0;
     private static Relic savedRelic = null;
     public static ArrayList<PlayableScreen> levels = new ArrayList<>();
     private static java.util.Set<object.PlayerAbility> savedAbilities =
@@ -88,6 +89,7 @@ public class LevelManager {
     
     public static void loadLevel(int id) {
         System.out.println("You are loading a level, ID: " + String.valueOf(id) );
+        activePanel = id;
         searchLevel(id);
     }
 
@@ -112,24 +114,24 @@ public class LevelManager {
 
     System.out.println("[RESET] Starting full run reset...");
 
-    // 1. Gameplay systems
-    GameStats.get().setKills(0);
+        // 1. Gameplay systems
+        GameStats.get().setKills(0);
 
-    // 2. Relics
-    RelicManager.reset();
+        // 2. Relics
+        RelicManager.reset();
 
-    // 3. Status effects
-    StatusEffectManager.reset();
+        // 3. Status effects
+        StatusEffectManager.reset();
 
-    // 4. Saved progression data
-    LevelManager.savedAbilities.clear();
-    LevelManager.savedAbilityLevels.clear();
+        // 4. Saved progression data
+        LevelManager.savedAbilities.clear();
+        LevelManager.savedAbilityLevels.clear();
 
-    // 5. If you have pending transitions
-    // clear any queued state here if exists
+        // 5. If you have pending transitions
+        // clear any queued state here if exists
 
-    System.out.println("[RESET] Run fully cleared.");
-}
+        System.out.println("[RESET] Run fully cleared.");
+    }
 
     // NEVER CALL AGAIN
     public static void setFrame(GameFrame thing){ gFrame = thing; }
