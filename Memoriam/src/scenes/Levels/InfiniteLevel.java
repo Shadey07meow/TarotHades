@@ -67,8 +67,33 @@ public class InfiniteLevel extends PlayableScreen {
 
         int x = rand.nextInt(1600) - 1200;
         int y = rand.nextInt(1200) - 900;
+        final int MIN_RADIUS = 700;
+        final int MAX_RADIUS = 1200;
 
-        Vector2 pos = Vector2.add(this.center, new Vector2(x, y));
+        final int MAP_HALF_WIDTH = 960;
+        final int MAP_HALF_HEIGHT = 2160;
+
+        Vector2 playerPos = player.getPosition();
+        Vector2 pos;
+
+        int attempts = 0;
+
+        do {
+            double angle = rand.nextDouble() * Math.PI * 2;
+            double distance = MIN_RADIUS + rand.nextDouble() * (MAX_RADIUS - MIN_RADIUS);
+
+            x = (int)(Math.cos(angle) * distance);
+            y = (int)(Math.sin(angle) * distance);
+
+            pos = Vector2.add(playerPos, new Vector2(x, y));
+
+            attempts++;
+
+        } while (
+            (pos.x < -MAP_HALF_WIDTH || pos.x > MAP_HALF_WIDTH ||
+            pos.y < -MAP_HALF_HEIGHT || pos.y > MAP_HALF_HEIGHT)
+            && attempts < 20
+        );
 
         Enemy enemy;
 
@@ -81,11 +106,9 @@ public class InfiniteLevel extends PlayableScreen {
         }
 
         enemy.setHealth(10 + rand.nextInt(10));
-
         world.addObject(enemy);
             SoundManager.get().playMusic("gameMusic");
     }
-
     @Override
     public MapObj setMap() {
         return new MapObj(
