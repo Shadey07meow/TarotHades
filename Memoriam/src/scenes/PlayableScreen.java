@@ -82,21 +82,17 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         initWindow();
         startGamePanel();
         inputManager.resetInputs();
-        SwingUtilities.invokeLater(() -> {
-            SaveSystem.saveProgress(
-                this.getID(),
-                this.player.getHP(),
-                this.player.getAbilityMap(),
-                GameStats.get().getEnemiesKilled()
-            );
-        });
+        
         // this.player.setHP(SaveSystem);
     }
     
     @Override
     public void onExit(){    
+
         terminateWindow();
         stopGamePanel();
+
+
     }
 
     // Unique shit
@@ -109,6 +105,11 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         this.center = this.player.getPosition();
         this.world = new WorldRenderer(this.player, this.currentMap, this);
         LevelManager.restorePlayerAbilities(this.player);
+
+        System.out.println("HP = " + SaveSystem.getHP());
+        if(this.id != 0) this.player.setHealth(SaveSystem.getHP());
+        
+
 
         
 
@@ -130,6 +131,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
     public void terminateWindow()
     {
+
+
         try{
             closeGameLoop();
             if(world != null)
@@ -179,6 +182,20 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     
             repaint();
         } 
+
+        
+        
+        if(this.id != 0)
+        {
+            SwingUtilities.invokeLater(() -> {
+                SaveSystem.saveProgress(
+                    this.getID() + 1,
+                    (int)this.player.getHealth(),
+                    this.player.getAbilityMap(),
+                    GameStats.get().getEnemiesKilled()
+                );
+            });
+        }
         System.out.println("Thread stopped");
     }
 

@@ -79,7 +79,14 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener {
         // Actions
         startBtn.addActionListener(e -> {
 
-            startingGame = true;
+
+            if(SaveSystem.getLevel() == 0)
+            {
+                startNewGame();
+            } else
+            {
+                startingGame = true;                
+            }
 
 
             // JButton newGameButton = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100); 

@@ -150,7 +150,7 @@ public class SpecialEffects {
 
             Composite oldComposite  = g2D.getComposite();  
             
-            System.out.println(this.alpha);
+            //System.out.println(this.alpha);
 
             //g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.alpha));
 

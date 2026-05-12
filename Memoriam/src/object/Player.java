@@ -90,11 +90,11 @@ public class Player extends Entity {
             gameFrame.showPanel("lose");
         }
         isDead = (health <= 0);
-        System.out.println(
-    "PLAYER HP=" + health +
-    " | STATS HP=" + stats.getCurrentHP() +
-    " | MAX=" + stats.getMaxHP()
-);
+//         System.out.println(
+//     "PLAYER HP=" + health +
+//     " | STATS HP=" + stats.getCurrentHP() +
+//     " | MAX=" + stats.getMaxHP()
+// );
     }
 
 

@@ -62,92 +62,91 @@ public class SaveSystem {
         }
     }   
 
- public static void loadLastSave() {
+    public static void loadLastSave() {
+        File saveFile = new File("autosave/saveFile.4t");
+        if (!saveFile.exists()) return;
 
-    File saveFile = new File("autosave/saveFile.4t");
-    if (!saveFile.exists()) return;
+        int level = 0;
+        int hp = 0;
+        int kills = 0;
+        int relic = -1;
 
-    int level = 0;
-    int hp = 0;
-    int kills = 0;
-    int relic = -1;
-
-    Map<PlayerAbility, Integer> abilities =
+        Map<PlayerAbility, Integer> abilities =
             new EnumMap<>(PlayerAbility.class);
 
-    try (BufferedReader reader = new BufferedReader(new FileReader(saveFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(saveFile))) {
 
-        String line;
+            String line;
 
-        while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
 
-            System.out.println("Reading file");
+                System.out.println("Reading file");
 
-            if (line.startsWith("L:")) {
-                level = Integer.parseInt(line.substring(2));
-                System.out.println("Loaded level: " + level);
+                if (line.startsWith("L:")) {
+                    level = Integer.parseInt(line.substring(2));
+                    System.out.println("Loaded level: " + level);
+                }
+
+                else if (line.startsWith("H:")) {
+                    hp = Integer.parseInt(line.substring(2));
+                    System.out.println("HP: " + hp);
+                }
+
+                else if (line.startsWith("K:")) {
+                    kills = Integer.parseInt(line.substring(2));
+                    System.out.println("Kills: " + kills);
+                }
+
+                else if (line.startsWith("R:")) {
+                    relic = Integer.parseInt(line.substring(2));
+                    System.out.println("Relic: " + relic);
+                }
+
+                else if (line.startsWith("P")) {
+
+                    String[] parts = line.substring(line.indexOf(":") + 1)
+                                        .split(";");
+
+                    int skillNum = Integer.parseInt(parts[0]);
+                    int stackNum = Integer.parseInt(parts[1]);
+
+                    abilities.put(PlayerAbility.values()[skillNum], stackNum);
+
+                    System.out.println("Skill: " + skillNum + " Stack: " + stackNum);
+                }
             }
 
-            else if (line.startsWith("H:")) {
-                hp = Integer.parseInt(line.substring(2));
-                System.out.println("HP: " + hp);
-            }
-
-            else if (line.startsWith("K:")) {
-                kills = Integer.parseInt(line.substring(2));
-                System.out.println("Kills: " + kills);
-            }
-
-            else if (line.startsWith("R:")) {
-                relic = Integer.parseInt(line.substring(2));
-                System.out.println("Relic: " + relic);
-            }
-
-            else if (line.startsWith("P")) {
-
-                String[] parts = line.substring(line.indexOf(":") + 1)
-                                     .split(";");
-
-                int skillNum = Integer.parseInt(parts[0]);
-                int stackNum = Integer.parseInt(parts[1]);
-
-                abilities.put(PlayerAbility.values()[skillNum], stackNum);
-
-                System.out.println("Skill: " + skillNum + " Stack: " + stackNum);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-    } catch (IOException e) {
-        e.printStackTrace();
+        final int savedLevel = level;
+        final int savedHP = hp;
+        final int savedKills = kills;
+        final int savedRelic = relic;
+        final Map<PlayerAbility, Integer> savedAbilities = abilities;
+
+        SwingUtilities.invokeLater(() -> {
+
+            // ✔ STEP 1: LOAD LEVEL FIRST
+            LevelManager.loadLevel(savedLevel);
+
+            PlayableScreen screen = LevelManager.getPlayableScreen(savedLevel);
+            if (screen == null) return;
+
+            WorldRenderer world = screen.getWorldRenderer();
+            if (world == null) return;
+
+            Player player = world.getPlayer();
+            if (player == null) return;
+            if (savedRelic != -1) {
+
+            RelicManager.reset();
+
+            Relic relicObj = Relic.values()[savedRelic];
+            RelicManager.get().applyRelic(relicObj, player);
+
     }
-
-    final int savedLevel = level;
-    final int savedHP = hp;
-    final int savedKills = kills;
-    final int savedRelic = relic;
-    final Map<PlayerAbility, Integer> savedAbilities = abilities;
-
-    SwingUtilities.invokeLater(() -> {
-
-        // ✔ STEP 1: LOAD LEVEL FIRST
-        LevelManager.loadLevel(savedLevel);
-
-        PlayableScreen screen = LevelManager.getPlayableScreen(savedLevel);
-        if (screen == null) return;
-
-        WorldRenderer world = screen.getWorldRenderer();
-        if (world == null) return;
-
-        Player player = world.getPlayer();
-        if (player == null) return;
-        if (savedRelic != -1) {
-
-        RelicManager.reset();
-
-        Relic relicObj = Relic.values()[savedRelic];
-        RelicManager.get().applyRelic(relicObj, player);
-
-}
 
         // ✔ STEP 2: APPLY STATE AFTER WORLD EXISTS
         for (Map.Entry<PlayerAbility, Integer> entry : savedAbilities.entrySet()) {
@@ -167,6 +166,42 @@ public class SaveSystem {
         System.out.println("Loaded abilities: " + savedAbilities);
     });
 }
+
+
+    public static int getLevel()
+    {
+        
+        File saveFile = new File("autosave/saveFile.4t");
+
+        int level = 0;
+        if(!saveFile.exists()) return level;
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(saveFile)))
+        {
+            String currentLine = "";
+ 
+
+            while((currentLine = reader.readLine()) != null)
+            {
+                System.out.println("Reading file");
+                // Decoding .4t file here
+
+
+                if(currentLine.charAt(0) == 'L')
+                {
+                    String levelText = currentLine.substring(2);
+                    level = Integer.parseInt(levelText);
+                    System.out.println("Amount of kills :" + level);
+                }
+            }
+        } catch (IOException e)
+        {
+
+        }
+        return level;
+
+    }
+
 
     public static int getKills()
     {
