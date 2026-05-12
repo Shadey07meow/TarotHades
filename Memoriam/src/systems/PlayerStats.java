@@ -113,12 +113,12 @@ public class PlayerStats{
 
     // Debug
     public void debugPrint() {
-        System.out.println(
-            "HP: " + currentHP + "/" + getMaxHP() +
-            " | ATK: " + getAttack() +
-            " | DEF: " + getDefense() +
-            " | SPD: " + getSpeed()
-        );
+        // System.out.println(
+        //     "HP: " + currentHP + "/" + getMaxHP() +
+        //     " | ATK: " + getAttack() +
+        //     " | DEF: " + getDefense() +
+        //     " | SPD: " + getSpeed()
+        // );
     }
 
     public void setEmpress() {

@@ -65,9 +65,18 @@ public class LevelManager {
 
         if(id >= levels.size())
         {
+            System.out.println("Saving Progress");
+            
             gFrame.showPanel("menu");
             return;
         }
+
+        SaveSystem.saveProgress(
+                id,
+                (int)currentLevel.getWorldRenderer().getPlayer().getHealth(),
+                currentLevel.getWorldRenderer().getPlayer().getAbilityMap(),
+                GameStats.get().getEnemiesKilled()
+            );
 
         Player player = (currentLevel.getWorldRenderer() != null)
                 ? currentLevel.getWorldRenderer().getPlayer()

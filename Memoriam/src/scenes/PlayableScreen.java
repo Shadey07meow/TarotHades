@@ -110,6 +110,15 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         if(this.id != 0) this.player.setHealth(SaveSystem.getHP());
         
 
+        
+        // System.out.println("Saving Progress");
+        //         SaveSystem.saveProgress(
+        //         this.id,
+        //         (int)this.player.getHealth(),
+        //         this.player.getAbilityMap(),
+        //         GameStats.get().getEnemiesKilled()
+        //     );
+
 
         
 
@@ -184,18 +193,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         } 
 
         
-        
-        if(this.id != 0)
-        {
-            SwingUtilities.invokeLater(() -> {
-                SaveSystem.saveProgress(
-                    this.getID() + 1,
-                    (int)this.player.getHealth(),
-                    this.player.getAbilityMap(),
-                    GameStats.get().getEnemiesKilled()
-                );
-            });
-        }
+
         System.out.println("Thread stopped");
     }
 

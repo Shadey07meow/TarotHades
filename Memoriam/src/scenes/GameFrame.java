@@ -151,7 +151,7 @@ public class GameFrame extends JFrame {
     // Method to easily switch between panels, use ShowablePanel.getShowableName() as input
     public void showPanel(String panelName)
     {
-        System.out.println("I am to switching to " + panelName);
+        //System.out.println("I am to switching to " + panelName);
 
         try {
             for(ShowablePanel curPanel : allPanels)
