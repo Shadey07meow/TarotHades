@@ -211,7 +211,7 @@ public class Player extends Entity {
             spawnProjectile(velocity, baseDmg, flame);
         }
 
-        currentCooldown = fireCooldown;
+        currentCooldown = heavy ? fireCooldown * 2 : fireCooldown;
     }
 
     private double[] buildSpreadAngles(int count) {
