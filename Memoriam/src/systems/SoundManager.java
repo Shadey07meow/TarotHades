@@ -17,15 +17,15 @@ public class SoundManager {
         return instance;
     }
 
-    private Clip currentMusic;
-    private HashMap<String, String> sounds = new HashMap<>();
+    private  Clip currentMusic;
+    private  HashMap<String, String> sounds = new HashMap<>();
 
     private SoundManager() {
 
         // MUSIC
         sounds.put("menuMusic", "assets/audio/music/mainMenu.wav");
         sounds.put("lobbyMusic", "assets/audio/music/lobby.wav");
-        sounds.put("gameplayMusic", "assets/audio/music/gameplay.wav");
+        sounds.put("gameMusic", "assets/audio/music/gameplay.wav");
         sounds.put("bossMusic", "assets/audio/music/boss.wav");
         sounds.put("storyMusic", "assets/audio/music/story.wav");
 
@@ -41,7 +41,7 @@ public class SoundManager {
     }
 
     // PLAY MUSIC
-    public void playMusic(String key) {
+    public  void playMusic(String key) {
 
         try {
 
@@ -65,7 +65,7 @@ public class SoundManager {
     }
 
     // STOP MUSIC
-    public void stopMusic() {
+    public  void stopMusic() {
 
         if(currentMusic != null) {
 

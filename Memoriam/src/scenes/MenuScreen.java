@@ -221,7 +221,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     public void onInitiate() {
         requestFocusInWindow();
         
-        SoundManager.playMusic("assets/music/TempMainMenu.wav");
+        SoundManager.get().playMusic("lobbyMusic");
         menuThread = new Thread(this);
         menuThread.start();
         addMouseListener(this);

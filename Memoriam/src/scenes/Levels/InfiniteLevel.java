@@ -65,8 +65,8 @@ public class InfiniteLevel extends PlayableScreen {
 
     private void spawnEnemy() {
 
-        int x = rand.nextInt(1600) - 800;
-        int y = rand.nextInt(1200) - 600;
+        int x = rand.nextInt(1600) - 1200;
+        int y = rand.nextInt(1200) - 900;
 
         Vector2 pos = Vector2.add(this.center, new Vector2(x, y));
 
@@ -83,6 +83,7 @@ public class InfiniteLevel extends PlayableScreen {
         enemy.setHealth(10 + rand.nextInt(10));
 
         world.addObject(enemy);
+            SoundManager.get().playMusic("gameMusic");
     }
 
     @Override
@@ -108,9 +109,4 @@ public class InfiniteLevel extends PlayableScreen {
         );
     }
 
-    @Override
-    public void onInitiate() {
-        SoundManager.get().playMusic("gameMusic");
-
-    }
 }

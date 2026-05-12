@@ -20,6 +20,7 @@ public class Level2 extends PlayableScreen {
 
         // this.fx.generateLoadingScreen();
 
+                SoundManager.get().playMusic("gameMusic");
 
         // Add Treasure box
         TreasureChest tr1 = new TreasureChest(
@@ -252,12 +253,6 @@ public class Level2 extends PlayableScreen {
     public Player setPlayer()
     {
         return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
-    }
-
-    @Override
-    public void onInitiate() {
-        SoundManager.get().playMusic("gameMusic");
-
     }
 
 }
