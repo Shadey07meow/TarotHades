@@ -165,16 +165,20 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             //System.out.println("Update function is being called");
 
             // Call update function
-            checkPausing();
             if(!isPaused)
             {
                 update();
             } else
             {
-                if(inputManager.getMouseClicked())
+                if(!this.player.getUIOpen())
                 {
-                    pauseUI.onClicked(inputManager.getClickPosition());
-                }        
+                    checkPausing();
+
+                    if(inputManager.getMouseClicked())
+                    {
+                        pauseUI.onClicked(inputManager.getClickPosition());
+                    }        
+                }
             }
     
             // Paint the panel every frame

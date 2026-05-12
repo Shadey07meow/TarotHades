@@ -397,6 +397,7 @@ public class Player extends Entity {
     
     
     public void setUIOpen(boolean open) {this.uiOpen = open;}
+    public boolean getUIOpen() {return this.uiOpen;}
     public Vector2 getVelocity(){return curSpeed;}
     public boolean isInteracting(){ return this.isInteracting;}
     public void checkInteracting(){isInteracting = inputs.getIsInteracting();}
