@@ -17,7 +17,7 @@ public class BlueWisp extends Enemy
         this.speed = currentSpeed;
         
         normalBlue();
-    }
+    }   
 
     public void spawnBossBlue(){
         BlueWisp bossBlue = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 4, this.playScrn);
@@ -38,7 +38,7 @@ public class BlueWisp extends Enemy
         
     }
 
-    private void makeBossBlue(){
+    public void makeBossBlue(){
         this.health = maxHealthBoss;
         this.speed = 10;
         this.detectionRange = 800;
@@ -48,7 +48,7 @@ public class BlueWisp extends Enemy
         this.moveLeftImg = img.blueLEFT;
         this.hurtImg = img.enemyHurt;
         this.usesProjectiles = false;
-        this.damage = 1;
+        this.damage = 2;
 
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
 

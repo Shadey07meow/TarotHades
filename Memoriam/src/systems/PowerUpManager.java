@@ -22,11 +22,11 @@ public class PowerUpManager {
 
         leveledPowerUps.put(PlayerAbility.FLAME_SHOT, new PowerUp[]{
             new PowerUp("Ace of Wands I", "+4 ATK",
-                new StatModifier(StatType.ATTACK, 4, false)),
+                new StatModifier(StatType.ATTACK, 2, false)),
             new PowerUp("Ace of Wands II", "+4 ATK",
-                new StatModifier(StatType.ATTACK, 4, false)),
+                new StatModifier(StatType.ATTACK, 2, false)),
             new PowerUp("Ace of Wands III", "+4 ATK",
-                new StatModifier(StatType.ATTACK, 4, false))
+                new StatModifier(StatType.ATTACK, 3, false))
         });
 
         leveledPowerUps.put(PlayerAbility.MULTI_SHOT, new PowerUp[]{
@@ -43,29 +43,29 @@ public class PowerUpManager {
 
         leveledPowerUps.put(PlayerAbility.FORTIFIED_REGEN, new PowerUp[]{
             new PowerUp("Nine of Pentacles I",
-                "+HP +DEF",
+                "+HP +ATK",
                 new StatModifier(StatType.MAX_HP, 1, false),
-                new StatModifier(StatType.DEFENSE, 1, false)),
+                new StatModifier(StatType.ATTACK, 2, false)),
             new PowerUp("Nine of Pentacles II",
-                "+HP +DEF",
+                "+HP +ATK",
                 new StatModifier(StatType.MAX_HP, 1, false),
-                new StatModifier(StatType.DEFENSE, 1, false)),
+                new StatModifier(StatType.ATTACK, 2, false)),
             new PowerUp("Nine of Pentacles III",
-                "+HP +DEF",
+                "+HP + ATK",
                 new StatModifier(StatType.MAX_HP, 2, false),
-                new StatModifier(StatType.DEFENSE, 2, false))
+                new StatModifier(StatType.ATTACK, 2, false))
         });
 
         leveledPowerUps.put(PlayerAbility.SHIELD, new PowerUp[]{
             new PowerUp("Queen of Cups I",
                 "+DEF",
-                new StatModifier(StatType.DEFENSE, 2, false)),
+                new StatModifier(StatType.DEFENSE, 0, false)),
             new PowerUp("Queen of Cups II",
                 "+DEF",
-                new StatModifier(StatType.DEFENSE, 2, false)),
+                new StatModifier(StatType.DEFENSE, 0, false)),
             new PowerUp("Queen of Cups III",
                 "+DEF",
-                new StatModifier(StatType.DEFENSE, 2, false))
+                new StatModifier(StatType.DEFENSE, 1, false))
         });
 
         leveledPowerUps.put(PlayerAbility.SPEED_ENHANCE, new PowerUp[]{

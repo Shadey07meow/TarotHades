@@ -67,6 +67,11 @@ public class GameStart extends PlayableScreen {
     { 
         
         
+        
+        SoundManager.get().playMusic("lobbyMusic");
+
+    
+
         GameStats.get().resetStat();
         LevelManager.isInfiniteRun = false;
         LevelManager.startNewRun();
@@ -219,10 +224,5 @@ public class GameStart extends PlayableScreen {
         return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     }
 
-    @Override
-    public void onInitiate() {
-        SoundManager.get().playMusic("lobbyMusic");
-
-    }
 
 }

@@ -69,6 +69,7 @@ public class Level4 extends PlayableScreen {
                 new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
          
+                    SoundManager.get().playMusic("gameMusic");
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
@@ -245,9 +246,4 @@ public class Level4 extends PlayableScreen {
         return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     } 
 
-    @Override
-    public void onInitiate() {
-        SoundManager.get().playMusic("gameMusic");
-
-    }
 }

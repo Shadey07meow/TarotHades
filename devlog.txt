@@ -24,6 +24,9 @@ KEEP THIS ON TOP
     - Created Infnite level
     - Changed Buttons
     - Removed yellow card overlay after restart
+    - Replaced card hovers
+    - Nine of Pentacles fix/rework
+    - Cutscenes and transitions finished
 
 --> 05/11/2026
     (Calrya)

@@ -31,7 +31,7 @@ public class CutsceneScreen extends UIScreen {
     public CutsceneScreen(GameFrame gameFrame) {
         super("cutscene", gameFrame);
 
-        finishedTransition = true;
+        finishedTransition = false;
 
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -45,8 +45,16 @@ public class CutsceneScreen extends UIScreen {
         add(hint, BorderLayout.SOUTH);
 
         addMouseListener(new MouseAdapter() {
+
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
+
+                if (e.getButton() != MouseEvent.BUTTON1) return;
+
+                if (!isShowing() || !isVisible()) return;
+
+                if (state == State.FADE_OUT) return;
+
                 handleClick();
             }
         });
@@ -59,9 +67,14 @@ public class CutsceneScreen extends UIScreen {
     @Override
     public void onInitiate() {
 
-        if (lines == null || lines.length == 0) return;
+        if (lines == null || lines.length == 0) {
+            lines = new String[]{"..."};
+        }
 
-        if (timer != null) timer.stop();
+        if (timer != null) {
+            timer.stop();
+            timer = null;
+        }
 
         finishedTransition = false;
 
@@ -80,6 +93,13 @@ public class CutsceneScreen extends UIScreen {
 
     private void handleClick() {
 
+        if (state == State.FADE_IN) {
+            alpha = 1f;
+            state = State.SHOWING;
+            updateAlpha();
+            return;
+        }
+
         if (state != State.SHOWING) return;
 
         if (index < lines.length - 1) {
@@ -91,7 +111,10 @@ public class CutsceneScreen extends UIScreen {
 
     private void startLoop() {
 
-        if (timer != null) timer.stop();
+        if (timer != null) {
+            timer.stop();
+            timer = null;
+        }
 
         timer = new Timer(16, e -> {
 
@@ -128,7 +151,8 @@ public class CutsceneScreen extends UIScreen {
                     updateAlpha();
                 }
 
-                case SHOWING -> {}
+                case SHOWING -> {
+                }
             }
         });
 
@@ -137,12 +161,16 @@ public class CutsceneScreen extends UIScreen {
 
     private void updateAlpha() {
         textLabel.setForeground(new Color(255, 255, 255, (int)(alpha * 255)));
-        repaint();
+        textLabel.repaint();
+        textLabel.revalidate();
     }
 
     private void endCutscene() {
 
-        if (timer != null) timer.stop();
+        if (timer != null) {
+            timer.stop();
+            timer = null;
+        }
 
         finishedTransition = true;
 
@@ -156,11 +184,11 @@ public class CutsceneScreen extends UIScreen {
         endingCutscene = true;
 
         lines = new String[] {
-            "The silence settles.",
-            "The dungeon no longer breathes.",
+            "The silence is no more.",
+            "The birds sing their songs and everything looks brighter than before.",
             "You stand alone.",
             "But alive.",
-            "Freedom awaits."
+            "Justice awaits."
         };
     }
 
@@ -171,26 +199,27 @@ public class CutsceneScreen extends UIScreen {
         switch (level) {
 
             case 1 -> lines = new String[]{
+                "You enter the forests, leading into the ruins of what you once knew.",
                 "You feel something shift.",
                 "The world responds to your presence.",
                 "Level 1"
             };
 
             case 2 -> lines = new String[]{
-                "The halls stretch further.",
+                "The birds utter no sound as you pass by, the water remains unmoving.",
                 "Something is watching.",
                 "Level 2"
             };
 
             case 3 -> lines = new String[]{
-                "The ruins whisper.",
-                "You are not alone.",
+                "You clutch onto the cards you've picked up.",
+                "They are your only companion.",
                 "Level 3"
             };
 
             case 4 -> lines = new String[]{
-                "You’ve come far.",
-                "But something awaits.",
+                "You've come far. You can almost see the ruins from here.",
+                "You know something awaits you there.",
                 "Level 4"
             };
 
@@ -205,6 +234,6 @@ public class CutsceneScreen extends UIScreen {
     }
 
     public boolean isFinishedLoading() {
-        return this.finishedTransition;
+        return finishedTransition;
     }
 }

@@ -15,7 +15,7 @@ public class PrologueScreen extends UIScreen {
             "The world fell into two.",
             "It falls onto you to make right what is wrong.",
             "Make them whole,",
-            "Put on a show.",
+            "and put on a show.",
             "You have no name, no land, no past.",
             "You are the Fool."
     };
@@ -41,7 +41,7 @@ public class PrologueScreen extends UIScreen {
 
     private final GameFrame gameFrame;
 
-    private final JButton skipButton;
+    // private final JButton skipButton;
 
     public PrologueScreen(GameFrame gameFrame) {
         super("prologue", gameFrame);
@@ -62,18 +62,18 @@ public class PrologueScreen extends UIScreen {
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.setOpaque(false);
 
-        skipButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 150, 60);
-        gameFrame.addHoverEffect(
-            skipButton,
-            ImageLibrary.get().placeholderBtn,
-            ImageLibrary.get().placeholderBtnHover,
-            353,100
-        );
+        // skipButton = gameFrame.createImageButton(ImageLibrary.get().placeholderBtn, 150, 60);
+        // gameFrame.addHoverEffect(
+        //     skipButton,
+        //     ImageLibrary.get().placeholderBtn,
+        //     ImageLibrary.get().placeholderBtnHover,
+        //     353,100
+        // );
 
-        skipButton.addActionListener(e -> {SoundManager.get().playSFX("button"); skipToEnd();});
+        //skipButton.addActionListener(e -> {SoundManager.get().playSFX("button"); skipToEnd();});
 
-        bottomPanel.add(skipButton, BorderLayout.SOUTH);
-        add(bottomPanel, BorderLayout.SOUTH);
+        // bottomPanel.add(skipButton, BorderLayout.SOUTH);
+        // add(bottomPanel, BorderLayout.SOUTH);
 
         addMouseListener(new MouseAdapter() {
             @Override

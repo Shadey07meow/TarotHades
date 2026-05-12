@@ -24,8 +24,8 @@ public class WorldRenderer {
     private ArrayList<GameObject> objectList = new ArrayList<GameObject>();
     private Vector2 centerPosition = new Vector2(950, 420);
     private int distanceFromCenter = 20 * 4 ;
-    private final double xThresholdd = 50; 
-    private final double yThresholdd = 50; 
+    private final double xThresholdd = 20; 
+    private final double yThresholdd = 20; 
     private final double xMargin = 30;
     private final double yMargin = 30;
 

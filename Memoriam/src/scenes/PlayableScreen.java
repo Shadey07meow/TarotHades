@@ -156,6 +156,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     @Override
     public void run(){
         System.out.println("Thread started");
+        
 
 
         fx.generateLoadingScreen();
@@ -163,18 +164,24 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         while(this.isRunning)
         {
             //System.out.println("Update function is being called");
-
+            if(!SpecialEffects.getIsLoading()) checkPausing();
             // Call update function
-            checkPausing();
             if(!isPaused)
             {
                 update();
             } else
             {
-                if(inputManager.getMouseClicked())
+                if(!this.player.getUIOpen())
                 {
-                    pauseUI.onClicked(inputManager.getClickPosition());
-                }        
+                    checkPausing();
+
+                    pauseUI.onMouseMove(inputManager.getMousePosition());
+                    if(inputManager.getMouseClicked())
+                    {
+                        pauseUI.onClicked(inputManager.getClickPosition());
+                        
+                    }        
+                }
             }
     
             // Paint the panel every frame
@@ -226,7 +233,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     // Update function methods
     public void checkPausing()
-    {
+    {   
+         if (player != null && player.getUIOpen()) return;
+
         // Pause Logic
         if (inputManager.isPausePressed()) {
             // this.getGameFrame().showPanel("pause");

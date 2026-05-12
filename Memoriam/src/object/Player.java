@@ -50,6 +50,12 @@ public class Player extends Entity {
      private boolean halfHpWarning = false; // for the empress
 
     public static boolean canMove;
+
+    // shield timers
+    private long lastShieldTime = 0;
+    private int shieldInterval = 300;
+    private boolean shieldJustEnded = false;
+    
     // constructor
     public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
     {
@@ -79,6 +85,21 @@ public class Player extends Entity {
     {
         this.health = stats.getCurrentHP();
         this.speed  = stats.getSpeed();
+
+        if (stats.isShielded()) {
+
+            if (getImage() == spriteDown)
+                setImage(ImageLibrary.get().foolShieldDown);
+
+            else if (getImage() == spriteUp)
+                setImage(ImageLibrary.get().foolShieldUp);
+
+            else if (getImage() == spriteLeft)
+                setImage(ImageLibrary.get().foolShieldLeft);
+
+            else if (getImage() == spriteRight)
+                setImage(ImageLibrary.get().foolShieldRight);
+        }
         checkRelicHealthSync();
         if (world == null) return;
 
@@ -95,6 +116,7 @@ public class Player extends Entity {
             SaveSystem.resetToNewRun();
             gameFrame.showPanel("lose");
         }
+        tickShield();
         isDead = (health <= 0);
 //         System.out.println(
 //     "PLAYER HP=" + health +
@@ -173,11 +195,37 @@ public class Player extends Entity {
         move(curSpeed);
         
         // Set images, make looking up and down priority
-        if (inpVector.x > 0) setImage(spriteRight);
-        else if (inpVector.x < 0) setImage(spriteLeft);
-        
-        if (inpVector.y > 0) setImage(spriteUp);
-        else if (inpVector.y < 0) setImage(spriteDown);
+       if (inpVector.x > 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldRight);
+        else
+            setImage(spriteRight);
+    }
+
+    else if (inpVector.x < 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldLeft);
+        else
+            setImage(spriteLeft);
+    }
+
+    if (inpVector.y > 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldUp);
+        else
+            setImage(spriteUp);
+    }
+
+    else if (inpVector.y < 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldDown);
+        else
+            setImage(spriteDown);
+    }
     }
 
     // combat 
@@ -222,7 +270,7 @@ public class Player extends Entity {
             spawnProjectile(velocity, baseDmg, flame);
         }
 
-        currentCooldown = fireCooldown;
+        currentCooldown = heavy ? fireCooldown * 2 : fireCooldown;
     }
 
     private double[] buildSpreadAngles(int count) {
@@ -276,17 +324,23 @@ public class Player extends Entity {
 
     //  shield
     private void updateShieldCooldown(int level) {
+
+        if (world == null) {
+            System.out.println("Shield skipped: world is null");
+            return;
+        }
+
         if (shield == null) {
             shield = new Shield(this, playScrn);
             world.addObject(shield);
         }
-        int cooldown = switch (level) {
-            case 2  -> 210;
-            case 3  -> 120;
-            default -> 300;   // level 1
-        };
-        shield.setCooldownMax(cooldown);
-        System.out.println("Shield cooldown set to " + cooldown + " frames");
+
+        // RESET TIMER WHEN LEVEL CHANGES
+
+        // SET COOLDOWN INTERVAL HERE (NOT IN tickShield)
+        shieldInterval = 300; 
+
+        System.out.println("Shield interval set to " + shieldInterval + " frames");
     }
  
     // Collision
@@ -321,17 +375,55 @@ public class Player extends Entity {
     // HP helpers 
     @Override
     public void minusHP(double a) {
+
         stats.takeDamage((int) a);
+
         this.health = stats.getCurrentHP();
 
         // check if we just hit 0 and DEATH relic can save us
         if (this.health <= 0) {
+
             boolean saved = RelicManager.get().tryResurrect(this);
+
             if (saved) {
-                this.health = stats.getCurrentHP();   // refreshed by tryResurrect
+                this.health = stats.getCurrentHP();
                 isDead = false;
                 return;
             }
+        }
+    }
+
+    private void tickShield() {
+
+        if (!hasAbility(PlayerAbility.SHIELD))
+            return;
+
+        long now = System.currentTimeMillis();
+
+        long cooldown = 3000;   // time between shields
+        long duration = 3000;   // shield active time
+
+        // If shield is active, wait until it ends
+        if (stats.isShielded()) {
+
+            // mark that shield is currently active
+            shieldJustEnded = true;
+            return;
+        }
+
+        // if shield JUST ended, reset timer baseline
+        if (shieldJustEnded) {
+            lastShieldTime = now;
+            shieldJustEnded = false;
+            return;
+        }
+
+        // normal activation check
+        if (now - lastShieldTime >= cooldown) {
+
+            lastShieldTime = now;
+
+            stats.activateShield(duration);
         }
     }
 
@@ -396,6 +488,7 @@ public class Player extends Entity {
     
     
     public void setUIOpen(boolean open) {this.uiOpen = open;}
+    public boolean getUIOpen() {return this.uiOpen;}
     public Vector2 getVelocity(){return curSpeed;}
     public boolean isInteracting(){ return this.isInteracting;}
     public void checkInteracting(){isInteracting = inputs.getIsInteracting();}

@@ -53,6 +53,7 @@ public class FinalBoss extends Enemy{
         BlueWisp bossBlu = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 2, this.playScrn);
 
         BlueWisp bossBlu2 = new BlueWisp(new Vector2(this.position.x - 100, this.position.y), 2, this.playScrn);
+        bossBlu.makeBossBlue();
         bossBlu.setDetectionDistance(10000);
         bossBlu2.setDetectionDistance(10000);
         world.addObject(bossBlu);
@@ -63,6 +64,7 @@ public class FinalBoss extends Enemy{
     {
         BlueWisp bossBlu = new BlueWisp(new Vector2(this.position.x + 100, this.position.y), 2, this.playScrn);
         PurpleWisp bossPurpur2 = new PurpleWisp(new Vector2(this.position.x - 100, this.position.y), 2, this.playScrn);
+        bossPurpur2.makeBossPurple();
         bossBlu.setDetectionDistance(10000);
         bossPurpur2.setDetectionDistance(10000);
         bossPurpur2.setAttackingRange(400);

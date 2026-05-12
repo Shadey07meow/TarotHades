@@ -30,7 +30,9 @@ public class ImageLibrary
     public final BufferedImage placeholderBtn;
     public final BufferedImage quitBtnExit;
     public final BufferedImage loadSaveBtn;
+    public final BufferedImage loadSaveBtnHover;
     public final BufferedImage newSaveButton;
+    public final BufferedImage newSaveButtonHover;
 
     public final BufferedImage loadingScreen;
     public final BufferedImage loseScreen;
@@ -39,7 +41,8 @@ public class ImageLibrary
     public final BufferedImage quitBtn;
     public final BufferedImage quitBtnGO;
     public final BufferedImage resumeBtn ;
-    public final BufferedImage restartBtn;
+    public final BufferedImage resumeBtnHover;
+public final BufferedImage restartBtn;
     public final BufferedImage boboLogo;
     public final BufferedImage logo;
 
@@ -64,6 +67,13 @@ public class ImageLibrary
     public final Image playerSpritesLEFT;
     public final Image playerSpritesRIGHT;
 
+    //player shielded
+
+    public final Image foolShieldDown;
+    public final Image foolShieldRight;
+    public final Image foolShieldLeft;
+    public final Image foolShieldUp;
+    
     // Enemy Blue
     public final Image blueRIGHT;
     public final Image blueLEFT;
@@ -172,6 +182,11 @@ private ImageLibrary()
                 ).getImage();
 
                 playerSpritesRIGHT = new ImageIcon("assets/PlayerSprites/animated/idle/fool_idle_right.gif").getImage();
+
+                foolShieldDown = new ImageIcon("assets/PlayerSprites/shield/foolShieldDown.png").getImage();
+                foolShieldRight = new ImageIcon("assets/PlayerSprites/shield/foolShieldRight.png").getImage();
+                foolShieldLeft = new ImageIcon("assets/PlayerSprites/shield/foolShieldLeft.png").getImage();
+                foolShieldUp = new ImageIcon("assets/PlayerSprites/shield/foolShieldUp.png").getImage();
                 
                 
                 // Cursor
@@ -204,13 +219,16 @@ private ImageLibrary()
                 quitBtn = ImageIO.read(getImageFile("assets/Panels/quitBtn.png"));
                 quitBtnGO = ImageIO.read(getImageFile("assets/Panels/quitBtnGO.png"));
                 resumeBtn = ImageIO.read(getImageFile("assets/Panels/resumeBtn.png"));
+                resumeBtnHover = ImageIO.read(getImageFile("assets/Panels/resumeButtonHover.png"));
                 restartBtn = ImageIO.read(getImageFile("assets/Panels/restart.png"));
                 placeholderBtn = ImageIO.read(getImageFile("assets/Panels/placeholderBtn.png"));
+                
                 quitBtnExit = ImageIO.read(getImageFile("assets/Panels/quitBtnExit.png"));
-
                 pauseBg = ImageIO.read(getImageFile("assets/Panels/pauseBg.png"));
                 loadSaveBtn = ImageIO.read(getImageFile("assets/Panels/loadSave.png"));
+                loadSaveBtnHover = ImageIO.read(getImageFile("assets/Panels/loadSaveHover.png"));
                 newSaveButton = ImageIO.read(getImageFile("assets/Panels/newSaveButton.png"));
+                newSaveButtonHover = ImageIO.read(getImageFile("assets/Panels/newSaveButtonHover.png"));
                 loadBg = ImageIO.read(getImageFile("assets/Panels/backDrop2.png"));
                 
                 

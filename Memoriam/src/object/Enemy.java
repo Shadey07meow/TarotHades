@@ -255,6 +255,11 @@ public abstract class Enemy extends Entity {
         this.currentCooldown = this.fireCooldown;
     }
 
+    public void setDetectedPlayer(boolean v)
+    {
+        this.hasDetectedPlayer = v;
+    }
+
 
     
 }

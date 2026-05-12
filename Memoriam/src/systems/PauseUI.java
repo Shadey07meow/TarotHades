@@ -1,6 +1,7 @@
 package systems;
 
 import images.ImageLibrary;
+import java.awt.Image;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -11,6 +12,8 @@ public class PauseUI {
     PlayableScreen scrn  = null;
     
     // Define the UI elements
+    Image resumeImage = ImageLibrary.get().resumeBtn;  
+    Image quitImage = ImageLibrary.get().quitBtn;  
     Rectangle backDrop = null;
     Rectangle resumeButton = null;
     Rectangle quitButton = null;
@@ -22,14 +25,20 @@ public class PauseUI {
         int width = 500;
         int height = 300;
         this.backDrop = new Rectangle(scrn.getWidth() / 2 - (width / 2) , scrn.getHeight() / 2 - (height/ 2), width, height);
+        
+        int width1 = 200;
+        int height1 = 70;
+        int xOffset1 = 0;
+        int yOffset1 = -20;
+        this.resumeButton = new Rectangle(scrn.getWidth() / 2 - (width1 / 2) + xOffset1, (scrn.getHeight() / 2 - (height1/ 2)) + yOffset1, width1, height1);
 
-        int width1 = 150;
-        int height1 = 50;
-        this.resumeButton = new Rectangle(scrn.getWidth() / 2 - (width1 / 2) , (scrn.getHeight() / 2 - (height1/ 2)) - 30, width1, height1);
-    
-        int width2 = 150;
-        int height2 = 50;
-        this.quitButton = new Rectangle(scrn.getWidth() / 2 - (width2 / 2) , (scrn.getHeight() / 2 - (height2/ 2)) + 30, width2, height2);
+
+
+        int width2 = 200;
+        int height2 = 70;
+        int xOffset2 = 0;
+        int yOffset2 = 70;
+        this.quitButton = new Rectangle(scrn.getWidth() / 2 - (width2 / 2) + xOffset2, (scrn.getHeight() / 2 - (height2/ 2)) + yOffset2, width2, height2);
 
         this.gFrame = frame;
     }
@@ -54,6 +63,24 @@ public class PauseUI {
             pauseGame();
         }
     }
+
+
+    public void onMouseMove(Vector2 mousePos)
+    {
+        // Handles on pause click events
+        if(resumeButton.contains(mousePos.x, mousePos.y))
+        {
+            resumeImage = ImageLibrary.get().resumeBtnHover;
+            quitImage = ImageLibrary.get().quitBtn;
+        } else if (quitButton.contains(mousePos.x, mousePos.y)) 
+        {
+            resumeImage = ImageLibrary.get().resumeBtn;
+            quitImage = ImageLibrary.get().exitBtnHover;
+        }
+    }
+
+    
+
     
     // Detect button presses
     public void drawPause(Graphics g)
@@ -90,7 +117,7 @@ public class PauseUI {
         // );
 
         g.drawImage(
-            ImageLibrary.get().resumeBtn,
+            resumeImage,
             resumeButton.x,
             resumeButton.y,
             resumeButton.width,
@@ -98,7 +125,7 @@ public class PauseUI {
             null
         );
         g.drawImage(
-            ImageLibrary.get().quitBtn,
+            quitImage,
             quitButton.x,
             quitButton.y,
             quitButton.width,
