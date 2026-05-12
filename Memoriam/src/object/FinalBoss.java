@@ -6,8 +6,8 @@ import systems.*;
 
 
 public class FinalBoss extends Enemy{
-    //private final int maxHealth = 500;
-    private final int maxHealth = 10;
+    private final int maxHealth = 500;
+    //private final int maxHealth = 10;
     private double currentSpeed = 0;    
     private int shotCount;
     private int shotsToSpawn = 5;
@@ -23,6 +23,7 @@ public class FinalBoss extends Enemy{
         this.setImage(img.finalBoss);
         this.moveRightImg = img.finalBoss;
         this.moveLeftImg = img.finalBoss;
+        this.setDetectionDistance(999999);
         this.hurtImg = img.finalBossHurt;
         this.damage = 1;
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
