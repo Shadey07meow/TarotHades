@@ -273,6 +273,10 @@ public class Player extends Entity {
 
     //  shield
     private void updateShieldCooldown(int level) {
+        if (world == null) {
+            System.out.println("Shield skipped: world is null"); // debug
+        return;
+    }
         if (shield == null) {
             shield = new Shield(this, playScrn);
             world.addObject(shield);
