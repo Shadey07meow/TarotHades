@@ -156,6 +156,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     @Override
     public void run(){
         System.out.println("Thread started");
+        
 
 
         fx.generateLoadingScreen();
@@ -163,7 +164,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         while(this.isRunning)
         {
             //System.out.println("Update function is being called");
-
+            checkPausing();
             // Call update function
             if(!isPaused)
             {
@@ -230,7 +231,9 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
     // Update function methods
     public void checkPausing()
-    {
+    {   
+         if (player != null && player.getUIOpen()) return;
+
         // Pause Logic
         if (inputManager.isPausePressed()) {
             // this.getGameFrame().showPanel("pause");

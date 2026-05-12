@@ -36,7 +36,7 @@ public class PurpleWisp extends Enemy
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
 
     }
-    private void makeBossPurple(){
+    public void makeBossPurple(){
         this.health = maxHealthBoss;
         this.speed = 10;
         this.detectionRange = 800;
@@ -45,7 +45,7 @@ public class PurpleWisp extends Enemy
         this.moveRightImg = img.purpleRIGHT;
         this.moveLeftImg = img.purpleLEFT;
         this.hurtImg = img.enemyHurt;
-        this.damage = 1;
+        this.damage = 2;
 
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
 

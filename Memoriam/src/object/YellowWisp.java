@@ -45,7 +45,7 @@ public class YellowWisp extends Enemy
         this.moveRightImg = img.yellowRIGHT;
         this.moveLeftImg = img.yellowLEFT;
         this.hurtImg = img.enemyHurt;
-        this.damage = 1;
+        this.damage = 2;
 
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
 
