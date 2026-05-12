@@ -71,6 +71,10 @@ public class LevelManager {
             return;
         }
 
+
+        Player.canMove = true;
+        currentLevel.getWorldRenderer().getPlayer().setUIOpen(false);
+
         SaveSystem.saveProgress(
                 id,
                 (int)currentLevel.getWorldRenderer().getPlayer().getHealth(),

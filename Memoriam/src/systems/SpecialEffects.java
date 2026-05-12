@@ -1,6 +1,8 @@
 package systems;
 
 import images.*;
+import object.Player;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 
 public class SpecialEffects {
     
+
 
     public ArrayList<Effects> effectList = new ArrayList<>();
     
@@ -44,6 +47,7 @@ public class SpecialEffects {
     public void generateLoadingScreen()
     {
         effectList.add(new LoadingScreen());
+        Player.canMove = false;
     }
 
 
@@ -141,7 +145,12 @@ public class SpecialEffects {
 
             // Alpha decreases per thing
             this.alpha = (int)(255 * ((double)this.currentLifetime/(double)this.lifeTime));
-            if(this.alpha <= 0) this.alpha = 0;
+            if(this.alpha <= 0) 
+                {
+                    this.alpha = 0;
+                    Player.canMove = true;
+                }
+                
         }
 
         private void drawScreen(Graphics g)

@@ -48,6 +48,8 @@ public class Player extends Entity {
     private Vector2 curSpeed = new Vector2(); 
     private final int regenBase   = 120;
      private boolean halfHpWarning = false; // for the empress
+
+    public static boolean canMove;
     
     // constructor
     public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
@@ -82,7 +84,11 @@ public class Player extends Entity {
         if (world == null) return;
 
         if (!isDead) {
-            inputOperations();
+            
+            if(canMove)
+            {
+                inputOperations();
+            }
             tickRegen();
             checkHalfHpWarning();
         } else {
@@ -148,9 +154,12 @@ public class Player extends Entity {
 
     // input
     public void inputOperations(){
-        movePlayer(); // Does not fight when UI is open
-
-        if (!uiOpen) combatMethod();
+        
+        if (!uiOpen) 
+            {
+                movePlayer(); // Does not fight when UI is open
+                combatMethod();
+            }
         checkInteracting();
     }
 

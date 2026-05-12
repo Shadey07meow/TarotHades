@@ -85,6 +85,7 @@ public class TreasureChest extends GameObject {
     public void doInteractionLogic() {
 
         if (targetPlayer.isInteracting()) {
+            Player.canMove = false;
             playScrn.getCardManager().openChest();
         }
     }
