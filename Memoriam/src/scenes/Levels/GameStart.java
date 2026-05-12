@@ -68,6 +68,7 @@ public class GameStart extends PlayableScreen {
         
         
         GameStats.get().resetStat();
+        LevelManager.isInfiniteRun = false;
         LevelManager.startNewRun();
    
          

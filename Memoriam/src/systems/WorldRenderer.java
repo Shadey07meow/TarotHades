@@ -378,5 +378,35 @@ public class WorldRenderer {
                 }         
             }
         }
+
+        // for infinite level
+        public int getEnemyCount() {
+
+        int count = 0;
+
+        for (GameObject obj : objectList) {
+            if (obj instanceof Enemy) {
+                count++;
+            }
+        }
+
+        return count;
+}
+
+public void clearEnemies()
+{
+    objectList.removeIf(obj -> obj instanceof Enemy);
+}
+
+
+
+public void clearChests()
+{
+    objectList.removeIf(obj -> obj instanceof TreasureChest);
+}public void clearWaveObjects()
+{
+    clearEnemies();
+    clearChests();
+}
     }
 

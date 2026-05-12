@@ -95,4 +95,4 @@ public class PowerUpManager {
         PowerUp[] levels = leveledPowerUps.get(ability);
         return (levels == null) ? 0 : levels.length;
     }
-}
+}   
