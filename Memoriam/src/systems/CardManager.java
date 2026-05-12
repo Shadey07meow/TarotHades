@@ -361,12 +361,6 @@ public class CardManager {
                 graphics2.drawImage(c.imageHover, x, y, cardW, cardH, null);
             }
 
-            // select highlight
-            if (i == selectedCardIndex) {
-                graphics2.setColor(new Color(255, 255, 0, 100));
-                graphics2.fillRect(x, y, cardW, cardH);
-            }
-
         }
     }
 

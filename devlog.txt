@@ -20,6 +20,11 @@ KEEP THIS ON TOP
     - Created a savedHP variable to store HP from previous levels
     - fixed the Heart UI for empress
 
+    (CalRya)
+    - Created Infnite level
+    - Changed Buttons
+    - Removed yellow card overlay after restart
+
 --> 05/11/2026
     (Calrya)
     - Win screen

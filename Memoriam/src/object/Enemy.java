@@ -5,6 +5,7 @@ import images.*;
 import java.awt.Image;
 import java.util.ArrayList;
 import scenes.*;
+import scenes.levels.InfiniteLevel;
 import systems.*;
 
 public abstract class Enemy extends Entity {
@@ -68,6 +69,11 @@ public abstract class Enemy extends Entity {
     public void onDeath()
     {
         world.removeObject(this);
+
+        if (playScrn instanceof InfiniteLevel inf)
+            {
+                inf.onEnemyKilled();
+            }
         GameStats.get().addKill();
     }
     

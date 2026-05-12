@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import javax.swing.SwingUtilities;
 import object.*;
 import systems.*;
 
@@ -406,4 +405,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     public boolean getIsPaused(){return this.isPaused;}
     public void setIsPaused(boolean r){this.isPaused = r;}
     public SpecialEffects getSpecialEffects(){return this.fx;}
+    public void onPowerupSelected() {}
+    
 }
