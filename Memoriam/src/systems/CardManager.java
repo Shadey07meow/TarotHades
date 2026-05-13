@@ -35,6 +35,7 @@ public class CardManager {
     private int spinTicks = 0;
     private int selectedCardIndex = -1;
 
+    
 
     // transition
     private boolean isFading = false;
@@ -216,7 +217,7 @@ public class CardManager {
 
     public void sizeCard()
     {        
-         if (!showChestUI || chestState != 2 || !inps.consumeClick()) return;
+        if (!showChestUI || chestState != 2 || !inps.consumeClick()) return;
 
         int cardW = 300, cardH = 450, spacing = 40;
         int totalWidth = (cardW * currentCards.size()) + (spacing * (currentCards.size() - 1));

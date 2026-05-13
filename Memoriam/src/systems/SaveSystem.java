@@ -329,7 +329,7 @@ public class SaveSystem {
                     char stack = currentLine.charAt(5);
                     int skillNum = Character.getNumericValue(skill);
                     int stackNum = Character.getNumericValue(stack);
-                    System.out.println("Skill : " + PlayerAbility.values()[skillNum] + ", At stack :" + stackNum);
+                    System.out.println("  Skill : " + PlayerAbility.values()[skillNum] + ", At stack :" + stackNum + "\n");
                     
                     abilities.put(PlayerAbility.values()[skillNum], stackNum);
                 }
