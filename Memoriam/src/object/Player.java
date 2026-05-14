@@ -251,8 +251,6 @@ public class Player extends Entity {
     private void shootProjectile(){
         // Checks if we can shoot after shooting the last shot
         // cooldown
-        
-       
 
         if (currentCooldown != 0) return;
 

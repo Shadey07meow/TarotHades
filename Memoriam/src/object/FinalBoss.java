@@ -6,11 +6,11 @@ import systems.*;
 
 
 public class FinalBoss extends Enemy{
-    private final int maxHealth = 500;
-    //private final int maxHealth = 10;
+    //private final int maxHealth = 500;
+    private final int maxHealth = 1;
     private double currentSpeed = 0;    
     private int shotCount;
-    private int shotsToSpawn = 5;
+    private int shotsToSpawn = 100;
 
     private int phase = 1;
 
