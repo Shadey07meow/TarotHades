@@ -26,4 +26,5 @@ public abstract class Entity extends GameObject {
 
     // Overridable method
     abstract void onDeath();
+    abstract void onHit(int a);
 }

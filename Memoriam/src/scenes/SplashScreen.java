@@ -64,10 +64,10 @@ public class SplashScreen extends UIScreen {
         g2.fillRect(0, 0, getWidth(), getHeight());
 
         // centered gif
-        int x = (getWidth() - gif.getWidth(this)) / 2;
-        int y = (getHeight() - gif.getHeight(this)) / 2;
+        int x = 128;
+        int y = 128;
 
-        g2.drawImage(gif, x, y, this);
+        g2.drawImage(gif, getWidth() / 2 - x/2, getHeight() / 2 - y/2  , x, y, this);
         g2.dispose();
     }
 

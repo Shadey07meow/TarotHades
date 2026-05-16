@@ -232,6 +232,13 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    @Override
+    public void onHit(int a)
+    {
+        damage(a);
+        this.playScrn.getSpecialEffects().spawnNumberPopup(this.position, a);
+
+    }
 
     
     public void setDetectionDistance(int distance)
@@ -251,7 +258,7 @@ public abstract class Enemy extends Entity {
         SoundManager.get().playSFX("shoot");
 
         // Make the projectile
-        this.world.addObject(new EnemyProjectile((int)this.position.x, (int)this.position.y, projectileVelocity, 1, this.playScrn));
+        this.world.addObject(new Projectile((int)this.position.x, (int)this.position.y, projectileVelocity, 1, this.playScrn, Enemy.class, ImageLibrary.get().projectile ));
         this.currentCooldown = this.fireCooldown;
     }
 

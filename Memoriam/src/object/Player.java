@@ -297,9 +297,18 @@ public class Player extends Entity {
 
     private void spawnProjectile(Vector2 velocity, int dmg, boolean flame) {
         SoundManager.get().playSFX("shoot");
-        Projectile p = new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn);
-        p.setDamage(dmg);
-        p.setFlame(flame);
+
+        Projectile p = null;            
+        
+        if(!flame)
+        {
+            p =  new Projectile((int) getX(), (int) getY(), velocity, dmg, playScrn, getClass(), ImageLibrary.get().projectile);    
+        } else
+        {
+            p = new Projectile((int) getX(), (int) getY(), velocity, dmg, playScrn, getClass(), ImageLibrary.get().fireProjectile);
+        }
+        
+        
         world.addObject(p);
     }
 
@@ -381,6 +390,14 @@ public class Player extends Entity {
             health = stats.getCurrentHP();
     }
 }
+
+    @Override
+    public void onHit(int a)
+    {
+        minusHP((double)a);
+        SoundManager.get().playSFX("playerHit");
+
+    }
 
     // HP helpers 
     @Override

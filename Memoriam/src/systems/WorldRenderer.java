@@ -31,7 +31,7 @@ public class WorldRenderer {
 
     // Entity culling
     private final float displayCutoff = 1000;
-    private final float updateCutoff = 100;
+    private final float updateCutoff = 1500;
 
     private final boolean debugMode = false;
 

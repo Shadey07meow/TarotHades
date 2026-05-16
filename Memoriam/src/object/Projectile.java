@@ -2,6 +2,7 @@ package object;
 import collision.*;
 import images.ImageLibrary;
 import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
 import scenes.*;
 import systems.*;
@@ -15,11 +16,14 @@ public class Projectile extends GameObject{
     private int lifeTime = 120; // frames
     private int damage = 1;
     private boolean isFlame = false;
+    private final Class<?> parentClass;
 
-    public Projectile(int x, int y, Vector2 velocity, int scale, PlayableScreen scrn){
+    public Projectile(int x, int y, Vector2 velocity, int scale, PlayableScreen scrn, Class<?> parentClass, Image projectileImage){
         super(x, y, scale, scrn);
         this.velocity = velocity;
         this.world = scrn.getWorldRenderer();
+        this.parentClass = parentClass;
+        setImage(projectileImage);
         
         this.setCollider((new RectangleCollider(this, true, 16, 16, 16, 16)));
         setColor(Color.RED);
@@ -51,36 +55,44 @@ public class Projectile extends GameObject{
             // Never hit the player or other projectiles
 
 
-            // Hit an enemy
-            if (other instanceof Enemy) {
-                ((Enemy) other).damage(this.damage);
-                ((Enemy) other).setDetectedPlayer(true);
-                this.playScrn.getSpecialEffects().spawnNumberPopup(other.getPosition(), this.damage);
-                world.removeObject(this);
-                return;
-            } else
-
-            // Hit an immovable wall
-            if (!col.getIsMovable()) {
-                world.removeObject(this);
-                return;
+            if(other.getClass().isAssignableFrom(parentClass)) return;
+            // if(other.getClass().getCanonicalName().trim().equals(parentClass.getCanonicalName().trim())) return;
+            
+            if(other instanceof Entity entity )
+            {
+                entity.onHit(this.damage);
             }
+            world.removeObject(this);
+            return;
+
+            // // Hit an enemy
+            // if (other instanceof Enemy) {
+            //     ((Enemy) other).damage(this.damage);
+            //     ((Enemy) other).setDetectedPlayer(true);
+            //     this.playScrn.getSpecialEffects().spawnNumberPopup(other.getPosition(), this.damage);
+            // } else
+
+            // // Hit an immovable wall
+            // if (!col.getIsMovable()) {
+            //     world.removeObject(this);
+            //     return;
+            // }
 
             // Hit anything else
         
 
         }
-}
+    }
 
     //SETTERS
 
+
+    public Class<?> getParentClass()
+    {
+        return this.parentClass;
+    }
+
     public void setDamage(int d){this.damage = d;}
-    public void setFlame(boolean f){
-        this.isFlame=f;
-       if (f) {
-        setImage(ImageLibrary.get().fireProjectile);
-        } else {
-        setImage(ImageLibrary.get().projectile);
-        }
-}
+  
+
 }

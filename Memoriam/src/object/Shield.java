@@ -54,9 +54,22 @@ public class Shield extends GameObject {
         for (CollisionObject col : this.collider.getCollidingWith()) {
             GameObject other = col.getGameObject();
 
-            if (other instanceof EnemyProjectile || other instanceof Enemy) {
+            if (other instanceof Projectile pr) {
+                
+                if(pr.getParentClass() == Player.class)
+                {
+                    return;
+                }
                 SoundManager.get().playSFX("pickup");
-                world.removeObject(other);
+                world.removeObject(pr);
+                deactivate();
+
+                cooldown = cooldownMax;
+                return;
+            } else if (other instanceof Enemy en)
+            {
+                SoundManager.get().playSFX("pickup");
+                world.removeObject(en);
                 deactivate();
 
                 cooldown = cooldownMax;

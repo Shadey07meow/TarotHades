@@ -60,7 +60,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     Rectangle newGameButton= null;
 
 
-    Image loadRunBtnImage = ImageLibrary.get().loadSaveBtn;
+    Image loadRunBtnImage = ImageLibrary.get().loadSaveBtn; 
     Image startNewRunBtnImage = ImageLibrary.get().newSaveButton;
 
 
