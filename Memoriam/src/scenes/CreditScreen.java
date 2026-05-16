@@ -1,36 +1,79 @@
 package scenes;
 
 import images.*;
-import java.awt.BorderLayout;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 
 public class CreditScreen extends UIScreen {
     private JButton backBtn;
+    private final Image creditBackground;
 
-    public CreditScreen(GameFrame gameFrame){
-        // Credit screen, shows people who contributed to the project
+    public CreditScreen(GameFrame gameFrame) {
         super("credits", gameFrame);
         setLayout(new BorderLayout());
-        
-        JLabel title = new JLabel("Credits");
-        title.setFont(new Font("Arial", Font.BOLD, 64));
-        title.setHorizontalAlignment(JLabel.CENTER);
-        add(title, BorderLayout.NORTH);
+
+        this.creditBackground = ImageLibrary.get().creditBackground;
+
+        JPanel creditsPanel = new JPanel();
+        creditsPanel.setOpaque(false);
+        creditsPanel.setLayout(new GridLayout(2, 2, 10, 10));
+
+        creditsPanel.add(createCreditItem(
+                ImageLibrary.get().placeHolderIcon,
+                "FILLER",
+                "FILLER"
+        ));
+
+        creditsPanel.add(createCreditItem(
+                ImageLibrary.get().placeHolderIcon,
+                "FILLER",
+                "FILLER"
+        ));
+
+        creditsPanel.add(createCreditItem(
+                ImageLibrary.get().placeHolderIcon,
+                "FILLER",
+                "FILLER"
+        ));
+
+        creditsPanel.add(createCreditItem(
+                ImageLibrary.get().placeHolderIcon,
+                "FILLER",
+                "FILLER"
+        ));
 
 
-        backBtn = gameFrame.createImageButton(ImageLibrary.get().backBtn, 150, 60); // change when theres exit img
-        backBtn.addActionListener(e -> {
-            gameFrame.showPanel("menu"); // go back to main menu
-        });
-        
 
-        // Button panel at bottom
+        add(creditsPanel, BorderLayout.CENTER);
+
+        backBtn = gameFrame.createImageButton(ImageLibrary.get().backBtn, 150, 60);
+        backBtn.addActionListener(e -> gameFrame.showPanel("menu"));
+
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setOpaque(false); 
+        bottomPanel.setOpaque(false);
         bottomPanel.add(backBtn);
-        add(bottomPanel, BorderLayout.SOUTH); 
+
+        add(bottomPanel, BorderLayout.SOUTH);
+    }
+
+    private JPanel createCreditItem(Image icon, String name, String desc) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel.setOpaque(false);
+
+        JLabel iconLabel = new JLabel(new ImageIcon(icon.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+
+        JLabel text = new JLabel("<html><b>" + name + "</b><br/>" + desc + "</html>");
+        text.setForeground(Color.WHITE);
+
+        panel.add(iconLabel);
+        panel.add(text);
+
+        return panel;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(creditBackground, 0, 0, getWidth(), getHeight(), this);
     }
 }

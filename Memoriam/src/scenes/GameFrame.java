@@ -33,6 +33,8 @@ public class GameFrame extends JFrame {
 
     private final CreditScreen creditScreen;
     private final InfiniteLevel infiniteLevel;
+    private final SplashScreen splashScreen;
+    private final TutorialScreen tutorialScreen;
     private final MenuScreen menuScreen;
     private final LoseScreen loseScreen;
     private final PauseScreen pauseScreen;
@@ -85,10 +87,12 @@ public class GameFrame extends JFrame {
         infiniteLevel = new InfiniteLevel(this);
 
         creditScreen = new CreditScreen(this);
+        splashScreen = new SplashScreen(this);
         menuScreen = new MenuScreen(this);
         loseScreen = new LoseScreen(this);
         pauseScreen = new PauseScreen(this);
         winScreen = new WinScreen(this);
+        tutorialScreen = new TutorialScreen(this);
 
         // Note: Check out what these do later
         prologueScreen = new PrologueScreen(this);
@@ -112,7 +116,8 @@ public class GameFrame extends JFrame {
         setVisible(true);
         
         // Initiates a panel
-        initPanel();
+        showPanel("splashScreen");
+        SoundManager.playMusic("assets/music/TempMainMenu.wav");
 
     }
 
@@ -125,7 +130,9 @@ public class GameFrame extends JFrame {
         this.allPanels.add(pauseScreen);
         this.allPanels.add(prologueScreen);
         this.allPanels.add(cutsceneScreen);
+        this.allPanels.add(splashScreen);
         this.allPanels.add(winScreen);
+        this.allPanels.add(tutorialScreen);
         
 
         // Levels
@@ -230,6 +237,8 @@ public class GameFrame extends JFrame {
             }
         });
     }
+
+    
 
     // Note: I have no idea what this does, double check later
         // // asset loader trigger??
