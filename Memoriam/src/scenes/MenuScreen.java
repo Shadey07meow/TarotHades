@@ -24,6 +24,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     private final Image backgroundImage;
     private final JButton startBtn;
     private final JButton practiceBtn;
+    private final JButton tutorialBtn;
+    private final JButton creditBtn;
     private final JButton exitBtn;
     private boolean startingGame = false;
 
@@ -75,17 +77,22 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
 
         // Buttons
-        startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, 353, 100);
-        practiceBtn = gameFrame.createImageButton(ImageLibrary.get().practiceBtn, 353, 100);
-        exitBtn = gameFrame.createImageButton(ImageLibrary.get().exitBtn, 353, 100);
+        startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, 340, 90);
+        practiceBtn = gameFrame.createImageButton(ImageLibrary.get().practiceBtn, 340, 90);
+        creditBtn = gameFrame.createImageButton(ImageLibrary.get().creditBtn, 340, 90);
+        exitBtn = gameFrame.createImageButton(ImageLibrary.get().exitBtn, 340, 90);
+        tutorialBtn = gameFrame.createImageButton(ImageLibrary.get().tutorialBtn, 340, 90);
 
      
-
-        gameFrame.addHoverEffect(startBtn, ImageLibrary.get().startBtn, ImageLibrary.get().startBtnHover, 353, 100);
-        gameFrame.addHoverEffect(practiceBtn, ImageLibrary.get().practiceBtn, ImageLibrary.get().practiceBtnHover, 353, 100);
-        gameFrame.addHoverEffect(exitBtn, ImageLibrary.get().exitBtn, ImageLibrary.get().exitBtnHover, 353, 100);
-
+        gameFrame.addHoverEffect(creditBtn, ImageLibrary.get().creditBtn, ImageLibrary.get().creditBtnHover, 340, 90);
+        gameFrame.addHoverEffect(startBtn, ImageLibrary.get().startBtn, ImageLibrary.get().startBtnHover, 340, 90);
+        gameFrame.addHoverEffect(practiceBtn, ImageLibrary.get().practiceBtn, ImageLibrary.get().practiceBtnHover, 340, 90);
+        gameFrame.addHoverEffect(exitBtn, ImageLibrary.get().exitBtn, ImageLibrary.get().exitBtnHover, 340, 90);
+        gameFrame.addHoverEffect(tutorialBtn, ImageLibrary.get().tutorialBtn, ImageLibrary.get().tutorialBtnHover, 340, 90);
+        
         styleButton(startBtn);
+        styleButton(tutorialBtn);
+        styleButton(creditBtn);
         styleButton(practiceBtn);
         styleButton(exitBtn);
 
@@ -125,8 +132,10 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
             //     startNewGame();
             // }
         });
-        practiceBtn.addActionListener(e -> {SoundManager.get().playSFX("button"); gameFrame.showPanel("infinite");});
-        exitBtn.addActionListener(e -> {SoundManager.get().playSFX("button"); System.exit(0);});
+        practiceBtn.addActionListener(e -> gameFrame.showPanel("infinite"));
+        exitBtn.addActionListener(e -> System.exit(0));
+        creditBtn.addActionListener(e -> gameFrame.showPanel("credits"));
+        tutorialBtn.addActionListener(e -> gameFrame.showPanel("tutorial"));
 
         setLayout(new BorderLayout());
 
@@ -141,13 +150,13 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(
             450, // Up and Down (lower = increase, higher = decrease)
-            100, // Left and Right (move right = increase, left = decrease)
+            120, // Left and Right (move right = increase, left = decrease)
             0,
             0
         ));
 
 
-        Dimension btnSize = new Dimension(370, 100);
+        Dimension btnSize = new Dimension(340, 75);
 
         startBtn.setPreferredSize(btnSize);
         startBtn.setMaximumSize(btnSize);
@@ -158,14 +167,31 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
         exitBtn.setPreferredSize(btnSize);
         exitBtn.setMaximumSize(btnSize);
 
+        tutorialBtn.setPreferredSize(btnSize);
+        tutorialBtn.setMaximumSize(btnSize);
+
+        creditBtn.setPreferredSize(btnSize);
+        creditBtn.setMaximumSize(btnSize);
+
+        tutorialBtn.setPreferredSize(btnSize);
+        tutorialBtn.setMaximumSize(btnSize);
+
   
         buttonPanel.add(startBtn);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+
+        buttonPanel.add(tutorialBtn);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 0)));
 
         buttonPanel.add(practiceBtn);
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+
+        buttonPanel.add(creditBtn);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 0)));
 
         buttonPanel.add(exitBtn);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 0)));
+
 
         // Add to container and screen
         leftPanel.add(buttonPanel, BorderLayout.WEST);
@@ -366,6 +392,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
         this.logoPosition = new Vector2(this.logoPosition.x + (0.3 * ( Math.sin((double)this.currentTime/500))), this.logoPosition.y);
         
     }
+
 
     @Override
     public void mousePressed(MouseEvent m){}

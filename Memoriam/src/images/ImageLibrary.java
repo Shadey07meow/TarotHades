@@ -26,17 +26,20 @@ public class ImageLibrary
     public final BufferedImage exitBtn;
     public final BufferedImage practiceBtn;
     public final BufferedImage startBtn;
+    public final BufferedImage creditBtn;
     public final BufferedImage backBtn;
     public final BufferedImage placeholderBtn;
     public final BufferedImage quitBtnExit;
     public final BufferedImage loadSaveBtn;
     public final BufferedImage loadSaveBtnHover;
     public final BufferedImage newSaveButton;
+    public final BufferedImage tutorialBtn;
     public final BufferedImage newSaveButtonHover;
 
     public final BufferedImage loadingScreen;
     public final BufferedImage loseScreen;
     public final BufferedImage background;
+    public final BufferedImage creditBackground;
     public final BufferedImage mainMenuBtn;
     public final BufferedImage quitBtn;
     public final BufferedImage quitBtnGO;
@@ -55,6 +58,8 @@ public final BufferedImage restartBtn;
     public final BufferedImage practiceBtnHover;
     public final BufferedImage exitBtnHover;
     public final BufferedImage placeholderBtnHover;
+    public final BufferedImage creditBtnHover;
+    public final BufferedImage tutorialBtnHover;
 
     // Player (GIFs must stay Image for animation)
     public final Image playerHurtUP;
@@ -77,8 +82,8 @@ public final BufferedImage restartBtn;
     // Enemy Blue
     public final Image blueRIGHT;
     public final Image blueLEFT;
-
-// Enemy Purple
+    
+    // Enemy Purple
     public final Image purpleRIGHT;
     public final Image purpleLEFT;
 
@@ -158,6 +163,8 @@ public final BufferedImage restartBtn;
     // Player UI
     public final BufferedImage heart;
     public final BufferedImage deadHeart;
+    public final Image splash;
+    public final BufferedImage placeHolderIcon;
 
 
 
@@ -199,6 +206,7 @@ private ImageLibrary()
                 
                 // Backgrounds
                 background = ImageIO.read(getImageFile("assets/Panels/menuScreenBG.png"));
+                creditBackground = ImageIO.read(getImageFile("assets/Panels/creditBackground.png"));
                 loadingScreen = ImageIO.read(getImageFile("assets/Panels/loadingScreen.png"));
                 loseScreen = ImageIO.read(getImageFile("assets/Panels/loseScreen.png"));
                 boboLogo = ImageIO.read(getImageFile("assets/Panels/boboFront.png"));
@@ -224,6 +232,9 @@ private ImageLibrary()
                 placeholderBtn = ImageIO.read(getImageFile("assets/Panels/placeholderBtn.png"));
                 
                 quitBtnExit = ImageIO.read(getImageFile("assets/Panels/quitBtnExit.png"));
+                creditBtn = ImageIO.read(getImageFile("assets/Panels/creditBtn.png"));
+                tutorialBtn = ImageIO.read(getImageFile("assets/Panels/tutorialBtn.png"));
+
                 pauseBg = ImageIO.read(getImageFile("assets/Panels/pauseBg.png"));
                 loadSaveBtn = ImageIO.read(getImageFile("assets/Panels/loadSave.png"));
                 loadSaveBtnHover = ImageIO.read(getImageFile("assets/Panels/loadSaveHover.png"));
@@ -238,6 +249,8 @@ private ImageLibrary()
                 startBtnHover = ImageIO.read(getImageFile("assets/Panels/startBtnHover.png"));
                 backBtnHover = ImageIO.read(getImageFile("assets/Panels/backBtnHover.png"));
                 placeholderBtnHover = ImageIO.read(getImageFile("assets/Panels/placeholderBtnHover.png"));
+                creditBtnHover = ImageIO.read(getImageFile("assets/Panels/creditBtnHover.png"));
+                tutorialBtnHover = ImageIO.read(getImageFile("assets/Panels/tutorialBtnHover.png"));
                 
                 // Maps
                 rawMap = ImageIO.read(getImageFile("assets/MainAssets/mapTest.png"));
@@ -304,7 +317,7 @@ private ImageLibrary()
                 iconAceOfWands = ImageIO.read(getImageFile("assets/Powerups/AceofWands.png"));
                 iconDeath = ImageIO.read(getImageFile("assets/Powerups/Death.png"));
 
-           EmpressHover2 = ImageIO.read(getImageFile("assets/Cards/EmpressHover.png"));
+                EmpressHover2 = ImageIO.read(getImageFile("assets/Cards/EmpressHover.png"));
                 
     
                 
@@ -337,6 +350,11 @@ private ImageLibrary()
                 // Player UI
                 heart = ImageIO.read(getImageFile("assets/MainAssets/heart.png"));
                 deadHeart = ImageIO.read(getImageFile("assets/MainAssets/heartDead.png"));
+
+                splash = new ImageIcon(
+                        "assets/MainAssets/splash.gif").getImage();
+
+                placeHolderIcon = ImageIO.read(getImageFile("assets/MainAssets/placeholderIcon.png"));
 
                 // Maps
         

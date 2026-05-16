@@ -1,7 +1,7 @@
 package scenes;
 
-import java.awt.Dimension;
 import images.*;
+import java.awt.Dimension;
 import systems.*;
 
 
