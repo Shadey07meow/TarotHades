@@ -31,17 +31,15 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     private final JButton exitBtn;
     private static boolean startingGame = false;
 
-    private  InputManager inp = new  InputManager();
+    private final InputManager inp = new  InputManager();
 
     private boolean inMenu = true;
-    private Vector2 mousePosition = new Vector2();
+    private final  Vector2 mousePosition = new Vector2();
 
     private Vector2 boboPosition = new Vector2(-10, 0);
     private Vector2 logoPosition = new Vector2(-10, 0);
 
 
-    private int OlWidth = (int)(406 * 2.6) ;
-    private int OlHeight = (int)(156 * 2.6); 
     Thread menuThread = new Thread(this);
 
     int width = 500;
