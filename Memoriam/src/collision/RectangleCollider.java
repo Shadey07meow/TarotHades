@@ -3,7 +3,7 @@ package collision;
 
 import java.util.ArrayList;
 
-import object.*;
+import object.statics.GameObject;
 import systems.*;
 
 public class RectangleCollider extends CollisionObject {

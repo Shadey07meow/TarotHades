@@ -1,11 +1,11 @@
 KEEP THIS ON TOP
  Individual commands to run the game
     cd Memoriam
-    javac -d bin -sourcepath src src/scenes/MainGameDriver.java
-    java -cp bin  scenes.MainGameDriver
+    javac -d bin -sourcepath src src/scenes/ui/MainGameDriver.java
+    java -cp bin  scenes.ui.MainGameDriver
     
     Command to run the game in one line
-    cd Memoriam & javac -d bin -sourcepath src src/scenes/MainGameDriver.java & java -cp bin  scenes.MainGameDriver
+    cd Memoriam & javac -d bin -sourcepath src src/scenes/ui/MainGameDriver.java & java -cp bin  scenes.ui.MainGameDriver
 
     jar cfm Memoriam.jar manifest.txt -C bin .
     java -jar Memoriam.jar

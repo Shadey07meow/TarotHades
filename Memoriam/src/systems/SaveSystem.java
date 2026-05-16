@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 import javax.swing.SwingUtilities;
-import object.*;
-import scenes.PlayableScreen;
+import object.Entities.Player;
+import object.Entities.PlayerAbility;
+import object.statics.Relic;
+import scenes.templates.PlayableScreen;
 
 public class SaveSystem {
 

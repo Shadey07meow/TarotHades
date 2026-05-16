@@ -5,7 +5,8 @@ import java.awt.Image;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import scenes.*;
+import scenes.templates.PlayableScreen;
+import scenes.ui.GameFrame;
 
 public class PauseUI {
     // The last thing a dying dog can do

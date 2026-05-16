@@ -4,9 +4,16 @@ import images.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
-import object.*;
-import scenes.GameFrame;
-import scenes.PlayableScreen;
+import object.Entities.BlueWisp;
+import object.Entities.FinalBoss;
+import object.Entities.Player;
+import object.Entities.PurpleWisp;
+import object.statics.BarrierObject;
+import object.statics.LobbyTreasureChest;
+import object.statics.MapObj;
+import object.statics.TreasureChest;
+import scenes.templates.PlayableScreen;
+import scenes.ui.GameFrame;
 import systems.*;
 
 

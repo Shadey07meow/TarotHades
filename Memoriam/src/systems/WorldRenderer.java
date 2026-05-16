@@ -1,7 +1,12 @@
 package systems;
 
-import object.*;
-import scenes.*;
+import object.Entities.Player;
+import object.statics.GameObject;
+import object.statics.MapObj;
+import object.statics.TreasureChest;
+import object.Entities.Enemy;
+import scenes.templates.PlayableScreen;
+
 import java.util.ArrayList;
 
 import collision.RectangleCollider;

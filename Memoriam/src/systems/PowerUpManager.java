@@ -2,7 +2,8 @@ package systems;
 
 import java.util.EnumMap;
 import java.util.Map;
-import object.PlayerAbility;
+
+import object.Entities.PlayerAbility;
 
 public class PowerUpManager {
 

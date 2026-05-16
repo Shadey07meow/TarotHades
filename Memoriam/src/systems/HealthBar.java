@@ -9,10 +9,11 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import object.Player;
-import object.PlayerAbility;
-import object.RelicStatusEffect;
-import object.StatusEffect;
+
+import object.Entities.Player;
+import object.Entities.PlayerAbility;
+import object.statics.RelicStatusEffect;
+import object.statics.StatusEffect;
 
 /* Draws the player's heart-based health bar in the upper-left corner.
  * Usage (in PlayableScreen.paintComponent):
