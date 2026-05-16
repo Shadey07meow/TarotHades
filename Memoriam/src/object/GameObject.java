@@ -190,19 +190,7 @@ public class GameObject {
         logicMethods();
 
 
-        // Check colliders if present
-        if(this.collider != null)
-        {
-            this.collider.checkCollisions();
 
-            //System.out.println(this.collider.getIsColliding());
-            if (this.collider.getIsColliding())
-            {
-                // Do collision logic
-                onCollision();
-
-            }
-        }
         
         interpolate(1);
     }

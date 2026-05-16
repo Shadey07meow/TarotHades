@@ -116,9 +116,14 @@ public class GameFrame extends JFrame {
         setVisible(true);
         
         // Initiates a panel
-        showPanel("splashScreen");
+        init();
         //SoundManager.get().playMusic("assets/music/TempMainMenu.wav");
 
+    }
+
+    private void init()
+    {
+        showPanel("splashScreen");
     }
 
     private  void addLevels()
@@ -153,11 +158,6 @@ public class GameFrame extends JFrame {
         LevelManager.addLevel(infiniteLevel);
     }
 
-    private void initPanel()
-    {
-        showPanel(menuScreen.getShowablePanelName());
-    }
-    
     
 
     // Method to easily switch between panels, use ShowablePanel.getShowableName() as input

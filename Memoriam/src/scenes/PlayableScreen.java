@@ -214,20 +214,15 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
         if (world.getPlayer() != null)
         {
-            updateCollisions();
+            world.updateWorld();
         }
 
-        keepInsideScreen();
-
-
         // when esc is press, show pause panel
-        
         doFading();
         
         crdManager.spinCard();
         crdManager.sizeCard();
         crdManager.checkHoveringButtons();
-        world.updateWorld();
         
     }
 
@@ -278,10 +273,12 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         super.paintComponent(g);
  
 
-        world.drawWorld(g);
+        
+        
 
         if(world != null)
         {
+            world.drawWorld(g);
             world.drawDebugWorld(g);
         }
         
@@ -335,36 +332,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
 
 
-
-    public void updateCollisions()
-    {
-        for(int x = 0; x < world.getObjectList().size(); x++)
-        {
-            ArrayList<GameObject> list =  world.getObjectList();
-
-            if(list.get(x).getCollider() != null)
-            {
-                list.get(x).getCollider().checkCollisions();
-            }
-            
-        }
-    }
-
-    private void keepInsideScreen() {
-            int halfW = this.player.getScaledWidth() / 2;
-            int halfH = this.player.getScaledHeight() / 2;
-
-      
-            int screenWidth = getWidth();
-            int screenHeight =  getHeight();
-
-            if (this.player.getX() - halfW < 0) this.player.setX(halfW);
-            if (this.player.getY() - halfH < 0) this.player.setY(halfH);
-
-
-            if (this.player.getX() + halfW > screenWidth) this.player.setX(screenWidth - halfW);
-            if (this.player.getY() + halfH > screenHeight) this.player.setY(screenHeight - halfH);
-        }
 
 
     public InputManager getInputManager(){return this.inputManager;}

@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
@@ -27,15 +29,16 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     private final JButton tutorialBtn;
     private final JButton creditBtn;
     private final JButton exitBtn;
-    private boolean startingGame = false;
+    private static boolean startingGame = false;
+
+    private  InputManager inp = new  InputManager();
 
     private boolean inMenu = true;
     private Vector2 mousePosition = new Vector2();
 
-    private Vector2 boboPosition = new Vector2(-20, 0);
-    private Vector2 logoPosition = new Vector2(520, 225);
-    private int lWidth = (int)(406 * 2.4) ;
-    private int lHeight = (int)(156 * 2.4); 
+    private Vector2 boboPosition = new Vector2(-10, 0);
+    private Vector2 logoPosition = new Vector2(-10, 0);
+
 
     private int OlWidth = (int)(406 * 2.6) ;
     private int OlHeight = (int)(156 * 2.6); 
@@ -99,6 +102,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
         // Actions
         startBtn.addActionListener(e -> {
             SoundManager.get().playSFX("button");
+                requestFocusInWindow();
+
 
             if(SaveSystem.getLevel() == 0)
             {
@@ -231,13 +236,13 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
 
         g.drawImage(ImageLibrary.get().logo,
-            (int)this.logoPosition.x - (int)(lWidth/2),
-            (int)this.logoPosition.y - (int)(lHeight/2),
-            lWidth,
-            lHeight,
+            (int)this.logoPosition.x,
+            (int)this.logoPosition.y,
+            getWidth(),
+            getHeight(),
         null);
 
-        if(startingGame)
+        if(startingGame == true)
         {
             drawStartUI(g);
         }
@@ -245,15 +250,16 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
     @Override
     public void onInitiate() {
-        requestFocusInWindow();
         
         SoundManager.get().playMusic("menuMusic");
         this.inMenu = true;
+        inp.resetInputs();
 
         menuThread = new Thread(this);
         menuThread.start();
         addMouseListener(this);
         addMouseMotionListener(this);
+        addKeyListener(inp);
 
         
         SwingUtilities.invokeLater(() -> {
@@ -261,6 +267,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
             loadGameButton = new Rectangle(getWidth() / 2 - (width1 / 2) + xOffset1, (getHeight() / 2 - (height1/ 2)) + yOffset1, width1, height1);
             newGameButton= new Rectangle(getWidth() / 2 - (width2 / 2) + xOffset2, (getHeight() / 2 - (height2/ 2)) + yOffset2, width2, height2);
         });
+
+        requestFocusInWindow();
 
 
 
@@ -340,7 +348,13 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
             if (startingGame)
             {
+                if (inp.isPausePressed()) {
+                    // this.getGameFrame().showPanel("pause");
+                    stopStartingGame();
+                }
                 updateHovers(mousePosition);
+                //stopStartingGame();
+
             }
             //System.out.println(mousePosition.toString());
             repaint();
@@ -391,7 +405,15 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
         this.currentTime += 1000/60;
         this.boboPosition = new Vector2(this.boboPosition.x + (0.3 * ( Math.sin((double)this.currentTime/500))), this.boboPosition.y);
         this.logoPosition = new Vector2(this.logoPosition.x + (0.3 * ( Math.sin((double)this.currentTime/500))), this.logoPosition.y);
+
+
         
+    }
+
+    private void stopStartingGame()
+    {
+        startingGame = false;
+        repaint();
     }
 
 
@@ -421,6 +443,9 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
         mousePosition.x = m.getX();
         mousePosition.y = m.getY();
     }
+
+   
+
 
 
 }

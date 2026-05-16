@@ -29,7 +29,11 @@ public class WorldRenderer {
     private final double xMargin = 30;
     private final double yMargin = 30;
 
-    private boolean debugMode = false;
+    // Entity culling
+    private final float displayCutoff = 1000;
+    private final float updateCutoff = 100;
+
+    private final boolean debugMode = false;
 
     // Constructors
     public WorldRenderer(Player player, PlayableScreen s)
@@ -125,8 +129,8 @@ public class WorldRenderer {
                 moveObjectsWithWorldY();
             }
 
-
-                
+            updateCollisions();
+            keepInsideScreen();
         }
     }
 
@@ -354,6 +358,12 @@ public class WorldRenderer {
             // In world renderer, the map must always be drawn first
             for (int x = 0; x < getObjectList().size(); x++) 
             {
+                GameObject obj = list.get(x);
+
+                if(Vector2.distance(obj.getPosition(), player.getPosition()) > displayCutoff && obj != (GameObject)this.map)
+                {
+                    continue;
+                }
                 
                 if (list.get(x).getImage() != null) {
 
@@ -446,6 +456,54 @@ public class WorldRenderer {
     {
         clearEnemies();
         clearChests();
+    }
+
+    
+
+
+    public void updateCollisions()
+    {
+        
+        for(int x = 0; x < getObjectList().size(); x++)
+        {
+            ArrayList<GameObject> list =  getObjectList();
+            GameObject obj = list.get(x); 
+            if(Vector2.distance(obj.getPosition(), player.getPosition()) > updateCutoff)
+            {
+                continue;
+            }
+
+            if(obj.getCollider() != null)
+            {
+                obj.getCollider().checkCollisions();
+                
+                if (obj.getCollider().getIsColliding())
+                {
+                    // Do collision logic
+                    obj.onCollision();
+
+                }
+            }
+
+            // Check colliders if present
+            //System.out.println(this.collider.getIsColliding());            
+        }
+    }
+    
+    private void keepInsideScreen() {
+        int halfW = this.player.getScaledWidth() / 2;
+        int halfH = this.player.getScaledHeight() / 2;
+
+    
+        int screenWidth = this.gamePanel.getWidth();
+        int screenHeight =  this.gamePanel.getHeight();
+
+        if (this.player.getX() - halfW < 0) this.player.setX(halfW);
+        if (this.player.getY() - halfH < 0) this.player.setY(halfH);
+
+
+        if (this.player.getX() + halfW > screenWidth) this.player.setX(screenWidth - halfW);
+        if (this.player.getY() + halfH > screenHeight) this.player.setY(screenHeight - halfH);
     }
 }
 
