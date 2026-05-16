@@ -2,35 +2,65 @@ package scenes;
 
 import images.*;
 import java.awt.BorderLayout;
-import java.awt.Font;
+import java.awt.Color;
+import java.awt.Graphics;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import object.LobbyTreasureChest;
+import object.MapObj;
+import object.Player;
+import object.TreasureChest;
+import systems.LevelManager;
+import systems.Vector2;
 
-public class TutorialScreen extends UIScreen {
+
+public class TutorialScreen extends PlayableScreen {
     private JButton backBtn;
 
     public TutorialScreen(GameFrame gameFrame){
-        // Tutorial screen, shows how to play the game
-        super("tutorial", gameFrame);
+        super("tutorial", 67, gameFrame);
+        setBackground(Color.GRAY);
         setLayout(new BorderLayout());
-        
-        JLabel title = new JLabel("Tutorial");
-        title.setFont(new Font("Arial", Font.BOLD, 64));
-        title.setHorizontalAlignment(JLabel.CENTER);
-        add(title, BorderLayout.NORTH);
 
+    }
 
-        backBtn = gameFrame.createImageButton(ImageLibrary.get().backBtn, 150, 60); // change when theres exit img
-        backBtn.addActionListener(e -> {
-            gameFrame.showPanel("menu"); // go back to main menu
-        });
-        
+    @Override
+    public void startGamePanel(){
+        LevelManager.startNewRun();
 
-        // Button panel at bottom
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setOpaque(false); 
-        bottomPanel.add(backBtn);
-        add(bottomPanel, BorderLayout.SOUTH); 
+        TreasureChest lobbyChest = new LobbyTreasureChest(
+            Vector2.add(
+                this.player.getPosition(),
+                Vector2.multiply(Vector2.UP, 100)),
+            player, 2, this);
+
+            world.addObject(lobbyChest);
+
+    }
+
+    @Override
+    public void stopGamePanel()
+    {
+    }
+
+    @Override
+    public void update(){
+        super.update();
+    }
+
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+    }
+
+    @Override
+    public MapObj setMap()
+    {
+        return new MapObj(ImageLibrary.get().tutorialMap, player.getPosition(), 1 , this);
+    }
+
+    @Override
+    public Player setPlayer()
+    {
+        return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     }
 }

@@ -1,7 +1,5 @@
 package object;
 
-import collision.RectangleCollider;
-import images.ImageLibrary;
 import scenes.PlayableScreen;
 import systems.Vector2;
 
@@ -17,7 +15,12 @@ public class LobbyTreasureChest extends TreasureChest {
     @Override
     public void doInteractionLogic() {
         if (targetPlayer.isInteracting()) {
-            playScrn.getCardManager().openLobbyChest();
+            if (playScrn.getID() == 67) {
+                playScrn.getGameFrame().showPanel("menu");
+            }
+            else {
+                playScrn.getCardManager().openLobbyChest();
+            }
         }
     }
 }
