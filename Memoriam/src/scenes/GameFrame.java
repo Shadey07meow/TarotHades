@@ -117,7 +117,7 @@ public class GameFrame extends JFrame {
         
         // Initiates a panel
         showPanel("splashScreen");
-        SoundManager.playMusic("assets/music/TempMainMenu.wav");
+        //SoundManager.get().playMusic("assets/music/TempMainMenu.wav");
 
     }
 
