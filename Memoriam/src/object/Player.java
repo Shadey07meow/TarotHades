@@ -237,6 +237,18 @@ public class Player extends Entity {
             if(inputs.consumeClick())
             {
                 shootProjectile();
+                
+                if (getImage() == spriteDown)
+                setImage(ImageLibrary.get().foolAtkDown);
+
+                else if (getImage() == spriteUp)
+                setImage(ImageLibrary.get().foolAtkUp);
+
+                else if (getImage() == spriteLeft)
+                setImage(ImageLibrary.get().foolAtkLeft);
+
+                else if (getImage() == spriteRight)
+                setImage(ImageLibrary.get().foolAtkRight);
                 hasShotProjectile = true;
             }
         } else

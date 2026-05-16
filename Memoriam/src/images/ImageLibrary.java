@@ -69,6 +69,11 @@ public class ImageLibrary
     public final Image playerSpritesLEFT;
     public final Image playerSpritesRIGHT;
 
+    public final Image foolAtkDown;
+    public final Image foolAtkRight;
+    public final Image foolAtkLeft;
+    public final Image foolAtkUp;
+
     //player shielded
 
     public final Image foolShieldDown;
@@ -112,6 +117,7 @@ public class ImageLibrary
     public final Image map4;
     public final Image map5;
     public final Image infiniteMap;
+    public final Image tutorialMap;
 
     // cards
     public final BufferedImage Empress;
@@ -162,6 +168,7 @@ public class ImageLibrary
     public final BufferedImage deadHeart;
     public final Image splash;
     public final BufferedImage placeHolderIcon;
+    public final BufferedImage calryaIcon;
 
 
 
@@ -191,8 +198,13 @@ private ImageLibrary()
                 foolShieldRight = new ImageIcon("assets/PlayerSprites/shield/foolShieldRight.png").getImage();
                 foolShieldLeft = new ImageIcon("assets/PlayerSprites/shield/foolShieldLeft.png").getImage();
                 foolShieldUp = new ImageIcon("assets/PlayerSprites/shield/foolShieldUp.png").getImage();
-                
-                
+
+                foolAtkDown = new ImageIcon("assets/PlayerSprites/atk/foolDownAtk.PNG").getImage();
+                foolAtkRight = new ImageIcon("assets/PlayerSprites/atk/foolRightAtk.PNG").getImage();
+                foolAtkLeft = new ImageIcon("assets/PlayerSprites/atk/foolLeftAtk.PNG").getImage();
+                foolAtkUp = new ImageIcon("assets/PlayerSprites/atk/foolUpAtk.PNG").getImage();
+
+
                 // Cursor
                 quillCursor = ImageIO.read(getImageFile("assets/MainAssets/cursor.png")
                 ).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
@@ -274,6 +286,9 @@ private ImageLibrary()
                 infiniteMap =  new ImageIcon(
                         "assets/maps/infiniteMap.png").getImage().getScaledInstance(1920, 4320, Image.SCALE_SMOOTH);
 
+                tutorialMap =  new ImageIcon(
+                        "assets/maps/tutorialMap.png").getImage(); 
+
 
 
                 // cards
@@ -348,6 +363,7 @@ private ImageLibrary()
                         "assets/MainAssets/splash.gif").getImage();
 
                 placeHolderIcon = ImageIO.read(getImageFile("assets/MainAssets/placeholderIcon.png"));
+                calryaIcon = ImageIO.read(getImageFile("assets/MainAssets/calryaIcon.png"));
 
                 // Maps
         

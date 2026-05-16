@@ -16,35 +16,51 @@ public class CreditScreen extends UIScreen {
 
         JPanel creditsPanel = new JPanel();
         creditsPanel.setOpaque(false);
-        creditsPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        creditsPanel.setLayout(new GridLayout(2, 2, 0, 0));
+        creditsPanel.setBorder(BorderFactory.createEmptyBorder(325, 200, 10, 0));
+
+        creditsPanel.add(createCreditItem(
+                ImageLibrary.get().calryaIcon,
+                "CalRya",
+                "Lindsay Salvacion",
+                "Did Stuff"
+        ));
+
 
         creditsPanel.add(createCreditItem(
                 ImageLibrary.get().placeHolderIcon,
-                "FILLER",
-                "FILLER"
+                "Shadey",
+                "Daniel Hans Alava",
+                "Did Stuff"
         ));
 
         creditsPanel.add(createCreditItem(
                 ImageLibrary.get().placeHolderIcon,
-                "FILLER",
-                "FILLER"
+                "Herielle",
+                "Herielle Margallo",
+                "Did Stuff"
         ));
 
         creditsPanel.add(createCreditItem(
                 ImageLibrary.get().placeHolderIcon,
-                "FILLER",
-                "FILLER"
-        ));
-
-        creditsPanel.add(createCreditItem(
-                ImageLibrary.get().placeHolderIcon,
-                "FILLER",
-                "FILLER"
+                "Sam",
+                "Samantha Nicole Tabulao",
+                "Did Stuff"
         ));
 
 
+        JLabel specialThanks = new JLabel("<html><center> Special Thanks To: DAN (@kape_catpuccino) for the MEMORIAM logo !</center></html>");
+        specialThanks.setForeground(Color.WHITE);
+        specialThanks.setHorizontalAlignment(SwingConstants.CENTER);
+        specialThanks.setFont(new Font("Monospaced", Font.BOLD, 20));
 
-        add(creditsPanel, BorderLayout.CENTER);
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setOpaque(false);
+        mainPanel.add(specialThanks, BorderLayout.SOUTH);
+        mainPanel.add(creditsPanel, BorderLayout.CENTER);
+
+        add(mainPanel, BorderLayout.CENTER);
+        
 
         backBtn = gameFrame.createImageButton(ImageLibrary.get().backBtn, 150, 60);
         backBtn.addActionListener(e -> gameFrame.showPanel("menu"));
@@ -56,16 +72,29 @@ public class CreditScreen extends UIScreen {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    private JPanel createCreditItem(Image icon, String name, String desc) {
+    private JPanel createCreditItem(Image icon, String ign, String name, String desc) {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setOpaque(false);
 
-        JLabel iconLabel = new JLabel(new ImageIcon(icon.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        JLabel iconLabel = new JLabel(new ImageIcon(icon.getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 
-        JLabel text = new JLabel("<html><b>" + name + "</b><br/>" + desc + "</html>");
+        JLabel text = new JLabel("<html>" + ign + "<br/>" + name + "<br/>" + desc + "</html>");
         text.setForeground(Color.WHITE);
+        text.setFont(new Font("Monospaced", Font.BOLD, 20));
 
         panel.add(iconLabel);
+        panel.add(text);
+
+        return panel;
+    }
+
+    private JPanel specialItem(String ign, String name, String desc) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel.setOpaque(false);
+
+        JLabel text = new JLabel("<html>" + ign + "<br/>" + name + "<br/>" + desc + "</html>");
+        text.setForeground(Color.WHITE);
+        text.setFont(new Font("Monospaced", Font.BOLD, 20));
         panel.add(text);
 
         return panel;
