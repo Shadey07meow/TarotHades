@@ -248,6 +248,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
         requestFocusInWindow();
         
         SoundManager.get().playMusic("menuMusic");
+        this.inMenu = true;
+
         menuThread = new Thread(this);
         menuThread.start();
         addMouseListener(this);
@@ -262,7 +264,6 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
 
 
-        this.inMenu = true;
     }
 
     private void drawStartUI(Graphics g)

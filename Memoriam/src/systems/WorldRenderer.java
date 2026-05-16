@@ -341,46 +341,86 @@ public class WorldRenderer {
         return this.map;
     }
 
+    
+    public void drawWorld(Graphics g)
+    {
+        // Draw effects
+        Graphics2D graphics2 = (Graphics2D) g;
+
+            //System.out.println("I am rendering shit rn");
+            ArrayList<GameObject> list = getObjectList();
+
+        
+            // In world renderer, the map must always be drawn first
+            for (int x = 0; x < getObjectList().size(); x++) 
+            {
+                
+                if (list.get(x).getImage() != null) {
+
+                    graphics2.drawImage(
+                        list.get(x).getImage(),
+                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
+                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
+                        (int)list.get(x).getScaledWidth(),
+                        (int)list.get(x).getScaledHeight(),
+                        null
+                    );
+
+                } else {
+
+                    graphics2.setColor(list.get(x).getColor());
+
+                    graphics2.fillRect(
+                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
+                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
+                        (int) list.get(x).getScaledWidth(),
+                        (int) list.get(x).getScaledHeight()
+                    );
+                }
+            }
+        
+
+    }
+
     public synchronized void drawDebugWorld(Graphics g)
     {
         Graphics2D graphics2 = (Graphics2D) g;
-
         
-            // Draws World dddebug stuff first 
-            if(this.debugMode == true)
-            {
-                graphics2.setStroke(new BasicStroke(2));
-                for (GameObject obj : getObjectList()) {
-                    if (obj.getCollider() != null) {
-                        if(obj.getCollider() instanceof RectangleCollider)
+        // Draws World dddebug stuff first 
+        if(this.debugMode == true)
+        {
+            graphics2.setStroke(new BasicStroke(2));
+            for (GameObject obj : getObjectList()) {
+                if (obj.getCollider() != null) {
+                    if(obj.getCollider() instanceof RectangleCollider)
+                    {
+                        if(obj.getCollider().getIsColliding() == true)
                         {
-                            if(obj.getCollider().getIsColliding() == true)
-                            {
-                                g.setColor(obj.getCollider().activeColor);
-                            } else
-                            {
-                                g.setColor(obj.getCollider().inactiveColor);
-                            }
-
-                            if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
-
-                            
-                            RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
-                            //System.out.println(tempCol.getLocalBounds().getWidth());
-                            graphics2.drawRect(
-                                (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
-                                (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
-                                tempCol.getLocalBounds().getWidth(),
-                                tempCol.getLocalBounds().getLength()                            
-                            );
+                            g.setColor(obj.getCollider().activeColor);
+                        } else
+                        {
+                            g.setColor(obj.getCollider().inactiveColor);
                         }
-                    }
-                }         
-            }
-        }
 
-        // for infinite level
-        public int getEnemyCount() {
+                        if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
+
+                        
+                        RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                        //System.out.println(tempCol.getLocalBounds().getWidth());
+                        graphics2.drawRect(
+                            (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
+                            (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
+                            tempCol.getLocalBounds().getWidth(),
+                            tempCol.getLocalBounds().getLength()                            
+                        );
+                    }
+                }
+            }         
+        }
+    }
+
+    // for infinite level
+    public int getEnemyCount() {
 
         int count = 0;
 
@@ -389,24 +429,23 @@ public class WorldRenderer {
                 count++;
             }
         }
-
         return count;
-}
-
-public void clearEnemies()
-{
-    objectList.removeIf(obj -> obj instanceof Enemy);
-}
-
-
-
-public void clearChests()
-{
-    objectList.removeIf(obj -> obj instanceof TreasureChest);
-}public void clearWaveObjects()
-{
-    clearEnemies();
-    clearChests();
-}
     }
+
+    public void clearEnemies()
+    {
+        objectList.removeIf(obj -> obj instanceof Enemy);
+    }
+
+
+
+    public void clearChests()
+    {
+        objectList.removeIf(obj -> obj instanceof TreasureChest);
+    }public void clearWaveObjects()
+    {
+        clearEnemies();
+        clearChests();
+    }
+}
 

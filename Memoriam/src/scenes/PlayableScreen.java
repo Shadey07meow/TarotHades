@@ -278,7 +278,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         super.paintComponent(g);
  
 
-        drawWorld(g);
+        world.drawWorld(g);
 
         if(world != null)
         {
@@ -334,47 +334,6 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     }
 
 
-    private void drawWorld(Graphics g)
-    {
-        // Draw effects
-
-
-        Graphics2D graphics2 = (Graphics2D) g;
-        if (world != null)
-        {
-            //System.out.println("I am rendering shit rn");
-            ArrayList<GameObject> list = world.getObjectList();
-
-        
-            // In world renderer, the map must always be drawn first
-            for (int x = 0; x < world.getObjectList().size(); x++) 
-            {
-                if (list.get(x).getImage() != null) {
-
-                    graphics2.drawImage(
-                        list.get(x).getImage(),
-                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
-                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
-                        (int)list.get(x).getScaledWidth(),
-                        (int)list.get(x).getScaledHeight(),
-                        null
-                    );
-
-                } else {
-
-                    graphics2.setColor(list.get(x).getColor());
-
-                    graphics2.fillRect(
-                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
-                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
-                        (int) list.get(x).getScaledWidth(),
-                        (int) list.get(x).getScaledHeight()
-                    );
-                }
-            }
-        }
-
-    }
 
 
     public void updateCollisions()

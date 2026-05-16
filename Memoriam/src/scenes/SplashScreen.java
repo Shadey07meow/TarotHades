@@ -41,9 +41,8 @@ public class SplashScreen extends UIScreen {
 
             if (alpha <= 0) {
                 alpha = 0;
+                frame.showPanel(frame.getPanel("menu").getShowablePanelName());
                 fadeTimer.stop();
-
-                frame.showPanel(frame.getPanel("menu").getShowablePanelName()); // 👈 your menu panel name
             }
 
             repaint();
