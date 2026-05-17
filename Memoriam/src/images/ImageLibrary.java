@@ -172,6 +172,7 @@ public final BufferedImage restartBtn;
     public final Image splash;
     public final BufferedImage placeHolderIcon;
     public final BufferedImage calryaIcon;
+    public final BufferedImage shadeyIcon;
 
 
 
@@ -371,6 +372,7 @@ private ImageLibrary()
 
                 placeHolderIcon = ImageIO.read(getImageFile("assets/MainAssets/placeholderIcon.png"));
                 calryaIcon = ImageIO.read(getImageFile("assets/MainAssets/calryaIcon.png"));
+                shadeyIcon = ImageIO.read(getImageFile("assets/MainAssets/shadey07Icon.png"));
 
                 // Maps
         
