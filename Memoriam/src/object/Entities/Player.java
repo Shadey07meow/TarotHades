@@ -1,15 +1,14 @@
 package object.Entities;
 
-import collision.RectangleCollider;
 import collision.CollisionObject;
+import collision.RectangleCollider;
 import images.ImageLibrary;
-import object.statics.Projectile;
-import object.statics.Shield;
-
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
+import object.statics.Projectile;
+import object.statics.Shield;
 import scenes.templates.PlayableScreen;
 import scenes.ui.GameFrame;
 import systems.*;
@@ -274,15 +273,27 @@ public class Player extends Entity {
         Vector2 click = inputs.getClickPosition(); 
         Vector2 baseDir  = Vector2.getUnitVector(this.position, click);       
         int baseDmg  = stats.getAttack();
-        boolean flame = hasAbility(PlayerAbility.FLAME_SHOT) && Math.random() < 0.3; // 30% chance
         boolean heavy = hasAbility(PlayerAbility.MULTI_SHOT);
         int count   = stats.getProjectileCount();   // 1, 3, 4, or 5
+
+        int flameLevel = getAbilityLevel(PlayerAbility.FLAME_SHOT);
+
+        double flameChance = switch (flameLevel) {
+            case 1 -> 0.30;
+            case 2 -> 0.35;
+            case 3 -> 0.40;
+            default -> 0.0;
+        };
+       
+        boolean flame = flameLevel > 0 && Math.random() < flameChance;
+
+        
         
         double[] angles = buildSpreadAngles(count);
 
         for (double deg : angles) {
             Vector2 velocity = rotate(baseDir, deg);
-            spawnProjectile(velocity, baseDmg, flame);
+            spawnProjectile(velocity, baseDmg, flame, flameLevel);
         }
 
         currentCooldown = heavy ? fireCooldown * 2 : fireCooldown;
@@ -300,23 +311,40 @@ public class Player extends Entity {
         return angles;
     }
 
-    private void spawnProjectile(Vector2 velocity, int dmg, boolean flame) {
-        SoundManager.get().playSFX("shoot");
+    
+    private void spawnProjectile(Vector2 velocity, int baseDmg, boolean flame, int flameLevel) {
+    SoundManager.get().playSFX("shoot");
 
-        Projectile p = null;            
-
-        if(!flame)
-        {
-            p =  new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn, this.getClass(), ImageLibrary.get().projectile); 
-               
-        } else
-        {
-            p = new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn, Player.class, ImageLibrary.get().fireProjectile);
-        }
-        
-        p.setDamage(dmg);
-        world.addObject(p);
+    // flame Shot: fixed bonus damage by level, independent of ATK stat
+    int flameBonusDamage = 0;
+    if (flame) {
+        flameBonusDamage = switch (flameLevel) {
+            case 1 -> 3;   // Flame I  → +3
+            case 2 -> 5;   // Flame II → +5
+            case 3 -> 7;   // Flame III→ +7
+            default -> 0;
+        };
     }
+
+    // universal crit — rolls for every projectile type
+    boolean isCrit = Math.random() < stats.getCritChance();
+    double critMult = isCrit ? stats.getCritMultiplier() : 1.0;
+
+    int finalDamage = (int) Math.round((baseDmg + flameBonusDamage) * critMult);
+
+    Image projectileImage = flame ? ImageLibrary.get().fireProjectile : ImageLibrary.get().projectile;      
+
+    Projectile p = new Projectile(
+        (int) getX(), (int) getY(),
+        velocity, 1, playScrn,
+        Player.class,
+        projectileImage
+    );
+
+    p.setDamage(finalDamage);
+    p.setCrit(isCrit);
+    world.addObject(p);
+}
 
     // rotate a direction vector by degrees (used for spread shot)
     private Vector2 rotate(Vector2 dir, double degrees) {

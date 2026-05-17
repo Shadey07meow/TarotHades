@@ -1,13 +1,11 @@
 package object.statics;
-import images.ImageLibrary;
 import collision.CollisionObject;
 import collision.RectangleCollider;
-import object.Entities.Entity;
-import object.Entities.Enemy;
-
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
+import object.Entities.Enemy;
+import object.Entities.Entity;
 import scenes.templates.PlayableScreen;
 import systems.*;
 
@@ -19,7 +17,7 @@ public class Projectile extends GameObject{
     private WorldRenderer world;
     private int lifeTime = 120; // frames
     private int damage = 1;
-    private boolean isFlame = false;
+    private boolean isCrit = false;
     private final Class<?> parentClass;
 
     public Projectile(int x, int y, Vector2 velocity, int scale, PlayableScreen scrn, Class<?> parentClass, Image projectileImage){
@@ -96,6 +94,9 @@ public class Projectile extends GameObject{
     }
 
     //SETTERS
+
+    public void setCrit(boolean crit) { this.isCrit = crit; }
+    public boolean isCrit() { return isCrit; }
 
 
     public Class<?> getParentClass()
