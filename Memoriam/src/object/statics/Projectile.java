@@ -69,7 +69,10 @@ public class Projectile extends GameObject{
             
             if(other instanceof Entity entity )
             {
-                entity.onHit(this.damage);
+
+                    entity.onHit(this.damage);
+                
+
             }
             world.removeObject(this);
             return;

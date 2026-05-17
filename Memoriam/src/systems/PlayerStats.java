@@ -53,7 +53,7 @@ public class PlayerStats{
 
     public double getCritChance() {
         double bonus = computeStat(StatType.CRIT_CHANCE, 0.0);
-        return Math.min(0.05 + bonus, 0.35);   // base 5%, hard cap 35%
+        return Math.min(0.1 + bonus, 0.35);   // base 5%, hard cap 35%
     }
 
     public double getCritMultiplier() {
