@@ -6,5 +6,6 @@ public enum StatType {
     ATTACK,
     DEFENSE,
     SPEED,
-    PROJECTILE_COUNT
+    PROJECTILE_COUNT,
+    CRIT_CHANCE
 }

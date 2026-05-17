@@ -37,7 +37,7 @@ public class PlayerStats{
 
         modifiers.addAll(powerUp.getModifiers());
         System.out.println("Applied PowerUp: " + powerUp.getName());
-        debugPrint();
+
     }
 
     //stat getters
@@ -49,6 +49,15 @@ public class PlayerStats{
 
     public int getProjectileCount() { 
         return (int) Math.round(computeStat(StatType.PROJECTILE_COUNT, baseProjectileCount)); 
+    }
+
+    public double getCritChance() {
+        double bonus = computeStat(StatType.CRIT_CHANCE, 0.0);
+        return Math.min(0.05 + bonus, 0.35);   // base 5%, hard cap 35%
+    }
+
+    public double getCritMultiplier() {
+        return 2.0;
     }
 
     // hp helpers
@@ -99,7 +108,7 @@ public class PlayerStats{
         this.baseSpeed   = baseSpeed;
         this.currentHP   = baseMaxHP;
         this.modifiers.clear();
-    }
+    } 
 
     // Compute Stats
     private double computeStat(StatType type, double base) {
@@ -119,15 +128,7 @@ public class PlayerStats{
         return (base + flat) * (1 + percent);
     }
 
-    // Debug
-    public void debugPrint() {
-        // System.out.println(
-        //     "HP: " + currentHP + "/" + getMaxHP() +
-        //     " | ATK: " + getAttack() +
-        //     " | DEF: " + getDefense() +
-        //     " | SPD: " + getSpeed()
-        // );
-    }
+    
 
     public void setEmpress() {
         this.empress = true;
@@ -153,7 +154,17 @@ public class PlayerStats{
     shieldEndTime = System.currentTimeMillis() + durationMillis;
 }
 
-public boolean isShielded() {
-    return System.currentTimeMillis() < shieldEndTime;
-}
+    public boolean isShielded() {
+        return System.currentTimeMillis() < shieldEndTime;
+    }
+
+    // Debug
+    public void debugPrint() {
+        // System.out.println(
+        //     "HP: " + currentHP + "/" + getMaxHP() +
+        //     " | ATK: " + getAttack() +
+        //     " | DEF: " + getDefense() +
+        //     " | SPD: " + getSpeed()
+        // );
+    }
 }
