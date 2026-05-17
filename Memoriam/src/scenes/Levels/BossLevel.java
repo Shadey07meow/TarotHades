@@ -18,6 +18,8 @@ public class BossLevel extends PlayableScreen {
     @Override
     public void startGamePanel()
     {
+
+                SoundManager.get().playMusic("bossMusic");
         // this.fx.generateLoadingScreen();
 
         TreasureChest tr1 = new TreasureChest(

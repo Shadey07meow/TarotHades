@@ -46,11 +46,13 @@ public class WinScreen extends UIScreen {
         styleButton(menuButton);
 
         restartButton.addActionListener(e -> {
+            SoundManager.get().playSFX("button");
             GameStats.get().reset();
             gameFrame.showPanel("start");
         });
 
         menuButton.addActionListener(e -> {
+            SoundManager.get().playSFX("button");
             SaveSystem.resetToNewRun();
             gameFrame.showPanel("menu");
         });
@@ -85,23 +87,28 @@ public class WinScreen extends UIScreen {
 
         sb.append("Memories carried forward:\n");
 
-        Map<PlayerAbility, Integer> abilities =
-                LevelManager.getPlayableScreen(
-                        LevelManager.levels.size() - 1)
-                        .getWorldRenderer()
-                        .getPlayer()
-                        .getAbilityMap();
+        // Map<PlayerAbility, Integer> abilities =
+        //         LevelManager.getPlayableScreen(
+        //                 LevelManager.levels.size() - 1)
+        //                 .getWorldRenderer()
+        //                 .getPlayer()
+        //                 .getAbilityMap();
 
-        if (abilities == null || abilities.isEmpty()) {
-            sb.append("  None\n");
-        } else {
-            for (Map.Entry<PlayerAbility, Integer> e : abilities.entrySet()) {
-                sb.append("  ")
-                  .append(e.getKey())
-                  .append(" Lv.")
-                  .append(e.getValue())
-                  .append("\n");
-            }
+        // if (abilities == null || abilities.isEmpty()) {
+        //     sb.append("  None\n");
+        // } else {
+        //     for (Map.Entry<PlayerAbility, Integer> e : abilities.entrySet()) {
+        //         sb.append("  ")
+        //           .append(e.getKey())
+        //           .append(" Lv.")
+        //           .append(e.getValue())
+        //           .append("\n");
+        //     }
+        // }
+
+        for(String s: SaveSystem.getArcanas())
+        {
+            sb.append(s);
         }
 
         sb.append("\nThe dungeon forgets you.");

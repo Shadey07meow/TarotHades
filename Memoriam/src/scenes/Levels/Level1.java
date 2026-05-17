@@ -231,6 +231,7 @@ public class Level1 extends PlayableScreen {
         
         miniBoss.spawnBossBlue();
         world.addObject(tr1);
+        SoundManager.get().playMusic("gameMusic");
     }
 
     @Override
@@ -250,6 +251,5 @@ public class Level1 extends PlayableScreen {
     {
         return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     }
-
 
 }

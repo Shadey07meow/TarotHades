@@ -31,8 +31,10 @@ public class ImageLibrary
     public final BufferedImage placeholderBtn;
     public final BufferedImage quitBtnExit;
     public final BufferedImage loadSaveBtn;
+    public final BufferedImage loadSaveBtnHover;
     public final BufferedImage newSaveButton;
     public final BufferedImage tutorialBtn;
+    public final BufferedImage newSaveButtonHover;
 
     public final BufferedImage loadingScreen;
     public final BufferedImage loseScreen;
@@ -42,7 +44,8 @@ public class ImageLibrary
     public final BufferedImage quitBtn;
     public final BufferedImage quitBtnGO;
     public final BufferedImage resumeBtn ;
-    public final BufferedImage restartBtn;
+    public final BufferedImage resumeBtnHover;
+public final BufferedImage restartBtn;
     public final BufferedImage boboLogo;
     public final BufferedImage logo;
 
@@ -236,15 +239,19 @@ private ImageLibrary()
                 quitBtn = ImageIO.read(getImageFile("assets/Panels/quitBtn.png"));
                 quitBtnGO = ImageIO.read(getImageFile("assets/Panels/quitBtnGO.png"));
                 resumeBtn = ImageIO.read(getImageFile("assets/Panels/resumeBtn.png"));
+                resumeBtnHover = ImageIO.read(getImageFile("assets/Panels/resumeButtonHover.png"));
                 restartBtn = ImageIO.read(getImageFile("assets/Panels/restart.png"));
                 placeholderBtn = ImageIO.read(getImageFile("assets/Panels/placeholderBtn.png"));
+                
                 quitBtnExit = ImageIO.read(getImageFile("assets/Panels/quitBtnExit.png"));
                 creditBtn = ImageIO.read(getImageFile("assets/Panels/creditBtn.png"));
                 tutorialBtn = ImageIO.read(getImageFile("assets/Panels/tutorialBtn.png"));
 
                 pauseBg = ImageIO.read(getImageFile("assets/Panels/pauseBg.png"));
                 loadSaveBtn = ImageIO.read(getImageFile("assets/Panels/loadSave.png"));
+                loadSaveBtnHover = ImageIO.read(getImageFile("assets/Panels/loadSaveHover.png"));
                 newSaveButton = ImageIO.read(getImageFile("assets/Panels/newSaveButton.png"));
+                newSaveButtonHover = ImageIO.read(getImageFile("assets/Panels/newSaveButtonHover.png"));
                 loadBg = ImageIO.read(getImageFile("assets/Panels/backDrop2.png"));
                 
                 

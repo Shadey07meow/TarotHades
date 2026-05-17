@@ -164,7 +164,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         while(this.isRunning)
         {
             //System.out.println("Update function is being called");
-            checkPausing();
+            if(!SpecialEffects.getIsLoading()) checkPausing();
             // Call update function
             if(!isPaused)
             {
@@ -175,9 +175,11 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                 {
                     checkPausing();
 
+                    pauseUI.onMouseMove(inputManager.getMousePosition());
                     if(inputManager.getMouseClicked())
                     {
                         pauseUI.onClicked(inputManager.getClickPosition());
+                        
                     }        
                 }
             }

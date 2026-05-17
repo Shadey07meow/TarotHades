@@ -20,6 +20,7 @@ public class InfiniteLevel extends PlayableScreen {
     @Override
     public void startGamePanel() {
         LevelManager.isInfiniteRun = true;
+        this.player.setHealth(10);
 
         if (world == null) return;
 
@@ -64,6 +65,8 @@ public class InfiniteLevel extends PlayableScreen {
 
     private void spawnEnemy() {
 
+        int x = rand.nextInt(1600) - 1200;
+        int y = rand.nextInt(1200) - 900;
         final int MIN_RADIUS = 700;
         final int MAX_RADIUS = 1200;
 
@@ -79,8 +82,8 @@ public class InfiniteLevel extends PlayableScreen {
             double angle = rand.nextDouble() * Math.PI * 2;
             double distance = MIN_RADIUS + rand.nextDouble() * (MAX_RADIUS - MIN_RADIUS);
 
-            int x = (int)(Math.cos(angle) * distance);
-            int y = (int)(Math.sin(angle) * distance);
+            x = (int)(Math.cos(angle) * distance);
+            y = (int)(Math.sin(angle) * distance);
 
             pos = Vector2.add(playerPos, new Vector2(x, y));
 
@@ -104,6 +107,7 @@ public class InfiniteLevel extends PlayableScreen {
 
         enemy.setHealth(10 + rand.nextInt(10));
         world.addObject(enemy);
+            SoundManager.get().playMusic("gameMusic");
     }
     @Override
     public MapObj setMap() {
@@ -127,6 +131,5 @@ public class InfiniteLevel extends PlayableScreen {
             this.getGameFrame()
         );
     }
-
 
 }

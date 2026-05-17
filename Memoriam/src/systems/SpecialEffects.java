@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class SpecialEffects {
     
 
+    private static boolean isLoading;
 
     public ArrayList<Effects> effectList = new ArrayList<>();
     
@@ -26,6 +27,7 @@ public class SpecialEffects {
 
         public abstract void drawEffect(Graphics g);
         public abstract  void onTimeHit();
+        public abstract  void finishhEffect();
 
 
         public void timeEffect(int miliseccond)
@@ -33,7 +35,12 @@ public class SpecialEffects {
             this.currentLifetime -= miliseccond; 
             onTimeHit();
 
-            if (this.currentLifetime <= 0) this.markForRemoval = true;
+            if (this.currentLifetime <= 0) 
+            {
+                finishhEffect();
+                this.markForRemoval = true;
+            }
+
         }
 
         public boolean getForRemoval(){return  this.markForRemoval;}
@@ -47,6 +54,7 @@ public class SpecialEffects {
     public void generateLoadingScreen()
     {
         effectList.add(new LoadingScreen());
+        isLoading = true;
         Player.canMove = false;
     }
 
@@ -75,6 +83,12 @@ public class SpecialEffects {
 
             this.alpha = (int)(255 * ((double)this.currentLifetime/(double)this.lifeTime));
             if(this.alpha <= 0) this.alpha = 0;
+        }
+
+        @Override
+        public void finishhEffect()
+        {
+
         }
 
 
@@ -124,13 +138,15 @@ public class SpecialEffects {
 
     public class LoadingScreen extends Effects
     {
-        private volatile  int alpha = 255;
-        private volatile int fadeTime = 500;
+        private volatile  float  alpha = 1;
+
 
         public LoadingScreen()
         {
-            this.lifeTime = 1500;
+            this.lifeTime = 2000;
             this.currentLifetime = this.lifeTime;
+
+        
         }
 
         @Override
@@ -144,13 +160,27 @@ public class SpecialEffects {
         {
 
             // Alpha decreases per thing
-            this.alpha = (int)(255 * ((double)this.currentLifetime/(double)this.lifeTime));
-            if(this.alpha <= 0) 
-                {
-                    this.alpha = 0;
-                    Player.canMove = true;
-                }
+            if(this.currentLifetime <=   lifeTime * 0.2f) 
+            {
+                this.alpha = (5.0f / lifeTime) * this.currentLifetime;
                 
+            }
+
+            if(this.alpha <= 0) 
+            {
+                this.alpha = 0;
+
+            }
+
+                
+        }
+
+        
+        @Override
+        public void finishhEffect()
+        {
+            isLoading = false;
+            Player.canMove = true;
         }
 
         private void drawScreen(Graphics g)
@@ -161,7 +191,7 @@ public class SpecialEffects {
             
             //System.out.println(this.alpha);
 
-            //g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.alpha));
+            g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 
             g2D.drawImage(
                 (ImageLibrary.get().loadingScreen),
@@ -204,5 +234,9 @@ public class SpecialEffects {
         
     }
 
+    public static boolean getIsLoading()
+    {
+        return isLoading;
+    }
 
 }
