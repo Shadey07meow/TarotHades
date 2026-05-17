@@ -26,6 +26,8 @@ public class Projectile extends GameObject{
         super(x, y, scale, scrn);
         this.velocity = velocity;
         this.world = scrn.getWorldRenderer();
+
+        
         this.parentClass = parentClass;
         setImage(projectileImage);
         
@@ -59,8 +61,13 @@ public class Projectile extends GameObject{
             // Never hit the player or other projectiles
 
 
-            if(other.getClass().isAssignableFrom(parentClass)) return;
-            // if(other.getClass().getCanonicalName().trim().equals(parentClass.getCanonicalName().trim())) return;
+            System.out.println(other.getClass().getCanonicalName());
+            System.out.println(parentClass.getCanonicalName());
+            // if(other.getClass().isAssignableFrom(this.parentClass)) return;
+            if(other.getClass().getCanonicalName().trim().equals(parentClass.getCanonicalName().trim())) return;
+            if(other.getClass().isAssignableFrom(Projectile.class)) return;
+
+            if(other instanceof Enemy && parentClass.isAssignableFrom(other.getClass())) return;
             
             if(other instanceof Entity entity )
             {

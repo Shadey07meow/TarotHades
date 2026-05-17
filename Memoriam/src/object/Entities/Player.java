@@ -304,16 +304,17 @@ public class Player extends Entity {
         SoundManager.get().playSFX("shoot");
 
         Projectile p = null;            
-        
+
         if(!flame)
         {
-            p =  new Projectile((int) getX(), (int) getY(), velocity, dmg, playScrn, getClass(), ImageLibrary.get().projectile);    
+            p =  new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn, this.getClass(), ImageLibrary.get().projectile); 
+               
         } else
         {
-            p = new Projectile((int) getX(), (int) getY(), velocity, dmg, playScrn, getClass(), ImageLibrary.get().fireProjectile);
+            p = new Projectile((int) getX(), (int) getY(), velocity, 1, playScrn, Player.class, ImageLibrary.get().fireProjectile);
         }
         
-        
+        p.setDamage(dmg);
         world.addObject(p);
     }
 
