@@ -1,0 +1,542 @@
+KEEP THIS ON TOP
+ Individual commands to run the game
+    cd Memoriam
+    javac -d bin -sourcepath src src/scenes/ui/MainGameDriver.java
+    java -cp bin  scenes.ui.MainGameDriver
+    
+    Command to run the game in one line
+    cd Memoriam & javac -d bin -sourcepath src src/scenes/ui/MainGameDriver.java & java -cp bin  scenes.ui.MainGameDriver
+
+    jar cfm Memoriam.jar manifest.txt -C bin .
+    java -jar Memoriam.jar
+
+--> 05/16/2026
+    (CalRya)
+    - Added credits and tutorial button
+        - Credits: New background
+    - Added SplashScreen (May need improvements)
+    - Tutorial Screen done
+    - Credits done, info missing
+
+--> 05/12/2026
+    (Shadey07)
+    - Loading screen
+    - Fixed main version
+    - Added save system frontend
+
+    (Herielle)
+    - Created a savedHP variable to store HP from previous levels
+    - fixed the Heart UI for empress
+
+    (CalRya)
+    - Created Infnite level
+    - Changed Buttons
+    - Removed yellow card overlay after restart
+    - Replaced card hovers
+    - Nine of Pentacles fix/rework
+    - Cutscenes and transitions finished
+
+--> 05/11/2026
+    (Calrya)
+    - Win screen
+    - Fixed cutscenes
+    - Jar stuff
+    - Fixed power up crashes
+    - Fixed saving
+--> 05/10/2026
+    (Shadey07)
+    - Trying to add abilities to the save/load system
+    - Save load commpleted
+    - Made getter methods in saveSystem
+
+--> 05/09/2026
+    (Shadey07)
+    - Treasure box lockup
+    - Separated main mmenu objects
+    - Save systemm
+    - fixed inputs loading bugs
+    - made moving menu screen
+
+    (CalRya)
+    - Minor bugs
+        - Treasure Chest
+        - Kill Count Reset
+    - Pause Bg implement
+--> 05/08/2026
+    (CalRya)
+    - Added pause assets
+    - Added colliders to all maps
+    - Added additional ui (level and kill tracker)
+    - Enemy + player hit assets added and implemented
+    - Added GameStat
+    - Minor color fixes
+    - Added extra minor assets
+
+    (Shadey07)
+    - Added special effects system
+    - Added on daamage counter on hit effect
+
+
+--? 05/08/2026
+    - Made boss summon people
+
+--> 05/07/2026
+    (Shadey)
+    - Made the enemies shoot stuff
+    - Made the Boss actually win
+    - Pause screen logic working
+    - Added new ui elements
+
+--> 05/07/2026
+    (CalRya)
+    - Added new Assets
+    - Added card hover on treasure chest
+    - Fixed map boundary colliders
+    - Updated Maps + Treasure chest position + player position
+    - fixed small error: icons only appearing after level 1/not including relics (still need optimization)
+    - made ui bits bigger
+
+--> 05/03/2026
+    (Shadey07)
+    - Added collison logics to the maps
+    - Successfuly created all enemies objects to the game
+
+--> 05/02/2026
+    (Herielle)
+    - Added fireProjectile.png
+    - Added ocassional triggers of fireProjectile when the powerup is acquired
+    - Changed BOUNCING_SHOT to SPEED_ENHANCE
+    - Added stack level support in PowerUp.java
+    - Rewrote with per-level PowerUps (3 levels each) in PowerUpManager
+    - Aded projectile count stat in Player Stats
+    - Reworked ability system to track stacks, update projectile count, speed in Player
+    - Filtered maxed-out abilities from draw pool in CardManager
+
+    - Created HealthBar.java to draw the HealthBar
+    - LevelManager.java
+        - Added savedAbilities, savePlayerAbilities(), restorePlayerAbilities(); fixed imports
+    - PlayableScreen.java
+        - Calls restorePlayerAbilities() in initWindow() after player created
+    
+    (Shadey07)
+    - Made world renderer have margins so that the edges of the maps cannot be seen 
+    - Made BarrierObject
+        - Invisible collision object
+    - Made Bounds object 
+
+
+--> 05/01/2026
+    (Shadey 07)
+    - Made the big file small
+
+
+--> 29/04//2026
+    (Shadey 07)
+    - Made blu guys die on collision
+    - Made theh maps themselves (Still need to add the collisions and the enemies them selves)
+
+--> 27/ 04/2026
+    (Shadey 07)
+    - Tried fixing Level System
+    - Changed map
+    - Put all gameStart methods into PlayablePanel
+
+--> 26/04/2026
+    (Shadey 07)
+    - Made enemies go circle on Bobo
+    - Made enemies have rng for chasing personality
+
+--> 28/04/07
+    (Herielle)
+    -Player.java
+        - Added two method in Player.java addAbility() and hasAbility()
+        - Updated enable methods
+        - Added tickRegen()
+        - replaced shootProjectile() by implementing the other skills since there are diff. types of projectile manifestation
+        - added spawnProjectile() 
+        - added rotate for spread shot
+    
+    - Projectile.java
+        - added bounce and flame damage
+    - Edited Gamestart.startGame() panel in where you add the player so the skill doesnt reset
+    - Edited on Projectile.java on collision to ignore the player and other projectiles and to implement bouncing shot
+    - Created Shield.java
+    
+
+--> 24/04/2026
+    (Shadey07)
+    - Improved collision logic
+    - Enemy objects can now take damage
+    - Implementation of immovable gameObjects
+    - Added projectile.gif
+    - Made heart.png and deadHeart.png into BufferedImages
+    - Added collision to chest objects
+    - Enemies can now follow you
+    - Added Vector2.getUnitVector for quick math
+
+--> 22/04/2026
+    (zam2643)
+    - added a SoundManager class
+        - centralizes all audio handling in the game
+        - has looping background music
+        - includes methods:
+            - playMusic(String path)
+            - stopMusic()
+            - playSFX(String path)
+    - implemented background music system
+        - uses .wav files 
+        - added checking for missing files
+    - updated MenuScreen
+        - added onInitiate()
+            - plays looping background music when menu opens
+        - added onExit()
+            - stops music when leaving menu
+    - added project assets
+        - created assets/music/ directory inside src
+        - added TempMainMenu.wav as menu background track
+
+    (CalRya)
+    - Fixed the level system a bit more
+    - Added transitions for the level cutscenes
+    - CutsceneScreen.java
+
+    (Shadey07)
+    - Successful implementation of Rectangle collisions
+    - Created enemy object
+        - Added enemy gameobject
+        - Implemented enemy sprites
+    - Created a quick way to turn on and off debug mode
+    
+
+
+--> 21/04/2026  
+    (Herielle)
+    - Card System
+        - Added Card.java
+            - updated to include Rarity and PlayerAbility fields
+        - Added CardAbility.java
+            -  new functional interface for card effects
+        - Added PlayerAbility.java
+            - new enum defining all unlockable abilities 
+        - Added CardManager.java
+            - before it had a flast list of all cards, now it's split into level scaled rarity odds
+        - Added Rarity.java
+            - defined the three card tiers
+
+    -Player stats system
+        - Added PlayerStats.java
+            - stats are computed dynamically using the formula (base + flatMods) * (1 + percentMods)
+            - handles damage (with defense reduction), healing
+        - Added StatType.java
+        - Added StatModifier.java
+            - represents one stackable effect (flat or percent)
+        - Modified Player.java
+            -takes PlayerStats now instead of raw fields
+            - added applyAbility(PlayerAbility) 
+            - Added setUIOpen(boolean) — blocks combat input when chest UI is open
+            - minusHP, addHP, setHealth now connect to PlayerStats
+            - getHealth() and new getters
+        
+    - PowerUp System
+        - Added PowerUp.java
+            - applies a bundle of stat modifer and has a name/desc
+        - Added PowerUpManager.java
+            - maps player ability to powerup, basically wiritng cards to stat effects
+
+    - Modified InputManager.jaba
+        - now also implements MouseMotionListener
+        - added mouseMoved and mouseDragged
+        - replaced mouse1down / getClickingStatus() with mousePressed + mouseClicked + consumeClick() to avoid multi-frame click registration
+        - added separate mousePosition vector alongside clickPosition
+
+    - Modified GameStart.java
+        - openChest() now draws exactly 2 cards (was 3)
+        - selectCard() now calls player.applyAbility(c.ability) — cards actually do something now
+        - spinCards ArrayList removed (was unused)
+    
+    - Modified PlayableScreen.java
+        - added addMouseMotionListener(inputManager) so mouse movement is tracked from the start
+        - added requestFocusInWindow() in constructor
+
+    - Edited PlayableScreen.paintComponent
+        - heart bar now uses player.getMaxHP() instead of hardcoded 10
+
+
+
+
+--> 20/04/2026
+    (CalRya)
+    - Made hovers
+    - Changed ImageLibrary to Buffered Images
+        - Fixed loading issue/asset loading issue when start
+    - Edited a bit of the treasure chest logic
+    - Added a scuffed level system, will refine at a later time
+        - Added LevelFactory.java
+
+    (Shadey07)
+    - Fixed bugs
+
+--> 19/04/2026
+    (Shadey07)
+    - Made the map rendering limited to the limits of the Map
+        - Note: Add margins later so that the image of the map does not get spotted
+    - Bugs found:
+        - When exiting a scene, thread stops at a position where player is also gone
+        
+
+--> 17/04//2026
+    (Shadey07)
+    - Put created animated idle animations into game    
+    - Made shooting working
+        - Made the world renderer the array list of objects which will be updated instead of a base array list on the playable  screen
+    - Made the map renderer now render things properly when drawing all the objects inside
+        - The map will now be always drawn first
+        - The player will now be always drawn last
+
+--> 15/04/2026
+    (Herielle)
+    - Implemented Shooting System
+        - Created Projectile.java
+            - Added movement logic, auto-destroy when lifetime ends
+        - Modified Player.java
+            - Added shootProjectile() method + made mouse based aiming
+            - Projectile spawning, fire cooldown system
+            - Modified combatMethod() to trigger shooting
+    - Implemented Mouse Aim System
+        - Modified InputManager.java
+            - Changed mouseClicked → mousePressed
+            - fixed click position using getX() / getY()
+            - fixed click coordinate system 
+    - Projectile Movement System
+        - Modified GameObject.java
+            -Changed few variables to double
+        - Fixed shooting accuracy 
+
+    (zam2643)
+    - Added ArrayList<CollisionObject> collidingWith in CollisionObject 
+        - to store current collisions
+        - added getCollidingWith() 
+    - Completed isColliding() in RectangleCollider 
+        - using AABB collision logic
+    - Added updateBounds() calls inside isColliding() 
+    - Added ArrayList<GameObject> objects in GameObject
+    - Added setObjects(ArrayList<GameObject>)in GameObject
+    - Passed objects list from GameStart to each GameObject using setObjects()
+    - Implemented checkCollisions() in GameObject to:
+        - loop through all objects
+        - detect collisions using isColliding()
+        - store it in getCollidingWith
+        - Added GameStart parameter to Player
+    - Changed hardcoded screen size to GameStart.getWidth() and GameStart.getHeight()
+    - Added keepInsideScreen() in update() in Player
+        - player no longer goes out of screen
+
+-->  15/04/2026
+    (Shadey07)
+    -  Made map renderer
+        - Handles movement of the map when the player moves
+            - When the player reaches a certain distance from the center, the map moves instead of the player
+        - This class contains all of the current gameObjects in a scenes
+        - Made playable panel draw all the objects in a scene instead of putting it in game start 
+    - Added additional function in the Vector2 class
+        - public static Vector2 distance
+            - Gets the distance between two points (Vector2)
+
+--> 14/04/2026
+    (CalRya)
+    - Added Mock ups for all the tarot cards
+    - Made skip button for prologue
+    - Randomizer/Button for tarot card reward
+    - Changed OrangeBlend -> RedBlend
+    - Added CardManager.java
+    - Added Card.java
+    
+
+--> 13/04/2026
+    (Herielle)
+    - Implemented Pause Screen Systems
+        - Created PauseScreen.java
+            - added resume and menu button
+        - Modified GameFrame.java (just added the panel)
+        - Added esc check in GameStart.java
+        - Modified InputManager.java
+            - keypressed and  method to check if isPausePressed
+        
+    (CalRya)
+    - Added WIP Map
+    - Added SceneManager.java
+        - Added PrologueScreen.java
+            - Game Prologue
+        - Finished Start Screen and Buttons
+    
+
+
+--> 11/04/2026
+    (Shadey07)
+    - Fixed everything
+    - Revamped image system
+    - Added more collision logic (had to turn off objects and gaeObjects in game world)
+    
+    (CalRya)
+    - Changed the screen to another wip
+    - Added new placeholder button
+    - Fixed layout for buttons on screen
+    
+--> 10/04/2026
+    (Shadey97)
+    - Tried mass scaling collision (Still not done)
+    - Made file system better (done)
+    - Image system making it better
+
+    (Herielle)
+    - Implemented Lose Screen system
+        - Created LoseScreen.java
+            - Added Retry button (returns to GameStart)
+            - Added Menu button (returns to MenuScreen)
+        -Integrated LoseScreen into GameFrame.java
+            - added losescreen field and in cardlayout, initialized it in the constructor
+        - Connected Player death logic
+            -  Modified Player.java
+                - Added health-based death condition in update loop
+                - Added isDead flag to prevent repeated triggers
+                - Triggered GameFrame.showPanel("lose") when health <= 0
+        - Added “TEST KILL” button inside GameStart.java
+            - Created bottomPanel container for multiple buttons
+        - Added setHealth(int health) method to Player.java
+        
+--> 08/04/2026
+    (CalRya)
+    - Changed the start screen to new WIP
+    - Changed the cursor to quill
+    
+    (Shadey07)
+    - Made the UI system more flexible and easier to use
+        - Made ShowablePanel into abstract class
+        - Made UIScreen which extends ShowablePanel
+        - Made PlayableScreen extends ShowablePanel
+        - Made abstractMethods in PlayableScreen
+            - startGamePanel(), is called when initiated
+            - stopGamePanel(), is called when changed panel
+        - Made new methods in PlayableScreen
+            - initWindow(), is called when panel is initiated
+            - terminateWindow(), is called when panel is terminated
+            
+--> 07/04/2026
+    (zam2643)
+    - added a CollisionObject class
+        - extends GameObject
+        - Implemented Axis-Aligned Bounding Box (AABB) collision 
+            - wraps game entities in a box that's aligned to the axes
+              regardless of how the object inside rotates
+            - two boxes cannot be colliding if not all axes are overlapping
+            - basically checks overlap between two objects
+    - Made an ArrayList<GameObject>
+        - replaced hardcoded player object1
+    - Updated GameStart
+        - clears object list on initialization
+        - then adds:
+            - player
+            - wall (not movable)
+            - box (movable)
+    - Updated Player class
+        - added ArrayList<GameObject> objects as argument to constructor
+        - added handleCollision(int dx, int dy) method
+            - loops through all objects and checks collision
+        - changed movement to axis-specific
+            - before: move(x, y)
+            - now: move(dx, 0), move(0, dy)
+            - done for handling collisions
+        - added push mechanics
+            - if col(the object) is movable, col.move(dx/2, dy/2)
+            - col movement slower than player
+        - added keepInsideScreen() method
+            - player can't go out the top and left edges of screen
+        - Updated Rendering
+            - draws objects instead of just player
+            - draws rectangle if object has no image
+
+--> 06/04/2026 
+    (Shadey07)
+    - Added Vector2 class
+        - Quick way to store 2 points
+        - Can do basic vector operations such as
+            - Vector addition
+            - Vector multiplication (Constants)
+    - Made InputManager able to read mouse inputs
+        - Able to determine Mouse 1 (LeftClick) inputs
+        - Able to determine where player clicked
+    - Made Bullet class (Nothing inside yet)
+    - Made our lil guy a bit smoller
+    - Cleaned some code
+        - Added a overridable update method to gameObjects, so that all gameObjects has a update method and 
+            auto-interpolates
+        - Moved interpolation to update method on gameObjects
+        - Moved gameLogic to overridable update method gameObjects
+        - Instead of setting the images of the player in the constructor as inputs,
+            made it so that it is assigned the same value no matter what (Did this to simplify code)
+        - Made Inputmanager have a getInputVector that returns a Vector2
+
+    (Herielle)
+     - Made changes to CreditScreen.java 
+        - Added exit button 
+    - Made changes MenuScreen.java 
+        - Added exit button 
+
+--> 05/04/2026 
+    (CalRya)
+    - Added Interpolation 
+        - Made changes to the following classes:
+            - Player.java
+            - GameObject.java
+            - GameStart.java
+    - Added Sprites + linked sprites with movement
+    - Added custom cursor in GameFrame.java
+
+    (Shadey07)
+    - Added basic movement 
+        - Added PlayerClass
+        - Added input manager
+    - Made a few changes to the panel system
+        - Renamed panelChanger to parentPanel
+        - ShowablePanel
+            - OnInitiate()
+                - Overridable method called when a new panel is shown by parentPanel
+            - OnExit()
+                - Overridable method called when a new panel is unshown by parentPanel
+        - PlayableScreen
+            - startGamePanel()
+                - Overridable method called when a gamePanel is initiated
+            - startGamePanel()
+                - Overridable method called when a gamePanel is uninitiatied
+    - Added GameObject class
+    - Improved inputHandling
+    
+
+--> 02/04/2026
+    (CalRya)
+    - Made start screen 
+        - Made GameStart.java
+            - A JPanel placeholder for second screen
+        - Made changes to GameFrame.java
+            - A JFrame that stores initial screen
+        - Made changes to GameFrame.java  
+            - Fullscreen
+        - Edited StartScreen.java
+            - Added buttons and added a new screen to switch to for credits
+        - Added CreditScreen.java
+    - Added notes to code + Refactoring some stuff (Shadey07)
+        - Made panel switching system much more easier to remember
+        - Renamed StartScreen.java to MenuScreen
+        - Fixed JButtons layout (I think?)
+
+
+--> 02/04/2026
+    (Shadey07)
+    - Made initial files for the game 
+        - GameFrame.java
+            - Will handle displaying the game
+        - MainGameDriver.java  
+            - Will communicate information to all parts of the program (hopefully)
+
+
+        

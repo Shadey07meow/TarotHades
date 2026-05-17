@@ -1,7 +1,12 @@
 package systems;
 
-import object.*;
-import scenes.*;
+import object.Entities.Player;
+import object.statics.GameObject;
+import object.statics.MapObj;
+import object.statics.TreasureChest;
+import object.Entities.Enemy;
+import scenes.templates.PlayableScreen;
+
 import java.util.ArrayList;
 
 import collision.RectangleCollider;
@@ -29,7 +34,11 @@ public class WorldRenderer {
     private final double xMargin = 30;
     private final double yMargin = 30;
 
-    private boolean debugMode = false;
+    // Entity culling
+    private final float displayCutoff = 1000;
+    private final float updateCutoff = 1500;
+
+    private final boolean debugMode = false;
 
     // Constructors
     public WorldRenderer(Player player, PlayableScreen s)
@@ -125,8 +134,8 @@ public class WorldRenderer {
                 moveObjectsWithWorldY();
             }
 
-
-                
+            updateCollisions();
+            keepInsideScreen();
         }
     }
 
@@ -341,46 +350,92 @@ public class WorldRenderer {
         return this.map;
     }
 
+    
+    public void drawWorld(Graphics g)
+    {
+        // Draw effects
+        Graphics2D graphics2 = (Graphics2D) g;
+
+            //System.out.println("I am rendering shit rn");
+            ArrayList<GameObject> list = getObjectList();
+
+        
+            // In world renderer, the map must always be drawn first
+            for (int x = 0; x < getObjectList().size(); x++) 
+            {
+                GameObject obj = list.get(x);
+
+                if(Vector2.distance(obj.getPosition(), player.getPosition()) > displayCutoff && obj != (GameObject)this.map)
+                {
+                    continue;
+                }
+                
+                if (list.get(x).getImage() != null) {
+
+                    graphics2.drawImage(
+                        list.get(x).getImage(),
+                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
+                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
+                        (int)list.get(x).getScaledWidth(),
+                        (int)list.get(x).getScaledHeight(),
+                        null
+                    );
+
+                } else {
+
+                    graphics2.setColor(list.get(x).getColor());
+
+                    graphics2.fillRect(
+                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
+                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
+                        (int) list.get(x).getScaledWidth(),
+                        (int) list.get(x).getScaledHeight()
+                    );
+                }
+            }
+        
+
+    }
+
     public synchronized void drawDebugWorld(Graphics g)
     {
         Graphics2D graphics2 = (Graphics2D) g;
-
         
-            // Draws World dddebug stuff first 
-            if(this.debugMode == true)
-            {
-                graphics2.setStroke(new BasicStroke(2));
-                for (GameObject obj : getObjectList()) {
-                    if (obj.getCollider() != null) {
-                        if(obj.getCollider() instanceof RectangleCollider)
+        // Draws World dddebug stuff first 
+        if(this.debugMode == true)
+        {
+            graphics2.setStroke(new BasicStroke(2));
+            for (GameObject obj : getObjectList()) {
+                if (obj.getCollider() != null) {
+                    if(obj.getCollider() instanceof RectangleCollider)
+                    {
+                        if(obj.getCollider().getIsColliding() == true)
                         {
-                            if(obj.getCollider().getIsColliding() == true)
-                            {
-                                g.setColor(obj.getCollider().activeColor);
-                            } else
-                            {
-                                g.setColor(obj.getCollider().inactiveColor);
-                            }
-
-                            if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
-
-                            
-                            RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
-                            //System.out.println(tempCol.getLocalBounds().getWidth());
-                            graphics2.drawRect(
-                                (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
-                                (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
-                                tempCol.getLocalBounds().getWidth(),
-                                tempCol.getLocalBounds().getLength()                            
-                            );
+                            g.setColor(obj.getCollider().activeColor);
+                        } else
+                        {
+                            g.setColor(obj.getCollider().inactiveColor);
                         }
-                    }
-                }         
-            }
-        }
 
-        // for infinite level
-        public int getEnemyCount() {
+                        if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
+
+                        
+                        RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                        //System.out.println(tempCol.getLocalBounds().getWidth());
+                        graphics2.drawRect(
+                            (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
+                            (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
+                            tempCol.getLocalBounds().getWidth(),
+                            tempCol.getLocalBounds().getLength()                            
+                        );
+                    }
+                }
+            }         
+        }
+    }
+
+    // for infinite level
+    public int getEnemyCount() {
 
         int count = 0;
 
@@ -389,24 +444,71 @@ public class WorldRenderer {
                 count++;
             }
         }
-
         return count;
-}
-
-public void clearEnemies()
-{
-    objectList.removeIf(obj -> obj instanceof Enemy);
-}
-
-
-
-public void clearChests()
-{
-    objectList.removeIf(obj -> obj instanceof TreasureChest);
-}public void clearWaveObjects()
-{
-    clearEnemies();
-    clearChests();
-}
     }
+
+    public void clearEnemies()
+    {
+        objectList.removeIf(obj -> obj instanceof Enemy);
+    }
+
+
+
+    public void clearChests()
+    {
+        objectList.removeIf(obj -> obj instanceof TreasureChest);
+    }public void clearWaveObjects()
+    {
+        clearEnemies();
+        clearChests();
+    }
+
+    
+
+
+    public void updateCollisions()
+    {
+        
+        for(int x = 0; x < getObjectList().size(); x++)
+        {
+            ArrayList<GameObject> list =  getObjectList();
+            GameObject obj = list.get(x); 
+            if(Vector2.distance(obj.getPosition(), player.getPosition()) > updateCutoff)
+            {
+                continue;
+            }
+
+            if(obj.getCollider() != null)
+            {
+                obj.getCollider().checkCollisions();
+                
+                if (obj.getCollider().getIsColliding())
+                {
+                    // Do collision logic
+                    obj.onCollision();
+
+                }
+            }
+
+            // Check colliders if present
+            //System.out.println(this.collider.getIsColliding());            
+        }
+    }
+    
+    private void keepInsideScreen() {
+        int halfW = this.player.getScaledWidth() / 2;
+        int halfH = this.player.getScaledHeight() / 2;
+
+    
+        int screenWidth = this.gamePanel.getWidth();
+        int screenHeight =  this.gamePanel.getHeight();
+
+        if (this.player.getX() - halfW < 0) this.player.setX(halfW);
+        if (this.player.getY() - halfH < 0) this.player.setY(halfH);
+
+
+        if (this.player.getX() + halfW > screenWidth) this.player.setX(screenWidth - halfW);
+        if (this.player.getY() + halfH > screenHeight) this.player.setY(screenHeight - halfH);
+    }
+}
 

@@ -1,7 +1,7 @@
 package systems;
 
-import object.Player;
-import object.Relic;
+import object.Entities.Player;
+import object.statics.Relic;
 
 public class RelicManager {
 

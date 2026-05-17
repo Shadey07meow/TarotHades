@@ -1,8 +1,14 @@
 package scenes.levels;
 
 import java.util.Random;
-import object.*;
-import scenes.*;
+import object.Entities.BlueWisp;
+import object.Entities.Player;
+import object.Entities.Enemy;
+import object.Entities.PurpleWisp;
+import object.Entities.YellowWisp;
+import object.statics.MapObj;
+import scenes.templates.PlayableScreen;
+import scenes.ui.GameFrame;
 import systems.*;
 
 public class InfiniteLevel extends PlayableScreen {

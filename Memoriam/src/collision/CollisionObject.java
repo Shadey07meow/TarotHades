@@ -1,6 +1,6 @@
 package collision;
 
-import object.*;
+import object.statics.GameObject;
 import systems.*;
 
 import java.util.ArrayList;
