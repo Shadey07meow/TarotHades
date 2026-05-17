@@ -3,8 +3,7 @@ package collision;
 
 import java.util.ArrayList;
 
-import jdk.net.UnixDomainPrincipal;
-import object.*;
+import object.statics.GameObject;
 import systems.*;
 
 public class RectangleCollider extends CollisionObject {
@@ -15,7 +14,7 @@ public class RectangleCollider extends CollisionObject {
 
     
     // Bounds set for the collision object
-    private Bounds localBounds;
+    private final Bounds localBounds;
 
     // Prescence of said bounds in the collision object
     private Bounds globalBounds;

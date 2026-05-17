@@ -8,11 +8,12 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
-import object.Card;
-import object.PlayerAbility;
-import object.Rarity;
-import object.Relic;
-import scenes.*;
+
+import object.Entities.PlayerAbility;
+import object.statics.Card;
+import object.statics.Rarity;
+import object.statics.Relic;
+import scenes.templates.PlayableScreen;
 
 public class CardManager {
 
@@ -126,7 +127,7 @@ public class CardManager {
 
     public Card drawCard(int level) {
 
-        object.Player player = scrn.getWorldRenderer() != null ? scrn.getWorldRenderer().getPlayer(): null;
+        object.Entities.Player player = scrn.getWorldRenderer() != null ? scrn.getWorldRenderer().getPlayer(): null;
 
         double roll = random.nextDouble();
 
@@ -154,7 +155,7 @@ public class CardManager {
 
     }
 
-    private Card drawFromPool(ArrayList<Card> pool, object.Player player) {
+    private Card drawFromPool(ArrayList<Card> pool, object.Entities.Player player) {
         // Build a filtered list of drawable cards
         ArrayList<Card> eligible = new ArrayList<>();
         for (Card card : pool) {
@@ -281,7 +282,7 @@ public class CardManager {
         if (c instanceof RelicCard relic) {
              //  Lobby Big Three path 
             System.out.println("Relic selected: " + relic.name);
-            object.Player player = scrn.getWorldRenderer().getPlayer();
+            object.Entities.Player player = scrn.getWorldRenderer().getPlayer();
             RelicManager.get().applyRelic(relic.relic, player);
             LevelManager.loadLevel(scrn.getID() + 1, scrn);
 

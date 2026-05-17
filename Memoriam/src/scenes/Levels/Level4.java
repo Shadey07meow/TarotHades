@@ -2,8 +2,15 @@ package scenes.levels;
 
 
 import images.*;
-import object.*;
-import scenes.*;
+import object.Entities.BlueWisp;
+import object.Entities.Player;
+import object.Entities.PurpleWisp;
+import object.Entities.YellowWisp;
+import object.statics.BarrierObject;
+import object.statics.MapObj;
+import object.statics.TreasureChest;
+import scenes.templates.PlayableScreen;
+import scenes.ui.GameFrame;
 import systems.*;
 
 

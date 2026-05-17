@@ -1,11 +1,12 @@
 package systems;
 
 import java.util.*;
-import object.Player;
-import object.PlayerAbility;
-import object.Relic;
-import object.RelicStatusEffect;
-import object.StatusEffect;
+
+import object.Entities.PlayerAbility;
+import object.statics.Relic;
+import object.statics.RelicStatusEffect;
+import object.statics.StatusEffect;
+import object.Entities.Player;
 
 public class StatusEffectManager {
 

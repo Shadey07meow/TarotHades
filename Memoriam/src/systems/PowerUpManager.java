@@ -2,7 +2,7 @@ package systems;
 
 import java.util.EnumMap;
 import java.util.Map;
-import object.PlayerAbility;
+import object.Entities.PlayerAbility;
 
 public class PowerUpManager {
 
@@ -21,13 +21,16 @@ public class PowerUpManager {
         });
 
         leveledPowerUps.put(PlayerAbility.FLAME_SHOT, new PowerUp[]{
-            new PowerUp("Ace of Wands I", "+4 ATK",
-                new StatModifier(StatType.ATTACK, 2, false)),
-            new PowerUp("Ace of Wands II", "+4 ATK",
-                new StatModifier(StatType.ATTACK, 2, false)),
-            new PowerUp("Ace of Wands III", "+4 ATK",
-                new StatModifier(StatType.ATTACK, 3, false))
-        });
+            new PowerUp("Ace of Wands I",
+            "30% flame chance (+3 dmg) | +5% crit",
+        new StatModifier(StatType.CRIT_CHANCE, 0.05, false)),   // L1: 5% bonus
+             new PowerUp("Ace of Wands II",
+            "35% flame chance (+5 dmg) | +7% crit",
+        new StatModifier(StatType.CRIT_CHANCE, 0.07, false)),   // L2: 12% total bonus
+            new PowerUp("Ace of Wands III",
+            "40% flame chance (+7 dmg) | +8% crit",
+            new StatModifier(StatType.CRIT_CHANCE, 0.08, false))    // L3: 20% total bonus
+});
 
         leveledPowerUps.put(PlayerAbility.MULTI_SHOT, new PowerUp[]{
             new PowerUp("Ten of Swords I",

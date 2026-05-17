@@ -1,7 +1,7 @@
 package systems;
 
 import images.*;
-import object.Player;
+import object.Entities.Player;
 
 import java.awt.Color;
 import java.awt.Font;

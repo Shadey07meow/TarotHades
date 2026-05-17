@@ -67,6 +67,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 
         // for esc button
         if(k.getKeyCode() == KeyEvent.VK_ESCAPE){
+            System.out.println("Thing");
             pausePressed = true;
         }
         
@@ -99,6 +100,12 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
         if(inp == 'e' || inp == 'E')
         {
             this.isInteracting = false;
+        }
+
+        
+        // for esc button
+        if(k.getKeyCode() == KeyEvent.VK_ESCAPE){
+            pausePressed = false;
         }
 
         updMovement();
@@ -220,6 +227,7 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
         this.movingRight = false;
         this.movingLeft = false;
         this.movingUp = false;
+        this.pausePressed = false;
     
     }
     

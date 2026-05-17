@@ -1,8 +1,12 @@
 package systems;
 
 import java.util.ArrayList;
-import object.*;
-import scenes.*;
+import object.Entities.Player;
+import object.Entities.PlayerAbility;
+import object.statics.Relic;
+
+import scenes.templates.PlayableScreen;
+import scenes.ui.GameFrame;
 
 public class LevelManager {
 
@@ -13,7 +17,7 @@ public class LevelManager {
     private static Relic savedRelic = null;
     public static boolean isInfiniteRun = false;
     public static ArrayList<PlayableScreen> levels = new ArrayList<>();
-    private static java.util.Set<object.PlayerAbility> savedAbilities =
+    private static java.util.Set<object.Entities.PlayerAbility> savedAbilities =
             new java.util.HashSet<>();
 
      private static java.util.Map<PlayerAbility, Integer> savedAbilityLevels =
@@ -28,7 +32,7 @@ public class LevelManager {
         savedAbilityLevels.clear();
         savedHP = player.getHP();
 
-        for (object.PlayerAbility ability : object.PlayerAbility.values()) {
+        for (object.Entities.PlayerAbility ability : object.Entities.PlayerAbility.values()) {
             int level = player.getAbilityLevel(ability);
             if (player.hasAbility(ability)) {
                 savedAbilities.add(ability);

@@ -1,0 +1,556 @@
+package object.Entities;
+
+import collision.CollisionObject;
+import collision.RectangleCollider;
+import images.ImageLibrary;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
+import object.statics.Projectile;
+import object.statics.Shield;
+import scenes.templates.PlayableScreen;
+import scenes.ui.GameFrame;
+import systems.*;
+
+public class Player extends Entity {
+
+    /// Player Game Object
+    /// Stores position and parameters for the player
+    /// Handles movement, health, attacks and stuff like that
+    private final GameFrame gameFrame;
+    private ImageLibrary imgLib = ImageLibrary.get();
+    private final PlayerStats stats;
+    
+   private final Map<PlayerAbility, Integer> abilityStacks = new EnumMap<>(PlayerAbility.class);
+   private InputManager inputs = null;
+    
+    // Combat variables
+    private final double projectileSpeed = 15;
+    private final double fireCooldown = 10;
+    private int regenTickCounter = 0;
+    private int regenInterval   = 120;   // frames between each regen tick (HP_REGEN)
+    private int fortRegenInterval = 60;  // faster regen for FORTIFIED_REGEN
+    private boolean fortifiedActive = false;    
+    private Shield shield = null;   
+    
+    // World renderer
+    private WorldRenderer world;
+    
+    // for sprites
+    private final Image spriteDown = ImageLibrary.get().playerSpritesDOWN;
+    private final Image spriteUp = ImageLibrary.get().playerSpritesUP;
+    private final Image spriteLeft = ImageLibrary.get().playerSpritesLEFT;
+    private final Image spriteRight = ImageLibrary.get().playerSpritesRIGHT;
+
+      // Tracker variables
+    private boolean hasShotProjectile = false;
+    private boolean isInteracting = false;
+    private boolean isDead = false;
+    private double currentCooldown = 0;
+    private boolean uiOpen = false;    
+    private Vector2 curSpeed = new Vector2(); 
+    private final int regenBase   = 120;
+     private boolean halfHpWarning = false; // for the empress
+
+    public static boolean canMove;
+
+    // shield timers
+    private long lastShieldTime = 0;
+    private int shieldInterval = 300;
+    private boolean shieldJustEnded = false;
+    
+    // constructor
+    public Player(Vector2 position, int scale, int speed, int health, PlayableScreen scrn, GameFrame gameFrame)
+    {
+        super(position, scale, scrn);
+
+        this.stats = new PlayerStats(health, 10, 0, speed);
+
+        // Keep entity.health in sync for any legacy reads
+        this.health = stats.getCurrentHP();
+        this.speed  = stats.getSpeed();
+        this.playScrn = scrn;
+        this.inputs = this.playScrn.getInputManager();
+        this.world = this.playScrn.getWorldRenderer();
+        this.gameFrame = gameFrame;
+
+        collider = new RectangleCollider(this, true, 40, 40, 40 ,40);
+        this.collider.setIsMovable(true);
+        setImage(spriteDown);
+    }
+
+    // update
+    @Override
+    public void update(){ super.update();}
+
+    @Override
+    public void logicMethods()
+    {
+        this.health = stats.getCurrentHP();
+        this.speed  = stats.getSpeed();
+
+        if (stats.isShielded()) {
+
+            if (getImage() == spriteDown)
+                setImage(ImageLibrary.get().foolShieldDown);
+
+            else if (getImage() == spriteUp)
+                setImage(ImageLibrary.get().foolShieldUp);
+
+            else if (getImage() == spriteLeft)
+                setImage(ImageLibrary.get().foolShieldLeft);
+
+            else if (getImage() == spriteRight)
+                setImage(ImageLibrary.get().foolShieldRight);
+        }
+        checkRelicHealthSync();
+        if (world == null) return;
+
+        if (!isDead) {
+            
+            if(canMove)
+            {
+                inputOperations();
+            }
+            tickRegen();
+            checkHalfHpWarning();
+        } else {
+            SoundManager.get().playSFX("gameOver");
+            SaveSystem.resetToNewRun();
+            gameFrame.showPanel("lose");
+        }
+        tickShield();
+        isDead = (health <= 0);
+//         System.out.println(
+//     "PLAYER HP=" + health +
+//     " | STATS HP=" + stats.getCurrentHP() +
+//     " | MAX=" + stats.getMaxHP()
+// );
+    }
+
+
+    // ability / power-up application
+    public void applyAbility(PlayerAbility ability) {
+        if (ability == null) return;
+
+        int currentLevel = getAbilityLevel(ability);
+        if (currentLevel >= PlayerAbility.MAX_STACKS) return;   // already maxed
+ 
+        int nextLevel = currentLevel + 1;
+        abilityStacks.put(ability, nextLevel);
+
+        // look up and apply the PowerUp from the manager
+        PowerUp levelPowerUp = PowerUpManager.get(ability, nextLevel);
+        if (levelPowerUp != null) {
+            stats.applyPowerUp(levelPowerUp);
+            // Clamp current HP to new max
+            if (stats.getCurrentHP() > stats.getMaxHP()) {
+                stats.setCurrentHP(stats.getMaxHP());
+            }
+        }
+
+        switch (ability) {
+            case HP_REGEN, FORTIFIED_REGEN, SHIELD, SPEED_ENHANCE -> {
+                // addOrStack handles both "new effect" and "re-picked" cases.
+                StatusEffectManager.get().addOrStack(ability, 2);
+            }
+            case FLAME_SHOT, MULTI_SHOT -> {
+                StatusEffectManager.get().addOrStack(ability, Integer.MAX_VALUE);
+            }
+           
+        }
+
+        // gameplay-side effects (behaviours, projectile types, etc.)
+        onAbilityLevelGained(ability, nextLevel);
+        System.out.println(ability + " → level " + nextLevel);
+        
+    }
+
+     private void onAbilityLevelGained(PlayerAbility ability, int level) {
+        switch (ability) {
+            case HP_REGEN       -> { /* regen interval recalculated live */ }
+            case FLAME_SHOT     -> { /* damage handled by atk modifier */ }
+            case MULTI_SHOT     -> { /* projectile count handled by modifier */ }
+            case FORTIFIED_REGEN -> { /* DEF + MAX_HP modifiers applied */ }
+            case SHIELD         -> updateShieldCooldown(level);
+            case SPEED_ENHANCE  -> { /* speed modifier applied by PowerUpManager */ }
+        }
+    }
+
+    // input
+    public void inputOperations(){
+        
+        if (!uiOpen) 
+            {
+                movePlayer(); // Does not fight when UI is open
+                combatMethod();
+            }
+        checkInteracting();
+    }
+
+    private void movePlayer() 
+    {
+        Vector2 inpVector = inputs.getInputVector();
+        curSpeed = Vector2.multiply(inputs.getInputVector(), this.speed);
+
+        // Clamp movement speed so that it never exceeds speed
+        if(Math.abs(curSpeed.findMag()) > speed) curSpeed = Vector2.magConvert(curSpeed, speed);
+        move(curSpeed);
+        
+        // Set images, make looking up and down priority
+       if (inpVector.x > 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldRight);
+        else
+            setImage(spriteRight);
+    }
+
+    else if (inpVector.x < 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldLeft);
+        else
+            setImage(spriteLeft);
+    }
+
+    if (inpVector.y > 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldUp);
+        else
+            setImage(spriteUp);
+    }
+
+    else if (inpVector.y < 0) {
+
+        if (stats.isShielded())
+            setImage(ImageLibrary.get().foolShieldDown);
+        else
+            setImage(spriteDown);
+    }
+    }
+
+    // combat 
+    private void combatMethod()
+    {
+        if (currentCooldown > 0) currentCooldown--;
+        
+        if(!hasShotProjectile) // shoot once per click
+        {
+            if(inputs.consumeClick())
+            {   
+                shootProjectile();
+                
+                if (getImage() == spriteDown)
+                setImage(ImageLibrary.get().foolAtkDown);
+
+                else if (getImage() == spriteUp)
+                setImage(ImageLibrary.get().foolAtkUp);
+
+                else if (getImage() == spriteLeft)
+                setImage(ImageLibrary.get().foolAtkLeft);
+
+                else if (getImage() == spriteRight)
+                setImage(ImageLibrary.get().foolAtkRight);
+                hasShotProjectile = true;
+            }
+        } else
+        {
+            // reset when mouse released
+            if(!inputs.consumeClick()) hasShotProjectile = false;
+            
+        }
+    }
+
+    private void shootProjectile(){
+        // Checks if we can shoot after shooting the last shot
+        // cooldown
+
+        if (currentCooldown != 0) return;
+
+        Vector2 click = inputs.getClickPosition(); 
+        Vector2 baseDir  = Vector2.getUnitVector(this.position, click);       
+        int baseDmg  = stats.getAttack();
+        boolean heavy = hasAbility(PlayerAbility.MULTI_SHOT);
+        int count   = stats.getProjectileCount();   // 1, 3, 4, or 5
+
+        int flameLevel = getAbilityLevel(PlayerAbility.FLAME_SHOT);
+
+        double flameChance = switch (flameLevel) {
+            case 1 -> 0.30;
+            case 2 -> 0.35;
+            case 3 -> 0.40;
+            default -> 0.0;
+        };
+       
+        boolean flame = flameLevel > 0 && Math.random() < flameChance;
+
+        
+        
+        double[] angles = buildSpreadAngles(count);
+
+        for (double deg : angles) {
+            Vector2 velocity = rotate(baseDir, deg);
+            spawnProjectile(velocity, baseDmg, flame, flameLevel);
+        }
+
+        currentCooldown = heavy ? fireCooldown * 2 : fireCooldown;
+    }
+
+    private double[] buildSpreadAngles(int count) {
+        if (count <= 1) return new double[]{0};
+
+        double spread = 15.0 * (count - 1);   // total arc
+        double step   = spread / (count - 1);
+        double[] angles = new double[count];
+        for (int i = 0; i < count; i++) {
+            angles[i] = -spread / 2.0 + i * step;
+        }
+        return angles;
+    }
+
+    
+    private void spawnProjectile(Vector2 velocity, int baseDmg, boolean flame, int flameLevel) {
+    SoundManager.get().playSFX("shoot");
+
+    // flame Shot: fixed bonus damage by level, independent of ATK stat
+    int flameBonusDamage = 0;
+    if (flame) {
+        flameBonusDamage = switch (flameLevel) {
+            case 1 -> 3;   // Flame I  → +3
+            case 2 -> 5;   // Flame II → +5
+            case 3 -> 7;   // Flame III→ +7
+            default -> 0;
+        };
+    }
+
+    // universal crit — rolls for every projectile type
+    boolean isCrit = Math.random() < stats.getCritChance();
+    double critMult = isCrit ? stats.getCritMultiplier() : 1.0;
+
+    int finalDamage = (int) Math.round((baseDmg + flameBonusDamage) * critMult);
+
+    Image projectileImage = flame ? ImageLibrary.get().fireProjectile : ImageLibrary.get().projectile;      
+
+    Projectile p = new Projectile(
+        (int) getX(), (int) getY(),
+        velocity, 1, playScrn,
+        Player.class,
+        projectileImage
+    );
+
+    p.setDamage(finalDamage);
+    p.setCrit(isCrit);
+    world.addObject(p);
+}
+
+    // rotate a direction vector by degrees (used for spread shot)
+    private Vector2 rotate(Vector2 dir, double degrees) {
+        double rad = Math.toRadians(degrees);
+        double cos = Math.cos(rad), sin = Math.sin(rad);
+        double nx  = dir.x * cos - dir.y * sin;
+        double ny  = dir.x * sin + dir.y * cos;
+        return Vector2.multiply(new Vector2(nx, ny), projectileSpeed);
+    }
+
+    // regen
+     private void tickRegen() {
+        boolean hasRegen = hasAbility(PlayerAbility.HP_REGEN) || hasAbility(PlayerAbility.FORTIFIED_REGEN);
+        if (!hasRegen) return;
+
+        int regenLevel   = Math.max(getAbilityLevel(PlayerAbility.HP_REGEN), getAbilityLevel(PlayerAbility.FORTIFIED_REGEN));
+        regenInterval = Math.max(regenBase / regenLevel, 1);
+ 
+        regenTickCounter++;
+        if (regenTickCounter >= regenInterval) {
+            regenTickCounter = 0;
+            addHP(1);
+        }
+}
+
+    // for empress
+    private void checkHalfHpWarning() {
+        halfHpWarning = (stats.getCurrentHP() <= stats.getMaxHP() / 2);
+    }
+
+    //  shield
+    private void updateShieldCooldown(int level) {
+
+        if (world == null) {
+            System.out.println("Shield skipped: world is null");
+            return;
+        }
+
+        if (shield == null) {
+            shield = new Shield(this, playScrn);
+            world.addObject(shield);
+        }
+
+        // RESET TIMER WHEN LEVEL CHANGES
+
+        // SET COOLDOWN INTERVAL HERE (NOT IN tickShield)
+        shieldInterval = 300; 
+
+        System.out.println("Shield interval set to " + shieldInterval + " frames");
+    }
+ 
+    // Collision
+    @Override
+    public void onCollision()
+    {
+        // Double check if there is nothing being collided with
+        if(!this.collider.getCollidingWith().isEmpty())
+        {
+            ArrayList<CollisionObject> colList = this.collider.getCollidingWith();
+            boolean hashitUnmovable = false;
+            
+            for(int x = 0; x < colList.size() && !colList.isEmpty() ; x++)
+            {
+                // Unmovable object check
+                if(colList.get(x).getIsMovable() == false && hashitUnmovable == false)
+                {
+                    this.move(Vector2.multiply(this.getVelocity(), -1));
+                    hashitUnmovable = true;
+                }
+            }
+        }
+    }
+
+    private void checkRelicHealthSync() {
+    // Sync entity health with stats after relic changes
+        if (health != stats.getCurrentHP()) {
+            health = stats.getCurrentHP();
+    }
+}
+
+    @Override
+    public void onHit(int a)
+    {
+        minusHP((double)a);
+        SoundManager.get().playSFX("playerHit");
+
+    }
+
+    // HP helpers 
+    @Override
+    public void minusHP(double a) {
+
+        stats.takeDamage((int) a);
+
+        this.health = stats.getCurrentHP();
+
+        // check if we just hit 0 and DEATH relic can save us
+        if (this.health <= 0) {
+
+            boolean saved = RelicManager.get().tryResurrect(this);
+
+            if (saved) {
+                this.health = stats.getCurrentHP();
+                isDead = false;
+                return;
+            }
+        }
+    }
+
+    private void tickShield() {
+
+        if (!hasAbility(PlayerAbility.SHIELD))
+            return;
+
+        long now = System.currentTimeMillis();
+
+        long cooldown = 3000;   // time between shields
+        long duration = 3000;   // shield active time
+
+        // If shield is active, wait until it ends
+        if (stats.isShielded()) {
+
+            // mark that shield is currently active
+            shieldJustEnded = true;
+            return;
+        }
+
+        // if shield JUST ended, reset timer baseline
+        if (shieldJustEnded) {
+            lastShieldTime = now;
+            shieldJustEnded = false;
+            return;
+        }
+
+        // normal activation check
+        if (now - lastShieldTime >= cooldown) {
+
+            lastShieldTime = now;
+
+            stats.activateShield(duration);
+        }
+    }
+
+    @Override
+    public void addHP(double a) {
+        stats.heal((int) a);
+        this.health = stats.getCurrentHP();
+    }
+
+    @Override
+    public void setHealth(int hp) {
+        stats.setCurrentHP(hp);
+        this.health = stats.getCurrentHP();
+    }
+  
+    // abilitiy helper
+    public void addAbility(PlayerAbility ability) {
+        applyAbility(ability); 
+    }
+
+    public boolean hasAbility(PlayerAbility ability) {
+       return getAbilityLevel(ability) >= 1;
+    }   
+
+    @Override
+    public void onDeath(){}
+
+
+    public int getAbilityLevel(PlayerAbility ability) {
+        return abilityStacks.getOrDefault(ability, 0);
+    }
+
+    public Map<PlayerAbility, Integer> getAbilityMap()
+    {
+        return this.abilityStacks;
+    }
+
+    public void setAbilityMap(Map<PlayerAbility, Integer> a)
+    {
+        this.abilityStacks.clear();
+        this.abilityStacks.putAll(a);
+    }
+
+    public boolean isAbilityMaxed(PlayerAbility ability) {
+        return getAbilityLevel(ability) >= PlayerAbility.MAX_STACKS;
+    }
+    // Setters getters
+
+    public void setWorldRenderer(WorldRenderer w)
+    {
+        this.world = w;
+        System.out.println("Added a world renderer");
+    }
+  
+    // Getters
+    public double getHealth()    { return stats.getCurrentHP(); }
+    public int getMaxHP()     { return stats.getMaxHP(); }
+    public int getAttack()    { return stats.getAttack(); }
+    public int getDefense()   { return stats.getDefense(); }
+    public PlayerStats getStats()    { return stats; }
+    public boolean     isHalfHpWarning() { return halfHpWarning; }
+    
+    
+    public void setUIOpen(boolean open) {this.uiOpen = open;}
+    public boolean getUIOpen() {return this.uiOpen;}
+    public Vector2 getVelocity(){return curSpeed;}
+    public boolean isInteracting(){ return this.isInteracting;}
+    public void checkInteracting(){isInteracting = inputs.getIsInteracting();}
+}
