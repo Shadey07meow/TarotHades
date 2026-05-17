@@ -250,8 +250,9 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
     @Override
     public void onInitiate() {
-        
         SoundManager.get().playMusic("menuMusic");
+
+        
         this.inMenu = true;
         inp.resetInputs();
 
@@ -340,6 +341,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     public void run()
     {
         
+
 
 
         while(this.inMenu)
