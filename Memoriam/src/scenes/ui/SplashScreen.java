@@ -2,6 +2,7 @@ package scenes.ui;
 
 import images.ImageLibrary;
 import scenes.templates.UIScreen;
+import systems.SoundManager;
 
 import java.awt.*;
 import javax.swing.*;
@@ -28,6 +29,7 @@ public class SplashScreen extends UIScreen {
     public void onInitiate() {
 
         alpha = 1f;
+
 
         repaint();
 
