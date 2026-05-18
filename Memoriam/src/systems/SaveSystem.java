@@ -65,7 +65,7 @@ public class SaveSystem {
     }   
 
     public static void loadLastSave() {
-        File saveFile = new File("../../autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
         if (!saveFile.exists()) return;
 
         int level = 0;
@@ -173,7 +173,7 @@ public class SaveSystem {
     public static int getLevel()
     {
         
-        File saveFile = new File("../../autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
 
         int level = 0;
         if(!saveFile.exists()) return level;
@@ -207,7 +207,7 @@ public class SaveSystem {
 
     public static int getKills()
     {
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
 
         int kills = 0;
         if(!saveFile.exists()) return kills;
@@ -240,7 +240,7 @@ public class SaveSystem {
     
     public static int getHP()
     {
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
 
         int hp = 0;
         if(!saveFile.exists()) return hp;
@@ -274,7 +274,7 @@ public class SaveSystem {
     
     public static String getRelic()
     {
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
 
         String relicString = "";
         if(!saveFile.exists()) return relicString;
@@ -310,7 +310,7 @@ public class SaveSystem {
     {
         
         ArrayList<String> abs = new ArrayList<>();
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
         // System.out.println("Hello therse");
 
         //Map<PlayerAbility, Integer> outAbs = new Map<PlayerAbility, Integer>();  
@@ -355,7 +355,7 @@ public class SaveSystem {
 
     public static void resetToNewRun() {
 
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile))) {
 
@@ -373,4 +373,28 @@ public class SaveSystem {
             e.printStackTrace();
         }
     }
+
+
+        
+    private static String getAssetPath(String path) {
+
+        if (path.startsWith("/")) {
+
+            path = path.substring(1);
+        }
+
+            String basePath =
+                    System.getProperty("user.dir");
+
+            return basePath
+                    + java.io.File.separator
+                    + "Memoriam"
+                    + java.io.File.separator
+                    + path.replace(
+                            "/",
+                            java.io.File.separator
+        );
+    }
 }
+    
+
