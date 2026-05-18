@@ -57,6 +57,8 @@ public class GameFrame extends JFrame {
     public GameFrame(Dimension resolution) {   
              
         // Sets up the initialization of the window
+        SoundManager.get().playMusic("menuMusic");
+
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(resolution);
