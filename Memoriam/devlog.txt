@@ -8,6 +8,10 @@ KEEP THIS ON TOP
     javac -d Memoriam/bin -sourcepath src src/scenes/ui/MainGameDriver.java & java -cp bin  scenes.ui.MainGameDriver
     jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets 
 
+--> 05/18/2026
+    (CalRya)
+    - Fixed sound and img
+    -.
 --> 05/16/2026
     (CalRya)
     - Added credits and tutorial button

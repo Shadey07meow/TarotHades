@@ -1,72 +1,190 @@
-src
-├── collision
-│ ├── CollisionObject.java
-│ └── RectangleCollider.java
-├── images
-│ └── ImageLibrary.java
-├── object
-│ ├── BarrierObject.java
-│ ├── BlueWisp.java
-│ ├── Card.java
-│ ├── CardAbility.java
-│ ├── Enemy.java
-│ ├── EnemyProjectile.java
-│ ├── Entity.java
-│ ├── FinalBoss.java
-│ ├── GameObject.java
-│ ├── LobbyTreasureChest.java
-│ ├── MapObj.java
-│ ├── Player.java
-│ ├── PlayerAbility.java
-│ ├── Projectile.java
-│ ├── PurpleWisp.java
-│ ├── Rarity.java
-│ ├── Relic.java
-│ ├── RelicStatusEffect.java
-│ ├── Shield.java
-│ ├── StatusEffect.java
-│ ├── TreasureChest.java
-│ └── YellowWisp.java
-├── scenes
-│ ├── levels
-│ │ ├── BossLevel.java
-│ │ ├── GameStart.java
-│ │ ├── InfiniteLevel.java
-│ │ ├── Level1.java
-│ │ ├── Level2.java
-│ │ ├── Level3.java
-│ │ └── Level4.java
-│ ├── CreditScreen.java
-│ ├── CutsceneScreen.java
-│ ├── GameFrame.java
-│ ├── LoadingScreen.java
-│ ├── LoseScreen.java
-│ ├── MainGameDriver.java
-│ ├── MenuScreen.java
-│ ├── PauseScreen.java
-│ ├── PlayableScreen.java
-│ ├── PrologueScreen.java
-│ ├── ShowablePanel.java
-│ ├── UIScreen.java
-│ └── WinScreen.java
-└── systems
- ├── Bounds.java
- ├── CardManager.java
- ├── GameStats.java
- ├── HealthBar.java
- ├── InputManager.java
- ├── LevelManager.java
- ├── PauseUI.java
- ├── PlayerStats.java
- ├── PowerUp.java
- ├── PowerUpManager.java
- ├── RelicManager.java
- ├── SaveSystem.java
- ├── SceneManager.java
- ├── SoundManager.java
- ├── SpecialEffects.java
- ├── StatModifier.java
- ├── StatType.java
- ├── StatusEffectManager.java
- ├── Vector2.java
- └── WorldRenderer.java
+Memoriam
+├── assets
+│   ├── audio
+│   │   ├── music
+│   │   └── sfx
+│   ├── Cards
+│   ├── Default Object
+│   ├── MainAssets
+│   ├── maps
+│   ├── objects
+│   │   └── enemyAnim
+│   ├── Panels
+│   ├── PlayerSprites
+│   │   ├── animated
+│   │   │   └── idle
+│   │   ├── atk
+│   │   ├── hurt
+│   │   └── shield
+│   └── PowerUps
+├── autosave
+│   └── saveFile.4t
+├── bin
+│   ├── collision
+│   │   ├── CollisionObject.class
+│   │   └── RectangleCollider.class
+│   ├── images
+│   │   └── ImageLibrary.class
+│   ├── object
+│   │   ├── Entities
+│   │   │   ├── BlueWisp.class
+│   │   │   ├── Enemy.class
+│   │   │   ├── Entity.class
+│   │   │   ├── FinalBoss.class
+│   │   │   ├── Player.class
+│   │   │   ├── Player$1.class
+│   │   │   ├── PlayerAbility.class
+│   │   │   ├── PurpleWisp.class
+│   │   │   └── YellowWisp.class
+│   │   └── statics
+│   │       ├── BarrierObject.class
+│   │       ├── Card.class
+│   │       ├── GameObject.class
+│   │       ├── LobbyTreasureChest.class
+│   │       ├── MapObj.class
+│   │       ├── Projectile.class
+│   │       ├── Rarity.class
+│   │       ├── Relic.class
+│   │       ├── RelicStatusEffect.class
+│   │       ├── Shield.class
+│   │       ├── StatusEffect.class
+│   │       └── TreasureChest.class
+│   ├── scenes
+│   │   ├── levels
+│   │   │   ├── BossLevel.class
+│   │   │   ├── GameStart.class
+│   │   │   ├── InfiniteLevel.class
+│   │   │   ├── Level1.class
+│   │   │   ├── Level2.class
+│   │   │   ├── Level3.class
+│   │   │   ├── Level4.class
+│   │   │   └── TutorialScreen.class
+│   │   ├── templates
+│   │   │   ├── CutsceneScreen.class
+│   │   │   ├── CutsceneScreen$1.class
+│   │   │   ├── CutsceneScreen$State.class
+│   │   │   ├── PlayableScreen.class
+│   │   │   ├── PrologueScreen.class
+│   │   │   ├── PrologueScreen$1.class
+│   │   │   ├── PrologueScreen$State.class
+│   │   │   └── UIScreen.class
+│   │   └── ui
+│   │       ├── CreditScreen.class
+│   │       ├── GameFrame.class
+│   │       ├── GameFrame$1.class
+│   │       ├── LoseScreen.class
+│   │       ├── MenuScreen.class
+│   │       ├── PauseScreen.class
+│   │       ├── ShowablePanel.class
+│   │       ├── SplashScreen.class
+│   │       └── WinScreen.class
+│   ├── systems
+│   │   ├── Bounds.class
+│   │   ├── CardManager.class
+│   │   ├── CardManager$RelicCard.class
+│   │   ├── GameStats.class
+│   │   ├── HealthBar.class
+│   │   ├── HealthBar$1.class
+│   │   ├── InputManager.class
+│   │   ├── LevelManager.class
+│   │   ├── PauseUI.class
+│   │   ├── PlayerStats.class
+│   │   ├── PowerUp.class
+│   │   ├── PowerUpManager.class
+│   │   ├── RelicManager.class
+│   │   ├── RelicManager$1.class
+│   │   ├── SaveSystem.class
+│   │   ├── SoundManager.class
+│   │   ├── SpecialEffects.class
+│   │   ├── SpecialEffects$Effects.class
+│   │   ├── SpecialEffects$LoadingScreen.class
+│   │   ├── SpecialEffects$PopUpNumber.class
+│   │   ├── StatModifier.class
+│   │   ├── StatType.class
+│   │   ├── StatusEffectManager.class
+│   │   ├── StatusEffectManager$1.class
+│   │   ├── Vector2.class
+│   │   └── WorldRenderer.class
+│   └── MainGameDriver.class
+├── music
+├── src
+│   ├── collision
+│   │   ├── CollisionObject.java
+│   │   └── RectangleCollider.java
+│   ├── images
+│   │   └── ImageLibrary.java
+│   ├── object
+│   │   ├── Entities
+│   │   │   ├── BlueWisp.java
+│   │   │   ├── Enemy.java
+│   │   │   ├── Entity.java
+│   │   │   ├── FinalBoss.java
+│   │   │   ├── Player.java
+│   │   │   ├── PlayerAbility.java
+│   │   │   ├── PurpleWisp.java
+│   │   │   └── YellowWisp.java
+│   │   └── statics
+│   │       ├── BarrierObject.java
+│   │       ├── Card.java
+│   │       ├── CardAbility.java
+│   │       ├── GameObject.java
+│   │       ├── LobbyTreasureChest.java
+│   │       ├── MapObj.java
+│   │       ├── Projectile.java
+│   │       ├── Rarity.java
+│   │       ├── Relic.java
+│   │       ├── RelicStatusEffect.java
+│   │       ├── Shield.java
+│   │       ├── StatusEffect.java
+│   │       └── TreasureChest.java
+│   ├── scenes
+│   │   ├── levels
+│   │   │   ├── BossLevel.java
+│   │   │   ├── GameStart.java
+│   │   │   ├── InfiniteLevel.java
+│   │   │   ├── Level1.java
+│   │   │   ├── Level2.java
+│   │   │   ├── Level3.java
+│   │   │   ├── Level4.java
+│   │   │   └── TutorialScreen.java
+│   │   ├── templates
+│   │   │   ├── CutsceneScreen.java
+│   │   │   ├── PlayableScreen.java
+│   │   │   ├── PrologueScreen.java
+│   │   │   └── UIScreen.java
+│   │   └── ui
+│   │       ├── CreditScreen.java
+│   │       ├── GameFrame.java
+│   │       ├── LoadingScreen.java
+│   │       ├── LoseScreen.java
+│   │       ├── MenuScreen.java
+│   │       ├── PauseScreen.java
+│   │       ├── ShowablePanel.java
+│   │       ├── SplashScreen.java
+│   │       └── WinScreen.java
+│   ├── systems
+│   │   ├── Bounds.java
+│   │   ├── CardManager.java
+│   │   ├── GameStats.java
+│   │   ├── HealthBar.java
+│   │   ├── InputManager.java
+│   │   ├── LevelManager.java
+│   │   ├── PauseUI.java
+│   │   ├── PlayerStats.java
+│   │   ├── PowerUp.java
+│   │   ├── PowerUpManager.java
+│   │   ├── RelicManager.java
+│   │   ├── SaveSystem.java
+│   │   ├── SceneManager.java
+│   │   ├── SoundManager.java
+│   │   ├── SpecialEffects.java
+│   │   ├── StatModifier.java
+│   │   ├── StatType.java
+│   │   ├── StatusEffectManager.java
+│   │   ├── Vector2.java
+│   │   └── WorldRenderer.java
+│   └── MainGameDriver.java
+├── devlog.txt
+├── manifest.txt
+├── Memoriam.jar
+└── README.md
