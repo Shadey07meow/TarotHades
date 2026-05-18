@@ -63,7 +63,6 @@ public class Shield extends GameObject {
                 {
                     return;
                 }
-                SoundManager.get().playSFX("pickup");
                 world.removeObject(pr);
                 deactivate();
 
