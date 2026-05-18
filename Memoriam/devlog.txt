@@ -10,6 +10,9 @@ KEEP THIS ON TOP
 
     jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets 
 
+--> 05/18/2026
+    (CalRya)
+    - Fixed sound and img
 --> 05/16/2026
     (CalRya)
     - Added credits and tutorial button
