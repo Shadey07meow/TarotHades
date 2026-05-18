@@ -11,14 +11,14 @@ public class FinalBoss extends Enemy{
     // private final int maxHealth = 1;
     private double currentSpeed = 0;    
     private int shotCount;
-    private int shotsToSpawn = 20;
+    private int shotsToSpawn = 15;
 
     private int phase = 1;
 
     public FinalBoss(Vector2 position, double scale, PlayableScreen scrn)
     {
         super(position, scale, scrn);
-        this.fireCooldown = 0.1 * 1000;
+        this.fireCooldown = 0.2 * 1000;
         this.health = maxHealth;
         this.speed = currentSpeed;
         this.setImage(img.finalBoss);
@@ -103,8 +103,8 @@ public class FinalBoss extends Enemy{
             System.out.println("Entered phase 2");
             this.speed = 20;
             this.attackingRange = 750;
-            this.fireCooldown = 0.7 * 1000;
-            this.shotsToSpawn = 1;
+            this.fireCooldown = 0.5 * 1000;
+            this.shotsToSpawn = 5;
             this.phase = 2;
 
         }
