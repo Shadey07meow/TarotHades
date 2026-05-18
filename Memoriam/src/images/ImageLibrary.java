@@ -156,6 +156,7 @@ public class ImageLibrary {
         try {
 
             projectile = loadScaledImage("/assets/objects/projectile.png", 32, 32);
+            enemyProjectile = loadScaledImage("/assets/objects/enemyProjectile.png", 32, 32);
 
             playerSpritesDOWN = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_front.gif");
             playerSpritesLEFT = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_left.gif");
