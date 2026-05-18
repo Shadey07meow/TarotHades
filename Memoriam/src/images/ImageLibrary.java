@@ -445,60 +445,59 @@ public class ImageLibrary {
         }
     }
 
-        private BufferedImage loadImage(String path) {
+private BufferedImage loadImage(String path) {
 
-        try {
+    try {
 
-                String finalPath = getAssetPath(path);
+        String finalPath = getAssetPath(path);
 
-                System.out.println(finalPath);
+        System.out.println(finalPath);
 
-                return ImageIO.read(
-                        new java.io.File(finalPath)
-                );
+        return ImageIO.read(
+                new java.io.File(finalPath)
+        );
 
-        } catch (IOException e) {
+    } catch (IOException e) {
 
-                throw new RuntimeException(
-                        "Failed to load: " + path,
-                        e
-                );
-        }
-        }
+        throw new RuntimeException(
+                "Failed to load: " + path,
+                e
+        );
+    }
+}
 
 
 
-        private Image loadScaledImage(String path, int width, int height) 
-        {
-                return loadImage(path).getScaledInstance(
-                        width,
-                        height,
-                        Image.SCALE_SMOOTH
-                );
-        }
+private Image loadScaledImage(
+        String path,
+        int width,
+        int height
+) {
+
+    return loadImage(path).getScaledInstance(
+            width,
+            height,
+            Image.SCALE_SMOOTH
+    );
+}
+
 private String getAssetPath(String path) {
 
     if (path.startsWith("/")) {
+
         path = path.substring(1);
     }
 
-    try {
-        String exePath = new java.io.File(
-                ImageLibrary.class
-                        .getProtectionDomain()
-                        .getCodeSource()
-                        .getLocation()
-                        .toURI()
-        ).getParent();
+        String basePath =
+                System.getProperty("user.dir");
 
-        return exePath
+        return basePath
                 + java.io.File.separator
                 + "Memoriam"
                 + java.io.File.separator
-                + path.replace("/", java.io.File.separator);
-
-    } catch (Exception e) {
-        throw new RuntimeException("Path resolution failed", e);
-    }
-}
+                + path.replace(
+                        "/",
+                        java.io.File.separator
+                );
+        }
 }
