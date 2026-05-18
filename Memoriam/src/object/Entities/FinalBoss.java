@@ -11,7 +11,7 @@ public class FinalBoss extends Enemy{
     private final int maxHealth = 1;
     private double currentSpeed = 0;    
     private int shotCount;
-    private int shotsToSpawn = 100;
+    private int shotsToSpawn = 20;
 
     private int phase = 1;
 
@@ -24,7 +24,7 @@ public class FinalBoss extends Enemy{
         this.setImage(img.finalBoss);
         this.moveRightImg = img.finalBoss;
         this.moveLeftImg = img.finalBoss;
-        this.setDetectionDistance(999999);
+        this.setDetectionDistance(1500);
         this.hurtImg = img.finalBossHurt;
         this.damage = 1;
         this.setCollider(new RectangleCollider(this, true, 32, 32,32, 32));
