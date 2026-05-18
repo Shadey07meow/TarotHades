@@ -77,7 +77,11 @@ public class CreditScreen extends UIScreen {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setOpaque(false);
 
-        JLabel iconLabel = new JLabel(new ImageIcon(icon.getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+        JLabel iconLabel = new JLabel(
+            new ImageIcon(
+                ImageLibrary.get().calryaIcon
+            )
+        );
 
         JLabel text = new JLabel("<html>" + ign + "<br/>" + name + "<br/>" + desc + "</html>");
         text.setForeground(Color.WHITE);
