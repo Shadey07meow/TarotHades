@@ -23,7 +23,7 @@ public class SaveSystem {
 
     public static void saveProgress(int levelNumber, int playerHealth, Map<PlayerAbility, Integer> list, int kills)
     {
-        File saveFile = new File("../../Memoriam/autosave/saveFile.4t");
+        File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
         try
         {
             saveFile.createNewFile();

@@ -24,7 +24,7 @@ public class CreditScreen extends UIScreen {
                 ImageLibrary.get().calryaIcon,
                 "CalRya",
                 "Lindsay Salvacion",
-                "Graphics Programmer"
+                ("Graphics Programmer \nHand drawn all the assets")
         ));
 
 
@@ -79,7 +79,7 @@ public class CreditScreen extends UIScreen {
 
         JLabel iconLabel = new JLabel(
             new ImageIcon(
-                ImageLibrary.get().calryaIcon
+                icon.getScaledInstance(200, 200, Image.SCALE_SMOOTH)
             )
         );
 
