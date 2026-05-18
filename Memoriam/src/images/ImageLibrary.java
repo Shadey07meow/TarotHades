@@ -132,6 +132,8 @@ public class ImageLibrary {
     public final BufferedImage treasureChestH;
     public final Image projectile;
     public final BufferedImage fireProjectile;
+    public final Image enemyProjectile;
+    
 
     public final BufferedImage EmpressHover2;
 
@@ -160,6 +162,12 @@ public class ImageLibrary {
 
             projectile = loadScaledImage(
                     "/assets/objects/projectile.png",
+                    32,
+                    32
+            );
+
+            enemyProjectile = loadScaledImage(
+                    "/assets/objects/enemyProjectile.png",
                     32,
                     32
             );

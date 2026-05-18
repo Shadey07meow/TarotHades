@@ -259,7 +259,7 @@ public abstract class Enemy extends Entity {
 
         SoundManager.get().playSFX("shoot");
 
-        Projectile p = new Projectile((int)this.position.x, (int)this.position.y, projectileVelocity, 1, this.playScrn, Enemy.class, ImageLibrary.get().projectile );
+        Projectile p = new Projectile((int)this.position.x, (int)this.position.y, projectileVelocity, 1, this.playScrn, Enemy.class, ImageLibrary.get().enemyProjectile );
         p.setDamage(this.damage);
 
         // Make the projectile
