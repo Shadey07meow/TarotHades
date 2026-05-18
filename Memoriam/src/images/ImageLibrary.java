@@ -232,7 +232,7 @@ public class ImageLibrary {
                     64
             );
 
-            background = loadBuffered("/assets/Panels/menuScreenBG.png");
+            background = loadBuffered("assets/Panels/menuScreenBG.png");
             creditBackground = loadBuffered("/assets/Panels/creditBackground.png");
             loadingScreen = loadBuffered("/assets/Panels/loadingScreen.png");
             loseScreen = loadBuffered("/assets/Panels/loseScreen.png");
@@ -493,17 +493,8 @@ private String getAssetPath(String path) {
 
         path = path.substring(1);
     }
+    String thing = "../../Memoriam/" + path;
 
-        String basePath =
-                System.getProperty("user.dir");
-
-        return basePath
-                + java.io.File.separator
-                + "Memoriam"
-                + java.io.File.separator
-                + path.replace(
-                        "/",
-                        java.io.File.separator
-                );
+        return path;
         }
 }
