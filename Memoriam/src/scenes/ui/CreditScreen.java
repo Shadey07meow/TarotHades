@@ -43,10 +43,10 @@ public class CreditScreen extends UIScreen {
         ));
 
         creditsPanel.add(createCreditItem(
-                ImageLibrary.get().placeHolderIcon,
+                ImageLibrary.get().samIcon,
                 "Sam",
                 "Samantha Nicole Tabulao",
-                "Did Stuff"
+                "Sound Designer"
         ));
 
 

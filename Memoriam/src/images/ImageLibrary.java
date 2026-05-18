@@ -174,6 +174,8 @@ public class ImageLibrary
     public final BufferedImage calryaIcon;
     public final BufferedImage shadeyIcon;
     public final BufferedImage herielleIcon;
+    public final BufferedImage samIcon;
+    
 
 
 
@@ -375,6 +377,9 @@ private ImageLibrary()
                 calryaIcon = ImageIO.read(getImageFile("assets/MainAssets/calryaIcon.png"));
                 shadeyIcon = ImageIO.read(getImageFile("assets/MainAssets/shadey07Icon.png"));
                 herielleIcon = ImageIO.read(getImageFile("assets/MainAssets/herielleIcon.png"));
+                samIcon = ImageIO.read(getImageFile("assets/MainAssets/samIcon.png"));
+
+                
 
                 // Maps
         
