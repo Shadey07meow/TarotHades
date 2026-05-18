@@ -6,7 +6,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class ImageLibrary {
 
@@ -158,10 +160,10 @@ public class ImageLibrary {
             projectile = loadScaledImage("/assets/objects/projectile.png", 32, 32);
             enemyProjectile = loadScaledImage("/assets/objects/enemyProjectile.png", 32, 32);
 
-            playerSpritesDOWN = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_front.gif");
-            playerSpritesLEFT = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_left.gif");
-            playerSpritesUP = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_back.gif");
-            playerSpritesRIGHT = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_right.gif");
+            playerSpritesDOWN = loadGif("/assets/PlayerSprites/animated/idle/fool_idle_front.gif");
+            playerSpritesLEFT = loadGif("/assets/PlayerSprites/animated/idle/fool_idle_left.gif");
+            playerSpritesUP = loadGif("/assets/PlayerSprites/animated/idle/fool_idle_back.gif");
+            playerSpritesRIGHT = loadGif("/assets/PlayerSprites/animated/idle/fool_idle_right.gif");
 
             foolShieldDown = loadImage("/assets/PlayerSprites/shield/foolShieldDown.png");
             foolShieldRight = loadImage("/assets/PlayerSprites/shield/foolShieldRight.png");
@@ -268,12 +270,12 @@ public class ImageLibrary {
             rawProjectile = loadImage("/assets/objects/projectile.png");
             fireProjectile = loadImage("/assets/objects/fireProjectile.png");
 
-            blueLEFT = loadImage("/assets/objects/enemyAnim/blueLeft.gif");
-            blueRIGHT = loadImage("/assets/objects/enemyAnim/blueRight.gif");
-            purpleLEFT = loadImage("/assets/objects/enemyAnim/purpleLeft.gif");
-            purpleRIGHT = loadImage("/assets/objects/enemyAnim/purpleRight.gif");
-            yellowLEFT = loadImage("/assets/objects/enemyAnim/yellowLeft.gif");
-            yellowRIGHT = loadImage("/assets/objects/enemyAnim/yellowRight.gif");
+            blueLEFT = loadGif("/assets/objects/enemyAnim/blueLeft.gif");
+            blueRIGHT = loadGif("/assets/objects/enemyAnim/blueRight.gif");
+            purpleLEFT = loadGif("/assets/objects/enemyAnim/purpleLeft.gif");
+            purpleRIGHT = loadGif("/assets/objects/enemyAnim/purpleRight.gif");
+            yellowLEFT = loadGif("/assets/objects/enemyAnim/yellowLeft.gif");
+            yellowRIGHT = loadGif("/assets/objects/enemyAnim/yellowRight.gif");
 
             finalBoss = loadScaledImage("/assets/objects/enemyAnim/finalBoss.png", 32 * 4, 40 * 4);
             enemyHurt = loadImage("/assets/objects/enemyHurt.png");
@@ -281,7 +283,7 @@ public class ImageLibrary {
 
             heart = loadImage("/assets/MainAssets/heart.png");
             deadHeart = loadImage("/assets/MainAssets/heartDead.png");
-            splash = loadImage("/assets/MainAssets/splash.gif");
+            splash = loadGif("/assets/MainAssets/splash.gif");
 
             calryaIcon = loadImage("/assets/MainAssets/calryaIcon.png");
             shadeyIcon = loadImage("/assets/MainAssets/shadey07Icon.png");
@@ -332,4 +334,16 @@ public class ImageLibrary {
                 + File.separator
                 + path.replace("/", File.separator);
     }
+
+    private Image loadGif(String path) {
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+                return new ImageIcon(url).getImage();
+        }
+
+        // fallback filesystem (IDE mode)
+        String finalPath = getAssetPath(path);
+        return new ImageIcon(finalPath).getImage();
+        }
 }
