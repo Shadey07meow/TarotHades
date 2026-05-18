@@ -1,8 +1,8 @@
 package systems;
 
-import javax.sound.sampled.*;
 import java.io.File;
 import java.util.HashMap;
+import javax.sound.sampled.*;
 
 public class SoundManager {
 
@@ -23,46 +23,47 @@ public class SoundManager {
     private SoundManager() {
 
         // MUSIC
-        sounds.put("menuMusic", "assets/audio/music/mainMenu.wav");
-        sounds.put("lobbyMusic", "assets/audio/music/lobby.wav");
-        sounds.put("gameMusic", "assets/audio/music/gameplay.wav");
-        sounds.put("bossMusic", "assets/audio/music/boss.wav");
-        sounds.put("storyMusic", "assets/audio/music/story.wav");
+        sounds.put("menuMusic", "Memoriam/assets/audio/music/mainMenu.wav");
+        sounds.put("lobbyMusic", "Memoriam/assets/audio/music/lobby.wav");
+        sounds.put("gameMusic", "Memoriam/assets/audio/music/gameplay.wav");
+        sounds.put("bossMusic", "Memoriam/assets/audio/music/boss.wav");
+        sounds.put("storyMusic", "Memoriam/assets/audio/music/story.wav");
 
         // SFX
-        sounds.put("button", "assets/audio/sfx/buttonClick.wav");
-        sounds.put("shoot", "assets/audio/sfx/shoot.wav");
-        sounds.put("enemyHit", "assets/audio/sfx/enemyHit.wav");
-        sounds.put("playerHit", "assets/audio/sfx/playerHit.wav");
-        sounds.put("enemyDeath", "assets/audio/sfx/enemyDeath.wav");
-        sounds.put("pickup", "assets/audio/sfx/pickup.wav");
-        sounds.put("chestOpen", "assets/audio/sfx/chestOpen.wav");
-        sounds.put("gameOver", "assets/audio/sfx/gameOver.wav");
+        sounds.put("button", "Memoriam/assets/audio/sfx/buttonClick.wav");
+        sounds.put("shoot", "Memoriam/assets/audio/sfx/shoot.wav");
+        sounds.put("enemyHit", "Memoriam/assets/audio/sfx/enemyHit.wav");
+        sounds.put("playerHit", "Memoriam/assets/audio/sfx/playerHit.wav");
+        sounds.put("enemyDeath", "Memoriam/assets/audio/sfx/enemyDeath.wav");
+        sounds.put("pickup", "Memoriam/assets/audio/sfx/pickup.wav");
+        sounds.put("chestOpen", "Memoriam/assets/audio/sfx/chestOpen.wav");
+        sounds.put("gameOver", "Memoriam/assets/audio/sfx/gameOver.wav");
     }
 
     // PLAY MUSIC
-    public  void playMusic(String key) {
+public void playMusic(String key) {
+    try {
+        stopMusic();
 
-        try {
+        File file = new File(sounds.get(key));
 
-            stopMusic();
-
-            AudioInputStream audio =
-                    AudioSystem.getAudioInputStream(
-                            new File(sounds.get(key)));
-
-            currentMusic = AudioSystem.getClip();
-
-            currentMusic.open(audio);
-
-            currentMusic.loop(Clip.LOOP_CONTINUOUSLY);
-
-            currentMusic.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!file.exists()) {
+            System.out.println("Missing music file: " + file.getAbsolutePath());
+            return;
         }
+
+        AudioInputStream audio = AudioSystem.getAudioInputStream(file);
+
+        currentMusic = AudioSystem.getClip();
+        currentMusic.open(audio);
+        currentMusic.loop(Clip.LOOP_CONTINUOUSLY);
+        System.out.println(System.getProperty("user.dir"));
+        currentMusic.start();
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 
     // STOP MUSIC
     public  void stopMusic() {
@@ -76,22 +77,23 @@ public class SoundManager {
     }
 
     // PLAY SOUND EFFECT
-    public void playSFX(String key) {
+public void playSFX(String key) {
+    try {
+        File file = new File(sounds.get(key));
 
-        try {
-
-            AudioInputStream audio =
-                    AudioSystem.getAudioInputStream(
-                            new File(sounds.get(key)));
-
-            Clip clip = AudioSystem.getClip();
-
-            clip.open(audio);
-
-            clip.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!file.exists()) {
+            System.out.println("Missing SFX file: " + file.getAbsolutePath());
+            return;
         }
+
+        AudioInputStream audio = AudioSystem.getAudioInputStream(file);
+
+        Clip clip = AudioSystem.getClip();
+        clip.open(audio);
+        clip.start();
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 }
