@@ -3,9 +3,10 @@ package images;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class ImageLibrary {
 
@@ -55,11 +56,6 @@ public class ImageLibrary {
     public final BufferedImage creditBtnHover;
     public final BufferedImage tutorialBtnHover;
 
-    public final Image playerHurtUP;
-    public final Image playerHurtDOWN;
-    public final Image playerHurtLEFT;
-    public final Image playerHurtRIGHT;
-
     public final Image playerSpritesUP;
     public final Image playerSpritesDOWN;
     public final Image playerSpritesLEFT;
@@ -91,8 +87,6 @@ public class ImageLibrary {
 
     public final Image quillCursor;
     public final Image swordCursor;
-
-    private Graphics2D g2;
 
     public final BufferedImage rawMap;
     public final BufferedImage rawProjectile;
@@ -130,12 +124,11 @@ public class ImageLibrary {
     public final BufferedImage treasureChest;
     public final BufferedImage lockedTreasureChest;
     public final BufferedImage treasureChestH;
+
     public final Image projectile;
     public final BufferedImage fireProjectile;
-    public final Image enemyProjectile;
-    
+        public final Image enemyProjectile;
 
-    public final BufferedImage EmpressHover2;
 
     public final BufferedImage iconAceOfWands;
     public final BufferedImage iconDeath;
@@ -150,351 +143,192 @@ public class ImageLibrary {
     public final BufferedImage heart;
     public final BufferedImage deadHeart;
     public final Image splash;
-    public final BufferedImage placeHolderIcon;
+
     public final BufferedImage calryaIcon;
     public final BufferedImage shadeyIcon;
     public final BufferedImage herielleIcon;
     public final BufferedImage samIcon;
 
+    private Graphics2D g2;
+
     private ImageLibrary() {
 
         try {
 
-            projectile = loadScaledImage(
-                    "/assets/objects/projectile.png",
-                    32,
-                    32
-            );
+            projectile = loadScaledImage("/assets/objects/projectile.png", 32, 32);
 
-            enemyProjectile = loadScaledImage(
-                    "/assets/objects/enemyProjectile.png",
-                    32,
-                    32
-            );
+            playerSpritesDOWN = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_front.gif");
+            playerSpritesLEFT = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_left.gif");
+            playerSpritesUP = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_back.gif");
+            playerSpritesRIGHT = loadImage("/assets/PlayerSprites/animated/idle/fool_idle_right.gif");
 
-            playerSpritesDOWN = loadImage(
-                    "/assets/PlayerSprites/animated/idle/fool_idle_front.gif"
-            );
+            foolShieldDown = loadImage("/assets/PlayerSprites/shield/foolShieldDown.png");
+            foolShieldRight = loadImage("/assets/PlayerSprites/shield/foolShieldRight.png");
+            foolShieldLeft = loadImage("/assets/PlayerSprites/shield/foolShieldLeft.png");
+            foolShieldUp = loadImage("/assets/PlayerSprites/shield/foolShieldUp.png");
 
-            playerSpritesLEFT = loadImage(
-                    "/assets/PlayerSprites/animated/idle/fool_idle_left.gif"
-            );
+            foolAtkDown = loadImage("/assets/PlayerSprites/atk/foolDownAtk.PNG");
+            foolAtkRight = loadImage("/assets/PlayerSprites/atk/foolRightAtk.PNG");
+            foolAtkLeft = loadImage("/assets/PlayerSprites/atk/foolLeftAtk.PNG");
+            foolAtkUp = loadImage("/assets/PlayerSprites/atk/foolUpAtk.PNG");
 
-            playerSpritesUP = loadImage(
-                    "/assets/PlayerSprites/animated/idle/fool_idle_back.gif"
-            );
+            quillCursor = loadScaledImage("/assets/MainAssets/cursor.png", 64, 64);
+            swordCursor = loadScaledImage("/assets/MainAssets/swordCursor.png", 64, 64);
 
-            playerSpritesRIGHT = loadImage(
-                    "/assets/PlayerSprites/animated/idle/fool_idle_right.gif"
-            );
+            background = loadImage("/assets/Panels/menuScreenBG.png");
+            creditBackground = loadImage("/assets/Panels/creditBackground.png");
+            loadingScreen = loadImage("/assets/Panels/loadingScreen.png");
+            loseScreen = loadImage("/assets/Panels/loseScreen.png");
+            boboLogo = loadImage("/assets/Panels/boboFront.png");
+            logo = loadImage("/assets/Panels/logo.png");
 
-            foolShieldDown = loadImage(
-                    "/assets/PlayerSprites/shield/foolShieldDown.png"
-            );
+            exitBtn = loadImage("/assets/Panels/exitBtn.PNG");
+            practiceBtn = loadImage("/assets/Panels/practiceBtn.png");
+            startBtn = loadImage("/assets/Panels/startBtn.PNG");
+            backBtn = loadImage("/assets/Panels/backBtn.png");
+            mainMenuBtn = loadImage("/assets/Panels/mainMenu.png");
+            quitBtn = loadImage("/assets/Panels/quitBtn.png");
+            quitBtnGO = loadImage("/assets/Panels/quitBtnGO.png");
+            resumeBtn = loadImage("/assets/Panels/resumeBtn.png");
+            resumeBtnHover = loadImage("/assets/Panels/resumeButtonHover.png");
+            restartBtn = loadImage("/assets/Panels/restart.png");
 
-            foolShieldRight = loadImage(
-                    "/assets/PlayerSprites/shield/foolShieldRight.png"
-            );
+            placeholderBtn = loadImage("/assets/Panels/placeholderBtn.png");
+            quitBtnExit = loadImage("/assets/Panels/quitBtnExit.png");
+            creditBtn = loadImage("/assets/Panels/creditBtn.png");
+            tutorialBtn = loadImage("/assets/Panels/tutorialBtn.png");
 
-            foolShieldLeft = loadImage(
-                    "/assets/PlayerSprites/shield/foolShieldLeft.png"
-            );
+            pauseBg = loadImage("/assets/Panels/pauseBg.png");
+            loadSaveBtn = loadImage("/assets/Panels/loadSave.png");
+            loadSaveBtnHover = loadImage("/assets/Panels/loadSaveHover.png");
+            newSaveButton = loadImage("/assets/Panels/newSaveButton.png");
+            newSaveButtonHover = loadImage("/assets/Panels/newSaveButtonHover.png");
+            loadBg = loadImage("/assets/Panels/backDrop2.png");
 
-            foolShieldUp = loadImage(
-                    "/assets/PlayerSprites/shield/foolShieldUp.png"
-            );
+            exitBtnHover = loadImage("/assets/Panels/exitBtnHover.png");
+            practiceBtnHover = loadImage("/assets/Panels/practiceBtnHover.png");
+            startBtnHover = loadImage("/assets/Panels/startBtnHover.png");
+            backBtnHover = loadImage("/assets/Panels/backBtnHover.png");
+            placeholderBtnHover = loadImage("/assets/Panels/placeholderBtnHover.png");
+            creditBtnHover = loadImage("/assets/Panels/creditBtnHover.png");
+            tutorialBtnHover = loadImage("/assets/Panels/tutorialBtnHover.png");
 
-            foolAtkDown = loadImage(
-                    "/assets/PlayerSprites/atk/foolDownAtk.PNG"
-            );
+            rawMap = loadImage("/assets/MainAssets/mapTest.png");
 
-            foolAtkRight = loadImage(
-                    "/assets/PlayerSprites/atk/foolRightAtk.PNG"
-            );
-
-            foolAtkLeft = loadImage(
-                    "/assets/PlayerSprites/atk/foolLeftAtk.PNG"
-            );
-
-            foolAtkUp = loadImage(
-                    "/assets/PlayerSprites/atk/foolUpAtk.PNG"
-            );
-
-            quillCursor = loadScaledImage(
-                    "/assets/MainAssets/cursor.png",
-                    64,
-                    64
-            );
-
-            swordCursor = loadScaledImage(
-                    "/assets/MainAssets/swordCursor.png",
-                    64,
-                    64
-            );
-
-            background = loadBuffered("assets/Panels/menuScreenBG.png");
-            creditBackground = loadBuffered("/assets/Panels/creditBackground.png");
-            loadingScreen = loadBuffered("/assets/Panels/loadingScreen.png");
-            loseScreen = loadBuffered("/assets/Panels/loseScreen.png");
-            boboLogo = loadBuffered("/assets/Panels/boboFront.png");
-            logo = loadBuffered("/assets/Panels/logo.png");
-
-            playerHurtUP = loadBuffered("/assets/PlayerSprites/hurt/foolUpHurt.png");
-            playerHurtDOWN = loadBuffered("/assets/PlayerSprites/hurt/foolDownHurt.png");
-            playerHurtLEFT = loadBuffered("/assets/PlayerSprites/hurt/foolLeftHurt.png");
-            playerHurtRIGHT = loadBuffered("/assets/PlayerSprites/hurt/foolRightHurt.png");
-
-            exitBtn = loadBuffered("/assets/Panels/exitBtn.png");
-            practiceBtn = loadBuffered("/assets/Panels/practiceBtn.png");
-            startBtn = loadBuffered("/assets/Panels/startBtn.png");
-            backBtn = loadBuffered("/assets/Panels/backBtn.png");
-            mainMenuBtn = loadBuffered("/assets/Panels/mainMenu.png");
-            quitBtn = loadBuffered("/assets/Panels/quitBtn.png");
-            quitBtnGO = loadBuffered("/assets/Panels/quitBtnGO.png");
-            resumeBtn = loadBuffered("/assets/Panels/resumeBtn.png");
-            resumeBtnHover = loadBuffered("/assets/Panels/resumeButtonHover.png");
-            restartBtn = loadBuffered("/assets/Panels/restart.png");
-            placeholderBtn = loadBuffered("/assets/Panels/placeholderBtn.png");
-            quitBtnExit = loadBuffered("/assets/Panels/quitBtnExit.png");
-            creditBtn = loadBuffered("/assets/Panels/creditBtn.png");
-            tutorialBtn = loadBuffered("/assets/Panels/tutorialBtn.png");
-
-            pauseBg = loadBuffered("/assets/Panels/pauseBg.png");
-            loadSaveBtn = loadBuffered("/assets/Panels/loadSave.png");
-            loadSaveBtnHover = loadBuffered("/assets/Panels/loadSaveHover.png");
-            newSaveButton = loadBuffered("/assets/Panels/newSaveButton.png");
-            newSaveButtonHover = loadBuffered("/assets/Panels/newSaveButtonHover.png");
-            loadBg = loadBuffered("/assets/Panels/backDrop2.png");
-
-            exitBtnHover = loadBuffered("/assets/Panels/exitBtnHover.png");
-            practiceBtnHover = loadBuffered("/assets/Panels/practiceBtnHover.png");
-            startBtnHover = loadBuffered("/assets/Panels/startBtnHover.png");
-            backBtnHover = loadBuffered("/assets/Panels/backBtnHover.png");
-            placeholderBtnHover = loadBuffered("/assets/Panels/placeholderBtnHover.png");
-            creditBtnHover = loadBuffered("/assets/Panels/creditBtnHover.png");
-            tutorialBtnHover = loadBuffered("/assets/Panels/tutorialBtnHover.png");
-
-            rawMap = loadBuffered("/assets/MainAssets/mapTest.png");
-
-            map = new BufferedImage(
-                    32 * 80,
-                    16 * 80,
-                    BufferedImage.TYPE_INT_ARGB
-            );
-
+            map = new BufferedImage(32 * 80, 16 * 80, BufferedImage.TYPE_INT_ARGB);
             g2 = map.createGraphics();
-
-            g2.setRenderingHint(
-                    java.awt.RenderingHints.KEY_INTERPOLATION,
-                    java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR
-            );
-
-            g2.drawImage(
-                    rawMap,
-                    0,
-                    0,
-                    32 * 150,
-                    16 * 150,
-                    null
-            );
-
+            g2.drawImage(rawMap, 0, 0, 32 * 150, 16 * 150, null);
             g2.dispose();
 
-            map0 = loadScaledImage(
-                    "/assets/maps/lobby.png",
-                    1920,
-                    1080
-            );
+            map0 = loadScaledImage("/assets/maps/lobby.png", 1920, 1080);
+            map1 = loadScaledImage("/assets/maps/map1.png", 1920, 4320);
+            map2 = loadScaledImage("/assets/maps/map2.png", 1920, 4320);
+            map3 = loadScaledImage("/assets/maps/map3.png", 1920, 4320);
+            map4 = loadScaledImage("/assets/maps/map4.png", 1920, 4320);
+            map5 = loadScaledImage("/assets/maps/boss map.png", 1920, 4320);
+            infiniteMap = loadScaledImage("/assets/maps/infiniteMap.png", 1920, 4320);
+            tutorialMap = loadImage("/assets/maps/tutorialMap.png");
 
-            map1 = loadScaledImage(
-                    "/assets/maps/map1.png",
-                    1920,
-                    4320
-            );
+            Empress = loadImage("/assets/Cards/Empress.png");
+            KnightOfWands = loadImage("/assets/Cards/KnightOfWands.png");
+            Magician = loadImage("/assets/Cards/Magician.png");
+            NineOfPentacles = loadImage("/assets/Cards/NineOfPentacles.png");
+            QueenOfCups = loadImage("/assets/Cards/QueenOfCups.png");
+            TenOfSwords = loadImage("/assets/Cards/TenOfSwords.png");
+            TwoOfCups = loadImage("/assets/Cards/TwoOfCups.png");
+            AceOfWands = loadImage("/assets/Cards/AceOfWands.png");
+            Death = loadImage("/assets/Cards/Death.png");
 
-            map2 = loadScaledImage(
-                    "/assets/maps/map2.png",
-                    1920,
-                    4320
-            );
+            EmpressHover = loadImage("/assets/Cards/EmpressHover.png");
+            KnightOfWandsHover = loadImage("/assets/Cards/KnightOfWandsHover.png");
+            MagicianHover = loadImage("/assets/Cards/MagicianHover.png");
+            NineOfPentaclesHover = loadImage("/assets/Cards/NineOfPentaclesHover.png");
+            QueenOfCupsHover = loadImage("/assets/Cards/QueenOfCupsHover.png");
+            TenOfSwordsHover = loadImage("/assets/Cards/TenOfSwordsHover.png");
+            TwoOfCupsHover = loadImage("/assets/Cards/TwoOfCupsHover.png");
+            AceOfWandsHover = loadImage("/assets/Cards/AceOfWandsHover.png");
+            DeathHover = loadImage("/assets/Cards/DeathHover.png");
 
-            map3 = loadScaledImage(
-                    "/assets/maps/map3.png",
-                    1920,
-                    4320
-            );
+            // FIXED PATH: PowerUps (capital U)
+            iconTheEmpress = loadImage("/assets/PowerUps/TheEmpress.png");
+            iconKnightOfWands = loadImage("/assets/PowerUps/KnightOfWands.png");
+            iconTheMagician = loadImage("/assets/PowerUps/TheMagician.png");
+            iconNineOfPentacles = loadImage("/assets/PowerUps/NineofPentacles.png");
+            iconQueenOfCups = loadImage("/assets/PowerUps/QueenofCups.png");
+            iconTenOfSwords = loadImage("/assets/PowerUps/TenOfSwords.png");
+            iconTwoOfCups = loadImage("/assets/PowerUps/TwoOfCups.png");
+            iconAceOfWands = loadImage("/assets/PowerUps/AceofWands.png");
+            iconDeath = loadImage("/assets/PowerUps/Death.png");
 
-            map4 = loadScaledImage(
-                    "/assets/maps/map4.png",
-                    1920,
-                    4320
-            );
+            treasureChest = loadImage("/assets/MainAssets/treasureChest.png");
+            lockedTreasureChest = loadImage("/assets/MainAssets/lockedChest.png");
+            treasureChestH = loadImage("/assets/MainAssets/treasureChestHighlighted.png");
 
-            map5 = loadScaledImage(
-                    "/assets/maps/boss map.png",
-                    1920,
-                    4320
-            );
+            rawProjectile = loadImage("/assets/objects/projectile.png");
+            fireProjectile = loadImage("/assets/objects/fireProjectile.png");
 
-            infiniteMap = loadScaledImage(
-                    "/assets/maps/infiniteMap.png",
-                    1920,
-                    4320
-            );
+            blueLEFT = loadImage("/assets/objects/enemyAnim/blueLeft.gif");
+            blueRIGHT = loadImage("/assets/objects/enemyAnim/blueRight.gif");
+            purpleLEFT = loadImage("/assets/objects/enemyAnim/purpleLeft.gif");
+            purpleRIGHT = loadImage("/assets/objects/enemyAnim/purpleRight.gif");
+            yellowLEFT = loadImage("/assets/objects/enemyAnim/yellowLeft.gif");
+            yellowRIGHT = loadImage("/assets/objects/enemyAnim/yellowRight.gif");
 
-            tutorialMap = loadImage(
-                    "/assets/maps/tutorialMap.png"
-            );
+            finalBoss = loadScaledImage("/assets/objects/enemyAnim/finalBoss.png", 32 * 4, 40 * 4);
+            enemyHurt = loadImage("/assets/objects/enemyHurt.png");
+            finalBossHurt = loadScaledImage("/assets/objects/finalBossHurt.png", 32 * 4, 40 * 4);
 
-            Empress = loadBuffered("/assets/Cards/Empress.png");
-            KnightOfWands = loadBuffered("/assets/Cards/KnightOfWands.png");
-            Magician = loadBuffered("/assets/Cards/Magician.png");
-            NineOfPentacles = loadBuffered("/assets/Cards/NineOfPentacles.png");
-            QueenOfCups = loadBuffered("/assets/Cards/QueenOfCups.png");
-            TenOfSwords = loadBuffered("/assets/Cards/TenOfSwords.png");
-            TwoOfCups = loadBuffered("/assets/Cards/TwoOfCups.png");
-            AceOfWands = loadBuffered("/assets/Cards/AceOfWands.png");
-            Death = loadBuffered("/assets/Cards/Death.png");
+            heart = loadImage("/assets/MainAssets/heart.png");
+            deadHeart = loadImage("/assets/MainAssets/heartDead.png");
+            splash = loadImage("/assets/MainAssets/splash.gif");
 
-            EmpressHover = loadBuffered("/assets/Cards/EmpressHover.png");
-            KnightOfWandsHover = loadBuffered("/assets/Cards/KnightOfWandsHover.png");
-            MagicianHover = loadBuffered("/assets/Cards/MagicianHover.png");
-            NineOfPentaclesHover = loadBuffered("/assets/Cards/NineOfPentaclesHover.png");
-            QueenOfCupsHover = loadBuffered("/assets/Cards/QueenOfCupsHover.png");
-            TenOfSwordsHover = loadBuffered("/assets/Cards/TenOfSwordsHover.png");
-            TwoOfCupsHover = loadBuffered("/assets/Cards/TwoOfCupsHover.png");
-            AceOfWandsHover = loadBuffered("/assets/Cards/AceOfWandsHover.png");
-            DeathHover = loadBuffered("/assets/Cards/DeathHover.png");
-
-            iconTheEmpress = loadBuffered("/assets/Powerups/TheEmpress.png");
-            iconKnightOfWands = loadBuffered("/assets/Powerups/KnightOfWands.png");
-            iconTheMagician = loadBuffered("/assets/Powerups/TheMagician.png");
-            iconNineOfPentacles = loadBuffered("/assets/Powerups/NineofPentacles.png");
-            iconQueenOfCups = loadBuffered("/assets/Powerups/QueenofCups.png");
-            iconTenOfSwords = loadBuffered("/assets/Powerups/TenOfSwords.png");
-            iconTwoOfCups = loadBuffered("/assets/Powerups/TwoOfCups.png");
-            iconAceOfWands = loadBuffered("/assets/Powerups/AceofWands.png");
-            iconDeath = loadBuffered("/assets/Powerups/Death.png");
-
-            EmpressHover2 = loadBuffered("/assets/Cards/EmpressHover.png");
-
-            treasureChest = loadBuffered("/assets/MainAssets/treasureChest.png");
-            lockedTreasureChest = loadBuffered("/assets/MainAssets/lockedChest.png");
-            treasureChestH = loadBuffered("/assets/MainAssets/treasureChestHighlighted.png");
-
-            rawProjectile = loadBuffered("/assets/objects/projectile.png");
-            fireProjectile = loadBuffered("/assets/objects/fireProjectile.png");
-
-            blueLEFT = loadImage(
-                    "/assets/objects/enemyAnim/blueLeft.gif"
-            );
-
-            blueRIGHT = loadImage(
-                    "/assets/objects/enemyAnim/blueRight.gif"
-            );
-
-            purpleLEFT = loadImage(
-                    "/assets/objects/enemyAnim/purpleLeft.gif"
-            );
-
-            purpleRIGHT = loadImage(
-                    "/assets/objects/enemyAnim/purpleRight.gif"
-            );
-
-            yellowLEFT = loadImage(
-                    "/assets/objects/enemyAnim/yellowLeft.gif"
-            );
-
-            yellowRIGHT = loadImage(
-                    "/assets/objects/enemyAnim/yellowRight.gif"
-            );
-
-            finalBoss = loadScaledImage(
-                    "/assets/objects/enemyAnim/finalBoss.png",
-                    32 * 4,
-                    40 * 4
-            );
-
-            enemyHurt = loadBuffered(
-                    "/assets/objects/enemyHurt.png"
-            );
-
-            finalBossHurt = loadScaledImage(
-                    "/assets/objects/finalBossHurt.png",
-                    32 * 4,
-                    40 * 4
-            );
-
-            heart = loadBuffered("/assets/MainAssets/heart.png");
-            deadHeart = loadBuffered("/assets/MainAssets/heartDead.png");
-
-            splash = loadImage(
-                    "/assets/MainAssets/splash.gif"
-            );
-
-            placeHolderIcon = loadBuffered("/assets/MainAssets/placeholderIcon.png");
-            calryaIcon = loadBuffered("/assets/MainAssets/calryaIcon.png");
-            shadeyIcon = loadBuffered("/assets/MainAssets/shadey07Icon.png");
-            herielleIcon = loadBuffered("/assets/MainAssets/herielleIcon.png");
-            samIcon = loadBuffered("/assets/MainAssets/samIcon.png");
+            calryaIcon = loadImage("/assets/MainAssets/calryaIcon.png");
+            shadeyIcon = loadImage("/assets/MainAssets/shadey07Icon.png");
+            herielleIcon = loadImage("/assets/MainAssets/herielleIcon.png");
+            samIcon = loadImage("/assets/MainAssets/samIcon.png");
 
         } catch (Exception e) {
-            throw new RuntimeException(
-                    "Failed to load images",
-                    e
-            );
+            throw new RuntimeException("Failed to load images", e);
         }
     }
 
-private BufferedImage loadBuffered(String path) {
+    private BufferedImage loadImage(String path) {
+        try {
+            String finalPath = getAssetPath(path);
 
-    try {
+            File file = new File(finalPath);
+            if (file.exists()) {
+                return ImageIO.read(file);
+            }
 
-        String finalPath = getAssetPath(path);
+            // JAR fallback
+            InputStream is = getClass().getResourceAsStream(path);
+            if (is != null) {
+                return ImageIO.read(is);
+            }
 
-        System.out.println(finalPath);
+            throw new IOException("Missing asset: " + path);
 
-        return ImageIO.read(
-                new java.io.File(finalPath)
-        );
-
-    } catch (IOException e) {
-
-        throw new RuntimeException(
-                "Failed to load: " + path,
-                e
-        );
-    }
-}
-
-private Image loadImage(String path) {
-
-    return new ImageIcon(
-            getAssetPath(path)
-    ).getImage();
-}
-
-private Image loadScaledImage(
-        String path,
-        int width,
-        int height
-) {
-
-    return loadImage(path).getScaledInstance(
-            width,
-            height,
-            Image.SCALE_SMOOTH
-    );
-}
-
-private String getAssetPath(String path) {
-
-    if (path.startsWith("/")) {
-
-        path = path.substring(1);
-    }
-    String thing = "../../Memoriam/" + path;
-
-        return path;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load: " + path, e);
         }
+    }
+
+    private Image loadScaledImage(String path, int width, int height) {
+        return loadImage(path).getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    }
+
+    private String getAssetPath(String path) {
+        if (path.startsWith("/")) {
+            path = path.substring(1);
+        }
+
+        String basePath = System.getProperty("user.dir");
+
+        return basePath
+                + File.separator
+                + "Memoriam"
+                + File.separator
+                + path.replace("/", File.separator);
+    }
 }
