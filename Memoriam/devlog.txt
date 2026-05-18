@@ -6,8 +6,6 @@ KEEP THIS ON TOP
     
     Command to run the game in one line
     javac -d Memoriam/bin -sourcepath src src/scenes/ui/MainGameDriver.java & java -cp bin  scenes.ui.MainGameDriver
-    
-
     jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets 
 
 --> 05/16/2026
