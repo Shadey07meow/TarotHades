@@ -1,10 +1,9 @@
 package scenes.ui;
 
 import images.*;
-import scenes.templates.UIScreen;
-
 import java.awt.*;
 import javax.swing.*;
+import scenes.templates.UIScreen;
 
 public class CreditScreen extends UIScreen {
     private JButton backBtn;
@@ -37,17 +36,17 @@ public class CreditScreen extends UIScreen {
         ));
 
         creditsPanel.add(createCreditItem(
-                ImageLibrary.get().placeHolderIcon,
+                ImageLibrary.get().herielleIcon,
                 "Herielle",
                 "Herielle Margallo",
-                "Did Stuff"
+                "Systems Engineer"
         ));
 
         creditsPanel.add(createCreditItem(
-                ImageLibrary.get().placeHolderIcon,
+                ImageLibrary.get().samIcon,
                 "Sam",
                 "Samantha Nicole Tabulao",
-                "Did Stuff"
+                "Sound Designer"
         ));
 
 
