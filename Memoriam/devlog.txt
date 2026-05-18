@@ -11,7 +11,10 @@ KEEP THIS ON TOP
 --> 05/18/2026
     (CalRya)
     - Fixed sound and img
-    -.
+    
+    (Shadey07)
+    - Made save jar saving better
+
 --> 05/16/2026
     (CalRya)
     - Added credits and tutorial button
