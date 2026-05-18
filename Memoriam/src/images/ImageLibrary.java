@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -383,7 +384,7 @@ private ImageLibrary()
 
                 // Maps
         
-                        
+
         } catch (IOException | IllegalArgumentException e) {
             throw new RuntimeException("Failed to load images: " + e.getMessage(), e);
         }
@@ -391,6 +392,6 @@ private ImageLibrary()
 
     private File getImageFile(String directory)
     {
-        return new File(directory);
+        return new File( directory);
     }
 }

@@ -59,7 +59,7 @@ public class GameFrame extends JFrame {
         // Sets up the initialization of the window
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(resolution);
+        setMinimumSize(resolution);
         setUndecorated(true);   
 
         // Sets the cursor
