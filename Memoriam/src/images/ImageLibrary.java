@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class ImageLibrary {
 
@@ -232,49 +231,49 @@ public class ImageLibrary {
                     64
             );
 
-            background = loadBuffered("/assets/Panels/menuScreenBG.png");
-            creditBackground = loadBuffered("/assets/Panels/creditBackground.png");
-            loadingScreen = loadBuffered("/assets/Panels/loadingScreen.png");
-            loseScreen = loadBuffered("/assets/Panels/loseScreen.png");
-            boboLogo = loadBuffered("/assets/Panels/boboFront.png");
-            logo = loadBuffered("/assets/Panels/logo.png");
+            background = loadImage("/assets/Panels/menuScreenBG.png");
+            creditBackground = loadImage("/assets/Panels/creditBackground.png");
+            loadingScreen = loadImage("/assets/Panels/loadingScreen.png");
+            loseScreen = loadImage("/assets/Panels/loseScreen.png");
+            boboLogo = loadImage("/assets/Panels/boboFront.png");
+            logo = loadImage("/assets/Panels/logo.png");
 
-            playerHurtUP = loadBuffered("/assets/PlayerSprites/hurt/foolUpHurt.png");
-            playerHurtDOWN = loadBuffered("/assets/PlayerSprites/hurt/foolDownHurt.png");
-            playerHurtLEFT = loadBuffered("/assets/PlayerSprites/hurt/foolLeftHurt.png");
-            playerHurtRIGHT = loadBuffered("/assets/PlayerSprites/hurt/foolRightHurt.png");
+            playerHurtUP = loadImage("/assets/PlayerSprites/hurt/foolUpHurt.png");
+            playerHurtDOWN = loadImage("/assets/PlayerSprites/hurt/foolDownHurt.png");
+            playerHurtLEFT = loadImage("/assets/PlayerSprites/hurt/foolLeftHurt.png");
+            playerHurtRIGHT = loadImage("/assets/PlayerSprites/hurt/foolRightHurt.png");
 
-            exitBtn = loadBuffered("/assets/Panels/exitBtn.png");
-            practiceBtn = loadBuffered("/assets/Panels/practiceBtn.png");
-            startBtn = loadBuffered("/assets/Panels/startBtn.png");
-            backBtn = loadBuffered("/assets/Panels/backBtn.png");
-            mainMenuBtn = loadBuffered("/assets/Panels/mainMenu.png");
-            quitBtn = loadBuffered("/assets/Panels/quitBtn.png");
-            quitBtnGO = loadBuffered("/assets/Panels/quitBtnGO.png");
-            resumeBtn = loadBuffered("/assets/Panels/resumeBtn.png");
-            resumeBtnHover = loadBuffered("/assets/Panels/resumeButtonHover.png");
-            restartBtn = loadBuffered("/assets/Panels/restart.png");
-            placeholderBtn = loadBuffered("/assets/Panels/placeholderBtn.png");
-            quitBtnExit = loadBuffered("/assets/Panels/quitBtnExit.png");
-            creditBtn = loadBuffered("/assets/Panels/creditBtn.png");
-            tutorialBtn = loadBuffered("/assets/Panels/tutorialBtn.png");
+            exitBtn = loadImage("/assets/Panels/exitBtn.png");
+            practiceBtn = loadImage("/assets/Panels/practiceBtn.png");
+            startBtn = loadImage("/assets/Panels/startBtn.png");
+            backBtn = loadImage("/assets/Panels/backBtn.png");
+            mainMenuBtn = loadImage("/assets/Panels/mainMenu.png");
+            quitBtn = loadImage("/assets/Panels/quitBtn.png");
+            quitBtnGO = loadImage("/assets/Panels/quitBtnGO.png");
+            resumeBtn = loadImage("/assets/Panels/resumeBtn.png");
+            resumeBtnHover = loadImage("/assets/Panels/resumeButtonHover.png");
+            restartBtn = loadImage("/assets/Panels/restart.png");
+            placeholderBtn = loadImage("/assets/Panels/placeholderBtn.png");
+            quitBtnExit = loadImage("/assets/Panels/quitBtnExit.png");
+            creditBtn = loadImage("/assets/Panels/creditBtn.png");
+            tutorialBtn = loadImage("/assets/Panels/tutorialBtn.png");
 
-            pauseBg = loadBuffered("/assets/Panels/pauseBg.png");
-            loadSaveBtn = loadBuffered("/assets/Panels/loadSave.png");
-            loadSaveBtnHover = loadBuffered("/assets/Panels/loadSaveHover.png");
-            newSaveButton = loadBuffered("/assets/Panels/newSaveButton.png");
-            newSaveButtonHover = loadBuffered("/assets/Panels/newSaveButtonHover.png");
-            loadBg = loadBuffered("/assets/Panels/backDrop2.png");
+            pauseBg = loadImage("/assets/Panels/pauseBg.png");
+            loadSaveBtn = loadImage("/assets/Panels/loadSave.png");
+            loadSaveBtnHover = loadImage("/assets/Panels/loadSaveHover.png");
+            newSaveButton = loadImage("/assets/Panels/newSaveButton.png");
+            newSaveButtonHover = loadImage("/assets/Panels/newSaveButtonHover.png");
+            loadBg = loadImage("/assets/Panels/backDrop2.png");
 
-            exitBtnHover = loadBuffered("/assets/Panels/exitBtnHover.png");
-            practiceBtnHover = loadBuffered("/assets/Panels/practiceBtnHover.png");
-            startBtnHover = loadBuffered("/assets/Panels/startBtnHover.png");
-            backBtnHover = loadBuffered("/assets/Panels/backBtnHover.png");
-            placeholderBtnHover = loadBuffered("/assets/Panels/placeholderBtnHover.png");
-            creditBtnHover = loadBuffered("/assets/Panels/creditBtnHover.png");
-            tutorialBtnHover = loadBuffered("/assets/Panels/tutorialBtnHover.png");
+            exitBtnHover = loadImage("/assets/Panels/exitBtnHover.png");
+            practiceBtnHover = loadImage("/assets/Panels/practiceBtnHover.png");
+            startBtnHover = loadImage("/assets/Panels/startBtnHover.png");
+            backBtnHover = loadImage("/assets/Panels/backBtnHover.png");
+            placeholderBtnHover = loadImage("/assets/Panels/placeholderBtnHover.png");
+            creditBtnHover = loadImage("/assets/Panels/creditBtnHover.png");
+            tutorialBtnHover = loadImage("/assets/Panels/tutorialBtnHover.png");
 
-            rawMap = loadBuffered("/assets/MainAssets/mapTest.png");
+            rawMap = loadImage("/assets/MainAssets/mapTest.png");
 
             map = new BufferedImage(
                     32 * 80,
@@ -346,44 +345,44 @@ public class ImageLibrary {
                     "/assets/maps/tutorialMap.png"
             );
 
-            Empress = loadBuffered("/assets/Cards/Empress.png");
-            KnightOfWands = loadBuffered("/assets/Cards/KnightOfWands.png");
-            Magician = loadBuffered("/assets/Cards/Magician.png");
-            NineOfPentacles = loadBuffered("/assets/Cards/NineOfPentacles.png");
-            QueenOfCups = loadBuffered("/assets/Cards/QueenOfCups.png");
-            TenOfSwords = loadBuffered("/assets/Cards/TenOfSwords.png");
-            TwoOfCups = loadBuffered("/assets/Cards/TwoOfCups.png");
-            AceOfWands = loadBuffered("/assets/Cards/AceOfWands.png");
-            Death = loadBuffered("/assets/Cards/Death.png");
+            Empress = loadImage("/assets/Cards/Empress.png");
+            KnightOfWands = loadImage("/assets/Cards/KnightOfWands.png");
+            Magician = loadImage("/assets/Cards/Magician.png");
+            NineOfPentacles = loadImage("/assets/Cards/NineOfPentacles.png");
+            QueenOfCups = loadImage("/assets/Cards/QueenOfCups.png");
+            TenOfSwords = loadImage("/assets/Cards/TenOfSwords.png");
+            TwoOfCups = loadImage("/assets/Cards/TwoOfCups.png");
+            AceOfWands = loadImage("/assets/Cards/AceOfWands.png");
+            Death = loadImage("/assets/Cards/Death.png");
 
-            EmpressHover = loadBuffered("/assets/Cards/EmpressHover.png");
-            KnightOfWandsHover = loadBuffered("/assets/Cards/KnightOfWandsHover.png");
-            MagicianHover = loadBuffered("/assets/Cards/MagicianHover.png");
-            NineOfPentaclesHover = loadBuffered("/assets/Cards/NineOfPentaclesHover.png");
-            QueenOfCupsHover = loadBuffered("/assets/Cards/QueenOfCupsHover.png");
-            TenOfSwordsHover = loadBuffered("/assets/Cards/TenOfSwordsHover.png");
-            TwoOfCupsHover = loadBuffered("/assets/Cards/TwoOfCupsHover.png");
-            AceOfWandsHover = loadBuffered("/assets/Cards/AceOfWandsHover.png");
-            DeathHover = loadBuffered("/assets/Cards/DeathHover.png");
+            EmpressHover = loadImage("/assets/Cards/EmpressHover.png");
+            KnightOfWandsHover = loadImage("/assets/Cards/KnightOfWandsHover.png");
+            MagicianHover = loadImage("/assets/Cards/MagicianHover.png");
+            NineOfPentaclesHover = loadImage("/assets/Cards/NineOfPentaclesHover.png");
+            QueenOfCupsHover = loadImage("/assets/Cards/QueenOfCupsHover.png");
+            TenOfSwordsHover = loadImage("/assets/Cards/TenOfSwordsHover.png");
+            TwoOfCupsHover = loadImage("/assets/Cards/TwoOfCupsHover.png");
+            AceOfWandsHover = loadImage("/assets/Cards/AceOfWandsHover.png");
+            DeathHover = loadImage("/assets/Cards/DeathHover.png");
 
-            iconTheEmpress = loadBuffered("/assets/Powerups/TheEmpress.png");
-            iconKnightOfWands = loadBuffered("/assets/Powerups/KnightOfWands.png");
-            iconTheMagician = loadBuffered("/assets/Powerups/TheMagician.png");
-            iconNineOfPentacles = loadBuffered("/assets/Powerups/NineofPentacles.png");
-            iconQueenOfCups = loadBuffered("/assets/Powerups/QueenofCups.png");
-            iconTenOfSwords = loadBuffered("/assets/Powerups/TenOfSwords.png");
-            iconTwoOfCups = loadBuffered("/assets/Powerups/TwoOfCups.png");
-            iconAceOfWands = loadBuffered("/assets/Powerups/AceofWands.png");
-            iconDeath = loadBuffered("/assets/Powerups/Death.png");
+            iconTheEmpress = loadImage("/assets/Powerups/TheEmpress.png");
+            iconKnightOfWands = loadImage("/assets/Powerups/KnightOfWands.png");
+            iconTheMagician = loadImage("/assets/Powerups/TheMagician.png");
+            iconNineOfPentacles = loadImage("/assets/Powerups/NineofPentacles.png");
+            iconQueenOfCups = loadImage("/assets/Powerups/QueenofCups.png");
+            iconTenOfSwords = loadImage("/assets/Powerups/TenOfSwords.png");
+            iconTwoOfCups = loadImage("/assets/Powerups/TwoOfCups.png");
+            iconAceOfWands = loadImage("/assets/Powerups/AceofWands.png");
+            iconDeath = loadImage("/assets/Powerups/Death.png");
 
-            EmpressHover2 = loadBuffered("/assets/Cards/EmpressHover.png");
+            EmpressHover2 = loadImage("/assets/Cards/EmpressHover.png");
 
-            treasureChest = loadBuffered("/assets/MainAssets/treasureChest.png");
-            lockedTreasureChest = loadBuffered("/assets/MainAssets/lockedChest.png");
-            treasureChestH = loadBuffered("/assets/MainAssets/treasureChestHighlighted.png");
+            treasureChest = loadImage("/assets/MainAssets/treasureChest.png");
+            lockedTreasureChest = loadImage("/assets/MainAssets/lockedChest.png");
+            treasureChestH = loadImage("/assets/MainAssets/treasureChestHighlighted.png");
 
-            rawProjectile = loadBuffered("/assets/objects/projectile.png");
-            fireProjectile = loadBuffered("/assets/objects/fireProjectile.png");
+            rawProjectile = loadImage("/assets/objects/projectile.png");
+            fireProjectile = loadImage("/assets/objects/fireProjectile.png");
 
             blueLEFT = loadImage(
                     "/assets/objects/enemyAnim/blueLeft.gif"
@@ -415,7 +414,7 @@ public class ImageLibrary {
                     40 * 4
             );
 
-            enemyHurt = loadBuffered(
+            enemyHurt = loadImage(
                     "/assets/objects/enemyHurt.png"
             );
 
@@ -425,18 +424,18 @@ public class ImageLibrary {
                     40 * 4
             );
 
-            heart = loadBuffered("/assets/MainAssets/heart.png");
-            deadHeart = loadBuffered("/assets/MainAssets/heartDead.png");
+            heart = loadImage("/assets/MainAssets/heart.png");
+            deadHeart = loadImage("/assets/MainAssets/heartDead.png");
 
             splash = loadImage(
                     "/assets/MainAssets/splash.gif"
             );
 
-            placeHolderIcon = loadBuffered("/assets/MainAssets/placeholderIcon.png");
-            calryaIcon = loadBuffered("/assets/MainAssets/calryaIcon.png");
-            shadeyIcon = loadBuffered("/assets/MainAssets/shadey07Icon.png");
-            herielleIcon = loadBuffered("/assets/MainAssets/herielleIcon.png");
-            samIcon = loadBuffered("/assets/MainAssets/samIcon.png");
+            placeHolderIcon = loadImage("/assets/MainAssets/placeholderIcon.png");
+            calryaIcon = loadImage("/assets/MainAssets/calryaIcon.png");
+            shadeyIcon = loadImage("/assets/MainAssets/shadey07Icon.png");
+            herielleIcon = loadImage("/assets/MainAssets/herielleIcon.png");
+            samIcon = loadImage("/assets/MainAssets/samIcon.png");
 
         } catch (Exception e) {
             throw new RuntimeException(
@@ -446,7 +445,7 @@ public class ImageLibrary {
         }
     }
 
-private BufferedImage loadBuffered(String path) {
+private BufferedImage loadImage(String path) {
 
     try {
 
@@ -467,12 +466,7 @@ private BufferedImage loadBuffered(String path) {
     }
 }
 
-private Image loadImage(String path) {
 
-    return new ImageIcon(
-            getAssetPath(path)
-    ).getImage();
-}
 
 private Image loadScaledImage(
         String path,
