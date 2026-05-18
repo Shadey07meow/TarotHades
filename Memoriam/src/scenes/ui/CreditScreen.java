@@ -25,15 +25,15 @@ public class CreditScreen extends UIScreen {
                 ImageLibrary.get().calryaIcon,
                 "CalRya",
                 "Lindsay Salvacion",
-                "Did Stuff"
+                "Graphics Programmer"
         ));
 
 
         creditsPanel.add(createCreditItem(
-                ImageLibrary.get().placeHolderIcon,
+                ImageLibrary.get().shadeyIcon,
                 "Shadey",
                 "Daniel Hans Alava",
-                "Did Stuff"
+                "Project Architect"
         ));
 
         creditsPanel.add(createCreditItem(

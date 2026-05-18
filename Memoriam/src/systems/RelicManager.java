@@ -44,7 +44,8 @@ public class RelicManager {
                     new StatModifier(StatType.MAX_HP, 0.30, true),
                     new StatModifier(StatType.ATTACK, 0.30, true),
                     new StatModifier(StatType.DEFENSE, 0.30, true),
-                    new StatModifier(StatType.SPEED, 0.30, true)
+                    new StatModifier(StatType.SPEED, 0.30, true),
+                    new StatModifier(StatType.CRIT_CHANCE, 0.30, true)
                 );
                 player.getStats().applyPowerUp(buff);
                 player.getStats().setMagicianActive(true);
