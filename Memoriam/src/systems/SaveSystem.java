@@ -23,7 +23,7 @@ public class SaveSystem {
 
     public static void saveProgress(int levelNumber, int playerHealth, Map<PlayerAbility, Integer> list, int kills)
     {
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File("../../Memoriam/autosave/saveFile.4t");
         try
         {
             saveFile.createNewFile();
@@ -65,7 +65,7 @@ public class SaveSystem {
     }   
 
     public static void loadLastSave() {
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File("../../autosave/saveFile.4t");
         if (!saveFile.exists()) return;
 
         int level = 0;
@@ -173,7 +173,7 @@ public class SaveSystem {
     public static int getLevel()
     {
         
-        File saveFile = new File("autosave/saveFile.4t");
+        File saveFile = new File("../../autosave/saveFile.4t");
 
         int level = 0;
         if(!saveFile.exists()) return level;

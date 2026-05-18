@@ -486,16 +486,16 @@ private String getAssetPath(String path) {
         path = path.substring(1);
     }
 
- String basePath =
-        System.getProperty("user.dir");
+        String basePath =
+                System.getProperty("user.dir");
 
-return basePath
-        + java.io.File.separator
-        + "Memoriam"
-        + java.io.File.separator
-        + path.replace(
-                "/",
-                java.io.File.separator
-        );
-}
+        return basePath
+                + java.io.File.separator
+                + "Memoriam"
+                + java.io.File.separator
+                + path.replace(
+                        "/",
+                        java.io.File.separator
+                );
+        }
 }
