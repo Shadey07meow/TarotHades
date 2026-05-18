@@ -24,7 +24,7 @@ public class CreditScreen extends UIScreen {
                 ImageLibrary.get().calryaIcon,
                 "CalRya",
                 "Lindsay Salvacion",
-                ("Graphics Programmer \nHand drawn all the assets")
+                "Graphics Programmer"
         ));
 
 
@@ -50,7 +50,7 @@ public class CreditScreen extends UIScreen {
         ));
 
 
-        JLabel specialThanks = new JLabel("<html><center> Special Thanks To: DAN (@kape_catpuccino) for the MEMORIAM logo !</center></html>");
+        JLabel specialThanks = new JLabel("<html><center> Special Thanks To: DAN (@kape_catpuccino) for the MEMORIAM logo ! All Other Assets Drawn by Lindsay !</center></html> ");
         specialThanks.setForeground(Color.WHITE);
         specialThanks.setHorizontalAlignment(SwingConstants.CENTER);
         specialThanks.setFont(new Font("Monospaced", Font.BOLD, 20));
