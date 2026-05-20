@@ -32,6 +32,10 @@ KEEP THIS ON TOP
     - Doing revisions
         - Changed to putting assets and autosave folder into the jar folder
         - Reduced initial loading time
+        - Made final installer
+        - Made the chest spinning sound only play on chest open
+        - Finalized the README.md file
+
 
 
 --> 05/18/2026
