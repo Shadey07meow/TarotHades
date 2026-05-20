@@ -36,7 +36,7 @@ public class PlayerStats{
         if (powerUp == null) return;
 
         modifiers.addAll(powerUp.getModifiers());
-        System.out.println("Applied PowerUp: " + powerUp.getName());
+        // System.out.println("Applied PowerUp: " + powerUp.getName());
 
     }
 

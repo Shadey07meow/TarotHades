@@ -3,6 +3,8 @@ package scenes.templates;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+
+import images.ImageLibrary;
 import object.Entities.Player;
 import object.statics.MapObj;
 import scenes.ui.GameFrame;
@@ -51,6 +53,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
         super(panelName, g);
         this.id = ID;
+        setBackground(Color.BLACK);
 
         // Initiates game loop
         this.gameLoop = new Thread(this);
@@ -62,6 +65,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         addMouseMotionListener(inputManager);  // fixes mouse tracking
         setFocusable(true);
         requestFocusInWindow();
+        repaint();
+
 
         
 
@@ -108,14 +113,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     private  void initWindow(){
         requestFocusInWindow();
         
-        System.out.println("Initialized : " + this.getName());
+        // System.out.println("Initialized : " + this.getName());
         this.player = setPlayer();
         this.currentMap = setMap();
         this.center = this.player.getPosition();
         this.world = new WorldRenderer(this.player, this.currentMap, this);
         LevelManager.restorePlayerAbilities(this.player);
 
-        System.out.println("HP = " + SaveSystem.getHP());
+        // System.out.println("HP = " + SaveSystem.getHP());
         if(this.id != 0) this.player.setHealth(SaveSystem.getHP());
         
 
@@ -143,7 +148,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         }
         catch(Exception e) {
 
-            System.out.println("Game Loop already running");       
+            // System.out.println("Game Loop already running");       
          }
     }
     
@@ -159,13 +164,15 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             }
         }
         catch(Exception e)
-        {System.out.println("Game Loop already stopped : " + e.getCause());}   
+        {}
+        // {System.out.println("Game Loop already stopped : " + e.getCause());}   
+        
     }
     
    
     @Override
     public void run(){
-        System.out.println("Thread started");
+        // System.out.println("Thread started");
         
 
 
@@ -200,7 +207,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
             } 
             catch (Exception e)
             {
-                System.out.println("Cannot be paused");
+                // System.out.println("Cannot be paused");
             }
 
             fx.update(SINGLEFRAME);
@@ -210,7 +217,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
 
         
 
-        System.out.println("Thread stopped");
+        // System.out.println("Thread stopped");
     }
 
     public void closeGameLoop()
@@ -282,6 +289,18 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
     {
         super.paintComponent(g);
  
+        if(SpecialEffects.getIsLoading()  || fx == null)
+        {
+            g.drawImage(
+
+                (ImageLibrary.get().loadingScreen),
+                0,
+                0,
+                getWidth(),
+                getHeight(),
+                null
+            );    
+        }
 
         
         
@@ -338,6 +357,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         }
 
 
+        g.dispose();
     }
 
 

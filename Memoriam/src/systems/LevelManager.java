@@ -39,7 +39,7 @@ public class LevelManager {
                 savedAbilityLevels.put(ability, level);
             }
         }
-        System.out.println("Saved abilities: " + savedAbilities);
+        // System.out.println("Saved abilities: " + savedAbilities);
     }
 
 
@@ -66,11 +66,11 @@ public class LevelManager {
 }
 
     public static void loadLevel(int id, PlayableScreen currentLevel) {
-        System.out.println("You are loading a level, ID: " + String.valueOf(id) );
+        // System.out.println("You are loading a level, ID: " + String.valueOf(id) );
 
         if(id >= levels.size())
         {
-            System.out.println("Saving Progress");
+            // System.out.println("Saving Progress");
             
             gFrame.showPanel("menu");
             return;
@@ -108,7 +108,7 @@ public class LevelManager {
         while(gFrame.cutsceneScreen.isFinishedLoading() == false){
         }
 
-        System.out.println("Finished cutscenes"); 
+        // System.out.println("Finished cutscenes"); 
         currentLevel.closeGameLoop();
         searchLevel(id);
     }
@@ -116,7 +116,7 @@ public class LevelManager {
 
     
     public static void loadLevel(int id) {
-        System.out.println("You are loading a level, ID: " + String.valueOf(id) );
+        // System.out.println("You are loading a level, ID: " + String.valueOf(id) );
         activePanel = id;
         searchLevel(id);
     }
@@ -136,12 +136,12 @@ public class LevelManager {
         savedHP = -1;
         StatusEffectManager.reset();
         RelicManager.reset();
-        System.out.println("[LevelManager] New run started — singletons reset.");
+        // System.out.println("[LevelManager] New run started — singletons reset.");
     }
 
     public static void resetRun() {
 
-    System.out.println("[RESET] Starting full run reset...");
+    // System.out.println("[RESET] Starting full run reset...");
 
         // 1. Gameplay systems
         GameStats.get().setKills(0);
@@ -159,7 +159,7 @@ public class LevelManager {
         // 5. If you have pending transitions
         // clear any queued state here if exists
 
-        System.out.println("[RESET] Run fully cleared.");
+        // System.out.println("[RESET] Run fully cleared.");
     }
 
     // NEVER CALL AGAIN

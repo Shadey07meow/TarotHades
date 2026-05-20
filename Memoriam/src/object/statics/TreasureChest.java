@@ -12,6 +12,7 @@ public class TreasureChest extends GameObject {
     private int interactionDistance = 150;
     private boolean  stageCleared = false;
     protected Player targetPlayer = null;   // changed from priv to protected
+    private boolean playedFX = false;
 
 
     // Check when the player is close enough to this particular
@@ -87,9 +88,15 @@ public class TreasureChest extends GameObject {
     public void doInteractionLogic() {
 
         if (targetPlayer.isInteracting()) {
-             SoundManager.get().playSFX("chestOpen");
             Player.canMove = false;
             playScrn.getCardManager().openChest();
         }
+
+        if(targetPlayer.isInteracting() && playedFX == false)
+        {
+            SoundManager.get().playSFX("chestOpen");
+            playedFX = true;
+        }
+
     }
 }

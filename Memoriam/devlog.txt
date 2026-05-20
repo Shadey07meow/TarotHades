@@ -1,12 +1,37 @@
 KEEP THIS ON TOP
  Individual commands to run the game
-    cd Memoriam
-    javac -d Memoriam/bin -sourcepath Memoriam/src Memoriam/src/MainGameDriver.java
-    java -cp Memoriam/bin MainGameDriver
+
+    Compile and run from root
+    cd Memoriam & javac -d bin -sourcepath src src/MainGameDriver.java & java -cp bin MainGameDriver && cd ..
     
     Command to run the game in one line
-    javac -d Memoriam/bin -sourcepath src src/scenes/ui/MainGameDriver.java & java -cp bin  scenes.ui.MainGameDriver
-    jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets 
+    cd Memoriam & javac -d bin -sourcepath src src/MainGameDriver.java & java -cp bin MainGameDriver
+
+    Compile from root
+    javac -d Memoriam/bin -sourcepath Memoriam/src Memoriam/src/MainGameDriver.java
+
+    Command for insta jar and running jar (Run in Root folder)
+    jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets
+
+    Run Jar
+    cd Installer/Jar & java -jar Memoriam.jar & cd ../..
+
+    One Line Jar run and return to root directory
+    jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets && cd Installer/Jar && java -jar Memoriam.jar && cd ../..
+
+    Compile from root and run Jar
+    javac -d Memoriam/bin -sourcepath Memoriam/src Memoriam/src/MainGameDriver.java && jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets && cd Installer/Jar && java -jar Memoriam.jar && cd ../.. 
+
+    
+    
+    
+
+--> 20/05/2026
+    (Shadey07)
+    - Doing revisions
+        - Changed to putting assets and autosave folder into the jar folder
+        - Reduced initial loading time
+
 
 --> 05/18/2026
     (CalRya)

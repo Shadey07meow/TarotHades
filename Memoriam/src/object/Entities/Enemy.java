@@ -238,6 +238,7 @@ public abstract class Enemy extends Entity {
     public void onHit(int a)
     {
         damage(a);
+        this.setDetectedPlayer(true);
         this.playScrn.getSpecialEffects().spawnNumberPopup(this.position, a);
 
     }

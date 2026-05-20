@@ -328,22 +328,23 @@ public class ImageLibrary {
 
         String basePath = System.getProperty("user.dir");
 
-        return basePath
-                + File.separator
-                + "Memoriam"
-                + File.separator
-                + path.replace("/", File.separator);
+        return path;
+        // return basePath
+        //         + File.separator
+        //         + "Memoriam"
+        //         + File.separator
+        //         + path.replace("/", File.separator);
     }
 
     private Image loadGif(String path) {
-        URL url = getClass().getResource(path);
+        // URL url = getClass().getResource(path);
 
-        if (url != null) {
-                return new ImageIcon(url).getImage();
-        }
+        // if (url != null) {
+        //         return new ImageIcon(url).getImage();
+        // }
 
         // fallback filesystem (IDE mode)
         String finalPath = getAssetPath(path);
         return new ImageIcon(finalPath).getImage();
-        }
+    }
 }

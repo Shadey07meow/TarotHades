@@ -10,7 +10,7 @@ import scenes.templates.PlayableScreen;
 
 public class SaveSystem {
 
-    private static final String SAVE_PATH = "/autosave/saveFile.4t";
+    private static final String SAVE_PATH = "APPDATA/autosave/saveFile.4t";
 
     public static void saveProgress(int levelNumber, int playerHealth,
                                     Map<PlayerAbility, Integer> list,
@@ -141,7 +141,7 @@ public class SaveSystem {
     public static ArrayList<String> getArcanas() {
 
     ArrayList<String> abs = new ArrayList<>();
-    File saveFile = new File(getAssetPath("autosave/saveFile.4t"));
+    File saveFile = new File(getAssetPath(SAVE_PATH));
 
     if (!saveFile.exists()) return abs;
 
@@ -165,7 +165,7 @@ public class SaveSystem {
         }
 
         for (Map.Entry<PlayerAbility, Integer> item : abilities.entrySet()) {
-            abs.add(item.getKey().toString() + ":" + item.getValue());
+            abs.add(item.getKey().toString() + ":" + item.getValue() + "\n");
         }
 
     } catch (IOException e) {
@@ -253,16 +253,17 @@ public class SaveSystem {
 
     private static String getAssetPath(String path) {
 
-        if (path.startsWith("/")) {
-            path = path.substring(1);
-        }
+        return path;
+        // if (path.startsWith("/")) {
+        //     path = path.substring(1);
+        // }
 
-        String basePath = System.getProperty("user.dir");
+        // String basePath = System.getProperty("user.dir");
 
-        return basePath
-                + File.separator
-                + "Memoriam"
-                + File.separator
-                + path.replace("/", File.separator);
+        // return basePath
+        //         + File.separator
+        //         + "Memoriam"
+        //         + File.separator
+        //         + path.replace("/", File.separator);
     }
 }

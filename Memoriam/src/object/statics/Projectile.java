@@ -59,8 +59,8 @@ public class Projectile extends GameObject{
             // Never hit the player or other projectiles
 
 
-            System.out.println(other.getClass().getCanonicalName());
-            System.out.println(parentClass.getCanonicalName());
+            //System.out.println(other.getClass().getCanonicalName());
+            //System.out.println(parentClass.getCanonicalName());
             // if(other.getClass().isAssignableFrom(this.parentClass)) return;
             if(other.getClass().getCanonicalName().trim().equals(parentClass.getCanonicalName().trim())) return;
             if(other.getClass().isAssignableFrom(Projectile.class)) return;

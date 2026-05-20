@@ -163,7 +163,7 @@ public class Player extends Entity {
 
         // gameplay-side effects (behaviours, projectile types, etc.)
         onAbilityLevelGained(ability, nextLevel);
-        System.out.println(ability + " → level " + nextLevel);
+        // System.out.println(ability + " → level " + nextLevel);
         
     }
 
@@ -186,6 +186,7 @@ public class Player extends Entity {
                 movePlayer(); // Does not fight when UI is open
                 combatMethod();
             }
+
         checkInteracting();
     }
 
@@ -379,7 +380,7 @@ public class Player extends Entity {
     private void updateShieldCooldown(int level) {
 
         if (world == null) {
-            System.out.println("Shield skipped: world is null");
+            // System.out.println("Shield skipped: world is null");
             return;
         }
 
@@ -393,7 +394,7 @@ public class Player extends Entity {
         // SET COOLDOWN INTERVAL HERE (NOT IN tickShield)
         shieldInterval = 300; 
 
-        System.out.println("Shield interval set to " + shieldInterval + " frames");
+        // System.out.println("Shield interval set to " + shieldInterval + " frames");
     }
  
     // Collision
@@ -536,7 +537,7 @@ public class Player extends Entity {
     public void setWorldRenderer(WorldRenderer w)
     {
         this.world = w;
-        System.out.println("Added a world renderer");
+        // System.out.println("Added a world renderer");
     }
   
     // Getters

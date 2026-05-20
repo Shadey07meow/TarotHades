@@ -32,8 +32,6 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 
     public InputManager()
     {
-        System.out.println("Hello");
-        
     }
     
     /// Keylistener methods

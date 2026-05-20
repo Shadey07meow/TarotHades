@@ -25,51 +25,76 @@ import java.awt.Toolkit;
 
 public class GameFrame extends JFrame {
 
-    protected final PlayableScreen gameStart;
-    protected final PlayableScreen level1;
-    protected final PlayableScreen level2;
-    protected final PlayableScreen level3;
-    protected final PlayableScreen level4;
-    protected final PlayableScreen level5;
+    protected  PlayableScreen gameStart;
+    protected  PlayableScreen level1;
+    protected  PlayableScreen level2;
+    protected  PlayableScreen level3;
+    protected  PlayableScreen level4;
+    protected  PlayableScreen level5;
 
-    private final CreditScreen creditScreen;
-    private final InfiniteLevel infiniteLevel;
-    private final SplashScreen splashScreen;
-    private final TutorialScreen tutorialScreen;
-    private final MenuScreen menuScreen;
-    private final LoseScreen loseScreen;
-    private final PauseScreen pauseScreen;
+    private  CreditScreen creditScreen;
+    private  InfiniteLevel infiniteLevel;
+    private  SplashScreen splashScreen;
+    private  TutorialScreen tutorialScreen;
+    private  MenuScreen menuScreen;
+    private  LoseScreen loseScreen;
+    private  PauseScreen pauseScreen;
     final private CardLayout cardLayout = new CardLayout();
-    private final JPanel parentPanel;
-    private final PrologueScreen prologueScreen;
-    public final CutsceneScreen cutsceneScreen;
-    private final WinScreen winScreen;
+    private  JPanel parentPanel;
+    private  PrologueScreen prologueScreen;
+    public  CutsceneScreen cutsceneScreen;
+    private  WinScreen winScreen;
 
     private volatile boolean assetsLoaded = false;
 
     
-    Image cursor = ImageLibrary.get().quillCursor;
+    private Image cursor;
     
-    private ArrayList<ShowablePanel> allPanels = new ArrayList<ShowablePanel>();
+    private final  ArrayList<ShowablePanel> allPanels = new ArrayList<>();
 
     // Game frame will contain the entire frame of the game
 
     public GameFrame(Dimension resolution) {   
              
         // Sets up the initialization of the window
-        SoundManager.get().playMusic("menuMusic");
 
+        ImageIcon icon = new ImageIcon("assets/Panels/icon.png");
+        setIconImage(icon.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH));
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(resolution);
         setUndecorated(true);   
 
         // Sets the cursor
-        Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+        
+  
+        splashScreen = new SplashScreen(this);
+        add(splashScreen);
+        splashScreen.startSplash();
+        setVisible(true);
+
+
+
+        
+
+        //init();
+        //SoundManager.get().playMusic("assets/music/TempMainMenu.wav");
+
+    }
+
+    public  void init()
+    {
+
+        remove(splashScreen);
+
+        cursor = ImageLibrary.get().quillCursor;
+
+              Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(
             cursor,
             new Point(0, 0),
             "cursor"
         );
+
 
         setCursor(customCursor);
         
@@ -119,14 +144,8 @@ public class GameFrame extends JFrame {
         setVisible(true);
         
         // Initiates a panel
-        init();
-        //SoundManager.get().playMusic("assets/music/TempMainMenu.wav");
-
-    }
-
-    private void init()
-    {
-        showPanel("splashScreen");
+        LevelManager.setFrame(this);
+        showPanel("menu");
     }
 
     private  void addLevels()
