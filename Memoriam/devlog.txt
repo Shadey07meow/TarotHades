@@ -36,8 +36,6 @@ KEEP THIS ON TOP
         - Made the chest spinning sound only play on chest open
         - Finalized the README.md file
 
-
-
 --> 05/18/2026
     (CalRya)
     - Fixed sound and img
