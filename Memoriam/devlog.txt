@@ -7,6 +7,7 @@ KEEP THIS ON TOP
     Command to run the game in one line
     cd Memoriam & javac -d bin -sourcepath src src/MainGameDriver.java & java -cp bin MainGameDriver
 
+
     Compile from root
     javac -d Memoriam/bin -sourcepath Memoriam/src Memoriam/src/MainGameDriver.java
 

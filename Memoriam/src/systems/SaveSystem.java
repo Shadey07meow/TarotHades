@@ -254,16 +254,5 @@ public class SaveSystem {
     private static String getAssetPath(String path) {
 
         return path;
-        // if (path.startsWith("/")) {
-        //     path = path.substring(1);
-        // }
-
-        // String basePath = System.getProperty("user.dir");
-
-        // return basePath
-        //         + File.separator
-        //         + "Memoriam"
-        //         + File.separator
-        //         + path.replace("/", File.separator);
     }
 }

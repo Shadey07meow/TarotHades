@@ -97,7 +97,7 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         startGamePanel();
         inputManager.resetInputs();
         
-        // this.player.setHP(SaveSystem);
+        this.player.setHealth(SaveSystem.getHP());
     }
     
     @Override
@@ -121,7 +121,14 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         LevelManager.restorePlayerAbilities(this.player);
 
         // System.out.println("HP = " + SaveSystem.getHP());
-        if(this.id != 0) this.player.setHealth(SaveSystem.getHP());
+        if(this.id == 0)
+        {
+            this.player.setHealth(10);
+        } else if(this.id != 0)
+        {
+            this.player.setHealth(SaveSystem.getHP());
+        }
+         
         
 
         
