@@ -97,7 +97,13 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
         startGamePanel();
         inputManager.resetInputs();
         
-        this.player.setHealth(SaveSystem.getHP());
+        if(this.id != 0)
+        {
+            this.player.setHealth(SaveSystem.getHP());
+        } else
+        {
+            this.player.setHealth(10);
+        }
     }
     
     @Override
@@ -303,8 +309,8 @@ public abstract class PlayableScreen extends ShowablePanel implements Runnable{
                 (ImageLibrary.get().loadingScreen),
                 0,
                 0,
-                getWidth(),
-                getHeight(),
+                GameFrame.getScreenWidth(),
+                GameFrame.getScreenHeight(),
                 null
             );    
         }

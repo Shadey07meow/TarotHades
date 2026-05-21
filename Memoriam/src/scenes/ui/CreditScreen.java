@@ -18,7 +18,7 @@ public class CreditScreen extends UIScreen {
         JPanel creditsPanel = new JPanel();
         creditsPanel.setOpaque(false);
         creditsPanel.setLayout(new GridLayout(2, 2, 0, 0));
-        creditsPanel.setBorder(BorderFactory.createEmptyBorder(400 , 300, 10, 0));
+        creditsPanel.setBorder(BorderFactory.createEmptyBorder((int)((float)GameFrame.getScreenHeight() * 0.3703) , (int)((float)GameFrame.getScreenWidth() * 0.15625), 10, 0));
 
         creditsPanel.add(createCreditItem(
                 ImageLibrary.get().calryaIcon,
@@ -79,7 +79,7 @@ public class CreditScreen extends UIScreen {
 
         JLabel iconLabel = new JLabel(
             new ImageIcon(
-                icon.getScaledInstance((int)(200f * 1.2f), (int)(200 * 1.2), Image.SCALE_SMOOTH)
+                icon.getScaledInstance((int)((float)GameFrame.getScreenHeight()* 0.22), (int)((float)GameFrame.getScreenHeight()* 0.22), Image.SCALE_SMOOTH)
             )
         );
 

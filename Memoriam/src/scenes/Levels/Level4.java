@@ -32,14 +32,14 @@ public class Level4 extends PlayableScreen {
                 this.player.getPosition(), 
                 Vector2.multiply(
                     Vector2.UP, 
-                    -45 * 64)), 
+                    -45 * 64* GameFrame.getScreenMultiplier())), 
             player, 2, this);
         
         // Add Barrier objects
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-12 * 64, 15 * 64)),
+                new Vector2(-12 * 64* GameFrame.getScreenMultiplier(), 15 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(4 * 64, 4 * 64, 4 * 64, 4 * 64
             )));
@@ -47,7 +47,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-10 * 64, -1 * 64)),
+                new Vector2(-10 * 64* GameFrame.getScreenMultiplier(), -1 * 64 * GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
@@ -55,7 +55,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-13 * 64, 2 * 64)),
+                new Vector2(-13 * 64* GameFrame.getScreenMultiplier(), 2 * 64 * GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
@@ -63,7 +63,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-14 * 64, -3 * 64)),
+                new Vector2(-14 * 64* GameFrame.getScreenMultiplier(), -3 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
@@ -71,7 +71,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-10 * 64, -12 * 64)),
+                new Vector2(-10 * 64* GameFrame.getScreenMultiplier(), -12 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
@@ -80,7 +80,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-13 * 64, -17 * 64)),
+                new Vector2(-13 * 64 * GameFrame.getScreenMultiplier(), -17 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
@@ -88,7 +88,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-12 * 64, -22 * 64)),
+                new Vector2(-12 * 64* GameFrame.getScreenMultiplier(), -22 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
@@ -96,7 +96,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-15  * 64, -32 * 64)),
+                new Vector2(-15  * 64* GameFrame.getScreenMultiplier(), -32 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
@@ -104,7 +104,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
                 Vector2.add(
                     this.center,
-                    new Vector2(-11  * 64, -35 * 64)),
+                    new Vector2(-11  * 64* GameFrame.getScreenMultiplier(), -35 * 64* GameFrame.getScreenMultiplier())),
                     this,
                     new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
                 )));
@@ -112,7 +112,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-14  * 64, -46 * 64)),
+                new Vector2(-14  * 64* GameFrame.getScreenMultiplier(), -46 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
@@ -120,7 +120,7 @@ public class Level4 extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-10  * 64, -48 * 64)),
+                new Vector2(-10  * 64* GameFrame.getScreenMultiplier(), -48 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(3 * 64, 3 * 64, 3 * 64, 3 * 64
             )));
@@ -132,7 +132,7 @@ public class Level4 extends PlayableScreen {
             world.addObject(new BlueWisp(
                 Vector2.add(
                     player.getPosition(),
-                    new Vector2(i * 64, -40 * 64)
+                    new Vector2(i * 64* GameFrame.getScreenMultiplier(), -40 * 64* GameFrame.getScreenMultiplier())
                 ),
                 2,
                 this
@@ -145,7 +145,7 @@ public class Level4 extends PlayableScreen {
             world.addObject(new PurpleWisp(
                 Vector2.add(
                     player.getPosition(),
-                    new Vector2(i * -64, -35 * 64)
+                    new Vector2(i * -64* GameFrame.getScreenMultiplier(), -35 * 64* GameFrame.getScreenMultiplier())
                 ),
                 2,
                 this
@@ -158,7 +158,7 @@ public class Level4 extends PlayableScreen {
             world.addObject(new YellowWisp(
                 Vector2.add(
                     player.getPosition(),
-                    new Vector2(i * 80, -20 * 64)
+                    new Vector2(i * 80* GameFrame.getScreenMultiplier(), -20 * 64* GameFrame.getScreenMultiplier())
                 ),
                 2,
                 this
@@ -171,7 +171,7 @@ public class Level4 extends PlayableScreen {
             world.addObject(new YellowWisp(
                 Vector2.add(
                     player.getPosition(),
-                    new Vector2(i * -80, -20 * 64)
+                    new Vector2(i * -80* GameFrame.getScreenMultiplier(), -20 * 64* GameFrame.getScreenMultiplier())
                 ),
                 2,
                 this
@@ -180,7 +180,7 @@ public class Level4 extends PlayableScreen {
             world.addObject(new BlueWisp(
                 Vector2.add(
                     player.getPosition(),
-                    new Vector2(i + 2 * -80, -20 * 64)
+                    new Vector2(i + 2 * -80* GameFrame.getScreenMultiplier(), -20 * 64* GameFrame.getScreenMultiplier())
                 ),
                 2,
                 this
@@ -189,7 +189,7 @@ public class Level4 extends PlayableScreen {
             world.addObject(new PurpleWisp(
                 Vector2.add(
                     player.getPosition(),
-                    new Vector2(i + 1 * -80, -20 * 64)
+                    new Vector2(i + 1 * -80* GameFrame.getScreenMultiplier(), -20 * 64* GameFrame.getScreenMultiplier())
                 ),
                 2,
                 this
@@ -199,7 +199,7 @@ public class Level4 extends PlayableScreen {
         YellowWisp miniBoss = new YellowWisp(
             Vector2.add(
                 this.center,
-                new Vector2(0, -45 * 64)),
+                new Vector2(0, -45 * 64* GameFrame.getScreenMultiplier())),
             4,
             this
         );
@@ -208,7 +208,7 @@ public class Level4 extends PlayableScreen {
 
         Vector2 bossPos = Vector2.add(
             this.center,
-            new Vector2(0, -45 * 64)
+            new Vector2(0, -45 * 64* GameFrame.getScreenMultiplier())
         );
 
         switch (randomBoss) {
@@ -244,13 +244,13 @@ public class Level4 extends PlayableScreen {
     @Override
     public MapObj setMap()
     {
-        return new MapObj(ImageLibrary.get().map4, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120)), 1 , this);
+        return new MapObj(ImageLibrary.get().map4, Vector2.add(player.getPosition(), Vector2.multiply(Vector2.DOWN, 8* 120 * GameFrame.getScreenMultiplier())), 1 , this);
     }
 
     @Override   
     public Player setPlayer()
     {
-        return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
+        return new Player(new Vector2(GameFrame.getScreenWidth() / 2, GameFrame.getScreenHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
     } 
 
 }

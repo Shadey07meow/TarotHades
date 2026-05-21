@@ -91,13 +91,45 @@ public class GameStart extends PlayableScreen {
         TreasureChest lobbyChest = new LobbyTreasureChest(
             Vector2.add(
                 this.player.getPosition(),
-                Vector2.multiply(Vector2.UP, -300)),
+                Vector2.multiply(Vector2.UP, -300  * GameFrame.getScreenMultiplier())),
             player, 2, this);
         
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-12 * 64, 0 * 64)),
+                new Vector2(-12 * 64 * GameFrame.getScreenMultiplier(), 0 * 64 * GameFrame.getScreenMultiplier() )),
+                this,
+                new Bounds(1 * 64 , 1 * 64, 1 * 64, 1 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-13  * 64 * GameFrame.getScreenMultiplier(), 4 * 64 * GameFrame.getScreenMultiplier())),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-12 * 64 * GameFrame.getScreenMultiplier()  , 9 * 64  * GameFrame.getScreenMultiplier())),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(-14 * 64 * GameFrame.getScreenMultiplier(), -2 * 64  * GameFrame.getScreenMultiplier())),
+                this,
+                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
+            )));
+
+        world.addObject(new BarrierObject(
+            Vector2.add(
+                this.center,
+                new Vector2(12 * 64 * GameFrame.getScreenMultiplier(), 0 * 64 * GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
             )));
@@ -105,31 +137,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-13 * 64, 4 * 64)),
-                this,
-                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
-            )));
-
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-12 * 64, 9 * 64)),
-                this,
-                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
-            )));
-
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(-14 * 64, -2 * 64)),
-                this,
-                new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
-            )));
-
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(12 * 64, 0 * 64)),
+                new Vector2(14 * 64 * GameFrame.getScreenMultiplier() , 0 * 64  * GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
             )));
@@ -137,15 +145,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(14 * 64, 0 * 64)),
-                this,
-                new Bounds(1 * 64, 1 * 64, 1 * 64, 1 * 64
-            )));
-
-        world.addObject(new BarrierObject(
-            Vector2.add(
-                this.center,
-                new Vector2(13 * 64, 4 * 64)),
+                new Vector2(13 * 64* GameFrame.getScreenMultiplier(), 4 * 64* GameFrame.getScreenMultiplier() )),
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
@@ -153,7 +153,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(12 * 64, 9 * 64)),
+                new Vector2(12 * 64 * GameFrame.getScreenMultiplier(), 9 * 64* GameFrame.getScreenMultiplier())),
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
@@ -161,7 +161,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(14 * 64, -5 * 64)),
+                new Vector2(14 * 64 * GameFrame.getScreenMultiplier(), -5 * 64* GameFrame.getScreenMultiplier() )),
                 this,
                 new Bounds(2 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
@@ -169,7 +169,7 @@ public class GameStart extends PlayableScreen {
         world.addObject(new BarrierObject(
             Vector2.add(
                 this.center,
-                new Vector2(-8 * 64, -6 * 64)),
+                new Vector2(-8 * 64* GameFrame.getScreenMultiplier() , -6 * 64* GameFrame.getScreenMultiplier() )),
                 this,
                 new Bounds(1 * 64, 2 * 64, 2 * 64, 2 * 64
             )));
@@ -177,12 +177,12 @@ public class GameStart extends PlayableScreen {
         
 
         // BlueWisp bluey = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -100)) , 2, this);
-         BlueWisp bluey2 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 2, this);
-         FinalBoss bossy = new FinalBoss(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500)), 2, this);
+         BlueWisp bluey2 = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300 )), 2, this);
+         FinalBoss bossy = new FinalBoss(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -500 )), 2, this);
         
-         PurpleWisp bosspurp = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 6, this);
-         PurpleWisp purply = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600)), 2, this);
-         BlueWisp bluboss = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300)), 6, this);
+         PurpleWisp bosspurp = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600 )), 6, this);
+         PurpleWisp purply = new PurpleWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -600 )), 2, this);
+         BlueWisp bluboss = new BlueWisp(Vector2.add(player.getPosition(), Vector2.multiply(Vector2.RIGHT, -300 )), 6, this);
 
         // box1.getCollider().setIsMovable(false);
         // world.addObject(box1);
@@ -228,7 +228,7 @@ public class GameStart extends PlayableScreen {
     @Override
     public Player setPlayer()
     {
-        return new Player(new Vector2(getWidth() / 2, getHeight() /  2), 3, 10, 10, this, this.getGameFrame()); 
+        return new Player(new Vector2( GameFrame.getScreenWidth() / 2, GameFrame.getScreenHeight()/  2), 3, 10, 10, this, this.getGameFrame()); 
     }
 
 

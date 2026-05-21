@@ -25,13 +25,13 @@ public class PauseUI {
         this.scrn = scrn;
         int width = 500;
         int height = 300;
-        this.backDrop = new Rectangle(scrn.getWidth() / 2 - (width / 2) , scrn.getHeight() / 2 - (height/ 2), width, height);
+        this.backDrop = new Rectangle(GameFrame.getScreenWidth() / 2 - (width / 2) , GameFrame.getScreenHeight() / 2 - (height/ 2), width, height);
         
         int width1 = 200;
         int height1 = 70;
         int xOffset1 = 0;
         int yOffset1 = -20;
-        this.resumeButton = new Rectangle(scrn.getWidth() / 2 - (width1 / 2) + xOffset1, (scrn.getHeight() / 2 - (height1/ 2)) + yOffset1, width1, height1);
+        this.resumeButton = new Rectangle(GameFrame.getScreenWidth() / 2 - (width1 / 2) + xOffset1, (GameFrame.getScreenHeight() / 2 - (height1/ 2)) + yOffset1, width1, height1);
 
 
 
@@ -39,7 +39,7 @@ public class PauseUI {
         int height2 = 70;
         int xOffset2 = 0;
         int yOffset2 = 70;
-        this.quitButton = new Rectangle(scrn.getWidth() / 2 - (width2 / 2) + xOffset2, (scrn.getHeight() / 2 - (height2/ 2)) + yOffset2, width2, height2);
+        this.quitButton = new Rectangle(GameFrame.getScreenWidth() / 2 - (width2 / 2) + xOffset2, (GameFrame.getScreenHeight() / 2 - (height2/ 2)) + yOffset2, width2, height2);
 
         this.gFrame = frame;
     }

@@ -7,10 +7,12 @@ import object.Entities.Player;
 import object.Entities.PlayerAbility;
 import object.statics.Relic;
 import scenes.templates.PlayableScreen;
+import java.nio.file.Paths;
 
 public class SaveSystem {
 
-    private static final String SAVE_PATH = "APPDATA/autosave/saveFile.4t";
+    private static final String APP_DATA_STRING = System.getenv("APPDATA");
+    private static final String SAVE_PATH = APP_DATA_STRING + "/Memoriam/autosave/saveFile.4t";
 
     public static void saveProgress(int levelNumber, int playerHealth,
                                     Map<PlayerAbility, Integer> list,

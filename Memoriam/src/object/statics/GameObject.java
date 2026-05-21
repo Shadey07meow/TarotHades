@@ -4,6 +4,7 @@ import collision.*;
 import java.awt.Color;
 import java.awt.Image;
 import scenes.templates.PlayableScreen;
+import scenes.ui.GameFrame;
 import systems.*;
 
 public class GameObject {
@@ -143,26 +144,26 @@ public class GameObject {
     // Movement (logic position)
     public void move(double x, double y)
     {
-        this.position.x += x;
-        this.position.y -= y;
+        this.position.x += x * GameFrame.getScreenMultiplier();
+        this.position.y -= y * GameFrame.getScreenMultiplier();
     }
 
     public void move(Vector2 a)
     {
-        this.position.x += a.x;
-        this.position.y -= a.y;
+        this.position.x += a.x * GameFrame.getScreenMultiplier();
+        this.position.y -= a.y * GameFrame.getScreenMultiplier();
     }
 
     public int  getScaledWidth()
     {
         if (image == null) return (int)scale;
-        return (int)(image.getWidth(null) * scale);
+        return (int)(image.getWidth(null) * scale  * GameFrame.getScreenMultiplier());
     }
 
     public int  getScaledHeight()
     {
         if (image == null) return (int)scale;
-        return (int)(image.getHeight(null) * scale);
+        return (int)(image.getHeight(null) * scale * GameFrame.getScreenMultiplier());
     }
 
     /// INTERPOLATION (smooth rendering)

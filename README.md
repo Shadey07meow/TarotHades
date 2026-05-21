@@ -34,4 +34,3 @@ Must run the jar and exe file where there are
 - Go to Installation/Windows folder and open `Memoriam.myp`
 - During installation, you may or may not create a desktop shortcut (Select create a desktop shortcut for convience)
 
-# RUN AS ADMINISTRATOR!!! THE AUTOSAVE SYSTEM WILL NOT WORK IF IT IS NOT RUN AS ADMINISTRATOR

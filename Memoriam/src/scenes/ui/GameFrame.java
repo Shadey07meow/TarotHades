@@ -45,6 +45,10 @@ public class GameFrame extends JFrame {
     public  CutsceneScreen cutsceneScreen;
     private  WinScreen winScreen;
 
+
+    private static Dimension screenSize;
+    private static float  screenMultiplier;
+
     private volatile boolean assetsLoaded = false;
 
     
@@ -63,6 +67,9 @@ public class GameFrame extends JFrame {
         setTitle("Memoriam");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(resolution);
+        screenSize = resolution;
+        screenMultiplier = (float)(resolution.width) / 1920;
+        System.out.println("Screen multiplier :" + screenMultiplier );
         setUndecorated(true);   
 
         // Sets the cursor
@@ -262,7 +269,20 @@ public class GameFrame extends JFrame {
         });
     }
 
+    public static int getScreenWidth()
+    {
+        return screenSize.width;
+    }
     
+    public static int getScreenHeight()
+    {
+        return screenSize.height;
+    }
+
+    public static float getScreenMultiplier()
+    {
+        return screenMultiplier;
+    }
 
     // Note: I have no idea what this does, double check later
         // // asset loader trigger??

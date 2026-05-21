@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import object.statics.GameObject;
 import systems.*;
+import scenes.ui.GameFrame;
 
 public class RectangleCollider extends CollisionObject {
     // A collision object with 4 points representing it's size
@@ -80,10 +81,10 @@ public class RectangleCollider extends CollisionObject {
 
     public void updateBounds()
     {
-        int newT = this.localBounds.TOP + (int)this.connectedGameObject.getPosition().y;
-        int newB = -this.localBounds.BOTTOM + (int)this.connectedGameObject.getPosition().y;
-        int newL = -this.localBounds.LEFT + (int)this.connectedGameObject.getPosition().x;
-        int newR = this.localBounds.RIGHT + (int)this.connectedGameObject.getPosition().x;
+        int newT = (int)((this.localBounds.TOP + (int)this.connectedGameObject.getPosition().y) * GameFrame.getScreenMultiplier());
+        int newB = (int)((-this.localBounds.BOTTOM + (int)this.connectedGameObject.getPosition().y) *GameFrame.getScreenMultiplier()) ;
+        int newL = (int)((-this.localBounds.LEFT + (int)this.connectedGameObject.getPosition().x) * GameFrame.getScreenMultiplier());
+        int newR = (int)(( this.localBounds.RIGHT + (int)this.connectedGameObject.getPosition().x) * GameFrame.getScreenMultiplier());
 
         this.globalBounds = new Bounds(newT, newB, newL, newR);
     }
@@ -145,6 +146,7 @@ public class RectangleCollider extends CollisionObject {
         return this.globalBounds;
     }
     
+    @Override
     public String toString()
     {
         return "Rectangle Colllider";

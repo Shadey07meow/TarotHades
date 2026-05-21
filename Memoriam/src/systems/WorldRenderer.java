@@ -15,6 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.BasicStroke;
+import scenes.ui.GameFrame;
 
 public class WorldRenderer {
 
@@ -374,10 +375,10 @@ public class WorldRenderer {
 
                     graphics2.drawImage(
                         list.get(x).getImage(),
-                        (int) list.get(x).getRenderX() - (int)(list.get(x).getScaledWidth() / 2),
-                        (int) list.get(x).getRenderY() - (int)(list.get(x).getScaledHeight() / 2),
-                        (int)list.get(x).getScaledWidth(),
-                        (int)list.get(x).getScaledHeight(),
+                        (int)((list.get(x).getRenderX() - (list.get(x).getScaledWidth() / 2))),
+                        (int)((list.get(x).getRenderY() - (list.get(x).getScaledHeight() / 2))),
+                        (int)(list.get(x).getScaledWidth()),
+                        (int)(list.get(x).getScaledHeight()),
                         null
                     );
 
@@ -406,31 +407,38 @@ public class WorldRenderer {
         {
             graphics2.setStroke(new BasicStroke(2));
             for (GameObject obj : getObjectList()) {
-                if (obj.getCollider() != null) {
-                    if(obj.getCollider() instanceof RectangleCollider)
-                    {
-                        if(obj.getCollider().getIsColliding() == true)
-                        {
-                            g.setColor(obj.getCollider().activeColor);
-                        } else
-                        {
-                            g.setColor(obj.getCollider().inactiveColor);
-                        }
-
-                        if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
-
-                        
-                        RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
-                        //System.out.println(tempCol.getLocalBounds().getWidth());
-                        graphics2.drawRect(
-                            (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
-                            (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
-                            tempCol.getLocalBounds().getWidth(),
-                            tempCol.getLocalBounds().getLength()                            
-                        );
-                    }
-                }
-            }         
+                // if (obj.getCollider() != null) {
+                //     if(obj.getCollider() instanceof RectangleCollider)
+                //     {
+                //         if(obj.getCollider().getIsColliding() == true)
+                //         {
+                //             g.setColor(obj.getCollider().activeColor);
+                //         } else
+                //         {
+                //             g.setColor(obj.getCollider().inactiveColor);
+                //         }
+                //         if(obj.getCollider().getIsMovable() == false) g.setColor(Color.RED);
+                //         RectangleCollider tempCol = (RectangleCollider)obj.getCollider(); 
+                //         //System.out.println(tempCol.getLocalBounds().getWidth());
+                //         graphics2.drawRect(
+                //             (int)obj.getPosition().x - tempCol.getLocalBounds().LEFT,
+                //             (int)obj.getPosition().y - tempCol.getLocalBounds().TOP,
+                //             tempCol.getLocalBounds().getWidth(),
+                //             tempCol.getLocalBounds().getLength()                            
+                //         );
+                //     }
+                // }
+                g.drawRect(
+                    (int)obj.getX(),
+                    (int)obj.getY(),
+                    20,
+                    20
+                
+                );
+            
+            }   
+            
+            
         }
     }
 
@@ -500,8 +508,8 @@ public class WorldRenderer {
         int halfH = this.player.getScaledHeight() / 2;
 
     
-        int screenWidth = this.gamePanel.getWidth();
-        int screenHeight =  this.gamePanel.getHeight();
+        int screenWidth = GameFrame.getScreenWidth();
+        int screenHeight =  GameFrame.getScreenHeight();
 
         if (this.player.getX() - halfW < 0) this.player.setX(halfW);
         if (this.player.getY() - halfH < 0) this.player.setY(halfH);

@@ -92,7 +92,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
     private void createButtons()
     {
-        Dimension btnSize = new Dimension((int)((float)getWidth() / 4.51764), (int)((float)getHeight()/9.6));
+        Dimension btnSize = new Dimension((int)((float)GameFrame.getScreenWidth() / (5.1891*0.86)), (int)((float)GameFrame.getScreenHeight()/(12 * 0.86)));
 
                 // Buttons
         startBtn = gameFrame.createImageButton(ImageLibrary.get().startBtn, btnSize.width, btnSize.height);
@@ -146,8 +146,8 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
 
         
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(
-            getHeight()/2 + getHeight()/64, // Up and Down (lower = increase, higher = decrease)
-            getWidth()/14, // Left and Right (move right = increase, left = decrease)
+            GameFrame.getScreenHeight()/2 + GameFrame.getScreenHeight()/32 , // Up and Down (lower = increase, higher = decrease)
+            GameFrame.getScreenWidth()/8 - GameFrame.getScreenWidth()/32, // Left and Right (move right = increase, left = decrease)
             0,
             0
         ));
@@ -219,7 +219,7 @@ public class MenuScreen extends UIScreen implements Runnable, MouseListener, Mou
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (this.backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(backgroundImage, 0, 0, GameFrame.getScreenWidth(), GameFrame.getScreenHeight(), this);
         }
 
         g.drawImage(ImageLibrary.get().boboLogo,
