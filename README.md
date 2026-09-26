@@ -18,8 +18,9 @@ Here are the different ways you are able to compile game
     `cd Memoriam & javac -d bin -sourcepath src src/MainGameDriver.java & java -cp bin MainGameDriver && cd ..` 
 - From "The F4tes/Memoriam"
     
-    `javac -d bin -sourcepath src src/MainGameDriver.java & java -cp bin MainGameDriver`
-
+    `javac --release 21 -d bin -sourcepath src src/MainGameDriver.java && java -cp bin MainGameDriver`
+	-# Note: Made this compile in Java 21 instead so that this works properly in other devices
+	
 - Jar and run (From root directory)
 
     `jar cvfm Installer/Jar/Memoriam.jar Memoriam/manifest.txt -C Memoriam/bin . -C Memoriam assets`
